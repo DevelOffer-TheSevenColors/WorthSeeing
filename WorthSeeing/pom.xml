@@ -14,7 +14,7 @@
 	<name>WorthSeeing</name>
 	<description>The Seven Colors&apos;s WorthSeeing Project</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
