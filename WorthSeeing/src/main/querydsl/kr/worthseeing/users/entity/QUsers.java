@@ -19,6 +19,36 @@ public class QUsers extends EntityPathBase<Users> {
 
     public static final QUsers users = new QUsers("users");
 
+    public final StringPath adminyn = createString("adminyn");
+
+    public final StringPath adress = createString("adress");
+
+    public final StringPath blackyn = createString("blackyn");
+
+    public final StringPath detatiladress = createString("detatiladress");
+
+    public final StringPath email = createString("email");
+
+    public final NumberPath<Integer> finishedAuctionCnt = createNumber("finishedAuctionCnt", Integer.class);
+
+    public final StringPath joindate = createString("joindate");
+
+    public final StringPath name = createString("name");
+
+    public final StringPath nickName = createString("nickName");
+
+    public final NumberPath<Integer> point = createNumber("point", Integer.class);
+
+    public final NumberPath<Integer> reservationCnt = createNumber("reservationCnt", Integer.class);
+
+    public final StringPath tel = createString("tel");
+
+    public final NumberPath<Integer> totalMoney = createNumber("totalMoney", Integer.class);
+
+    public final StringPath userId = createString("userId");
+
+    public final StringPath userPw = createString("userPw");
+
     public QUsers(String variable) {
         super(Users.class, forVariable(variable));
     }
