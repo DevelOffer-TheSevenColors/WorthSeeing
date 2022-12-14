@@ -1,7 +1,5 @@
 package kr.worthseeing.status.entity;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,11 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 //@ToString(exclude = {"member","replyList","fileList"})
 public class Status {
-	
+
 	@Id
 	@GeneratedValue
 	private int status_seq;
-	
+
 	private String firstCode;
 	private String secondCode;
 
