@@ -8,7 +8,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
+	</parent>   
 	<groupId>kr.worthseeing</groupId>
 	<artifactId>WorthSeeing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
