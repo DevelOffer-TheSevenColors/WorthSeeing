@@ -2,9 +2,12 @@ package kr.worthseeing.blockgroup.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,9 +29,18 @@ public class BlockGroup {
 	private String cImg;
 	private String sImg;
 	private int clickCnt;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date startDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date endDate;
 	private int avgPrice;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date groupDate;
 		
 }

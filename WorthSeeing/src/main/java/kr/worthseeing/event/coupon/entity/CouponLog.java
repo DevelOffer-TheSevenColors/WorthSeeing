@@ -2,9 +2,12 @@ package kr.worthseeing.event.coupon.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +28,9 @@ public class CouponLog {
 	private String userid;
 	private int couponPrice;
 	private String couponSerialNum;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date couponUsedDate;
 	
 }

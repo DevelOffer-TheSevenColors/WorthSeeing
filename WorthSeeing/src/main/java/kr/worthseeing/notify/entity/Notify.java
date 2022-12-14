@@ -2,9 +2,12 @@ package kr.worthseeing.notify.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +27,9 @@ public class Notify {
 	private String title;
 	private String content;
 	private int groupBlock_seq;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date notifyTime;
 	
 }

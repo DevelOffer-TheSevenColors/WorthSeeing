@@ -2,9 +2,12 @@ package kr.worthseeing.main.auction.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +28,9 @@ public class Auction {
 	private int auctionPrice;
 	private int finishPrice;
 	private int suggestPrice;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date suggestDate;
 	private String userId;
 

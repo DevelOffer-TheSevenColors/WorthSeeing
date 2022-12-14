@@ -2,9 +2,12 @@ package kr.worthseeing.refund.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +26,9 @@ public class Refund {
 	private int refund_seq;
 	private int groupBlock_seq;
 	private int refundPrice;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date refundDate;
 	private int status_seq;
 	
