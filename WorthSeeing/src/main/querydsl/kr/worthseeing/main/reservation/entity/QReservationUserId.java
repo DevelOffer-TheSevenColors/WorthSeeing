@@ -24,13 +24,9 @@ public class QReservationUserId extends EntityPathBase<ReservationUserId> {
 
     public final QReservation reservation;
 
-    public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
-
     public final NumberPath<Integer> ReservationUserId_seq = createNumber("ReservationUserId_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> reservationUserIdDate = createDateTime("reservationUserIdDate", java.util.Date.class);
-
-    public final NumberPath<Integer> userid = createNumber("userid", Integer.class);
 
     public final kr.worthseeing.users.entity.QUsers users;
 

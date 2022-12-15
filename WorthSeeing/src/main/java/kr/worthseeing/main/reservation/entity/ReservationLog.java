@@ -39,10 +39,10 @@ public class ReservationLog {
 	private Date reservationTime;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BloackGroupLog", nullable = false)
+	@JoinColumn(name = "blockGroupLog_seq", nullable = false)
 	private BlockGroupLog blockGroupLog;
 	
-	@OneToOne(mappedBy = "AuctionLog", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "reservationLog", cascade = CascadeType.ALL)
 	private AuctionLog auctionLog;
 
 }

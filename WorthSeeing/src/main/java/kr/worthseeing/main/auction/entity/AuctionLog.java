@@ -40,7 +40,7 @@ public class AuctionLog {
 	private String userId;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ReservationLog", nullable = false)
+	@JoinColumn(name = "reservationLog", nullable = false)
 	private ReservationLog reservationLog;
 	
 }

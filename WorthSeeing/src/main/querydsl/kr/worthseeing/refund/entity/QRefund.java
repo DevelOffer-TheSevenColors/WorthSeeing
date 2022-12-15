@@ -22,7 +22,7 @@ public class QRefund extends EntityPathBase<Refund> {
 
     public static final QRefund refund = new QRefund("refund");
 
-    public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGruop;
+    public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
     public final NumberPath<Integer> groupBlock_seq = createNumber("groupBlock_seq", Integer.class);
 
@@ -52,7 +52,7 @@ public class QRefund extends EntityPathBase<Refund> {
 
     public QRefund(Class<? extends Refund> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGruop = inits.isInitialized("blockGruop") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGruop"), inits.get("blockGruop")) : null;
+        this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
     }
 

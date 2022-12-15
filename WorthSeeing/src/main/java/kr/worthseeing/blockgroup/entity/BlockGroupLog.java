@@ -31,8 +31,8 @@ public class BlockGroupLog {
 
 	@Id
 	@GeneratedValue
-	private int groupBlockLog_seq;
-	private int groupBlock_seq;
+	private int blockGroupLog_seq;
+	private int blockGroup_seq;
 	private String userId;
 	private String linkUrl;
 	private String cImg;
@@ -52,10 +52,10 @@ public class BlockGroupLog {
 	@Column(updatable = false)
 	private Date groupDate;
 	
-	@OneToMany(mappedBy = "BlockLog", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "blockGroupLog", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<BlockLog> blockLogList = new ArrayList<BlockLog>();
 	
-	@OneToOne(mappedBy = "ReservationLog", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "blockGroupLog", cascade = CascadeType.ALL)
 	private ReservationLog reservationLog; 
 	
 }

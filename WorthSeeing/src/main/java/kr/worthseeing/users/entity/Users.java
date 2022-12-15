@@ -53,12 +53,11 @@ public class Users {
 	@OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
 	private List<Auction> auctionList = new ArrayList<Auction>();
 	
-	@OneToMany(mappedBy = "groupBlock", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
 	
-	@OneToMany(mappedBy = "notify", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
 	private List<Notify> notifyList = new ArrayList<Notify>();
-	
 	
 	
 	

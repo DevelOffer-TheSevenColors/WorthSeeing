@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,12 +37,22 @@ public class Block {
 	private Date endDate;
 
 	@ManyToOne
-	@JoinColumn(name = "BlockGroup_seq", nullable = false, updatable = false)
+	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
 	private BlockGroup blockGroup;
 
 	public void setBlockGroup(BlockGroup blockGroup) {
 		this.blockGroup = blockGroup;
 		blockGroup.getBlockList().add(this);
 
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
+	private Status status;
+	
+	public void setStatus(Status status) {
+		this.status = status;
+		status.getBlockList().add(this);
+		
 	}
 }

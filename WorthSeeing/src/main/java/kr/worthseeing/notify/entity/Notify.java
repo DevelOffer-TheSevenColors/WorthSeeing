@@ -55,5 +55,14 @@ public class Notify {
 		this.blockGroup = blockGroup;
 		blockGroup.getNotifyList().add(this);
 	}
+
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	private Users users;
+	
+	public void setUsers(Users users) {
+		this.users = users;
+		users.getNotifyList().add(this);
+	}
 	
 }

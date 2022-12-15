@@ -26,7 +26,7 @@ public class BlockLog {
 	private int block_seq;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GroupBlockLog", nullable = false)
+	@JoinColumn(name = "blockGroupLog_seq", nullable = false)
 	private BlockGroupLog blockGroupLog;
 	private int soldOutCnt;
 	

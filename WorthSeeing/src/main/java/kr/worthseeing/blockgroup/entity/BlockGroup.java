@@ -54,20 +54,20 @@ public class BlockGroup {
 	@Column(updatable = false)
 	private Date groupDate;
 
-	@OneToMany(mappedBy = "BlockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
 	private List<Block> blockList = new ArrayList<Block>();
 
-	@OneToMany(mappedBy = "BlockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
 	private List<Refund> refundList = new ArrayList<Refund>();
 
-	@OneToMany(mappedBy = "BlockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
-	@OneToMany(mappedBy = "BlockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
 	private List<Reservation> reservationList = new ArrayList<Reservation>();
 
 	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	@JoinColumn(name = "userId", nullable = false)
 	private Users users;
 
 	public void setUsers(Users users) {

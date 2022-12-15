@@ -31,15 +31,15 @@ public class ReservationUserId {
 	@GeneratedValue
 	private int ReservationUserId_seq;
 	
-	private int	reservation_seq;
-	private int userid;
+	//private int	reservation_seq;
+	//private int userid;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date reservationUserIdDate;
 
 	@ManyToOne
-	@JoinColumn(name = "reservation_seq", nullable = false, updatable = false)
+	@JoinColumn(name = "reservation_seq", nullable = false)
 	private Reservation reservation;
 
 	public void setReservation(Reservation reservation) {

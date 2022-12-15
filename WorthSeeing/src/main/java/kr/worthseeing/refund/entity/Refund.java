@@ -46,12 +46,12 @@ public class Refund {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
-	private  BlockGroup blockGruop;
+	@JoinColumn(name = "blockGroup_seq", nullable = false)
+	private  BlockGroup blockGroup;
 	
-	public void setBlockGroup(BlockGroup blockGruop) {
-		this.blockGruop = blockGruop;
-		blockGruop.getRefundList().add(this);
+	public void setBlockGroup(BlockGroup blockGroup) {
+		this.blockGroup = blockGroup;
+		blockGroup.getRefundList().add(this);
 	}
 	
 }

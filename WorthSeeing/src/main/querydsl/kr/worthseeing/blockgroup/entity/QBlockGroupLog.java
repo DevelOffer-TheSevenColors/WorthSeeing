@@ -24,6 +24,10 @@ public class QBlockGroupLog extends EntityPathBase<BlockGroupLog> {
 
     public final NumberPath<Integer> avgPrice = createNumber("avgPrice", Integer.class);
 
+    public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
+
+    public final NumberPath<Integer> blockGroupLog_seq = createNumber("blockGroupLog_seq", Integer.class);
+
     public final ListPath<kr.worthseeing.block.entity.BlockLog, kr.worthseeing.block.entity.QBlockLog> blockLogList = this.<kr.worthseeing.block.entity.BlockLog, kr.worthseeing.block.entity.QBlockLog>createList("blockLogList", kr.worthseeing.block.entity.BlockLog.class, kr.worthseeing.block.entity.QBlockLog.class, PathInits.DIRECT2);
 
     public final StringPath cImg = createString("cImg");
@@ -31,10 +35,6 @@ public class QBlockGroupLog extends EntityPathBase<BlockGroupLog> {
     public final NumberPath<Integer> clickCnt = createNumber("clickCnt", Integer.class);
 
     public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
-
-    public final NumberPath<Integer> groupBlock_seq = createNumber("groupBlock_seq", Integer.class);
-
-    public final NumberPath<Integer> groupBlockLog_seq = createNumber("groupBlockLog_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> groupDate = createDateTime("groupDate", java.util.Date.class);
 

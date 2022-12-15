@@ -44,7 +44,7 @@ public class Reservation {
 
 	
 	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	@JoinColumn(name = "userId", nullable = false)
 	private BlockGroup blockGroup;
 
 	public void setBlockGroup(BlockGroup blockGroup) {
