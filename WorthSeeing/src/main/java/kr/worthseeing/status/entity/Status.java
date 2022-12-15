@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.event.coupon.entity.Coupon;
-import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"member","replyList","fileList"})
 public class Status {
 
 	@Id
@@ -34,17 +32,16 @@ public class Status {
 	private String firstCode;
 	private String secondCode;
 
-	@OneToMany(mappedBy = "status", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "status")
 	private List<Block> blockList = new ArrayList<Block>();
-	
-	@OneToMany(mappedBy = "status", cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "status")
 	private List<Refund> refundList = new ArrayList<Refund>();
-	
-	@OneToMany(mappedBy = "status", cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "status")
 	private List<Notify> notifyList = new ArrayList<Notify>();
-	
-	@OneToMany(mappedBy = "status", cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "status")
 	private List<Coupon> CouponList = new ArrayList<Coupon>();
 
-	
 }

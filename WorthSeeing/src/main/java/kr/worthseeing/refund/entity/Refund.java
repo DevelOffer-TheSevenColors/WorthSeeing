@@ -30,12 +30,11 @@ public class Refund {
 	private int refund_seq;
 	private int groupBlock_seq;
 	private int refundPrice;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date refundDate;
-	//private int status_seq;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
 	private Status status;
@@ -47,11 +46,11 @@ public class Refund {
 
 	@ManyToOne
 	@JoinColumn(name = "blockGroup_seq", nullable = false)
-	private  BlockGroup blockGroup;
-	
+	private BlockGroup blockGroup;
+
 	public void setBlockGroup(BlockGroup blockGroup) {
 		this.blockGroup = blockGroup;
 		blockGroup.getRefundList().add(this);
 	}
-	
+
 }

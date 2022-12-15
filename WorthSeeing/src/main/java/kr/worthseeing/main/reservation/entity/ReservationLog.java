@@ -32,7 +32,6 @@ public class ReservationLog {
 	@GeneratedValue
 	private int reservationLog_seq;
 	private int startPrice;
-	private int groupblock_seq;
 	private int userCnt;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
@@ -41,8 +40,8 @@ public class ReservationLog {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "blockGroupLog_seq", nullable = false)
 	private BlockGroupLog blockGroupLog;
-	
-	@OneToOne(mappedBy = "reservationLog", cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "reservationLog")
 	private AuctionLog auctionLog;
 
 }

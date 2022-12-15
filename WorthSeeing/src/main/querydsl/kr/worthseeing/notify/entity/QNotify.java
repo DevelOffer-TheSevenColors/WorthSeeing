@@ -26,8 +26,6 @@ public class QNotify extends EntityPathBase<Notify> {
 
     public final StringPath content = createString("content");
 
-    public final NumberPath<Integer> groupBlock_seq = createNumber("groupBlock_seq", Integer.class);
-
     public final NumberPath<Integer> notify_seq = createNumber("notify_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> notifyTime = createDateTime("notifyTime", java.util.Date.class);

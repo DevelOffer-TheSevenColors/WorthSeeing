@@ -31,7 +31,6 @@ public class Notify {
 	private int notify_seq;
 	private String title;
 	private String content;
-	private int groupBlock_seq;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)

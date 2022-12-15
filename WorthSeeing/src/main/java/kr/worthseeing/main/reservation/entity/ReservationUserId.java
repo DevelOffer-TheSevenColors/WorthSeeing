@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,15 +24,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationUserId {
-	
 
 	@Id
 	@GeneratedValue
 	private int ReservationUserId_seq;
-	
-	//private int	reservation_seq;
-	//private int userid;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date reservationUserIdDate;
@@ -46,15 +41,14 @@ public class ReservationUserId {
 		this.reservation = reservation;
 		reservation.getReservationUserIDList().add(this);
 	}
-	
+
 	@OneToOne
 	@JoinColumn(name = "userid", nullable = false)
 	private Users users;
-	
+
 	public void setUsers(Users users) {
 		this.users = users;
 		users.setReservationUserId(this);
 	}
-	
 
 }
