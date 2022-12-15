@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.worthseeing.blockgroup.entity.BlockGroupLog;
 import kr.worthseeing.main.reservation.entity.ReservationLog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
