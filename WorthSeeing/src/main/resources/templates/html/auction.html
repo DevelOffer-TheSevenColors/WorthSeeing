@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div>
+	    <h1 class = "h1-clock"></h1>
+	    <script src ="/js/clock.js"></script>
+	    <script src ="/js/timer.js"></script>
+	    
+	    <p class="font18">경매 운영시간</p>
+              <p class="runTimeCon font25">PM 12:00 ~ PM 15:00 </p>
+               <p class="font15 time-title">경매 마감까지 남은 시간</p>
+              <div class="time font40">
+                <span class="hours"></span>
+                <span class="col">:</span>
+                <span class="minutes"></span>
+                <span class="col">:</span>
+                <span class="seconds"></span>
+              </div>
+	</div>
+	
+<div>
+	<button>경매 중단</button>
+</div>
+
+<div>
+<script src = "/js/count.js"></script>
+	<button onclick='count("10")'>+10</button>
+	<button onclick='count("100")'>+100</button>
+	<button onclick='count("1000")'>+1000</button>
+	<button onclick='count("10000")'>+10000</button>
+	<div id='result'>0</div>
+	<button id="bidding">입찰하기</button>
+</div>
+
+</body>
+</html>
