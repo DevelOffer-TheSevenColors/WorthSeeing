@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+
+<div class="row">
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>구매 내역</h2>
+      </div>
+      
+    <table border="1">
+    <tr align="center">
+      <th colspan="4">17번 블록 구매내역</th>
+    </tr>
+    <tr align="center">
+      <td>구매일자</td>
+      <td>결제상태</td>
+      <td>구매일수</td>
+      <td>잔여일수</td>
+    </tr>
+     <tr align="center">
+      <td>2022-12-12</td>
+      <td>결제 완료</td>
+      <td>30일</td>
+      <td>15일</td>
+    </tr>
+    </table>
+      
+      
+        <h3>결제정보</h3>
+    <table class="purchasetable">
+        <tr>
+            <td></td>
+            <th scope="col">아침</th>
+            <th scope="col">점심</th>
+            <th scope="col">저녁</tH>
+        </tr>
+        <tr>
+            <th scope="row">결제방법</th>
+            <td>카카오페이</td>
+             <th scope="row">휴대전화</th>
+            <td>010-1234-1234</td>
+        </tr>
+         <tr>
+            <th scope="row">-</th>
+            <td>-</td>
+             <th scope="row">이메일</th>
+            <td>thesevencolors@gmail.com</td>
+        </tr>
+        <tr>
+            <th scope="row">결제금액</th>
+            <td>10,000,000,000</td>
+             <th scope="row">결제상태</th>
+            <td>✔</td>
+        </tr>
+    </table>
+    </div>
+</div>
+<button type="button" onclick="">환불요청</button>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    function acyncMovePage(url){
+        // ajax option
+        var ajaxOption = {
+                url : url,
+                async : true,
+                type : "GET",
+                dataType : "html",
+                cache : false
+        };
+        $.ajax(ajaxOption).done(function(data){
+            // Contents 영역 삭제
+            $('.rightcolumn').children().remove();
+            // Contents 영역 교체
+            $('.rightcolumn').html(data);
+        });
+    }
+ 
+</script>
+
+
+</body>
+</html>

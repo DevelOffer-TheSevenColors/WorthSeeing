@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+
+<div class="row">
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>포인트 사용내역</h2>
+      </div>
+     <div>
+     <hr>
+	<ul>
+	<li class="couponlist">상품명 : 30,000원권 기프티콘
+	<div><br />포인트 사용금액</div>
+	<div>구매일</div>
+	<div>사용일</div><br />
+	<div>결제금액</div>
+	</li>
+	</ul>
+	<ul>
+	<li class="couponlist">상품명 : 30,000원권 기프티콘
+	<div><br />포인트 사용금액</div>
+	<div>구매일</div>
+	<div>사용일</div><br />
+	<div>결제금액</div>
+	</li>
+	</ul>
+	<ul>
+	<li class="couponlist">상품명 : 30,000원권 기프티콘
+	<div><br />포인트 사용금액</div>
+	<div>구매일</div>
+	<div>사용일</div><br />
+	<div>결제금액</div>
+	</li>
+	</ul>
+	</div>
+      
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    function acyncMovePage(url){
+        // ajax option
+        var ajaxOption = {
+                url : url,
+                async : true,
+                type : "GET",
+                dataType : "html",
+                cache : false
+        };
+        $.ajax(ajaxOption).done(function(data){
+            // Contents 영역 삭제
+            $('.rightcolumn').children().remove();
+            // Contents 영역 교체
+            $('.rightcolumn').html(data);
+        });
+    }
+ 
+</script>
+
+
+</body>
+</html>

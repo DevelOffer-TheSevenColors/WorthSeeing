@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+
+	<div class="header">
+		<h1>My Page</h1>
+	</div>
+
+	<div class="topnav">
+		<a href="/mypageMain.html">집에가고싶다~~Home</a> <a href="#">Link</a> <a
+			href="#">Link</a>
+	</div>
+	<div class="leftcolumn">
+		<div class="card">
+			<h2>내 정보</h2>
+			<div class="fakeimg" style="height: 200px;">
+				<span><img src="bb.gif" width="120px" height="120px"></span>
+			</div>
+
+			<p>
+				<button onclick="" type="button">개인정보 수정</button>
+			</p>
+		</div>
+		<div class="card">
+			<hr>
+			<div class="fakeimg">
+				<a href="">로그아웃</a>
+			</div>
+			<hr>
+			<div class="fakeimg">포인트 몰</div>
+			<input type="button" value="페이지이동"
+				onclick="acyncMovePage('/mypageCouponMall.html')">
+			<hr>
+			<div class="fakeimg">포인트 사용내역</div>
+			<input type="button" value="페이지이동"
+				onclick="acyncMovePage('/mypagePointHistory.html')">
+			<hr>
+			<div class="fakeimg">경매내역</div>
+			<input type="button" value="페이지이동"
+				onclick="acyncMovePage('/mypageAuctionHistory.html')">
+			<hr>
+			<div class="fakeimg">구매내역</div>
+			<input type="button" value="페이지이동"
+				onclick="acyncMovePage('/mypagePurchaseHistory.html')">
+		</div>
+		<div class="card"></div>
+	</div>
+
+	<div class="row">
+		<div class="rightcolumn">
+			<div class="card">
+				<h2>포인트 몰</h2>
+			</div>
+			<div>
+				<hr>
+				<button onclick="" type="button">현재 이용중인 서비스 현황</button>
+				<button onclick="" type="button">경매 예약 현황</button>
+				<br />
+				<ul class="listLeftSort">
+					<li class="fakeimg"><img src="bb.gif" width="200px"
+						height="200px"></li>
+					<li>전체 방문자 수 : 1,203명</li>
+					<li>블록번호 : 17</li>
+				</ul>
+				<ul class="listLeftSort">
+					<li class="fakeimg"><img src="bb.gif" width="200px"
+						height="200px"></li>
+					<li>전체 방문자 수 : 1,203명</li>
+					<li>블록번호 : 17</li>
+				</ul>
+				<ul class="listLeftSort">
+					<li class="fakeimg"><img src="bb.gif" width="200px"
+						height="200px"></li>
+					<li>전체 방문자 수 : 1,203명</li>
+					<li>블록번호 : 17</li>
+				</ul>
+				
+				
+
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		function acyncMovePage(url) {
+			// ajax option
+			var ajaxOption = {
+				url : url,
+				async : true,
+				type : "GET",
+				dataType : "html",
+				cache : false
+			};
+			$.ajax(ajaxOption).done(function(data) {
+				// Contents 영역 삭제
+				$('.rightcolumn').children().remove();
+				// Contents 영역 교체
+				$('.rightcolumn').html(data);
+			});
+		}
+	</script>
+
+
+</body>
+</html>

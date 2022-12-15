@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+
+<div class="row">
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>포인트 몰</h2>
+      </div>
+     <div>
+     <hr>
+     <h4>상품 정보</h4>
+	<ul class="listLeftSort">
+	<li class="fakeimg">
+	<img src="bb.gif" width="200px" height="200px"></li>
+	 <li><button onclick="" type="button">구매하기</button></li>
+	</ul>
+	<ul class="listLeftSort">
+	<li class="fakeimg">
+	<img src="bb.gif" width="200px" height="200px"></li>
+	 <li><button onclick="" type="button">구매하기</button></li>
+	</ul>
+	<ul class="listLeftSort">
+	<li class="fakeimg">
+	<img src="bb.gif" width="200px" height="200px"></li>
+	 <li><button onclick="" type="button">구매하기</button></li>
+	</ul>
+	</div>
+      
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    function acyncMovePage(url){
+        // ajax option
+        var ajaxOption = {
+                url : url,
+                async : true,
+                type : "GET",
+                dataType : "html",
+                cache : false
+        };
+        $.ajax(ajaxOption).done(function(data){
+            // Contents 영역 삭제
+            $('.rightcolumn').children().remove();
+            // Contents 영역 교체
+            $('.rightcolumn').html(data);
+        });
+    }
+ 
+</script>
+
+
+</body>
+</html>
