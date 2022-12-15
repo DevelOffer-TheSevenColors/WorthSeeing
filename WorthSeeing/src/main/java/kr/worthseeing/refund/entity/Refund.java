@@ -40,9 +40,18 @@ public class Refund {
 	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
 	private Status status;
 
-	public void setBlockGroup(Status status) {
+	public void setStatus(Status status) {
 		this.status = status;
-		status.getReservationList().add(this);
+		status.getRefundList().add(this);
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
+	private  BlockGroup blockGruop;
+	
+	public void setBlockGroup(BlockGroup blockGruop) {
+		this.blockGruop = blockGruop;
+		blockGruop.getRefundList().add(this);
 	}
 	
 }

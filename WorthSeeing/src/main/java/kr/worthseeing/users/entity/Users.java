@@ -1,10 +1,19 @@
 package kr.worthseeing.users.entity;
 
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.reservation.entity.ReservationUserId;
+import kr.worthseeing.notify.entity.Notify;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +49,21 @@ public class Users {
 	private int reservationCnt;
 	private int finishedAuctionCnt;
 	private int totalMoney;
-
+	
+	@OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
+	private List<Auction> auctionList = new ArrayList<Auction>();
+	
+	@OneToMany(mappedBy = "groupBlock", cascade = CascadeType.REMOVE)
+	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
+	
+	@OneToMany(mappedBy = "notify", cascade = CascadeType.REMOVE)
+	private List<Notify> notifyList = new ArrayList<Notify>();
+	
+	
+	
+	
+	@OneToOne(mappedBy = "users",cascade=CascadeType.ALL)
+	private ReservationUserId reservationUserId;
+	
 }
  

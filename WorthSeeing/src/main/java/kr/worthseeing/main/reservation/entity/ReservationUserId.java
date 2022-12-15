@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -41,18 +42,18 @@ public class ReservationUserId {
 	@JoinColumn(name = "reservation_seq", nullable = false, updatable = false)
 	private Reservation reservation;
 
-	public void setBlockGroup(Reservation reservation) {
+	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 		reservation.getReservationUserIDList().add(this);
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	@OneToOne
+	@JoinColumn(name = "userid", nullable = false)
 	private Users users;
 	
 	public void setUsers(Users users) {
 		this.users = users;
-		users.getReservationUserIDList().add(this);
+		users.setReservationUserId(this);
 	}
 	
 

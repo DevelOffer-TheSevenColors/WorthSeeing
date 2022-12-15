@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.jstporty.board.domain.Member;
 import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,6 +42,6 @@ public class Coupon {
 
 	public void setUsers(Status status) {
 		this.status = status;
-		status.getStatusList().add(this);
-	
+		status.getCouponList().add(this);
+	}
 }

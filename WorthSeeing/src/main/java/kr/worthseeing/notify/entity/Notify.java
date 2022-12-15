@@ -44,7 +44,7 @@ public class Notify {
 	
 	public void setStatus(Status status) {
 		this.status = status;
-		status.getStatusList().add(this);
+		status.getNotifyList().add(this);
 	}
 	
 	@ManyToOne

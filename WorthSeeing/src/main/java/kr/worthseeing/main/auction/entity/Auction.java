@@ -24,19 +24,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Auction {
-	
+
 	@Id
 	@GeneratedValue
 	private int auction_seq;
-	//private int reservation_seq;
+	// private int reservation_seq;
 	private int auctionPrice;
 	private int finishPrice;
 	private int suggestPrice;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date suggestDate;
-	//private String userId;
+	// private String userId;
 
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false, updatable = false)
@@ -44,14 +44,14 @@ public class Auction {
 
 	public void setUser(Users users) {
 		this.users = users;
-		users.getUsersList().add(this);
-		
-		
+		users.getAuctionList().add(this);
+	}
 	@ManyToOne
 	@JoinColumn(name = "reservation_seq", nullable = false, updatable = false)
 	private Reservation reservation;
 
 	public void setReservation(Reservation reservation) {
-			this.reservation = reservation;
-			reservation.getAuctionList().add(this);
+		this.reservation = reservation;
+		reservation.getAuctionList().add(this);
+	}
 }
