@@ -22,9 +22,9 @@ public class QUsers extends EntityPathBase<Users> {
 
     public static final QUsers users = new QUsers("users");
 
-    public final StringPath adminyn = createString("adminyn");
+    public final StringPath address = createString("address");
 
-    public final StringPath adress = createString("adress");
+    public final StringPath adminyn = createString("adminyn");
 
     public final ListPath<kr.worthseeing.main.auction.entity.Auction, kr.worthseeing.main.auction.entity.QAuction> auctionList = this.<kr.worthseeing.main.auction.entity.Auction, kr.worthseeing.main.auction.entity.QAuction>createList("auctionList", kr.worthseeing.main.auction.entity.Auction.class, kr.worthseeing.main.auction.entity.QAuction.class, PathInits.DIRECT2);
 
@@ -34,7 +34,7 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final ListPath<kr.worthseeing.event.coupon.entity.Coupon, kr.worthseeing.event.coupon.entity.QCoupon> couponList = this.<kr.worthseeing.event.coupon.entity.Coupon, kr.worthseeing.event.coupon.entity.QCoupon>createList("couponList", kr.worthseeing.event.coupon.entity.Coupon.class, kr.worthseeing.event.coupon.entity.QCoupon.class, PathInits.DIRECT2);
 
-    public final StringPath detatiladress = createString("detatiladress");
+    public final StringPath detailAddress = createString("detailAddress");
 
     public final StringPath email = createString("email");
 

@@ -15,6 +15,6 @@ import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 
-public interface UsersRepository  extends CrudRepository<Users, Integer>{
+public interface UsersRepository  extends CrudRepository<Users, String>{
  
 }

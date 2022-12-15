@@ -3,6 +3,7 @@ package kr.worthseeing.users.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,24 +28,31 @@ import lombok.Setter;
 public class Users {
 
 	@Id
-	@GeneratedValue
 	private String userId;
 
-	private String nickName;
 	private String userPw;
-	private String adress;
-	private String detatiladress;
+	private String name;
+	private String nickName;
+	private String address;
+	private String detailAddress;
 	private String email;
+	private String tel;
 
+	@Column(columnDefinition = "varchar2(10) default 'no'")
 	private String adminyn;
+	@Column(columnDefinition = "varchar2(10) default 'no'")
 	private String blackyn;
 
+	@Column(columnDefinition = "date default sysdate")
 	private String joindate;
-	private String tel;
-	private String name;
+	
+	@Column(columnDefinition = "number default 0")
 	private int point;
+	@Column(columnDefinition = "number default 0")
 	private int reservationCnt;
+	@Column(columnDefinition = "number default 0")
 	private int finishedAuctionCnt;
+	@Column(columnDefinition = "number default 0")
 	private int totalMoney;
 
 	@OneToMany(mappedBy = "users")
@@ -61,5 +69,16 @@ public class Users {
 
 	@OneToMany(mappedBy = "users")
 	private List<Coupon> couponList= new ArrayList<Coupon>();
-
+	
+	public Users(String userId, String userPw, String name, String nickName, String address, String detailAddress, String email, String tel) {
+		this.userId = userId;
+		this.userPw = userPw;
+		this.name = name;
+		this.nickName = nickName;
+		this.address = address;
+		this.detailAddress = detailAddress;
+		this.email = email;
+		this.tel = tel;
+	}
+	
 }
