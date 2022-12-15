@@ -2,11 +2,10 @@ package kr.worthseeing.event.pointlog.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,12 +25,10 @@ public class PoingLog {
 	@GeneratedValue
 	private int pointLog_seq;
 
-	@OneToOne
-	@JoinColumn(name = "userId", nullable = false)
 	private String userid;
-	
 	private int point;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false)
 	private Date pointDate;
 }

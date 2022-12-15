@@ -32,6 +32,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final ListPath<kr.worthseeing.blockgroup.entity.BlockGroup, kr.worthseeing.blockgroup.entity.QBlockGroup> blockGroupList = this.<kr.worthseeing.blockgroup.entity.BlockGroup, kr.worthseeing.blockgroup.entity.QBlockGroup>createList("blockGroupList", kr.worthseeing.blockgroup.entity.BlockGroup.class, kr.worthseeing.blockgroup.entity.QBlockGroup.class, PathInits.DIRECT2);
 
+    public final ListPath<kr.worthseeing.event.coupon.entity.Coupon, kr.worthseeing.event.coupon.entity.QCoupon> couponList = this.<kr.worthseeing.event.coupon.entity.Coupon, kr.worthseeing.event.coupon.entity.QCoupon>createList("couponList", kr.worthseeing.event.coupon.entity.Coupon.class, kr.worthseeing.event.coupon.entity.QCoupon.class, PathInits.DIRECT2);
+
     public final StringPath detatiladress = createString("detatiladress");
 
     public final StringPath email = createString("email");

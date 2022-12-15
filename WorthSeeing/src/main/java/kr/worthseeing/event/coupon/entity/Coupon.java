@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kr.worthseeing.status.entity.Status;
+import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,6 @@ public class Coupon {
 	@Id
 	@GeneratedValue
 	private int coupon_seq;
-	private String userid;
 	private int couponPrice;
 	private String couponSerialNum;
 
@@ -39,8 +39,18 @@ public class Coupon {
 	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
 	private Status status;
 
-	public void setUsers(Status status) {
+	public void setStatus(Status status) {
 		this.status = status;
 		status.getCouponList().add(this);
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	private Users users;
+	
+	public void setUsers(Users users) {
+		this.users = users;
+		users.getCouponList().add(this);
+	}
+	
 }
