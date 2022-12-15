@@ -22,6 +22,8 @@ public class QReservationUserId extends EntityPathBase<ReservationUserId> {
 
     public static final QReservationUserId reservationUserId = new QReservationUserId("reservationUserId");
 
+    public final kr.worthseeing.main.message.entity.QMessage message;
+
     public final QReservation reservation;
 
     public final NumberPath<Integer> ReservationUserId_seq = createNumber("ReservationUserId_seq", Integer.class);
@@ -48,6 +50,7 @@ public class QReservationUserId extends EntityPathBase<ReservationUserId> {
 
     public QReservationUserId(Class<? extends ReservationUserId> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.message = inits.isInitialized("message") ? new kr.worthseeing.main.message.entity.QMessage(forProperty("message")) : null;
         this.reservation = inits.isInitialized("reservation") ? new QReservation(forProperty("reservation"), inits.get("reservation")) : null;
         this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users"), inits.get("users")) : null;
     }
