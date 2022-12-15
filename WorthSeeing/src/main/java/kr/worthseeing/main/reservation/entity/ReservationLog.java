@@ -2,13 +2,19 @@ package kr.worthseeing.main.reservation.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.worthseeing.blockgroup.entity.BlockGroupLog;
+import kr.worthseeing.main.auction.entity.AuctionLog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,16 +31,18 @@ public class ReservationLog {
 	@Id
 	@GeneratedValue
 	private int reservationLog_seq;
-
 	private int startPrice;
-
 	private int groupblock_seq;
-	private int groupblockLog_seq;
-	
 	private int userCnt;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
-	private Date reservationTime; 
+	private Date reservationTime;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "BloackGroupLog", nullable = false)
+	private BlockGroupLog blockGroupLog;
+	
+	@OneToOne(mappedBy = "AuctionLog", cascade = CascadeType.ALL)
+	private AuctionLog auctionLog;
 
 }

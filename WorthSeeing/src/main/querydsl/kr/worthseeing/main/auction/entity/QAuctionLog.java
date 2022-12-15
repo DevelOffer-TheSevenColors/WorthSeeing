@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QAuctionLog extends EntityPathBase<AuctionLog> {
 
     private static final long serialVersionUID = -2068155292L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QAuctionLog auctionLog = new QAuctionLog("auctionLog");
 
@@ -27,7 +30,7 @@ public class QAuctionLog extends EntityPathBase<AuctionLog> {
 
     public final NumberPath<Integer> finishPrice = createNumber("finishPrice", Integer.class);
 
-    public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
+    public final kr.worthseeing.main.reservation.entity.QReservationLog reservationLog;
 
     public final DateTimePath<java.util.Date> suggestDate = createDateTime("suggestDate", java.util.Date.class);
 
@@ -36,15 +39,24 @@ public class QAuctionLog extends EntityPathBase<AuctionLog> {
     public final StringPath userId = createString("userId");
 
     public QAuctionLog(String variable) {
-        super(AuctionLog.class, forVariable(variable));
+        this(AuctionLog.class, forVariable(variable), INITS);
     }
 
     public QAuctionLog(Path<? extends AuctionLog> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QAuctionLog(PathMetadata metadata) {
-        super(AuctionLog.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QAuctionLog(PathMetadata metadata, PathInits inits) {
+        this(AuctionLog.class, metadata, inits);
+    }
+
+    public QAuctionLog(Class<? extends AuctionLog> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.reservationLog = inits.isInitialized("reservationLog") ? new kr.worthseeing.main.reservation.entity.QReservationLog(forProperty("reservationLog"), inits.get("reservationLog")) : null;
     }
 
 }

@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,11 +18,15 @@ public class QReservationLog extends EntityPathBase<ReservationLog> {
 
     private static final long serialVersionUID = -1758077948L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QReservationLog reservationLog = new QReservationLog("reservationLog");
 
-    public final NumberPath<Integer> groupblock_seq = createNumber("groupblock_seq", Integer.class);
+    public final kr.worthseeing.main.auction.entity.QAuctionLog auctionLog;
 
-    public final NumberPath<Integer> groupblockLog_seq = createNumber("groupblockLog_seq", Integer.class);
+    public final kr.worthseeing.blockgroup.entity.QBlockGroupLog blockGroupLog;
+
+    public final NumberPath<Integer> groupblock_seq = createNumber("groupblock_seq", Integer.class);
 
     public final NumberPath<Integer> reservationLog_seq = createNumber("reservationLog_seq", Integer.class);
 
@@ -32,15 +37,25 @@ public class QReservationLog extends EntityPathBase<ReservationLog> {
     public final NumberPath<Integer> userCnt = createNumber("userCnt", Integer.class);
 
     public QReservationLog(String variable) {
-        super(ReservationLog.class, forVariable(variable));
+        this(ReservationLog.class, forVariable(variable), INITS);
     }
 
     public QReservationLog(Path<? extends ReservationLog> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QReservationLog(PathMetadata metadata) {
-        super(ReservationLog.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QReservationLog(PathMetadata metadata, PathInits inits) {
+        this(ReservationLog.class, metadata, inits);
+    }
+
+    public QReservationLog(Class<? extends ReservationLog> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.auctionLog = inits.isInitialized("auctionLog") ? new kr.worthseeing.main.auction.entity.QAuctionLog(forProperty("auctionLog"), inits.get("auctionLog")) : null;
+        this.blockGroupLog = inits.isInitialized("blockGroupLog") ? new kr.worthseeing.blockgroup.entity.QBlockGroupLog(forProperty("blockGroupLog"), inits.get("blockGroupLog")) : null;
     }
 
 }
