@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QPoingLog is a Querydsl query type for PoingLog
+ * QPointLog is a Querydsl query type for PointLog
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QPoingLog extends EntityPathBase<PoingLog> {
+public class QPointLog extends EntityPathBase<PointLog> {
 
-    private static final long serialVersionUID = 1432868190L;
+    private static final long serialVersionUID = 1433255473L;
 
-    public static final QPoingLog poingLog = new QPoingLog("poingLog");
+    public static final QPointLog pointLog = new QPointLog("pointLog");
 
     public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
@@ -27,16 +27,16 @@ public class QPoingLog extends EntityPathBase<PoingLog> {
 
     public final StringPath userid = createString("userid");
 
-    public QPoingLog(String variable) {
-        super(PoingLog.class, forVariable(variable));
+    public QPointLog(String variable) {
+        super(PointLog.class, forVariable(variable));
     }
 
-    public QPoingLog(Path<? extends PoingLog> path) {
+    public QPointLog(Path<? extends PointLog> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QPoingLog(PathMetadata metadata) {
-        super(PoingLog.class, metadata);
+    public QPointLog(PathMetadata metadata) {
+        super(PointLog.class, metadata);
     }
 
 }

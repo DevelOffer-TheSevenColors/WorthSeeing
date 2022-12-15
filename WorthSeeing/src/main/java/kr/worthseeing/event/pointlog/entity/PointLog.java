@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PoingLog {
+public class PointLog {
 
 	@Id
 	@GeneratedValue

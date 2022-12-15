@@ -6,9 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationUserId {
+public class ReservationUserId  {
 
 	@Id
 	@GeneratedValue
@@ -32,6 +34,7 @@ public class ReservationUserId {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date reservationUserIdDate;
+
 
 	@ManyToOne
 	@JoinColumn(name = "reservation_seq", nullable = false)
@@ -42,6 +45,7 @@ public class ReservationUserId {
 		reservation.getReservationUserIDList().add(this);
 	}
 
+	
 	@OneToOne
 	@JoinColumn(name = "userid", nullable = false)
 	private Users users;
