@@ -24,8 +24,6 @@ public class QRefund extends EntityPathBase<Refund> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
-    public final NumberPath<Integer> groupBlock_seq = createNumber("groupBlock_seq", Integer.class);
-
     public final NumberPath<Integer> refund_seq = createNumber("refund_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> refundDate = createDateTime("refundDate", java.util.Date.class);

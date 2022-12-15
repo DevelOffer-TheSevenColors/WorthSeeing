@@ -30,6 +30,7 @@ public class ReservationLog {
 	@Id
 	@GeneratedValue
 	private int reservationLog_seq;
+	private int reservation_seq;
 	private int startPrice;
 	private int userCnt;
 	@Temporal(TemporalType.TIMESTAMP)

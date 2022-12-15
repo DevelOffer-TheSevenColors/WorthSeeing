@@ -26,8 +26,6 @@ public class QReservation extends EntityPathBase<Reservation> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
-    public final NumberPath<Integer> groupblock_seq = createNumber("groupblock_seq", Integer.class);
-
     public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
 
     public final ListPath<ReservationUserId, QReservationUserId> reservationUserIDList = this.<ReservationUserId, QReservationUserId>createList("reservationUserIDList", ReservationUserId.class, QReservationUserId.class, PathInits.DIRECT2);

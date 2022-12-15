@@ -26,6 +26,8 @@ public class QReservationLog extends EntityPathBase<ReservationLog> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroupLog blockGroupLog;
 
+    public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
+
     public final NumberPath<Integer> reservationLog_seq = createNumber("reservationLog_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> reservationTime = createDateTime("reservationTime", java.util.Date.class);

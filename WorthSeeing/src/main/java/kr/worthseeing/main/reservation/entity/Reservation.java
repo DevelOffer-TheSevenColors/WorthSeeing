@@ -30,8 +30,6 @@ public class Reservation {
 
 	private int startPrice;
 
-	private int groupblock_seq;
-
 	private int userCnt;
 
 	@OneToMany(mappedBy = "reservation")
