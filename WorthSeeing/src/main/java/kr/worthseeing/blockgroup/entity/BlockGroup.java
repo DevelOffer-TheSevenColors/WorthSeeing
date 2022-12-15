@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +34,6 @@ public class BlockGroup {
 	@Id
 	@GeneratedValue
 	private int blockGroup_seq;
-	// private String userId;
 	private String linkUrl;
 	private String cImg;
 	private String sImg;
@@ -54,16 +52,16 @@ public class BlockGroup {
 	@Column(updatable = false)
 	private Date groupDate;
 
-	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup")
 	private List<Block> blockList = new ArrayList<Block>();
 
-	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup")
 	private List<Refund> refundList = new ArrayList<Refund>();
 
-	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup")
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
-	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "blockGroup")
 	private List<Reservation> reservationList = new ArrayList<Reservation>();
 
 	@ManyToOne

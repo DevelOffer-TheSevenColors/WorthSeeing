@@ -28,7 +28,6 @@ public class Auction {
 	@Id
 	@GeneratedValue
 	private int auction_seq;
-	// private int reservation_seq;
 	private int auctionPrice;
 	private int finishPrice;
 	private int suggestPrice;
@@ -46,6 +45,7 @@ public class Auction {
 		this.users = users;
 		users.getAuctionList().add(this);
 	}
+
 	@ManyToOne
 	@JoinColumn(name = "reservation_seq", nullable = false, updatable = false)
 	private Reservation reservation;

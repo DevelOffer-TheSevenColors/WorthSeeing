@@ -30,12 +30,11 @@ public class Coupon {
 	private String userid;
 	private int couponPrice;
 	private String couponSerialNum;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date couponUsedDate;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
 	private Status status;

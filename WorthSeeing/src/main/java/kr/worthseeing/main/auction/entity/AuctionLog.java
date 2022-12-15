@@ -33,7 +33,7 @@ public class AuctionLog {
 	private int auctionPrice;
 	private int finishPrice;
 	private int suggestPrice;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date suggestDate;

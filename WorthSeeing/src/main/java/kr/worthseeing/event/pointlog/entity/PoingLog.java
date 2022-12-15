@@ -19,16 +19,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"member","replyList","fileList"})
 public class PoingLog {
-	
+
 	@Id
 	@GeneratedValue
 	private int pointLog_seq;
 
 	private String userid;
 	private int point;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date pointDate;

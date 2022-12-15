@@ -24,15 +24,15 @@ public class BlockLog {
 	@GeneratedValue
 	private int blockLog_seq;
 	private int block_seq;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "blockGroupLog_seq", nullable = false)
 	private BlockGroupLog blockGroupLog;
 	private int soldOutCnt;
-	
+
 	public void setBlockGroupLog(BlockGroupLog blockGroupLog) {
 		this.blockGroupLog = blockGroupLog;
-		blockGroupLog.getBlockLogList().add(this);	
+		blockGroupLog.getBlockLogList().add(this);
 	}
-	
+
 }

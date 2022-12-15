@@ -38,24 +38,24 @@ public class BlockGroupLog {
 	private String cImg;
 	private String sImg;
 	private int clickCnt;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date startDate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date endDate;
 	private int avgPrice;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date groupDate;
-	
-	@OneToMany(mappedBy = "blockGroupLog", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "blockGroupLog", fetch = FetchType.EAGER)
 	private List<BlockLog> blockLogList = new ArrayList<BlockLog>();
-	
-	@OneToOne(mappedBy = "blockGroupLog", cascade = CascadeType.ALL)
-	private ReservationLog reservationLog; 
-	
+
+	@OneToOne(mappedBy = "blockGroupLog")
+	private ReservationLog reservationLog;
+
 }

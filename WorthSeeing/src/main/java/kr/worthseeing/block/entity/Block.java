@@ -28,7 +28,6 @@ public class Block {
 	@Id
 	@GeneratedValue
 	private int Block_seq;
-	// private int groupBlock_seq;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date startDate;
@@ -49,10 +48,10 @@ public class Block {
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
 	private Status status;
-	
+
 	public void setStatus(Status status) {
 		this.status = status;
 		status.getBlockList().add(this);
-		
+
 	}
 }

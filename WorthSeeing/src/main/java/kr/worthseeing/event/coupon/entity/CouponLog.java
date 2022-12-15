@@ -28,9 +28,9 @@ public class CouponLog {
 	private String userid;
 	private int couponPrice;
 	private String couponSerialNum;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date couponUsedDate;
-	
+
 }
