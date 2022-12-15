@@ -24,6 +24,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Status {
 
+	public Status(String firstCode, String secondCode ) {
+		this.firstCode=firstCode;
+		this.secondCode=secondCode;
+		
+	}
+	
 	@Id
 	@GeneratedValue
 	private int status_seq;

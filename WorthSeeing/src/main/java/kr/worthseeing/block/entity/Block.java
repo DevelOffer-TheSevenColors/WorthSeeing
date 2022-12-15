@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Block {
 
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
 	private int Block_seq;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
@@ -35,6 +35,7 @@ public class Block {
 	@Column(updatable = false)
 	private Date endDate;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
 	private BlockGroup blockGroup;
