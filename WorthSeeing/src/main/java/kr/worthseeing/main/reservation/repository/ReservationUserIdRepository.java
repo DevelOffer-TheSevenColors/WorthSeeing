@@ -1,4 +1,4 @@
-package kr.worthseeing.moain.reservation.repository;
+package kr.worthseeing.main.reservation.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
