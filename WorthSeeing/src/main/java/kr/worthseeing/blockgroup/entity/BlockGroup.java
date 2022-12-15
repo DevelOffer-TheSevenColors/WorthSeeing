@@ -1,14 +1,26 @@
 package kr.worthseeing.blockgroup.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.jstporty.board.domain.Member;
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.notify.entity.Notify;
+import kr.worthseeing.refund.entity.Refund;
+import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +35,8 @@ public class BlockGroup {
 
 	@Id
 	@GeneratedValue
-	private int groupBlock_seq;
-	private String userId;
+	private int blockGroup_seq;
+	//private String userId;
 	private String linkUrl;
 	private String cImg;
 	private String sImg;
@@ -42,5 +54,28 @@ public class BlockGroup {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date groupDate;
+	
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	private List<Block> blockList = new ArrayList<Block>();
+	
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	private List<Refund> refundList = new ArrayList<Refund>();
+	
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	private List<Notify> notifyList = new ArrayList<Notify>();
+	
+	@OneToMany(mappedBy = "blockGroup", cascade = CascadeType.REMOVE)
+	private List<Reservation> reservationList = new ArrayList<Reservation>();
+
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	private Users users;
+
+	public void setUsers(Users users) {
+		this.users = users;
+		users.getBoardList().add(this);
+	
+	
+	
 		
 }

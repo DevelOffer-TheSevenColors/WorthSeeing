@@ -6,9 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +37,23 @@ public class ReservationUserId {
 	@Column(updatable = false)
 	private Date reservationUserIdDate;
 
+	@ManyToOne
+	@JoinColumn(name = "reservation_seq", nullable = false, updatable = false)
+	private Reservation reservation;
+
+	public void setBlockGroup(Reservation reservation) {
+		this.reservation = reservation;
+		reservation.getReservationUserIDList().add(this);
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	private Users users;
+	
+	public void setUsers(Users users) {
+		this.users = users;
+		users.getReservationUserIDList().add(this);
+	}
 	
 
 }
