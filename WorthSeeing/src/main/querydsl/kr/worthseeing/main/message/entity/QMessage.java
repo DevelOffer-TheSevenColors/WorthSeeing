@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -20,9 +19,9 @@ public class QMessage extends EntityPathBase<Message> {
 
     public static final QMessage message = new QMessage("message");
 
-    public final StringPath msg = createString("msg");
+    public final NumberPath<Integer> message_seq = createNumber("message_seq", Integer.class);
 
-    public final ListPath<kr.worthseeing.main.reservation.entity.ReservationUserId, kr.worthseeing.main.reservation.entity.QReservationUserId> reservationList = this.<kr.worthseeing.main.reservation.entity.ReservationUserId, kr.worthseeing.main.reservation.entity.QReservationUserId>createList("reservationList", kr.worthseeing.main.reservation.entity.ReservationUserId.class, kr.worthseeing.main.reservation.entity.QReservationUserId.class, PathInits.DIRECT2);
+    public final StringPath msg = createString("msg");
 
     public final DateTimePath<java.util.Date> sendTime = createDateTime("sendTime", java.util.Date.class);
 

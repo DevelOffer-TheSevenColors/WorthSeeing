@@ -1,12 +1,9 @@
 package kr.worthseeing.main.reservation.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,13 +15,13 @@ import javax.persistence.TemporalType;
 import kr.worthseeing.main.message.entity.Message;
 import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Setter
-@Getter
+@Data
+@ToString(exclude = {"reservation", "users", "message"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationUserId  {
@@ -34,9 +31,8 @@ public class ReservationUserId  {
 	private int ReservationUserId_seq;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
+	@Column(columnDefinition = "date default sysdate")
 	private Date reservationUserIdDate;
-
 
 	@ManyToOne
 	@JoinColumn(name = "reservation_seq", nullable = false)
@@ -57,14 +53,14 @@ public class ReservationUserId  {
 		users.setReservationUserId(this);
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "toUser", nullable = false)
-	private Message message;
-	
-	public void setMessage(Message message) {
-		this.message = message;
-		message.getReservationList().add(this);
-	}
+//	@OneToOne
+//	@JoinColumn(name = "message_seq", nullable = false)
+//	private Message message;
+//	
+//	public void setMessage(Message message) {
+//		this.message = message;
+//		message.setReservationUserId(this);
+//	}
 	
 
 }

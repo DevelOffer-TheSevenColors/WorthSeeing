@@ -42,7 +42,9 @@ public class BlockGroup {
 	
 	@Column(columnDefinition = "number default 0")
 	private int clickCnt;
-	
+
+	@Column(columnDefinition = "number default 0")
+	private int price;
 	private int avgPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)

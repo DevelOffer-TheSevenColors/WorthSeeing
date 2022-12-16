@@ -10,8 +10,11 @@ import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
+import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
+import kr.worthseeing.main.reservation.repository.ReservationUserIdRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.status.repository.StatusRepository;
 import kr.worthseeing.users.entity.Users;
@@ -46,7 +49,13 @@ public class reservationTest {
 	
 	@Autowired
 	private ReservationRepository reservationRepo;
+	
+	@Autowired
+	private ReservationUserIdRepository reservationUserIdRepo;
 
+//	@Test
+	public void StatusIns() {}
+	
 //	@Test
 	public void StatusInsert() {
 		for (int i = 1; i < 5; i++) {
@@ -84,37 +93,39 @@ public class reservationTest {
 
 	}
 
-	@Test
+//	@Test
 	public void insertBlock() {
 		BlockGroup blockGroup = new BlockGroup();
 		blockGroup.setBlockGroup_seq(19);
 
-//		Status status = new Status();
-//		status.setStatus_seq(2);
-//
-//		for (int i = 0; i < 153; i++) {
-//
-//			Block block = new Block();
-//			block.setBlock_seq(i + 1);
-//			block.setBlockGroup(blockGroup);
-//			block.setStatus(status);
-//
-//			blockRepo.save(block);
-//		}
+		Status status = new Status();
+		status.setStatus_seq(2);
 		
-//		for (int i = 0; i < 15; i++) {
-//
-//			Reservation reservation = new Reservation(1000, 14);
-//			
-//			reservation.setBlockGroup(blockGroup);
-//			
-//			reservationRepo.save(reservation);
-//			
-//		}
+		Users users = new Users();
+		users.setUserId("user1");
+/*
+		for (int i = 0; i < 153; i++) {
+
+			Block block = new Block();
+			block.setBlock_seq(i + 1);
+			block.setBlockGroup(blockGroup);
+			block.setStatus(status);
+
+			blockRepo.save(block);
+		}
 		
+		for (int i = 0; i < 15; i++) {
+
+			Reservation reservation = new Reservation(1000, 14);
+			
+			reservation.setBlockGroup(blockGroup);
+			
+			reservationRepo.save(reservation);
+			
+		}
+		*/
 		
-		
-		
+		Coupon coupon = new Coupon();
 		
 		
 		
@@ -123,6 +134,21 @@ public class reservationTest {
 	}
 
 	
+//	@Test 안됨
+	public void insertReservationUserId() {
+		Users users = new Users();
+		users.setUserId("user1");
+		
+		Reservation reservation = new Reservation();
+		reservation.setReservation_seq(30);
+		
+		ReservationUserId reservationUserId = new ReservationUserId();
+		
+		reservationUserId.setReservation(reservation);
+		reservationUserId.setUsers(users);
+		
+		reservationUserIdRepo.save(reservationUserId);
+	}
 	
 	
 	
@@ -131,9 +157,6 @@ public class reservationTest {
 	
 	
 	
-	
-	
-
 	int DecimalToBinary(String A, int number) {
 		int Binary_number = 0;
 		int count = 0;
