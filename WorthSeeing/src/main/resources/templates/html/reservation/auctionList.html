@@ -100,7 +100,7 @@ a {
         <th>경매 시작가격</th>
         <th>예약 인원</th>
         <th>일단 빈칸</th>
-        <th>예약 하러 가기</th>
+        <th >예약 하러 가기</th>
 
     </tr>
     </thead>
@@ -110,7 +110,7 @@ a {
         <td th:text="${reservation.reservation_seq}"></td>
         <td th:text="${reservation.reservation_seq}">(713) 123-8965</td>
         <td th:text="${reservation.reservation_seq}">01/13/1979</td>
-        <td th:text="${reservation.reservation_seq}"><a href="mailto:jmatman@stewart.com">jmatman@stewart.com</a></td>
+        <td th:text="${reservation.reservation_seq}"><a th:href="@{/reservation/auctionList}">jmatman@stewart.com</a></td>
     </tr>
 
     </tbody>
