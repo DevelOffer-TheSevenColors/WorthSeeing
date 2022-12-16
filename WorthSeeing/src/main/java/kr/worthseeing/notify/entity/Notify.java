@@ -31,6 +31,7 @@ public class Notify {
 	private int notify_seq;
 	private String title;
 	private String content;
+	private int viewCnt;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
