@@ -1,22 +1,29 @@
-package kr.worthseeing.main.message.service.impl;
+package kr.worthseeing;
 
-
-import java.util.Date;
 import java.util.HashMap;
 
 import org.json.simple.JSONObject;
+import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import kr.worthseeing.main.message.service.MessageService;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-@Service
-public class MessageServiceImpl implements MessageService{
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@EnableScheduling
+public class Test {
 	
+	@org.junit.jupiter.api.Test
+	public void test() {
+		
+	}
+	
+	@org.junit.jupiter.api.Test
 	private void SendSMS(){
 		 String api_key = "NCSUITE0YBDKUPYA";      //사이트에서 발급 받은 API KEY
 		    String api_secret = "PUYKDBJR9NKPZOWIPUUFLSRUK03WZGER";        //사이트에서 발급 받은 API SECRET KEY
@@ -40,16 +47,10 @@ public class MessageServiceImpl implements MessageService{
 		    }
 		  }
 	
-
-	//@Scheduled(cron = "0 1 1 10 * *")
-	@Scheduled(cron = "1 0 0 * * *")
+	@org.junit.jupiter.api.Test
+	@Scheduled(cron = "0 1 1 10 * *")
 	public void setSendMsg() {
 		//SendSMS();
 		System.out.println("===========>");
 	}
-	
-	
-	
-	
-	
 }
