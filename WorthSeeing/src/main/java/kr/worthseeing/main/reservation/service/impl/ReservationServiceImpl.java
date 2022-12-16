@@ -1,5 +1,7 @@
 package kr.worthseeing.main.reservation.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +26,14 @@ public class ReservationServiceImpl implements ReservationService{
 	public void deleteReservation(Reservation reservation) {
 		reservationRepo.deleteById(reservation.getReservation_seq());
 	}
+	
+	//예약 가능 목록
+	public List<Reservation> selectReservation(Reservation reservation) {
+		System.out.println("===>" + reservationRepo.findAll());
+		
+		return (List<Reservation>) reservationRepo.findAll();
+		 
+	}
+	
+	
 }
