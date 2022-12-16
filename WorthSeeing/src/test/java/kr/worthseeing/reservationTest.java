@@ -53,7 +53,7 @@ public class reservationTest {
 	@Autowired
 	private ReservationUserIdRepository reservationUserIdRepo;
 
-//	@Test
+	@Test
 	public void StatusIns() {}
 	
 //	@Test
