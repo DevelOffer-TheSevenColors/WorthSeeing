@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <title>WorthSeeing</title>
@@ -36,26 +36,28 @@
 	border: 1px solid black;
  	position: absolute;
 	width: 100px;
-	height: 30px;
+	height: 100px;
 	background-color: yellow;
 }
 </style>
 
 <script>
 function createBlock(number) {
-	if (number%10 == 0) {
-		$("#" + number).css('margin-left', 1000 * (number/10) + 100 + 'px');
-		console.log(number + " : margin-left=" + (1000 * (number/10) + 100));
-	} else {
-		$("#" + number).css('margin-left', 100 * (number % 10) + 'px');
+	
+	if (number%17 == 0) {
+		$("#" + number).css('margin-left', 1700 + 'px');
+	}	
+	else {
+		$("#" + number).css('margin-left', 100 * (number % 17) + 'px');
 	}
+	
 }
 
 
 	$(document).ready(function() {
 		topSize = 0;
 		
-		for (var i = 1; i <= 100; i++) {
+		for (var i = 1; i <= 153; i++) {
 			var child = "<div class='tt' id=" + i + ">block" + i + "</div>";
 
 			// 각 블록 객체(변수) 생성
@@ -65,17 +67,17 @@ function createBlock(number) {
 			
 			createBlock(i);
 			
-			if (i%10 == 0) {
-				$("#" + i).css('margin-left', 1000 * i + 'px');
-				topSize += 30;
+			if (i%17 == 0) {
+// 				$("#" + i).css('margin-left', 100 * i + 'px');
+				$("#" + i).css('margin-top', topSize + 'px');
+				topSize += 100;
+			} else {
+				$("#" + i).css('margin-top', topSize + 'px');
 			}
 			
-			$("#" + i).css('margin-top', topSize + 'px');
-// 			console.log(i + " : margin-top=" + topSize);
 			
 		}
 		
-// 		$("#10").css('margin-left', '1000px');
 		
 		$("#12").css('z-index', '50');
 
@@ -83,24 +85,19 @@ function createBlock(number) {
 		var yindex = parseInt($("#12").css('margin-top')); // 30
 
 		var changedxindex = xindex - 100; // 100
-		var changedyindex = yindex - 30; // 0
+		var changedyindex = yindex; // 0
 
 		$("#12").css('margin-left', changedxindex + 'px');
 		$("#12").css('margin-top', changedyindex + 'px');
 		$("#12").css('width', '300px');
-		$("#12").css('height', '90px');
+		$("#12").css('height', '300px');
 		$("#12").css('text-align', 'center');
 
-		$("#1").css('z-index', '51');
-		$("#3").css('z-index', '51');
-		$("#21").css('z-index', '51');
-		$("#23").css('z-index', '51');
+		$("#11").css('z-index', '51');
+		$("#13").css('z-index', '51');
+		$("#45").css('z-index', '51');
+		$("#47").css('z-index', '51');
 
-		console.log(xindex);
-		console.log(yindex);
-
-		console.log(changedxindex);
-		console.log(changedyindex);
 
 	});
 </script>
@@ -171,27 +168,23 @@ function createBlock(number) {
     </div>
     <!-- Navbar End -->
 
-
-    <div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <div class="row pb-3">
-                <div class="col-lg-4 col-md-6 mb-4 pb-2 blockTest">
-                </div>
-            </div>
-        </div>
-    </div>
+<br /><br /><br />
+	<div class="col-lg-4 col-md-6 mb-4 pb-2 blockTest">
+	</div>
 <!--     Blog End -->
 
 
     <!-- Footer Start -->
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br />
     
     <div class="container-fluid py-5">
     	<button onclick="location.href='/writeURLThumb';">이동</button>
