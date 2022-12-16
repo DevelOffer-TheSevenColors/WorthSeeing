@@ -1,7 +1,5 @@
 package kr.worthseeing.users.service;
 
-import java.util.List;
-
 import kr.worthseeing.users.entity.Users;
 
 public interface UsersService {

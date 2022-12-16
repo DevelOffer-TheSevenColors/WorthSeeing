@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
+<script type="text/javascript"></script>
 </head>
 <body>
 
@@ -17,7 +18,15 @@
 	<ul class="listLeftSort">
 	<li class="fakeimg">
 	<img src="bb.gif" width="200px" height="200px"></li>
-	 <li><button onclick="" type="button">구매하기</button></li>
+	 <li>
+	 <th:block th:if="${users.point >= 30000}">
+	<div></div>
+<th:block>
+
+<th:block th:if="${info.useYn == 'N'}">
+	<div>불가능 합니다.</div>
+</th:block>
+	  <a onclick="alert('구매가 완료되었습니다.\n등록하신 휴대폰으로 메세지를 전송하였습니다.');" style="cursor:pointer">구매하기</a></li>
 	</ul>
 	<ul class="listLeftSort">
 	<li class="fakeimg">

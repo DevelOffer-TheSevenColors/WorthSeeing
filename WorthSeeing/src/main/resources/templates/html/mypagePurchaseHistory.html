@@ -62,27 +62,6 @@
 </div>
 <button type="button" onclick="">환불요청</button>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-    function acyncMovePage(url){
-        // ajax option
-        var ajaxOption = {
-                url : url,
-                async : true,
-                type : "GET",
-                dataType : "html",
-                cache : false
-        };
-        $.ajax(ajaxOption).done(function(data){
-            // Contents 영역 삭제
-            $('.rightcolumn').children().remove();
-            // Contents 영역 교체
-            $('.rightcolumn').html(data);
-        });
-    }
- 
-</script>
-
 
 </body>
 </html>
