@@ -39,7 +39,7 @@ public class Reservation {
 	private List<ReservationUserId> reservationUserIDList = new ArrayList<ReservationUserId>();
 
 	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "blockGroup_seq", nullable = false)
 	private BlockGroup blockGroup;
 
 	public void setBlockGroup(BlockGroup blockGroup) {
