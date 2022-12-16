@@ -8,7 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
-import kr.worthseeing.users.service.UsersService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

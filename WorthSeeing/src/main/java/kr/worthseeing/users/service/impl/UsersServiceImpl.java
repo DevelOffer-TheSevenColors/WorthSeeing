@@ -27,7 +27,7 @@ public class UsersServiceImpl implements UsersService{
 		findUsers.setAddress(users.getAddress()); // 주소
 		findUsers.setDetailAddress(users.getDetailAddress()); // 상세 주소
 		findUsers.setEmail(users.getEmail()); // 이메일
-		findUsers.setBlackyn(users.getBlackyn()); // 블랙 여부
+		findUsers.setBlackYn(users.getBlackYn()); // 블랙 여부
 		findUsers.setFinishedAuctionCnt(users.getFinishedAuctionCnt()); // 블럭 낙찰 횟수
 		findUsers.setNickName(users.getNickName()); // 닉네임
 		findUsers.setPoint(users.getPoint()); // 포인트

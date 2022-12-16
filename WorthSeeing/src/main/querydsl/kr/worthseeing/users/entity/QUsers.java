@@ -24,11 +24,11 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath address = createString("address");
 
-    public final StringPath adminyn = createString("adminyn");
+    public final StringPath adminYn = createString("adminYn");
 
     public final ListPath<kr.worthseeing.main.auction.entity.Auction, kr.worthseeing.main.auction.entity.QAuction> auctionList = this.<kr.worthseeing.main.auction.entity.Auction, kr.worthseeing.main.auction.entity.QAuction>createList("auctionList", kr.worthseeing.main.auction.entity.Auction.class, kr.worthseeing.main.auction.entity.QAuction.class, PathInits.DIRECT2);
 
-    public final StringPath blackyn = createString("blackyn");
+    public final StringPath blackYn = createString("blackYn");
 
     public final ListPath<kr.worthseeing.blockgroup.entity.BlockGroup, kr.worthseeing.blockgroup.entity.QBlockGroup> blockGroupList = this.<kr.worthseeing.blockgroup.entity.BlockGroup, kr.worthseeing.blockgroup.entity.QBlockGroup>createList("blockGroupList", kr.worthseeing.blockgroup.entity.BlockGroup.class, kr.worthseeing.blockgroup.entity.QBlockGroup.class, PathInits.DIRECT2);
 
@@ -40,7 +40,7 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final NumberPath<Integer> finishedAuctionCnt = createNumber("finishedAuctionCnt", Integer.class);
 
-    public final StringPath joindate = createString("joindate");
+    public final DateTimePath<java.util.Date> joindate = createDateTime("joindate", java.util.Date.class);
 
     public final StringPath name = createString("name");
 

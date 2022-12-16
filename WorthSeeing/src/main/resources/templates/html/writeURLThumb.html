@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,9 +35,6 @@
 
 
 <script>
-	$(document).ready(function() {
-
-	});
 </script>
 
 <body>
@@ -53,10 +49,10 @@
 						<table class="insertBoard">
 							<tr>
 								<td th:text="URL"></td>
-								<td><input name="url" type="text" size="50"></td>
+								<td><input name="linkUrl" type="text" size="50"></td>
 							</tr>
 							<tr>
-								<td th:text="첨부파일"></td>
+								<td th:text="썸네일"></td>
 								<td><input type="file" multiple="multiple" name="files">
 								</td>
 							</tr>

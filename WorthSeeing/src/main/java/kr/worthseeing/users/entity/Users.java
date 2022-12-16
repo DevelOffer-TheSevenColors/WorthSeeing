@@ -1,6 +1,7 @@
 package kr.worthseeing.users.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,19 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.notify.entity.Notify;
+import kr.worthseeing.refund.entity.Refund;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
+@Data
+@ToString(exclude = {"auctionList", "blockGroupList", "notifyList", "reservationUserId", "couponList"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users {
@@ -38,13 +44,11 @@ public class Users {
 	private String email;
 	private String tel;
 
-	@Column(columnDefinition = "varchar2(10) default 'no'")
-	private String adminyn;
-	@Column(columnDefinition = "varchar2(10) default 'no'")
-	private String blackyn;
+	private String adminYn = "no";
+	private String blackYn = "no";
 
 	@Column(columnDefinition = "date default sysdate")
-	private String joindate;
+	private Date joindate;
 	
 	@Column(columnDefinition = "number default 0")
 	private int point;
