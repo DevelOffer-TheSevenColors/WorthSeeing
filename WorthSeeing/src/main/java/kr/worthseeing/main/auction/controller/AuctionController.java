@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
-import kr.worthseeing.main.reservation.entity.Reservation;
 
 @Controller
 public class AuctionController {

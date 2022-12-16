@@ -69,4 +69,5 @@ public class AuctionServiceImpl implements AuctionService{
 		return (List<Auction>) auctionRepo.findAll();		
 	}
 
+	
 }
