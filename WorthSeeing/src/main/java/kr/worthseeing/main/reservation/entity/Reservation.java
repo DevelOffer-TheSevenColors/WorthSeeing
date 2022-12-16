@@ -3,6 +3,7 @@ package kr.worthseeing.main.reservation.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,8 +31,9 @@ public class Reservation {
 	@GeneratedValue
 	private int reservation_seq;
 
+	@Column(columnDefinition = "number default 0")
 	private int startPrice;
-
+	@Column(columnDefinition = "number default 0")
 	private int userCnt;
 
 	@OneToMany(mappedBy = "reservation")
@@ -47,6 +49,11 @@ public class Reservation {
 	public void setBlockGroup(BlockGroup blockGroup) {
 		this.blockGroup = blockGroup;
 		blockGroup.getReservationList().add(this);
+	}
+	
+	public Reservation(int startPrice, int userCnt) {
+		this.startPrice = startPrice;
+		this.userCnt = userCnt;
 	}
 
 }

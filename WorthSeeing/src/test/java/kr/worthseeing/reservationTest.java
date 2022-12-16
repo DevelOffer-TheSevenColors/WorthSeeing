@@ -10,6 +10,8 @@ import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
+import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.status.repository.StatusRepository;
 import kr.worthseeing.users.entity.Users;
@@ -41,6 +43,9 @@ public class reservationTest {
 
 	@Autowired
 	private BlockRepository blockRepo;
+	
+	@Autowired
+	private ReservationRepository reservationRepo;
 
 //	@Test
 	public void StatusInsert() {
@@ -79,33 +84,44 @@ public class reservationTest {
 
 	}
 
-//	@Test
+	@Test
 	public void insertBlock() {
 		BlockGroup blockGroup = new BlockGroup();
 		blockGroup.setBlockGroup_seq(19);
 
-		Status status = new Status();
-		status.setStatus_seq(2);
-
-		for (int i = 0; i < 153; i++) {
-
-			Block block = new Block();
-			block.setBlock_seq(i + 1);
-			block.setBlockGroup(blockGroup);
-			block.setStatus(status);
-
-			blockRepo.save(block);
-		}
+//		Status status = new Status();
+//		status.setStatus_seq(2);
+//
+//		for (int i = 0; i < 153; i++) {
+//
+//			Block block = new Block();
+//			block.setBlock_seq(i + 1);
+//			block.setBlockGroup(blockGroup);
+//			block.setStatus(status);
+//
+//			blockRepo.save(block);
+//		}
+		
+//		for (int i = 0; i < 15; i++) {
+//
+//			Reservation reservation = new Reservation(1000, 14);
+//			
+//			reservation.setBlockGroup(blockGroup);
+//			
+//			reservationRepo.save(reservation);
+//			
+//		}
+		
+		
+		
+		
+		
+		
+		
+		
 
 	}
 
-	@Test
-	public void insertReservation() {
-		
-		
-		
-		
-	}
 	
 	
 	
