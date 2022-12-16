@@ -4,19 +4,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.status.repository.StatusRepository;
 
-@RunWith(SpringRunner.class)
+
+
 @SpringBootTest
-@EnableScheduling
-class WorthSeeingApplicationTests {
+@RunWith(SpringRunner.class)
+public class reservationTest {
+
 	
+
 	@Autowired
 	private StatusRepository statusRepo;
 
@@ -59,22 +59,4 @@ class WorthSeeingApplicationTests {
 		}
 		
 	}
-	
-	@Autowired
-	ReservationRepository reservationRepo;
-	
-	
-	
-	@Test
-	public Reservation reservationList() {
-		
-		Reservation reservation = new Reservation();
-		
-		
-		
-		return reservationRepo.save(null);
-	}
-	
-	
 }
-
