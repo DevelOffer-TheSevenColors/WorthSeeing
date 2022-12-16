@@ -17,7 +17,7 @@ import lombok.ToString;
 public class Message {
 	
 	@Id
-	@GeneratedValue 
+	@GeneratedValue
 	private int message_seq;
 	
 	private String toUser;

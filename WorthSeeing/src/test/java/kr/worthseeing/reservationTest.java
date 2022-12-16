@@ -82,7 +82,7 @@ public class reservationTest {
 		Users users = new Users("user1", "user1", "사용자", "사용자1-닉네임", "부산", "센텀 광안대교", "email@gmail.com",
 				"010-1234-1234");
 
-		usersRepo.save(users);
+		usersRepo.save(users); 
 
 		BlockGroup blockGroup = new BlockGroup("https://www.naver.com", "/cimg/clientimg.png",
 				"C:/serverImage/serverimg.png", 500);
