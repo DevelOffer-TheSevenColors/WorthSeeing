@@ -20,13 +20,15 @@ import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Setter
-@Getter
+@Data
+@ToString(exclude = {"blockList", "refundList", "notifyList", "reservationList", "users"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockGroup {
@@ -37,19 +39,22 @@ public class BlockGroup {
 	private String linkUrl;
 	private String cImg;
 	private String sImg;
+	
+	@Column(columnDefinition = "number default 0")
 	private int clickCnt;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
-	private Date startDate;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
-	private Date endDate;
+	
 	private int avgPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
+	@Column(updatable = false, columnDefinition = "date default sysdate")
+	private Date startDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(updatable = false, columnDefinition = "date default sysdate")
+	private Date endDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "date default sysdate")
 	private Date groupDate;
 
 	@OneToMany(mappedBy = "blockGroup")
@@ -72,5 +77,13 @@ public class BlockGroup {
 		this.users = users;
 		users.getBlockGroupList().add(this);
 	}
+	
+	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {
+		this.linkUrl = linkUrl;
+		this.cImg = cImg;
+		this.sImg = sImg;
+		this.avgPrice = avgPrice;
+	}
+	
 
 }
