@@ -18,6 +18,7 @@ import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
+import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockList", "refundList", "notifyList", "reservationList", "users"})
+@ToString(exclude = {"blockList", "refundList", "notifyList", "reservationList", "users", "status"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockGroup {
@@ -78,6 +79,15 @@ public class BlockGroup {
 	public void setUsers(Users users) {
 		this.users = users;
 		users.getBlockGroupList().add(this);
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "status_seq", nullable = false)
+	private Status status;
+
+	public void setStatus(Status status) {
+		this.status = status;
+		status.getBlockGroupList().add(this);
 	}
 	
 	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {

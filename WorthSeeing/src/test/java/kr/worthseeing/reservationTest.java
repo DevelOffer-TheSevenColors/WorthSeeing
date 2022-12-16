@@ -12,6 +12,8 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.repository.CouponRepository;
+import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
@@ -47,19 +49,19 @@ public class reservationTest {
 
 	@Autowired
 	private BlockRepository blockRepo;
-	
+
 	@Autowired
 	private ReservationRepository reservationRepo;
-	
+
 	@Autowired
 	private ReservationUserIdRepository reservationUserIdRepo;
-	
+
 	@Autowired
 	private CouponRepository couponRepo;
 
-//	@Test
-	public void StatusIns() {}
-	
+	@Autowired
+	private AuctionRepository auctionRepo;
+
 //	@Test
 	public void StatusInsert() {
 		for (int i = 1; i < 5; i++) {
@@ -82,102 +84,108 @@ public class reservationTest {
 
 //	@Test
 	public void insertBlockGroup() {
- 
+
 		Users users = new Users("user1", "user1", "사용자", "사용자1-닉네임", "부산", "센텀 광안대교", "email@gmail.com",
 				"010-1234-1234");
 
-		usersRepo.save(users); 
+		usersRepo.save(users);
+
+		Status status = new Status();
+		status.setStatus_seq(2);
 
 		BlockGroup blockGroup = new BlockGroup("https://www.naver.com", "/cimg/clientimg.png",
 				"C:/serverImage/serverimg.png", 500);
 
 		blockGroup.setUsers(users);
-
+		blockGroup.setStatus(status);
 		blockGroupRepo.save(blockGroup);
-
 	}
 
-	@Test
+//	@Test
 	public void insertBlock() {
+		
+		
+		// block
 		BlockGroup blockGroup = new BlockGroup();
-		blockGroup.setBlockGroup_seq(19);
+		blockGroup.setBlockGroup_seq(19); // error 나면 seq 보고 변경하기
 
+		for (int i = 0; i < 153; i++) {
+
+			Block block = new Block();
+			
+			block.setBlock_seq(i + 1);
+			
+			block.setBlockGroup(blockGroup);
+
+			blockRepo.save(block);
+		}
+
+		
+		// 예약
+		for (int i = 0; i < 15; i++) {
+
+			Reservation reservation = new Reservation(1000, 14);
+
+			reservation.setBlockGroup(blockGroup);
+
+			reservationRepo.save(reservation);
+
+		}
+
+		
+		
+		// 쿠폰
 		Status status = new Status();
 		status.setStatus_seq(2);
 		
 		Users users = new Users();
 		users.setUserId("user1");
-/*
-		for (int i = 0; i < 153; i++) {
-
-			Block block = new Block();
-			block.setBlock_seq(i + 1);
-			block.setBlockGroup(blockGroup);
-			block.setStatus(status);
-
-			blockRepo.save(block);
-		}
 		
-		for (int i = 0; i < 15; i++) {
-
-			Reservation reservation = new Reservation(1000, 14);
-			
-			reservation.setBlockGroup(blockGroup);
-			
-			reservationRepo.save(reservation);
-			
-		}
-		
-		
-		for(int i=0; i<10; i++) {
+		for (int i = 0; i < 10; i++) {
 			Coupon coupon = new Coupon(30000, "1234-1234-1234");
 			coupon.setStatus(status);
 			coupon.setUsers(users);
 			couponRepo.save(coupon);
 		}
-		for(int i=0; i<10; i++) {
+		for (int i = 0; i < 10; i++) {
 			Coupon coupon = new Coupon(50000, "1111-1111-1111");
 			coupon.setStatus(status);
 			coupon.setUsers(users);
 			couponRepo.save(coupon);
 		}
-		for(int i=0; i<10; i++) {
+		for (int i = 0; i < 10; i++) {
 			Coupon coupon = new Coupon(100000, "4444-4444-4444");
 			coupon.setStatus(status);
 			coupon.setUsers(users);
 			couponRepo.save(coupon);
 		}
-		*/
-		
-		
-		
 
 	}
 
-	
-//	@Test 안됨
+	@Test
 	public void insertReservationUserId() {
 		Users users = new Users();
 		users.setUserId("user1");
-		
+
 		Reservation reservation = new Reservation();
-		reservation.setReservation_seq(30);
-		
+		reservation.setReservation_seq(20);
+
 		ReservationUserId reservationUserId = new ReservationUserId();
-		
+
 		reservationUserId.setReservation(reservation);
 		reservationUserId.setUsers(users);
-		
+
 		reservationUserIdRepo.save(reservationUserId);
+
+		Auction auction = new Auction();
+
+		auction.setReservation(reservation);
+		auction.setUsers(users);
+
+		auctionRepo.save(auction);
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	int DecimalToBinary(String A, int number) {
 		int Binary_number = 0;
 		int count = 0;

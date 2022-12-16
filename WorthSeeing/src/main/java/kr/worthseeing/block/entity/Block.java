@@ -14,13 +14,15 @@ import javax.persistence.TemporalType;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Setter
-@Getter
+@Data
+@ToString(exclude = {"blockGroup"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Block {
@@ -47,13 +49,4 @@ public class Block {
 
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "status_seq", nullable = false)
-	private Status status;
-
-	public void setStatus(Status status) {
-		this.status = status;
-		status.getBlockList().add(this);
-
-	}
 }
