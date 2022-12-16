@@ -43,7 +43,7 @@ public class Reservation {
 
 	@OneToMany(mappedBy = "reservation")
 	private List<ReservationUserId> reservationUserIDList = new ArrayList<ReservationUserId>();
-
+ 
 	@ManyToOne
 	@JoinColumn(name = "blockGroup_seq", nullable = false)
 	private BlockGroup blockGroup;
