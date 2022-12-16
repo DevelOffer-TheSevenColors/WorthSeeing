@@ -162,7 +162,7 @@ public class reservationTest {
 
 	}
 
-	@Test
+//	@Test
 	public void insertReservationUserId() {
 		Users users = new Users();
 		users.setUserId("user1");
