@@ -23,16 +23,8 @@ public class InsertBlockGroup {
 
 	@Test
 	public void insertBlockGroup() {
-		Users users = new Users(
-				"user1",
-				"user1",
-				"사용자",
-				"사용자1-닉네임",
-				"부산",
-				"센텀 광안대교",
-				"email@gmail.com",
-				"010-1234-1234"
-			);
+		Users users = new Users();
+		users.setUserId("user1");
 	
 		BlockGroup blockGroup = new BlockGroup(
 				"https://www.naver.com", 
