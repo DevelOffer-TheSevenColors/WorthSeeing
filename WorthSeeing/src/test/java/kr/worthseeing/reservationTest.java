@@ -11,6 +11,7 @@ import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
+import kr.worthseeing.event.coupon.repository.CouponRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
@@ -52,8 +53,11 @@ public class reservationTest {
 	
 	@Autowired
 	private ReservationUserIdRepository reservationUserIdRepo;
+	
+	@Autowired
+	private CouponRepository couponRepo;
 
-	@Test
+//	@Test
 	public void StatusIns() {}
 	
 //	@Test
@@ -93,7 +97,7 @@ public class reservationTest {
 
 	}
 
-//	@Test
+	@Test
 	public void insertBlock() {
 		BlockGroup blockGroup = new BlockGroup();
 		blockGroup.setBlockGroup_seq(19);
@@ -123,10 +127,27 @@ public class reservationTest {
 			reservationRepo.save(reservation);
 			
 		}
+		
+		
+		for(int i=0; i<10; i++) {
+			Coupon coupon = new Coupon(30000, "1234-1234-1234");
+			coupon.setStatus(status);
+			coupon.setUsers(users);
+			couponRepo.save(coupon);
+		}
+		for(int i=0; i<10; i++) {
+			Coupon coupon = new Coupon(50000, "1111-1111-1111");
+			coupon.setStatus(status);
+			coupon.setUsers(users);
+			couponRepo.save(coupon);
+		}
+		for(int i=0; i<10; i++) {
+			Coupon coupon = new Coupon(100000, "4444-4444-4444");
+			coupon.setStatus(status);
+			coupon.setUsers(users);
+			couponRepo.save(coupon);
+		}
 		*/
-		
-		Coupon coupon = new Coupon();
-		
 		
 		
 		

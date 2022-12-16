@@ -14,13 +14,15 @@ import javax.persistence.TemporalType;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Setter
-@Getter
+@Data
+@ToString(exclude = {"status", "users"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Coupon {
@@ -45,12 +47,17 @@ public class Coupon {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	@JoinColumn(name = "userId")
 	private Users users;
 	
 	public void setUsers(Users users) {
 		this.users = users;
 		users.getCouponList().add(this);
+	}
+	
+	public Coupon(int couponPrice, String couponSerialNum) {
+		this.couponPrice = couponPrice;
+		this.couponSerialNum = couponSerialNum;
 	}
 	
 }
