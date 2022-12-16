@@ -19,13 +19,13 @@
 	<li class="fakeimg">
 	<img src="bb.gif" width="200px" height="200px"></li>
 	 <li>
-	 <th:block th:if="${users.point >= 30000}">
-	<div></div>
-<th:block>
+<!-- 	 <th:block th:if="${users.point >= 30000}"> -->
+<!-- 	<div></div> -->
+<!-- <th:block> -->
 
-<th:block th:if="${info.useYn == 'N'}">
-	<div>불가능 합니다.</div>
-</th:block>
+<!-- <th:block th:if="${info.useYn == 'N'}"> -->
+<!-- 	<div>불가능 합니다.</div> -->
+<!-- </th:block> -->
 	  <a onclick="alert('구매가 완료되었습니다.\n등록하신 휴대폰으로 메세지를 전송하였습니다.');" style="cursor:pointer">구매하기</a></li>
 	</ul>
 	<ul class="listLeftSort">
@@ -42,28 +42,6 @@
       
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-    function acyncMovePage(url){
-        // ajax option
-        var ajaxOption = {
-                url : url,
-                async : true,
-                type : "GET",
-                dataType : "html",
-                cache : false
-        };
-        $.ajax(ajaxOption).done(function(data){
-            // Contents 영역 삭제
-            $('.rightcolumn').children().remove();
-            // Contents 영역 교체
-            $('.rightcolumn').html(data);
-        });
-    }
- 
-</script>
-
 
 </body>
 </html>

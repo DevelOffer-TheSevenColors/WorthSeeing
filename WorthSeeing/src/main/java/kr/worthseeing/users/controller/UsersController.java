@@ -18,18 +18,22 @@ public class UsersController {
 		public String getmypage(Users users) {
 			return "mypageMain";
 		}
+	  
 	  @GetMapping("/mypageAuctionHistory")
 			public String getmymypageAuctionHistory(Users users) {
 				return "mypageAuctionHistory";
 			}
+	  
 	  @GetMapping("/mypagePointHistory")
 			public String getmypagePointHistory(Users users) {
 				return "mypagePointHistory";
 			}
+	  
 	  @GetMapping("/mypagePurchaseHistory")
 			public String getmyagePurchaseHistory(Users users) {
 				return "mypagePurchaseHistory";
 			}
+	  
 	  @GetMapping("/mypageCouponMall")
 		public String getmypageCouponMall(Users users) {
 			return "mypageCouponMall";

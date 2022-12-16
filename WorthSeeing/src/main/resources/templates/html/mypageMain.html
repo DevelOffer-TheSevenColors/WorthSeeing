@@ -11,8 +11,9 @@
 	</div>
 
 	<div class="topnav">
-		<a href="/mypageMain">My Page</a> <a href="#">Link</a> <a
-			href="#">Link</a>
+		<a href="/mypageMain">My Page</a>
+		<a href="/">Main Page</a> 
+		<a href="#">쓸만한거있나?</a>
 	</div>
 	<div class="leftcolumn">
 		<div class="card">
@@ -24,7 +25,7 @@
 				<table class="purchasetable">
 					<tr th:each="users, status: ${listUsers}">
 						<th scope="row">Point</th>
-						<td th:text="${users.point}"></td>
+						<td th:text="${users.point}">zzzzzzzzzzz</td>
 					</tr>
 					<tr>
 						<th scope="row">오늘 활동횟수</th>
@@ -43,7 +44,7 @@
 		<div class="card">
 			<hr>
 			<div class="fakeimg">
-				<a href="">로그아웃</a>
+				<a href="/login/logoutProc">로그아웃</a>
 			</div>
 			<hr>
 			<div class="fakeimg">포인트 몰</div>
