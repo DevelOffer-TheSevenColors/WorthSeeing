@@ -18,6 +18,7 @@ public class ReservationServiceImpl implements ReservationService{
 	// 예약
 	@Override
 	public void insertReservation(Reservation reservation) {
+		
 		reservationRepo.save(reservation);
 	}
 	

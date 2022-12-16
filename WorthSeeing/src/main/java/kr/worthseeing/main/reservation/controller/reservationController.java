@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.service.ReservationService;
@@ -39,6 +38,13 @@ public class reservationController {
 		return "/reservation/auctionList";
 	}
 
-	
+	@GetMapping("/insertReservation")
+	private String insertReservation( Reservation reservation) {
+		
+		
+		 reservationservice.insertReservation(reservation);
+		
+		return "/reservation/auctionList";
+	}
 	
 }
