@@ -36,6 +36,8 @@ public class QNotify extends EntityPathBase<Notify> {
 
     public final kr.worthseeing.users.entity.QUsers users;
 
+    public final NumberPath<Integer> viewCnt = createNumber("viewCnt", Integer.class);
+
     public QNotify(String variable) {
         this(Notify.class, forVariable(variable), INITS);
     }

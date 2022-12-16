@@ -26,18 +26,19 @@ import lombok.Setter;
 public class Block {
 
 	@Id
-	//@GeneratedValue
 	private int Block_seq;
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
+	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date startDate;
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
+	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date endDate;
 
 	
 	@ManyToOne
-	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
+	@JoinColumn(name = "blockGroup_seq", nullable = false)
 	private BlockGroup blockGroup;
 
 	public void setBlockGroup(BlockGroup blockGroup) {
@@ -47,7 +48,7 @@ public class Block {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
+	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
 
 	public void setStatus(Status status) {

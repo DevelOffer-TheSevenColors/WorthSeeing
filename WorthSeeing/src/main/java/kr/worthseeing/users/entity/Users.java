@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -47,6 +49,7 @@ public class Users {
 	private String adminYn = "no";
 	private String blackYn = "no";
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")
 	private Date joindate;
 	

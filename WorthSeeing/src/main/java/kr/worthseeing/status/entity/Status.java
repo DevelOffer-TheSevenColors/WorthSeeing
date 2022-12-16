@@ -13,13 +13,15 @@ import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
+@Data
+@ToString(exclude = {"blockList", "refundList", "notifyList", "couponList"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Status {
@@ -47,6 +49,6 @@ public class Status {
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
 	@OneToMany(mappedBy = "status")
-	private List<Coupon> CouponList = new ArrayList<Coupon>();
+	private List<Coupon> couponList = new ArrayList<Coupon>();
 
 }
