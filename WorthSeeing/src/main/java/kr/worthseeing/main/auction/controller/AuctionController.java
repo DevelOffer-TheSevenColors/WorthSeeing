@@ -1,5 +1,7 @@
 package kr.worthseeing.main.auction.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.main.reservation.entity.Reservation;
 
 @Controller
 public class AuctionController {
@@ -33,6 +36,15 @@ public class AuctionController {
 	public String deleteAuction(Auction auction) {
 		auctionService.deleteAuction(auction);
 		return "redirect:/main";
+	}
+	
+	// 경매중 리스트 페이지
+	@GetMapping("/myAuctionList")
+	public String getAuctionList(Model model) {
+		List<Auction> auctionList = auctionService.getlistAuction();
+		
+		model.addAttribute("auctionList", auctionList);
+		return "/myAuctionList";
 	}
 	
 }
