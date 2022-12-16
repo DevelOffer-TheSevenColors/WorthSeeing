@@ -33,7 +33,6 @@ public class reservationController {
 		List<Reservation> reservationList = reservationservice.selectReservation(reservation);
 		model.addAttribute("reservationList",reservationList);
 		
-		System.out.println(reservationList);
 		
 		return "/reservation/auctionList";
 	}

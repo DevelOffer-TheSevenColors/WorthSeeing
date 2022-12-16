@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.users.entity.Users;
+import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
 public class AuctionServiceImpl implements AuctionService{
@@ -69,5 +73,33 @@ public class AuctionServiceImpl implements AuctionService{
 		return (List<Auction>) auctionRepo.findAll();		
 	}
 
+	@Autowired
+	private BlockGroupRepository blockGroupRepo;
+	
+	@Autowired
+	private UsersRepository usersRepo;
+	
+	@Override
+	public void insertCreditInfo(Users users, Auction auction) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
+		
+		int blockGroup_Seq = auction.getReservation().getBlockGroup().getBlockGroup_seq();
+		
+		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup_Seq).get();
+		
+		
+		findBlockGroup.setUsers(users);
+//		findBlockGroup.setPrice(auction.getFinishPrice()); // 마지막에 이걸로 변경하기
+		findBlockGroup.setPrice(30000); 
+		
+		
+		blockGroupRepo.save(findBlockGroup);
+		usersRepo.save(users);
+	}
+
+	@Override
+	public Auction selectCredit(Auction auction) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -106,11 +106,11 @@ a {
     </thead>
     <tbody>
     <tr th:each="reservation, state : ${reservationList}">
-        <td th:text="${reservation.reservation_seq}">James</td>
         <td th:text="${reservation.reservation_seq}"></td>
-        <td th:text="${reservation.reservation_seq}">(713) 123-8965</td>
-        <td th:text="${reservation.reservation_seq}">01/13/1979</td>
-        <td th:text="${reservation.reservation_seq}"><a th:href="@{/reservation/auctionList}">jmatman@stewart.com</a></td>
+        <td th:text="${reservation.startPrice}"></td>
+        <td th:text="${reservation.reservationUserIDList}"></td>
+        <td>여기 뭐가들어가면 좋을지 다들 생각해보세용 ㅎㅎ</td>
+        <td ><a th:href="@{/reservation/auctionList}">예약 해야징 ㅋㅋ</a></td>
     </tr>
 
     </tbody>
