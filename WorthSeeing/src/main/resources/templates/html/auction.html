@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="UTF-8">
@@ -24,19 +24,20 @@
               </div>
 	</div>
 	
-<div>
-	<button>경매 중단</button>
+<!-- 
+<div th:each="auction, state : ${auction.auctionList}">
+	<script src = "/js/count.js"></script>
+		<button onclick='count("10")'>+10</button>
+		<button onclick='count("100")'>+100</button>
+		<button onclick='count("1000")'>+1000</button>
+		<button onclick='count("10000")'>+10000</button>
+			<form th:action="@{/bidding}" method="post">
+ 				<div id='result' th:value="${auction.suggestPrice}"></div>
+				<input type="submit" value="입찰하기" />
+			</form>
 </div>
-
-<div>
-<script src = "/js/count.js"></script>
-	<button onclick='count("10")'>+10</button>
-	<button onclick='count("100")'>+100</button>
-	<button onclick='count("1000")'>+1000</button>
-	<button onclick='count("10000")'>+10000</button>
-	<div id='result'>0</div>
-	<button id="bidding">입찰하기</button>
-</div>
+ --> 
+		<input sec:authorize="hasRole('ROLE_ADMIN')" type="button" action="@{/deleteAuction}" value="경매 중단"/>
 
 </body>
 </html>

@@ -1,0 +1,38 @@
+package kr.worthseeing.main.auction.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.auction.service.AuctionService;
+
+@Controller
+public class AuctionController {
+
+	@Autowired
+	private AuctionService auctionService;
+	
+	// 경매 페이지로 이동
+	@GetMapping("/auction")
+	public String Auction(Auction auction) {
+		return "auction";
+	}
+	
+	// 입찰 버튼 클릭 시 경매 업데이트
+	@PostMapping("/bidding")
+	public String bidding(Auction auction) {
+		auctionService.updateAuction(auction);
+		return "auction";
+	}
+	
+	// 경매 종료
+	@GetMapping("/deleteAuction") 
+	public String deleteAuction(Auction auction) {
+		auctionService.deleteAuction(auction);
+		return "redirect:/main";
+	}
+	
+}
