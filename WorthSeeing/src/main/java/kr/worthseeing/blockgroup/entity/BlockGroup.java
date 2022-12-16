@@ -85,5 +85,6 @@ public class BlockGroup {
 		this.avgPrice = avgPrice;
 	}
 	
+	
 
 }

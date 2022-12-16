@@ -36,6 +36,7 @@ public class BlockGroupServiceImpl implements BlockGroupService{
 				);
 		
 		blockGroup.setUsers(usersRepo.findById("user1").get());
+		
 		try {
 			saveFile(files);
 		} catch (IOException e) {

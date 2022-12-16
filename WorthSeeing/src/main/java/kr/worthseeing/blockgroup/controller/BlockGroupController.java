@@ -27,7 +27,7 @@ public class BlockGroupController {
 	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files) {
 		System.out.println("blockGroup ===> " + blockGroup);
 		blockGroupService.insertBlockGroup(blockGroup, files);
-		
+		 
 		return "redirect:/";
 	}
 	

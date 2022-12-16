@@ -7,5 +7,5 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 public interface BlockGroupService {
 
 	void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files);
-
+ 
 }
