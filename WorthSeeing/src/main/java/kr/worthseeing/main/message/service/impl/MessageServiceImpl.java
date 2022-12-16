@@ -42,7 +42,7 @@ public class MessageServiceImpl implements MessageService{
 	
 
 	//@Scheduled(cron = "0 1 1 10 * *")
-	@Scheduled(cron = "1 0 0 * * *")
+//	@Scheduled(cron = "1 0 0 * * *")
 	public void setSendMsg() {
 		//SendSMS();
 		System.out.println("===========>");
