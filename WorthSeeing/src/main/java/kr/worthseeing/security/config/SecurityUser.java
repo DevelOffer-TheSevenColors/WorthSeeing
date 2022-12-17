@@ -16,7 +16,7 @@ public class SecurityUser extends User{
 		this.user = user;
 	}
 	
-	public Users getMember() {
+	public Users getUsers() {
 		return user;
 	}
 	

@@ -8,14 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import kr.worthseeing.security.service.impl.BoardUserDetailServiceImpl;
+import kr.worthseeing.security.service.impl.UserDetailServiceImpl;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
 	@Autowired
-	private BoardUserDetailServiceImpl boardUserDetailService;
+	private UserDetailServiceImpl userDetailService;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -26,17 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity security) throws Exception {
 		security.authorizeHttpRequests().antMatchers("/system/**").permitAll();
 		security.authorizeHttpRequests().antMatchers("/member/**","/board/**","/mail").authenticated();
-		security.authorizeHttpRequests().antMatchers("/admin/**").hasRole("ADMIN");
+		security.authorizeHttpRequests().antMatchers("/admin/**").hasRole("ROLE_ADMIN");
 		
 		security.csrf().disable();
 		
-		security.formLogin().loginPage("/system/login").defaultSuccessUrl("/main",true);
+		security.formLogin().loginPage("/system/login").defaultSuccessUrl("/",true);
 		
 		security.exceptionHandling().accessDeniedPage("/system/accessDenied");
 		
 		security.logout().invalidateHttpSession(true).logoutSuccessUrl("/system/login");
 
-		security.userDetailsService(boardUserDetailService);
+		security.userDetailsService(userDetailService);
 	}
 	
 }

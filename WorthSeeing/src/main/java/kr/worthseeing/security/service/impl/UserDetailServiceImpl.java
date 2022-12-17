@@ -13,7 +13,7 @@ import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
-public class BoardUserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UsersRepository userRepo;
