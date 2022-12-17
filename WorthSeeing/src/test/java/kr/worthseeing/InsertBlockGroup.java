@@ -21,6 +21,7 @@ public class InsertBlockGroup {
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
 
+	/*
 	@Test
 	public void insertBlockGroup() {
 		Users users = new Users();
@@ -37,5 +38,5 @@ public class InsertBlockGroup {
 
 		blockGroupRepo.save(blockGroup);
 	}
-
+*/
 }

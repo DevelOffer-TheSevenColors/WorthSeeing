@@ -98,8 +98,8 @@ a {
 		</tr>
 		<tr th:each="auction, state : ${auctionList}">
 			<td th:text="${auction.auction_seq}"></td>
-			<td th:text="${auction.auction_price}"></td>
-			<td th:text="${auction.suggest_price}"></td>
+			<td th:text="${auction.auctionPrice}"></td>
+			<td th:text="${auction.suggestPrice}"></td>
 		</tr>
 	</table>
 </body>

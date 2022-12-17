@@ -4,6 +4,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src = "/js/count.js"></script>
 </head>
 <body>
 
@@ -23,10 +24,8 @@
                 <span class="seconds"></span>
               </div>
 	</div>
-	
-<!-- 
-<div th:each="auction, state : ${auction.auctionList}">
-	<script src = "/js/count.js"></script>
+
+	<div>
 		<button onclick='count("10")'>+10</button>
 		<button onclick='count("100")'>+100</button>
 		<button onclick='count("1000")'>+1000</button>
@@ -35,8 +34,7 @@
  				<div id='result' th:value="${auction.suggestPrice}"></div>
 				<input type="submit" value="입찰하기" />
 			</form>
-</div>
- --> 
+	</div>
 		<input sec:authorize="hasRole('ROLE_ADMIN')" type="button" action="@{/deleteAuction}" value="경매 중단"/>
 
 </body>

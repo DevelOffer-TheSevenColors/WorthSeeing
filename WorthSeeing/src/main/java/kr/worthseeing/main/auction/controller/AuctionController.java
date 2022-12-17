@@ -19,7 +19,10 @@ public class AuctionController {
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Auction auction) {
+	public String Auction(Auction auction, Model model) {
+		List<Auction> auctionList = auctionService.getlistAuction();
+		System.out.println("====>" + auctionList.toString());
+		model.addAttribute("auctionList", auctionList);
 		return "auction";
 	}
 
@@ -41,9 +44,8 @@ public class AuctionController {
 	@GetMapping("/myAuctionList")
 	public String getAuctionList(Model model) {
 		List<Auction> auctionList = auctionService.getlistAuction();
-
 		model.addAttribute("auctionList", auctionList);
-		return "/myAuctionList";
+		return "myAuctionList";
 	}
 
 	// 결제할때 페이지 정보 불러오기
