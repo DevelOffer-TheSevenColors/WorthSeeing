@@ -1,17 +1,19 @@
 package kr.worthseeing.users.service;
 
+import java.util.List;
+
 import kr.worthseeing.users.entity.Users;
 
 public interface UsersService {
 
-	void insertUsers(Users users);
+	Users getUsers(Users member);
+
+	public void deleteUsers(Users member);
+
+	public void insertUsers(Users member);
+
+	public void updateUsers(Users member);
 	
-	void updateUsers(Users users);
-	
-	void deleteUsers(Users users);
-	
-	Users getUsers(Users users);
-	
-	Users listUsers();
+	public List<Users> listUsers();
 	
 }

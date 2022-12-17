@@ -6,26 +6,22 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.auction.entity.Auction;
-import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.notify.entity.Notify;
-import kr.worthseeing.refund.entity.Refund;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -45,6 +41,8 @@ public class Users {
 	private String detailAddress;
 	private String email;
 	private String tel;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	private String adminYn = "no";
 	private String blackYn = "no";
