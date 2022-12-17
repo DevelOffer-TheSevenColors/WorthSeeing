@@ -1,5 +1,7 @@
 package kr.worthseeing.event.coupon.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +20,10 @@ public class CouponServiceImpl implements CouponService{
 		couponRepo.save(coupon);
 	}
 	
-	@Override
-	public Coupon getCoupon(Coupon coupon) {
-		Coupon findCoupon = couponRepo.findById(coupon.getCoupon_seq()).get();
-		
-		couponRepo.save(findCoupon);
-		
-		return findCoupon;
-	}
 	
-	@Override
-	public Coupon listCoupon() {
-		return (Coupon) couponRepo.findAll();
-	}
+@Override
+public List<Coupon> listCoupon() {
 	
-
+	return (List<Coupon>) couponRepo.findAll();
+	}
 }

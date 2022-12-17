@@ -1,14 +1,13 @@
 package kr.worthseeing.event.coupon.service;
 
+import java.util.List;
+
 import kr.worthseeing.event.coupon.entity.Coupon;
 
 public interface CouponService {
 	
 	void insertCoupon(Coupon coupon);
 	
-	Coupon getCoupon(Coupon coupon);
+	List<Coupon> listCoupon();
 	
-	Coupon listCoupon();
-	
-
 }
