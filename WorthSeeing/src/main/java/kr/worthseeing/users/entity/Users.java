@@ -61,6 +61,8 @@ public class Users {
 	private int finishedAuctionCnt;
 	@Column(columnDefinition = "number default 0")
 	private int totalMoney;
+	@Column(columnDefinition = "number default 0") //유저 데일리 클릭 수!(칼럼 추가 -환석-)
+	private int dailyClick;
 
 	@OneToMany(mappedBy = "users")
 	private List<Auction> auctionList = new ArrayList<Auction>();

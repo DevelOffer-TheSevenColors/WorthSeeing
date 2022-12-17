@@ -11,9 +11,8 @@
 	</div>
 
 	<div class="topnav">
-		<a href="/mypageMain">My Page</a>
-		<a href="/">Main Page</a> 
-		<a href="#">쓸만한거있나?</a>
+		<a href="/mypageMain">My Page</a> <a href="/">Main Page</a> <a
+			href="#">쓸만한거있나?</a>
 	</div>
 	<div class="leftcolumn">
 		<div class="card">
@@ -22,14 +21,21 @@
 				<span><img src="bb.gif" width="120px" height="120px"></span>
 			</div>
 			<div>
-				<table class="purchasetable">
-					<tr th:each="users, status: ${listUsers}">
-						<th scope="row">Point</th>
-						<td th:text="${users.point}">zzzzzzzzzzz</td>
+				<table class="mypagetable">
+				<tr>
+						<th scope="row">닉네임 : </th>
+						<td th:text="${users.nickName}"></td>
+						<td>님</td>
 					</tr>
 					<tr>
-						<th scope="row">오늘 활동횟수</th>
-						<td>클릭수!!!!!!!!!!!</td>
+						<th scope="row">보유포인트 : </th>
+						<td th:text="${users.point}"></td>
+						<td>Point</td>
+					</tr>
+					<tr>
+						<th scope="row">오늘 활동횟수 : </th>
+						<td th:text="${users.dailyClick}"></td>
+						<td>Click</td>
 					</tr>
 				</table>
 			</div>
@@ -38,8 +44,8 @@
 			<p>
 				<button onclick="" type="button">개인정보 수정</button>
 			</p>
-			
-			
+
+
 		</div>
 		<div class="card">
 			<hr>
@@ -47,17 +53,19 @@
 				<a href="/login/logoutProc">로그아웃</a>
 			</div>
 			<hr>
+
 			<div class="fakeimg">포인트 몰</div>
-			<button onclick="acyncMovePage('/mypageCouponMall')">포인트몰</button>
+			<button class="domainBtn" id="mypageCouponMall">포인트몰</button>
 			<hr>
 			<div class="fakeimg">포인트 사용내역</div>
-			<button onclick="acyncMovePage('/mypagePointHistory')">포인트 사용내역</button>
+			<button class="domainBtn" id="mypagePointHistory">포인트 사용내역</button>
 			<hr>
 			<div class="fakeimg">경매내역</div>
-			<button onclick="acyncMovePage('/mypageAuctionHistory')">경매내역</button>
+			<button class="domainBtn" id="mypageAuctionHistory">경매내역</button>
 			<hr>
 			<div class="fakeimg">구매내역</div>
-			<button onclick="acyncMovePage('/mypagePurchaseHistory')">구매내역</button>
+			<button class="domainBtn" id="mypagePurchaseHistory">구매내역</button>
+
 		</div>
 		<div class="card"></div>
 	</div>
@@ -75,44 +83,51 @@
 				<ul class="listLeftSort">
 					<li class="fakeimg"><img src="bb.gif" width="200px"
 						height="200px"></li>
-					<li th:text="@{blockGroup.clickCnt}" >전체 방문자 수 : 1,203명</li>
+					<li th:text="@{blockGroup.clickCnt}">전체 방문자 수 : 1,203명</li>
 					<li th:text="@{blockGroup.blockGroup_seq}">N번 블록</li>
 				</ul>
-				
-<!-- 				<ul class="listLeftSort"> -->
-<!-- 					<li class="fakeimg"><img src="bb.gif" width="200px" -->
-<!-- 						height="200px"></li> -->
-<!-- 					<li>전체 방문자 수 : 1,203명</li> -->
-<!-- 					<li>블록번호 : 17</li> -->
-<!-- 				</ul> -->
-<!-- 				<ul class="listLeftSort"> -->
-<!-- 					<li class="fakeimg"><img src="bb.gif" width="200px" -->
-<!-- 						height="200px"></li> -->
-<!-- 					<li>전체 방문자 수 : 1,203명</li> -->
-<!-- 					<li>블록번호 : 17</li> -->
-<!-- 				</ul> -->
+
+				<!-- 				<ul class="listLeftSort"> -->
+				<!-- 					<li class="fakeimg"><img src="bb.gif" width="200px" -->
+				<!-- 						height="200px"></li> -->
+				<!-- 					<li>전체 방문자 수 : 1,203명</li> -->
+				<!-- 					<li>블록번호 : 17</li> -->
+				<!-- 				</ul> -->
+				<!-- 				<ul class="listLeftSort"> -->
+				<!-- 					<li class="fakeimg"><img src="bb.gif" width="200px" -->
+				<!-- 						height="200px"></li> -->
+				<!-- 					<li>전체 방문자 수 : 1,203명</li> -->
+				<!-- 					<li>블록번호 : 17</li> -->
+				<!-- 				</ul> -->
 			</div>
 		</div>
 	</div>
 
+<!-- 	MyPage 우측화면 동적변환 -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
-		function acyncMovePage(url) {
-			// ajax option
+		function movePage(domain) {
 			var ajaxOption = {
-				url : url,
+				url : "/" + domain,
 				async : true,
 				type : "GET",
 				dataType : "html",
-				cache : false
+				cache : false,
 			};
+
 			$.ajax(ajaxOption).done(function(data) {
-				// Contents 영역 삭제
+				// rightcolumn 영역 삭제
 				$('.rightcolumn').children().remove();
-				// Contents 영역 교체
+				// rightcolumn 영역 교체
 				$('.rightcolumn').html(data);
 			});
 		}
+
+		$(".domainBtn").click(function() {
+			idDomain = $(this).attr('id');
+			movePage(idDomain);
+		})
+
 	</script>
 
 

@@ -47,9 +47,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public Users getUsers(Users users) {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
-		
-		usersRepo.save(findUsers);
-		
+//		usersRepo.save(findUsers);
 		return findUsers;
 	}
 	

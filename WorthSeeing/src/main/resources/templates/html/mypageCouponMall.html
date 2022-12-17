@@ -15,9 +15,24 @@
      <div>
      <hr>
      <h4>상품 정보</h4>
+     
+     
+<table>
+		<tr>
+	      	<th>유저번호</th>
+	        <th>보유포인트</th>
+		</tr>
+		<tr th:each="users, state : ${usersList}">
+			<td th:text="${users.users_id}"></td>
+			<td th:text="${users.point}"></td>
+		</tr>
+	</table>   
+     
+     
+     
 	<ul class="listLeftSort">
 	<li class="fakeimg">
-	<img src="bb.gif" width="200px" height="200px"></li>
+	<img src="coupon30000.jpg" width="200px" height="200px"></li>
 	 <li>
 <!-- 	 <th:block th:if="${users.point >= 30000}"> -->
 <!-- 	<div></div> -->
