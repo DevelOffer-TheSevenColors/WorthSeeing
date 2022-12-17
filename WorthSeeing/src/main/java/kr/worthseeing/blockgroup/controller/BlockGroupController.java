@@ -30,7 +30,7 @@ public class BlockGroupController {
 		System.out.println("blockGroup ===> " + blockGroup);
 		blockGroupService.insertBlockGroup(blockGroup, files);
 		 
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	/*
