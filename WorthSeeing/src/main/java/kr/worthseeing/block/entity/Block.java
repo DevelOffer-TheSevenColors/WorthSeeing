@@ -46,7 +46,6 @@ public class Block {
 	public void setBlockGroup(BlockGroup blockGroup) {
 		this.blockGroup = blockGroup;
 		blockGroup.getBlockList().add(this);
-
 	}
 
 }

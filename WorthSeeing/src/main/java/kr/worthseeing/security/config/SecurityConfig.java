@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		security.csrf().disable();
 		
-		security.formLogin().loginPage("/system/login").defaultSuccessUrl("/",true);
+		security.formLogin().loginPage("/system/login").defaultSuccessUrl("/main",true);
 		
 		security.exceptionHandling().accessDeniedPage("/system/accessDenied");
 		
