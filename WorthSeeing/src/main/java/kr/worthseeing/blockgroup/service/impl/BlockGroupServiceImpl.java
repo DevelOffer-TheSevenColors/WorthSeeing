@@ -14,6 +14,7 @@ import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
+import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
@@ -34,7 +35,9 @@ public class BlockGroupServiceImpl implements BlockGroupService{
 					files.getOriginalFilename(),
 					500
 				);
-		
+		Status status = new Status();
+		status.setStatus_seq(2);
+		blockGroup.setStatus(status);
 		blockGroup.setUsers(usersRepo.findById("user1").get());
 		
 		try {
