@@ -62,7 +62,7 @@ public class reservationTest {
 	@Autowired
 	private AuctionRepository auctionRepo;
 
-//	@Test
+	@Test
 	public void StatusInsert() {
 		for (int i = 1; i < 5; i++) {
 			System.out.println(DecimalToBinary("A", i));
