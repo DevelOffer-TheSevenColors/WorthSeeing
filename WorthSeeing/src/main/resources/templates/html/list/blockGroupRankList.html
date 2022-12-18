@@ -31,7 +31,7 @@
 							<td th:text="${blockGroup.blockGroup_seq}"></td>
 							<td th:text="${blockGroup.clickCnt}"></td>
 							<td th:text="${blockGroup.price}"></td>
-							<td><a th:href="@{blockGroup.linkUrl}"></a></td>
+							<td th:text="${blockGroup.linkUrl}"><a th:href="@{blockGroup.linkUrl}"></a></td>
 							<td th:text="${blockGroup.users.userId}"></td>
 						</tr>
 					</tbody>
