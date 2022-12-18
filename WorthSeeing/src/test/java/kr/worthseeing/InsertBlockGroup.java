@@ -21,22 +21,25 @@ public class InsertBlockGroup {
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
 
-	/*
+	
 	@Test
 	public void insertBlockGroup() {
 		Users users = new Users();
 		users.setUserId("user1");
 	
-		BlockGroup blockGroup = new BlockGroup(
-				"https://www.naver.com", 
-				"/cimg/clientimg.png",
-				"C:/serverImage/serverimg.png", 
-				500
-		);
+		for (int i = 0; i < 153; i++) {
+			BlockGroup blockGroup = new BlockGroup(
+					i+1,
+					"https://www.naver.com", 
+					"/cimg/clientimg.png",
+					"C:/serverImage/serverimg.png", 
+					500
+			);
+			blockGroup.setUsers(users);
 
-		blockGroup.setUsers(users);
+			blockGroupRepo.save(blockGroup);
+		}
 
-		blockGroupRepo.save(blockGroup);
 	}
-*/
+
 }

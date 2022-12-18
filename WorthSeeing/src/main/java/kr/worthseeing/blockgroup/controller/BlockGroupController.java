@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +45,22 @@ public class BlockGroupController {
 	}
 	*/
 	
+	@GetMapping("/list/blockGroupRankList")
+	public String listBlockGroupRank(Model model, @PageableDefault Pageable pageable) {
+		Page<BlockGroup> blockGroupList = blockGroupService.listBlockGroupOrderByClickCnt(pageable);
+
+		
+		model.addAttribute("blockGroupList", blockGroupList);
+		
+//		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
+//		
+//		System.out.println("map===>" + blockGroupMap.get(2)); // 현재 사용중인 블럭 그룹만 띄우기(status : 2 ===> 변경해야함)
+//		
+//		model.addAttribute("blockGroupRankList", blockGroupMap.get(2)); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
+		
+		return "/list/blockGroupRankList";
+		
+	}
 	
 	@GetMapping("/test")
 	public String listBlockGroup(Model model) {

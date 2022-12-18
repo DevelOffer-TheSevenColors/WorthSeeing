@@ -11,6 +11,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +51,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 	}
 
-	public void saveFile(MultipartFile files) throws IOException {
+	private void saveFile(MultipartFile files) throws IOException {
 
 		String fileDir1 = "C:\\Users\\User\\git\\WorthSeeing\\WorthSeeing\\src\\main\\resources\\static\\img\\cimg/";
 		String fileDir2 = "C:/uploadfiles/";
@@ -135,7 +139,36 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	 * 
 	 * }
 	 */
+//	Sort.by(Sort.Direction.DESC/ASC, "기준컬럼명")
+	
+	@Override
+	public Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable) {
+		
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "clickCnt");
+		
+		return blockGroupRepo.listBoard(pageable);
+//		List<BlockGroup> blockGroupList = blockGroupRepo.findOrderByclickCntDesc();
 
+//		for (BlockGroup blockGroup : blockGroupList) {
+//			int status = blockGroup.getStatus().getStatus_seq();
+//
+//			if (!resultMap.containsKey(status)) { // 
+//				resultMap.put(status, new ArrayList<>());
+//			}
+//
+//			resultMap.get(status).add(blockGroup);
+//		}
+		
+//		for(BlockGroup blockGroup : blockGroupList) {
+//			System.out.println("--> " + blockGroup);
+//		}
+//
+//		return blockGroupList;
+	}
+	
+	
+	
 	@Override
 	public Map<Integer, List<BlockGroup>> listBlockGroup() {
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+
+				<table class="customBoard">
+					<thead>
+						<tr>
+							<th>순위</th>
+							<th>블록 번호</th>
+							<th>조회수</th>
+							<th>가격</th>
+							<th>링크 이동하기</th>
+							<th>사용자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="blockGroup, state : ${blockGroupList}">
+							<td th:text="${state.count}"></td>
+							<td th:text="${blockGroup.blockGroup_seq}"></td>
+							<td th:text="${blockGroup.clickCnt}"></td>
+							<td th:text="${blockGroup.price}"></td>
+							<td><a th:href="@{blockGroup.linkUrl}"></a></td>
+							<!-- 							<td th:text="${blockGroup.userId}"></td> -->
+						</tr>
+					</tbody>
+				</table>
+
+				<!-- Paging -->
+				<div>
+					<nav class="customNav">
+						<ul class="customPagination"
+							th:with="start=${(1-(blockGroupList.number%1))%1 + 1},
+	                    	last=(${start + 9 < blockGroupList.totalPages ? start + 9 : blockGroupList.totalPages})">
+
+							<li th:class="${blockGroupList.first} ? 'disabled'">
+								<button name="page" value="1">First</button>
+							</li>
+
+							<li th:class="${blockGroupList.first} ? 'disabled'">
+								<button name="page" th:value="${blockGroupList.number}">&lt;</button>
+							</li>
+
+							<li th:each="page : ${#numbers.sequence(start, last)}"
+								th:class="${page == blockGroupList.number + 1} ? 'active'">
+								<button name="page" th:value="${page}" th:text="${page}"></button>
+							</li>
+
+							<li th:class="${blockGroupList.last} ? 'disabled'">
+								<button name="page" th:value="${blockGroupList.number + 2}">&gt;</button>
+							</li>
+
+							<li th:class="${blockGroupList.last} ? 'disabled'">
+								<button name="page" th:value="${blockGroupList.totalPages}">Last</button>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+
+</html>
