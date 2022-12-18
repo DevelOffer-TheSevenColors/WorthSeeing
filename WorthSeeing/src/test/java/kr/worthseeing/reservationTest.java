@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Random;
+
 import org.junit.jupiter.api.Test;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
@@ -94,13 +96,8 @@ public class reservationTest {
 		status.setStatus_seq(2);
 
 		for (int i = 0; i < 153; i++) {
-			BlockGroup blockGroup = new BlockGroup(
-					i+1,
-					"https://www.naver.com", 
-					"/cimg/clientimg.png",
-					"C:/serverImage/serverimg.png", 
-					500
-			);
+			BlockGroup blockGroup = new BlockGroup(i + 1, "https://www.naver.com", "/cimg/clientimg.png",
+					"C:/serverImage/serverimg.png", 500);
 			blockGroup.setUsers(users);
 			blockGroup.setStatus(status);
 			blockGroupRepo.save(blockGroup);
@@ -110,46 +107,42 @@ public class reservationTest {
 
 //	@Test
 	public void insertBlock() {
-		
-		
+
 		// block
 
 		for (int i = 0; i < 153; i++) {
 
 			Block block = new Block();
-			
+
 			block.setBlock_seq(i + 1);
-			
+
 			BlockGroup blockGroup = new BlockGroup();
 			blockGroup.setBlockGroup_seq(i + 1); // error 나면 seq 보고 변경하기
-			
+
 			block.setBlockGroup(blockGroup);
 
 			blockRepo.save(block);
 		}
 
-		
 		// 예약
 		for (int i = 0; i < 15; i++) {
 
 			Reservation reservation = new Reservation(1000, 14);
 			BlockGroup blockGroup = new BlockGroup();
-			blockGroup.setBlockGroup_seq(i+1); // error 나면 seq 보고 변경하기
+			blockGroup.setBlockGroup_seq(i + 1); // error 나면 seq 보고 변경하기
 			reservation.setBlockGroup(blockGroup);
 
 			reservationRepo.save(reservation);
 
 		}
 
-		
-		
 		// 쿠폰
 		Status status = new Status();
 		status.setStatus_seq(2);
-		
+
 		Users users = new Users();
 		users.setUserId("user1");
-		
+
 		for (int i = 0; i < 10; i++) {
 			Coupon coupon = new Coupon(30000, "1234-1234-1234");
 			coupon.setStatus(status);
@@ -192,6 +185,22 @@ public class reservationTest {
 		auction.setUsers(users);
 
 		auctionRepo.save(auction);
+
+	}
+
+//	@Test
+	public void updateBlockGroupClickCnt() {
+
+		for (int i = 0; i < 153; i++) {
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
+			
+			Random rand = new Random();
+			
+			findBlockGroup.setClickCnt(rand.nextInt(1000));
+			
+			blockGroupRepo.save(findBlockGroup);
+			
+		}
 
 	}
 
