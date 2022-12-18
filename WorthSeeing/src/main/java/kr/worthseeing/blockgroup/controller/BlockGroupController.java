@@ -22,7 +22,7 @@ public class BlockGroupController {
 	@GetMapping("/writeURLThumb")
 	public String writeURLThumb() {
 		
-		return "writeURLThumb";
+		return "/writeURLThumb";
 	}
 	
 	@PostMapping("/writeURLThumb")

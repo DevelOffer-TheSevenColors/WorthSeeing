@@ -1,72 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"><head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<title>WorthSeeing</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="Free HTML Templates" name="keywords">
-<meta content="Free HTML Templates" name="description">
-
-<!-- Favicon -->
-<link href="img/favicon.ico" rel="icon">
-
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-	rel="stylesheet">
-
-<!-- Font Awesome -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-
-<!-- Libraries Stylesheet -->
-<link href="lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
-	rel="stylesheet" />
-
-<!-- Customized Bootstrap Stylesheet -->
-<link href="css/style.css" rel="stylesheet">
 </head>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-
-<script>
-</script>
 
 <body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
-	<div class="container-fluid py-5">
-		<div class="container pt-5 pb-3">
-			<div class="row pb-3">
-				<div class="col-lg-4 col-md-6 mb-4 pb-2">
-				
-					<form th:action="@{/writeURLThumb}" method="post"
-						enctype="multipart/form-data">
-						<table class="insertBoard">
-							<tr>
-								<td th:text="URL"></td>
-								<td><input name="linkUrl" type="text" size="50"></td>
-							</tr>
-							<tr>
-								<td th:text="썸네일"></td>
-								<td><input type="file" multiple="multiple" name="files">
-								</td>
-							</tr>
-						</table>
-						<input type="submit" value="등록하기" class="btn">
-					</form>
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+				<form th:action="@{/writeURLThumb}" method="post"
+					enctype="multipart/form-data">
+					<table class="insertBoard">
+						<tr>
+							<td th:text="URL"></td>
+							<td><input name="linkUrl" type="text" size="50"></td>
+						</tr>
+						<tr>
+							<td th:text="썸네일"></td>
+							<td><input type="file" multiple="multiple" name="files">
+							</td>
+						</tr>
+					</table>
+					<input type="submit" value="등록하기" class="btn">
+				</form>
 
-				</div>
 			</div>
 		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
-
-
-
 
 </body>
 
