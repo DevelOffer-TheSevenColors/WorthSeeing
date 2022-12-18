@@ -31,7 +31,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 	@Override
 	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files) {
-		BlockGroup blockGroup = new BlockGroup(blockGroupParam.getLinkUrl(), files.getOriginalFilename(),
+		BlockGroup blockGroup = new BlockGroup(2, blockGroupParam.getLinkUrl(), files.getOriginalFilename(),
 				files.getOriginalFilename(), 500);
 		Status status = new Status();
 		status.setStatus_seq(2);
