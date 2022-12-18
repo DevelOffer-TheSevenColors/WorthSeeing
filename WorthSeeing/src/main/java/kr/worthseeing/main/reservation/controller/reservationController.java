@@ -3,17 +3,19 @@ package kr.worthseeing.main.reservation.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.worthseeing.block.entity.Block;
-import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.main.reservation.service.ReservationService;
+import kr.worthseeing.security.config.SecurityUser;
+import kr.worthseeing.users.entity.Users;
 
 @Controller
 @RequestMapping("/reservation")
@@ -51,12 +53,13 @@ public class reservationController {
 
 
 	@PostMapping("/insertReservation")
-	private String insertReservation( Reservation reservation) {
+	private String insertReservation( Reservation reservation,ReservationUserId reservationUserid,@AuthenticationPrincipal SecurityUser principal) {
 		
-		
-		 reservationservice.insertReservation(reservation);
-		
-		return "/reservation/auctionList";
+		System.out.println("principal--->"+principal);
+		reservationUserid.setUsers(principal.getUsers());
+		reservationUserid.setReservation(reservation);
+		reservationservice.insertReservation(reservation,reservationUserid);
+		 
+		return "redirect:/reservation/auctionList";
 	}
-	
 }
