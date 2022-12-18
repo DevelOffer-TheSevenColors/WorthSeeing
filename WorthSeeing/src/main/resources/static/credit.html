@@ -1350,35 +1350,27 @@ body, ul {
 	border-style: solid;
 	cursor: pointer;
 	position: relative;
-}
+}ㅈ
 </style>
 
 <body>
-
-	<table style="margin-left: 282px;" width="1148px;">
-
+<form th:action="@{/updateCredit}" method="post">
+	<table class="table1" >
 		<tr>
-
-			<td class="container3" colspan="2"
-				style="margin-left: 1px; float: right;">
-
+			<td class="container3" colspan="2">
 				<h3>결제 예정 금액</h3>
 			<label for="fname" class="labelpay"> 구매 할 블록</label><br>
 			<br>
-
 				<div class="inputtd2">연동해야함</div>
 				<br>
 			<label for="fname" class="labelpay"> 월 지불 금액</label><br>
 			<br>
-
 				<div class="inputtd2">연동해야함</div>
 				<br>
 			<br> <label for="fname" class="labelpay"> 포인트 <span
 					class="span1">| 포크 n개 (총 n원)</span></label><br>
 			<br> <br>
-
 				<div class="div1">
-
 					  <input type="text"
 						class="inputtd3"> <span class="won">원</span> <a href=""
 						class="tkdyd3">사용</a>
@@ -1391,10 +1383,8 @@ body, ul {
 					<p>
 					<input type="text"
 						class="inputtd3"> <span class="won">원  (최종가격)</span>
-
 				</div>
 			<br>
-
 				<hr /> <label for="fname" class="labelpay"> 결제수단 </label><br>
 				<br> <br>
 				<hr />
@@ -1405,24 +1395,16 @@ body, ul {
 						카카오페이</label> <label><input type="radio" name="sport" value="애플페이">
 						애플페이</label>
 				</div> <br> <br>
-
 					<div>
 					<input type="submit" value="결제하기" class="btpay2">
 					<input type="submit" class="credit" th:href="@{/reservation/auctionList}" value="돌아가기">
 				</div> 
-
 			</td>
-
 		</tr>
 
 	</table>
-
+</form>
 	​
-
-	</div>
-	</table>
-
-	</center>
 
 	<br>
 	<br>

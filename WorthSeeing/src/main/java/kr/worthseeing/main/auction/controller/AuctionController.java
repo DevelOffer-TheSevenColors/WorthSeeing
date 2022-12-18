@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.users.entity.Users;
 
 @Controller
 public class AuctionController {
@@ -19,10 +20,7 @@ public class AuctionController {
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Auction auction, Model model) {
-		List<Auction> auctionList = auctionService.getlistAuction();
-		System.out.println("====>" + auctionList.toString());
-		model.addAttribute("auctionList", auctionList);
+	public String Auction(Auction auction) {
 		return "auction";
 	}
 
@@ -44,12 +42,13 @@ public class AuctionController {
 	@GetMapping("/myAuctionList")
 	public String getAuctionList(Model model) {
 		List<Auction> auctionList = auctionService.getlistAuction();
+
 		model.addAttribute("auctionList", auctionList);
-		return "myAuctionList";
+		return "/myAuctionList";
 	}
 
 	// 결제할때 페이지 정보 불러오기
-	@GetMapping("seletCredit")
+	@GetMapping("/seletCredit")
 	public String selectCredit(Model model, Auction auction) {
 		auctionService.selectCredit(auction);
 
@@ -58,4 +57,12 @@ public class AuctionController {
 		return "/mypageMain";
 	}
 
+	//결제 할 때 페이지 넘기는 값들 ㅎㅎ
+	@PostMapping("/updateCredit")
+	public String updateCredit(Users users, Auction auction) {
+		
+		auctionService.updateCreditInfo(users, auction);
+		return "/";
+	}
+	
 }

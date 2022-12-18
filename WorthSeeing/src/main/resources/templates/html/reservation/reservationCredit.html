@@ -1381,16 +1381,21 @@ width:1148px;
 
 <body>
 
-	<form action="@{/reservation/insertReservation}"   method="post">
+	<form th:action="@{/reservation/insertReservation}"   method="post">
 		<table class="table1">
+<!-- 			<tr th:each="board, state : ${reservationCreditInfo}"> -->
+	<tr>
 			<td class="container3" colspan="2">
-				<h3>결제 예정 금액</h3> 
+				<h3>예약금 결제 예정 금액</h3> 
 				<label for="fname" class="labelpay"> ₩ 선택한 블록</label>
 
-				<div name="block_seq"class="inputtd2">블록번호 뜨게해야함</div> 
-					<label for="fname"class="labelpay"> ₩ 보증급</label><br> <br>
+				<div  th:text="${reservationCreditInfo.reservation_seq}"   class="inputtd2"></div>
+				
+				 <input type="hidden" name=reservation_seq th:value="${reservationCreditInfo.reservation_seq}" class="btpay2">
+				 <input type="hidden"  name="startPrice"  th:value="${reservationCreditInfo.startPrice}" class="btpay2">
+					<label for="fname"class="labelpay"> ₩ 보증금</label><br> <br>
 
-				<div class="inputtd2">가격의 10프로 뜨게해야함</div>  <br>
+				<div th:text="${reservationCreditInfo.startPrice}"  class="inputtd2">가격의 10프로 뜨게해야함</div>  <br>
 				<br>
 
 				<hr /> <label for="fname" class="labelpay"> 결제수단 </label><br>
@@ -1406,13 +1411,13 @@ width:1148px;
 
 				<div>
 					<input type="submit" value="결제하기" class="btpay2">
-					<input type="submit" class="credit" th:href="@{/reservation/auctionList}" value="돌아가기">
 				</div> 
 			 
 			</td>
-
+	<tr/>
 		</table>
 	</form>
+					<input type="submit" class="credit"  th:href="@{/reservation/auctionList}" value="돌아가기">
 </body>
 
 </html>

@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -44,14 +46,20 @@ public class Reservation {
 	@OneToMany(mappedBy = "reservation")
 	private List<ReservationUserId> reservationUserIDList = new ArrayList<ReservationUserId>();
 
-	@ManyToOne
-	@JoinColumn(name = "blockGroup_seq", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "blockGroup_seq")
 	private BlockGroup blockGroup;
 
-	public void setBlockGroup(BlockGroup blockGroup) {
-		this.blockGroup = blockGroup;
-		blockGroup.getReservationList().add(this);
-	}
+//	public void setBlockGroup(BlockGroup blockGroup) {
+//		this.blockGroup=blockGroup;
+//		blockGroup.setResrvation(this);
+//		
+//	}
+	
+//	public void setBlockGroup(BlockGroup blockGroup) {
+//		this.blockGroup = blockGroup;
+//		blockGroup.getReservationList().add(this);
+//	}
 	
 	public Reservation(int startPrice, int userCnt) {
 		this.startPrice = startPrice;

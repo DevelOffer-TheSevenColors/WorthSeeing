@@ -80,7 +80,7 @@ public class AuctionServiceImpl implements AuctionService{
 	private UsersRepository usersRepo;
 	
 	@Override
-	public void insertCreditInfo(Users users, Auction auction) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
+	public void updateCreditInfo(Users users, Auction auction) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
 		
 		int blockGroup_Seq = auction.getReservation().getBlockGroup().getBlockGroup_seq();
 		
@@ -98,8 +98,9 @@ public class AuctionServiceImpl implements AuctionService{
 
 	@Override
 	public Auction selectCredit(Auction auction) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (Auction) auctionRepo.findAll();
 	}
+
 	
 }

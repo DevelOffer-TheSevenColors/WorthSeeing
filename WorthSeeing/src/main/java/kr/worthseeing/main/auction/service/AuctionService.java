@@ -29,5 +29,5 @@ public interface AuctionService {
 	
 	
 	//페이지 작성후 등록할 때
-	void insertCreditInfo(Users users, Auction auction);
+	void updateCreditInfo(Users users, Auction auction);
 }

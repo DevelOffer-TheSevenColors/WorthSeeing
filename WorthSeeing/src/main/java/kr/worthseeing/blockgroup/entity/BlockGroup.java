@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,19 +23,18 @@ import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockList", "refundList", "notifyList", "reservationList", "users", "status"})
+@ToString(exclude = {"blockList", "refundList", "notifyList", "reservation", "users", "status"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockGroup {
 
 	@Id
+	@GeneratedValue
 	private int blockGroup_seq;
 	private String linkUrl;
 	private String cImg;
@@ -68,8 +68,9 @@ public class BlockGroup {
 	@OneToMany(mappedBy = "blockGroup")
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
-	@OneToMany(mappedBy = "blockGroup")
-	private List<Reservation> reservationList = new ArrayList<Reservation>();
+	@OneToOne(mappedBy = "blockGroup" )
+	private Reservation reservation;
+//	private List<Reservation> reservationList = new ArrayList<Reservation>();
 
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)
@@ -89,13 +90,14 @@ public class BlockGroup {
 		status.getBlockGroupList().add(this);
 	}
 	
-	public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
+		public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
 		this.blockGroup_seq = blockGroup_seq;
 		this.linkUrl = linkUrl;
 		this.cImg = cImg;
 		this.sImg = sImg;
 		this.avgPrice = avgPrice;
 	}
+	
 	
 	
 
