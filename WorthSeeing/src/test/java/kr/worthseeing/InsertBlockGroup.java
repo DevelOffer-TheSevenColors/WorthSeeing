@@ -22,7 +22,7 @@ public class InsertBlockGroup {
 	private BlockGroupRepository blockGroupRepo;
 
 	
-	@Test
+	//@Test
 	public void insertBlockGroup() {
 		Users users = new Users();
 		users.setUserId("user1");

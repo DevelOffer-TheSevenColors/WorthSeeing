@@ -1,13 +1,12 @@
 package kr.worthseeing;
 
+import java.util.Random;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Random;
-
-import org.junit.jupiter.api.Test;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -64,7 +63,7 @@ public class reservationTest {
 	@Autowired
 	private AuctionRepository auctionRepo;
 
-//	@Test
+	//@Test
 	public void StatusInsert() {
 		for (int i = 1; i < 5; i++) {
 			System.out.println(DecimalToBinary("A", i));
@@ -84,7 +83,7 @@ public class reservationTest {
 
 	}
 
-//	@Test
+	//@Test
 	public void insertBlockGroup() {
 
 		Users users = new Users("user1", "user1", "사용자", "사용자1-닉네임", "부산", "센텀 광안대교", "email@gmail.com",
@@ -164,7 +163,7 @@ public class reservationTest {
 
 	}
 
-//	@Test
+	//@Test
 	public void insertReservationUserId() {
 		Users users = new Users();
 		users.setUserId("user1");
@@ -188,7 +187,7 @@ public class reservationTest {
 
 	}
 
-//	@Test
+	//@Test
 	public void updateBlockGroupClickCnt() {
 
 		for (int i = 0; i < 153; i++) {

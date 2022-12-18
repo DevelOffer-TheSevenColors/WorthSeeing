@@ -15,7 +15,6 @@ import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
-import kr.worthseeing.users.entity.Users;
 
 @Controller
 @RequestMapping("/reservation")
