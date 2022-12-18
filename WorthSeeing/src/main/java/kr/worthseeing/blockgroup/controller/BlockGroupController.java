@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -45,21 +46,14 @@ public class BlockGroupController {
 	}
 	*/
 	
-	@GetMapping("/list/blockGroupRankList")
+	// blockGroup 클릭수 많은 순으로 정렬한 리스트
+	@RequestMapping("/list/blockGroupRankList")
 	public String listBlockGroupRank(Model model, @PageableDefault Pageable pageable) {
 		Page<BlockGroup> blockGroupList = blockGroupService.listBlockGroupOrderByClickCnt(pageable);
-
 		
 		model.addAttribute("blockGroupList", blockGroupList);
 		
-//		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
-//		
-//		System.out.println("map===>" + blockGroupMap.get(2)); // 현재 사용중인 블럭 그룹만 띄우기(status : 2 ===> 변경해야함)
-//		
-//		model.addAttribute("blockGroupRankList", blockGroupMap.get(2)); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
-		
 		return "/list/blockGroupRankList";
-		
 	}
 	
 	@GetMapping("/test")
