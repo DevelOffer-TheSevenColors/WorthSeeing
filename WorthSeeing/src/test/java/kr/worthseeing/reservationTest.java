@@ -62,7 +62,7 @@ public class reservationTest {
 	@Autowired
 	private AuctionRepository auctionRepo;
 
-	@Test
+//	@Test
 	public void StatusInsert() {
 		for (int i = 1; i < 5; i++) {
 			System.out.println(DecimalToBinary("A", i));
@@ -93,12 +93,19 @@ public class reservationTest {
 		Status status = new Status();
 		status.setStatus_seq(2);
 
-		BlockGroup blockGroup = new BlockGroup("https://www.naver.com", "/cimg/clientimg.png",
-				"C:/serverImage/serverimg.png", 500);
+		for (int i = 0; i < 153; i++) {
+			BlockGroup blockGroup = new BlockGroup(
+					i+1,
+					"https://www.naver.com", 
+					"/cimg/clientimg.png",
+					"C:/serverImage/serverimg.png", 
+					500
+			);
+			blockGroup.setUsers(users);
+			blockGroup.setStatus(status);
+			blockGroupRepo.save(blockGroup);
+		}
 
-		blockGroup.setUsers(users);
-		blockGroup.setStatus(status);
-		blockGroupRepo.save(blockGroup);
 	}
 
 //	@Test
@@ -106,14 +113,15 @@ public class reservationTest {
 		
 		
 		// block
-		BlockGroup blockGroup = new BlockGroup();
-		blockGroup.setBlockGroup_seq(19); // error 나면 seq 보고 변경하기
 
 		for (int i = 0; i < 153; i++) {
 
 			Block block = new Block();
 			
 			block.setBlock_seq(i + 1);
+			
+			BlockGroup blockGroup = new BlockGroup();
+			blockGroup.setBlockGroup_seq(i + 1); // error 나면 seq 보고 변경하기
 			
 			block.setBlockGroup(blockGroup);
 
@@ -125,7 +133,8 @@ public class reservationTest {
 		for (int i = 0; i < 15; i++) {
 
 			Reservation reservation = new Reservation(1000, 14);
-
+			BlockGroup blockGroup = new BlockGroup();
+			blockGroup.setBlockGroup_seq(i+1); // error 나면 seq 보고 변경하기
 			reservation.setBlockGroup(blockGroup);
 
 			reservationRepo.save(reservation);
@@ -168,7 +177,7 @@ public class reservationTest {
 		users.setUserId("user1");
 
 		Reservation reservation = new Reservation();
-		reservation.setReservation_seq(20);
+		reservation.setReservation_seq(28); // error 나면 seq 보고 변경하기
 
 		ReservationUserId reservationUserId = new ReservationUserId();
 

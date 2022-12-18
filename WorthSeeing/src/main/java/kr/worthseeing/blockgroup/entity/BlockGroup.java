@@ -35,7 +35,6 @@ import lombok.ToString;
 public class BlockGroup {
 
 	@Id
-	@GeneratedValue
 	private int blockGroup_seq;
 	private String linkUrl;
 	private String cImg;
@@ -90,7 +89,8 @@ public class BlockGroup {
 		status.getBlockGroupList().add(this);
 	}
 	
-	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {
+	public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
+		this.blockGroup_seq = blockGroup_seq;
 		this.linkUrl = linkUrl;
 		this.cImg = cImg;
 		this.sImg = sImg;
