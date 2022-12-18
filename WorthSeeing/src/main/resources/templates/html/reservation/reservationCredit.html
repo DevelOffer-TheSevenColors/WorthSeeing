@@ -1386,13 +1386,14 @@ width:1148px;
 <!-- 			<tr th:each="board, state : ${reservationCreditInfo}"> -->
 	<tr>
 			<td class="container3" colspan="2">
-				<h3>예약금 결제 예정 금액</h3> 
+				<h3>예약금 결제</h3> 
 				<label for="fname" class="labelpay"> ₩ 선택한 블록</label>
 
 				<div  th:text="${reservationCreditInfo.reservation_seq}"   class="inputtd2"></div>
 				
-				 <input type="hidden" name=reservation_seq th:value="${reservationCreditInfo.reservation_seq}" class="btpay2">
-				 <input type="hidden"  name="startPrice"  th:value="${reservationCreditInfo.startPrice}" class="btpay2">
+				 <input type="hidden" name=reservation_seq th:value="${reservationCreditInfo.reservation_seq}" >
+				 <input type="hidden"  name="startPrice"  th:value="${reservationCreditInfo.startPrice}">
+				 <input type="hidden"  name="startPrice"  th:value="${reservationCreditInfo.blockGroup}">
 					<label for="fname"class="labelpay"> ₩ 보증금</label><br> <br>
 
 				<div th:text="${reservationCreditInfo.startPrice}"  class="inputtd2">가격의 10프로 뜨게해야함</div>  <br>
@@ -1417,7 +1418,7 @@ width:1148px;
 	<tr/>
 		</table>
 	</form>
-					<input type="submit" class="credit"  th:href="@{/reservation/auctionList}" value="돌아가기">
 </body>
+					<input type="submit" class="credit"  th:href="@{/reservation/auctionList}" value="돌아가기">
 
 </html>
