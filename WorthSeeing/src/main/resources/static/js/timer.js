@@ -39,11 +39,10 @@
       $(".minutes").html(min);
       $(".seconds").html(sec);
    } else if(nt>et){
-    $("p.time-title").html("금일 마감");
+    $("span.time-title").html("금일 마감");
     $(".time").fadeOut();
    }else {
        $(".time").fadeIn();
-     $("p.time-title").html("금일 마감까지 남은 시간");
      sec =parseInt(et - nt) / 1000;
      day  = parseInt(sec/60/60/24);
      sec = (sec - (day * 60 * 60 * 24));

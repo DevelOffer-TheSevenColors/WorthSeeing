@@ -30,7 +30,6 @@ public class Auction {
 	@GeneratedValue
 	private int auction_seq;
 	private int auctionPrice;
-	private int finishPrice;
 	private int suggestPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)

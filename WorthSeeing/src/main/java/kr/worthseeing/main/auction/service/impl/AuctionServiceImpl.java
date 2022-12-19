@@ -68,9 +68,9 @@ public class AuctionServiceImpl implements AuctionService{
 	}
 	
 	public int findAuctionPrice(Auction auction) {
-		return auctionRepo.findById(auction.getAuction_seq()).get().getFinishPrice();
+		return auctionRepo.findById(auction.getAuction_seq()).get().getSuggestPrice();
 	}
-	
+
 	// 경매 리스트 불러오기
 	@Override
 	public List<Auction> getlistAuction() {

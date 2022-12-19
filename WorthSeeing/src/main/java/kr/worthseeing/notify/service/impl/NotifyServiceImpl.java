@@ -58,11 +58,7 @@ public class NotifyServiceImpl implements NotifyService {
 		findNotify.setViewCnt(findNotify.getViewCnt() + 1);
 		return findNotify; 
 	}
-<<<<<<< HEAD
-	
-=======
-	  
->>>>>>> branch 'main' of https://github.com/DevelOffer-TheSevenColors/WorthSeeing.git
+
 	//페이징, 분류
 	@Override
 	public Page<Notify> getListNotify(Pageable pageable, SearchDTO search) {
