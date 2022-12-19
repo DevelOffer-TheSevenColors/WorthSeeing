@@ -24,8 +24,15 @@
 </style>
 
 	<script>
+	
 		function createBlock(number) {
-
+			
+// 			Block cnt && User Daily Click
+			$("#" + number).click(
+					function(){
+				location.href="/click?blockGroup_seq="+number;
+			});
+			
 			if (number % 17 == 0) {
 				$("#" + number).css('margin-left', 1700 + 'px');
 			} else {
@@ -77,6 +84,7 @@
 					$("#47").css('z-index', '51');
 
 				});
+		
 	</script>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>

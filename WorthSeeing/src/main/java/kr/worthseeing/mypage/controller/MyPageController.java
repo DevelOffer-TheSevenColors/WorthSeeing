@@ -8,16 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.service.CouponService;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
-import kr.worthseeing.users.entity.Users;
-import kr.worthseeing.users.service.UsersService;
 
 @Controller
 public class MyPageController {
@@ -31,12 +29,16 @@ public class MyPageController {
 	@Autowired
 	private BlockGroupService blockGroupService;
 	
+	@Autowired
+	private MyPageService myPageService;
+	
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model,@AuthenticationPrincipal SecurityUser principal) {
-//		Users principalUsers = new Users();
-//		principalUsers.setUserId("user1"); // 로그인 구현되면 수정
-		model.addAttribute("users", principal.getUsers());
+		List<BlockGroup> BGL = blockGroupService.getListBlockGroup();
+		model.addAttribute("users",principal.getUsers());
+		model.addAttribute("BGL",BGL);
 		System.out.println("=======================>"+principal.getUsers());
+		System.out.println("=============BGLBGLBGLBGLBGL==========>"+BGL);
 		
 		return "/mypageMain";
 	}
@@ -75,6 +77,13 @@ public class MyPageController {
 		
 		return "/mypagePurchaseHistory";
 	}
-
+	
+	@GetMapping("/click")
+	public String getClick(BlockGroup blockGroup, @AuthenticationPrincipal SecurityUser principal) {
+		myPageService.getClick(blockGroup, principal);
+		
+		return "/main";
+		
+	}
 
 }

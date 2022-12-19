@@ -17,21 +17,21 @@
       <th colspan="4">17번 블록 구매내역</th>
     </tr>
     <tr align="center">
-      <td th:text="${blockGroup.endDate}">구매일자</td>
+      <td>구매일자</td>
       <td>결제상태</td>
       <td>구매일수</td>
       <td>잔여일수</td>
     </tr>
      <tr align="center">
-      <td>2022-12-12</td>
-      <td>결제 완료</td>
-      <td>30일</td>
+      <td th:text="${blockGroup.startDate}"></td>
+      <td>(얜 엔터티가 없는데 뭘로 비교해서 할지 아니면 없앨지~)</td>
+      <td th:text="${blockGroup.purchaseDay}">30일</td>
       <td>15일</td>
     </tr>
     </table>
       
         <h3>결제정보</h3>
-    <table class="purchasetable" th:each="auction, state : ${auctionList}">
+    <table th:each="auction, state : ${auctionList}">
         <tr>
             <th scope="row">결제방법</th>
             <td>카카오페이</td>

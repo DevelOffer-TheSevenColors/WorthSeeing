@@ -26,10 +26,11 @@ import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
 public class BlockGroupServiceImpl implements BlockGroupService {
+	
 	@Override
 	public List<BlockGroup> getListBlockGroup() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
 
 	@Autowired
@@ -174,5 +175,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 		return resultMap;
 	}
-
+	
+	
 }

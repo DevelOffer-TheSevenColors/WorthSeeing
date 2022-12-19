@@ -1,5 +1,6 @@
 package kr.worthseeing.blockgroup.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
+import kr.worthseeing.security.config.SecurityUser;
 
 @Controller
 public class BlockGroupController {
@@ -35,6 +38,7 @@ public class BlockGroupController {
 		
 		return "redirect:/main";
 	}
+	
 	
 	/*
 	@GetMapping("/main")
