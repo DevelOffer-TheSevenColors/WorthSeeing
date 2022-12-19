@@ -38,8 +38,6 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final StringPath linkUrl = createString("linkUrl");
 
-    public final ListPath<kr.worthseeing.notify.entity.Notify, kr.worthseeing.notify.entity.QNotify> notifyList = this.<kr.worthseeing.notify.entity.Notify, kr.worthseeing.notify.entity.QNotify>createList("notifyList", kr.worthseeing.notify.entity.Notify.class, kr.worthseeing.notify.entity.QNotify.class, PathInits.DIRECT2);
-
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
     public final NumberPath<Integer> purchaseDay = createNumber("purchaseDay", Integer.class);

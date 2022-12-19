@@ -22,8 +22,6 @@ public class QNotify extends EntityPathBase<Notify> {
 
     public static final QNotify notify = new QNotify("notify");
 
-    public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
-
     public final StringPath content = createString("content");
 
     public final NumberPath<Integer> notify_seq = createNumber("notify_seq", Integer.class);
@@ -56,7 +54,6 @@ public class QNotify extends EntityPathBase<Notify> {
 
     public QNotify(Class<? extends Notify> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
         this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;
     }
