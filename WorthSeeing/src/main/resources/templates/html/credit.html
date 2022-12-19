@@ -13,25 +13,38 @@
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-
-				<form th:action="@{/reservation/insertReservation(reservation_seq=${reservationCreditInfo.reservation_seq})}" method="post">
-<!-- 				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}"> -->
-					<table class="customBoard">
+					
+					
+		<form th:action="@{/updateCredit}" method="post">
+			<table class="customBoard"  >
 						<thead>
 							<tr>
-								<th colspan="2">예약금 결제</th>
+								<th colspan="2">결제 예정 금액</th>
 							</tr>
 						</thead>
-						<tbody>
+
+					<tbody>
 							<tr>
-								<td>선택한 블록</td>
-								<td></td>
-									
+								<td>구매 할 블록</td>
+								<td > th:name="reservation_seq"
+									th:text="${reservationCreditInfo.reservation_seq}"</td>
 							</tr>
 							<tr>
-								<td>보증금</td>
-								<td th:name="startPrice"
-									th:text="${reservationCreditInfo.startPrice}"></td>
+								<td>월 지불 금액</td>
+								<td >th:name="startPrice"
+									th:text="${reservationCreditInfo.startPrice}"</td>
+							</tr>
+							<tr>
+								<td>포인트</td>
+								<td ><input type="text"> <span >원</span> <a href="">사용하기</a></td>
+							</tr>
+							<tr>
+								<td> <select name="month">
+										<option  value="1">1개월</option>
+										<option   value="2">2개월</option>
+										<option   value="3">3개월</option>
+							</select> </td>
+								<td ><input type="text">X 개월수 가격 띄워 줘야함</td>
 							</tr>
 							<tr>
 								<td>결제수단</td>
@@ -41,19 +54,22 @@
 											카카오페이</label> <label><input type="radio" name="fruit"
 											value="애플페이"> 애플페이</label>
 									</div></td>
-							</tr>
-							<tr>
+								</tr>
+								<tr>
 								<td colspan="2"><input type="submit" value="결제하기"
 									class="btpay2"></td>
 							</tr>
-						</tbody>
+					</tbody>
+		
 
-					</table>
-				</form>
 
-				<div>
-					<a th:href="@{/reservation/auctionList}">돌아가기</a> 
-				</div>
+	</table>
+</form>
+	​
+
+	<br>
+	<br>
+	<br> ​
 
 			</div>
 		</div>

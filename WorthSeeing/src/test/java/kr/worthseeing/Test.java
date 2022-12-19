@@ -71,7 +71,7 @@ public class Test {
 			blockGroup.setBlockGroup_seq(19);
 
 			notify.setUsers(users);
-			notify.setBlockGroup(blockGroup);
+//			notify.setBlockGroup(blockGroup);
 			notify.setStatus(status);
 
 			notifyRepo.save(notify);

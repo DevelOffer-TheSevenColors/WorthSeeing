@@ -13,29 +13,42 @@
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
+				<button onclick="location.href='/notify/insertNotify'">글쓰기</button>
+				
+				<div id="content">
+					<form th:action="@{/notify}" method="post">
+						<select name="status">
+							<option value="2">전체</option>
+							<option value="1">공지</option>
+							<option value="4">1:1 문의</option>
+						</select>
+							<input type="submit" value="검색"/>
 
-				<table class="customBoard">
-					<thead>
-						<tr>
-							<th>NO.</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>조회수</th>
-							<th>등록일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="notify, state : ${notifyList}">
-							<td th:text="${(notifyList.number * 10) + state.count}"></td>
-							<td th:text="${notify.notify_seq}"></td>
-							<td th:text="${notify.clickCnt}"></td>
-							<td th:text="${notify.price}"></td>
-							<td><a th:href="@{${notify.linkUrl}}"
-								th:text="${notify.linkUrl}"></a></td>
-							<td th:text="${notify.users.userId}"></td>
-						</tr>
-					</tbody>
-				</table>
+
+						<table class="customBoard">
+							<thead>
+								<tr>
+									<th>NO.</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>등록일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="notify, state : ${notifyList}">
+									<td th:text="${(notifyList.number * 10) + state.count}"></td>
+									<td><a
+										th:href="@{/notify/getNotify(notify_seq=${notify.notify_seq})}"
+										th:text="${notify.title}"></a></td>
+									<td th:text="${notify.content}"></td>
+									<td th:text="${notify.viewCnt}"></td>
+									<td th:text="${notify.notifyTime}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
 
 				<!-- Paging -->
 				<form th:action="@{/notify}" method="post">

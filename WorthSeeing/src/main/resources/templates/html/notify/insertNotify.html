@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>새 글 등록</title>
+</head>
+<body>
+	<div id="wrapper" class="alignCenter">
+
+		<div id="title">
+			<h1>공지글 등록</h1>
+		</div>
+
+		<div id="content">
+		
+			<form th:action="@{/notify/insertNotifyProc}" method="post" enctype="multipart/form-data">
+				<table class="insertNotify">
+					
+					<tr>
+						<td th:text="제목"></td>
+						<td>
+							<input name="title" type="text" size="50">
+						</td>
+					</tr>
+					<tr>
+						<td th:text="작성자"></td>
+						<td>
+							<td><span sec:authentication="principal.users.name"></span>
+						</td>
+					</tr>
+					<tr>
+						<td th:text="내용"></td>
+						<td>
+							<textarea name="content" cols="50" rows="10"></textarea>
+						</td>
+					</tr>
+					
+				</table>
+				<input type="submit" value="게시글 등록" class="btn">
+			</form>
+			<div>
+				<a th:href="@{/notify/notify}">글 목록</a>
+			</div>
+
+		</div>
+		
+	</div>
+</body>
+</html>

@@ -42,6 +42,13 @@ public class AuctionController {
 		model.addAttribute("block", block);
 		return "/auction";
 	}
+	// 낙착되어서 결제하러 갈떄
+	@GetMapping("/credit")
+	public String AuctionCredit(Auction auction) {
+		return "/credit";
+	}
+	
+	
 
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
