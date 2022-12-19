@@ -29,8 +29,7 @@ public class reservationController {
 	@GetMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation) {
 
-		List<Reservation> reservationList = reservationservice.selectReservation(reservation);
-		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("reservationList", reservationservice.selectReservation(reservation));
 
 		return "/reservation/reservationList";
 	}
@@ -59,9 +58,8 @@ public class reservationController {
 	// 결제하기 버튼 클릭 시 
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
+		reservationservice.insertReservationUsers(reservation, principal.getUsers().getUserId());
 
-		reservationservice.insertReservation(reservation, principal.getUsers());
-
-		return "redirect:/reservation/auctionList";
+		return "/reservation/auctionList";
 	}
 }

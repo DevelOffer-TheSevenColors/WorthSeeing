@@ -23,19 +23,25 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
-	public void insertReservation(Reservation reservation, Users users) {
-		System.out.println("reservation==>" + reservation);
-		Reservation findreservation = reservationRepo.findById(reservation.getReservation_seq()).get();
+	public void insertReservationUsers(Reservation reservation, String userId) {
 
-		findreservation.setUserCnt(findreservation.getUserCnt() + 1); // 예약자 수 + 1
+		Users users2 = new Users();
+		users2.setUserId(userId);
 
-		ReservationUsers reservationUsers = new ReservationUsers();
+		ReservationUsers reservationUserId = new ReservationUsers();
 
-		reservationUsers.getUsers().setUserId("testid");;
-		reservationUsers.setReservation(findreservation);
-		System.out.println("reservationUserid-==>" + reservationUsers);
-		reservationRepo.save(findreservation);
-		reservationUsersRepo.save(reservationUsers);
+		reservationUserId.setReservation(reservation);
+		reservationUserId.setUsers(users2);
+
+		reservationUsersRepo.save(reservationUserId);
+		
+//		ReservationUsers reservationUsers = new ReservationUsers();
+//
+//		reservationUsers.setReservation(reservation);
+//
+//		reservationUsers.setUsers(users);
+//
+//		reservationUsersRepo.save(reservationUsers);
 	}
 
 	// 예약 취소
@@ -57,5 +63,4 @@ public class ReservationServiceImpl implements ReservationService {
 
 		return reservationRepo.findById(reservation.getReservation_seq()).get();
 	}
-	
 }

@@ -56,7 +56,7 @@ public class reservationTest {
 	private ReservationRepository reservationRepo;
 
 	@Autowired
-	private ReservationUsersRepository reservationUserIdRepo;
+	private ReservationUsersRepository reservationUsersRepo;
 
 	@Autowired
 	private CouponRepository couponRepo;
@@ -177,7 +177,7 @@ public class reservationTest {
 		reservationUserId.setReservation(reservation);
 		reservationUserId.setUsers(users);
 
-		reservationUserIdRepo.save(reservationUserId);
+		reservationUsersRepo.save(reservationUserId);
 
 		Auction auction = new Auction();
 
@@ -204,21 +204,21 @@ public class reservationTest {
 
 	}
 	
-//	@Test
-	public void ReservationUserid() {
-		ReservationUsers reservationUserId = new ReservationUsers();
+	@Test
+	public void ReservationUsers() {
+		ReservationUsers reservationUsers = new ReservationUsers();
 		
 		Reservation reservation = new Reservation();
 		reservation.setReservation_seq(28);
 		
-		reservationUserId.setReservation(reservation);
+		reservationUsers.setReservation(reservation);
 		
 		Users users = new Users();
 		users.setUserId("user1");
 
-//		reservationUserId.setUsers(users);
+		reservationUsers.setUsers(users);
 		
-		reservationUserIdRepo.save(reservationUserId);
+		reservationUsersRepo.save(reservationUsers);
 	}
 
 

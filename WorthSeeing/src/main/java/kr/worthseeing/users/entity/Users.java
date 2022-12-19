@@ -69,12 +69,12 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
 
-	@OneToMany(mappedBy = "users")
+	@OneToMany(mappedBy = "users" )
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
 	@OneToMany(mappedBy = "users")
 	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
-
+	
 	@OneToMany(mappedBy = "users")
 	private List<Coupon> couponList = new ArrayList<Coupon>();
 

@@ -7,7 +7,7 @@ import kr.worthseeing.users.entity.Users;
 
 public interface ReservationService {
 
-	void insertReservation(Reservation reservation, Users users);
+	void insertReservationUsers(Reservation reservation, String userId);
 	
 	void deleteReservation(Reservation reservation);
 	
