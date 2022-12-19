@@ -175,7 +175,7 @@ public class reservationTest {
 		ReservationUserId reservationUserId = new ReservationUserId();
 
 		reservationUserId.setReservation(reservation);
-		reservationUserId.setUsers(users);
+//		reservationUserId.setUsers(users);
 
 		reservationUserIdRepo.save(reservationUserId);
 
@@ -203,6 +203,24 @@ public class reservationTest {
 		}
 
 	}
+	
+//	@Test
+	public void ReservationUserid() {
+		ReservationUserId reservationUserId = new ReservationUserId();
+		
+		Reservation reservation = new Reservation();
+		reservation.setReservation_seq(28);
+		
+		reservationUserId.setReservation(reservation);
+		
+		Users users = new Users();
+		users.setUserId("user1");
+
+//		reservationUserId.setUsers(users);
+		
+		reservationUserIdRepo.save(reservationUserId);
+	}
+
 
 	int DecimalToBinary(String A, int number) {
 		int Binary_number = 0;
