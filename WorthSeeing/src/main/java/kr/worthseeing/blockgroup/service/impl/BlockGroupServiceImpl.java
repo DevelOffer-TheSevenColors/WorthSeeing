@@ -27,11 +27,6 @@ import kr.worthseeing.users.repository.UsersRepository;
 @Service
 public class BlockGroupServiceImpl implements BlockGroupService {
 	
-	@Override
-	public List<BlockGroup> getListBlockGroup() {
-		
-		return (List<BlockGroup>) blockGroupRepo.findAll();
-	}
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
@@ -39,6 +34,12 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	@Autowired
 	private UsersRepository usersRepo;
 
+	@Override
+	public List<BlockGroup> getListBlockGroup(String userId) {
+		
+		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
+	}
+	
 	@Override
 	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files) {
 		BlockGroup blockGroup = new BlockGroup(2, blockGroupParam.getLinkUrl(), files.getOriginalFilename(),

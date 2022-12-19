@@ -34,10 +34,10 @@ public class MyPageController {
 	
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model,@AuthenticationPrincipal SecurityUser principal) {
-		List<BlockGroup> BGL = blockGroupService.getListBlockGroup();
-		model.addAttribute("users",principal.getUsers());
+		List<BlockGroup> BGL = blockGroupService.getListBlockGroup(principal.getUsers().getUserId());
+		model.addAttribute("users",principal.getUsers().getUserId());
 		model.addAttribute("BGL",BGL);
-		System.out.println("=======================>"+principal.getUsers());
+		System.out.println("=======================>"+principal.getUsers().getUserId());
 		System.out.println("=============BGLBGLBGLBGLBGL==========>"+BGL);
 		
 		return "/mypageMain";
@@ -70,7 +70,7 @@ public class MyPageController {
 	@GetMapping("/mypagePurchaseHistory")
 	public String getmyagePurchaseHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
 		List<Auction> auctionList = auctionService.getlistAuction();
-		List<BlockGroup> blockGroupList = blockGroupService.getListBlockGroup();
+		List<BlockGroup> blockGroupList = blockGroupService.getListBlockGroup(principal.getUsers().getUserId());
 		model.addAttribute("auctionList",auctionList);
 		model.addAttribute("users",principal.getUsers());
 		model.addAttribute("blockGroupList",blockGroupList);
