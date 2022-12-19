@@ -39,14 +39,14 @@ public class BlockGroup {
 	private String linkUrl;
 	private String cImg;
 	private String sImg;
-	
+
 	@Column(columnDefinition = "number default 0")
 	private int clickCnt;
 
 	@Column(columnDefinition = "number default 0")
 	private int price;
 	private int avgPrice;
-	
+
 	@Column(columnDefinition = "number default 0")
 	private int purchaseDay;
 
@@ -57,7 +57,7 @@ public class BlockGroup {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date endDate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")
 	private Date groupDate;
@@ -83,7 +83,7 @@ public class BlockGroup {
 		this.users = users;
 		users.getBlockGroupList().add(this);
 	}
-	
+
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
@@ -92,9 +92,8 @@ public class BlockGroup {
 		this.status = status;
 		status.getBlockGroupList().add(this);
 	}
-	
-		public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
-		this.blockGroup_seq = blockGroup_seq;
+
+	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {
 		this.linkUrl = linkUrl;
 		this.cImg = cImg;
 		this.sImg = sImg;

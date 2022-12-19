@@ -18,6 +18,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
@@ -29,10 +34,15 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	
 
 	@Autowired
-	private BlockGroupRepository blockGroupRepo;
+	private AmazonS3Client amazonS3Client;
 
 	@Autowired
+	private BlockGroupRepository blockGroupRepo;
+	
+	@Autowired
 	private UsersRepository usersRepo;
+
+	private String S3Bucket = "kwangan2-worthseeing-burket"; // Bucket 이름
 
 	@Override
 	public List<BlockGroup> getListBlockGroup(String userId) {
@@ -40,12 +50,17 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
 	}
 	
+
 	@Override
 	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files) {
-		BlockGroup blockGroup = new BlockGroup(2, blockGroupParam.getLinkUrl(), files.getOriginalFilename(),
-				files.getOriginalFilename(), 500);
+		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString(); // 접근가능한 URL 가져오기
+
+		BlockGroup blockGroup = new BlockGroup(blockGroupParam.getLinkUrl(), files.getOriginalFilename(),
+				imagePath, 500);
+
 		Status status = new Status();
-		status.setStatus_seq(2);
+		status.setStatus_seq(7);
+		
 		blockGroup.setStatus(status);
 		blockGroup.setUsers(usersRepo.findById("user1").get());
 
@@ -74,10 +89,21 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		String nowDate = format.format(new Date());
 
 		String extension = fileName.substring(fileName.lastIndexOf("."));
+		long size = files.getSize(); // 파일 크기
+		
+		ObjectMetadata objectMetaData = new ObjectMetadata();
+		objectMetaData.setContentType(files.getContentType());
+		objectMetaData.setContentLength(size);
 
+		// S3에 업로드
+		amazonS3Client.putObject(
+				new PutObjectRequest(S3Bucket, fileName, files.getInputStream(), objectMetaData)
+				.withCannedAcl(CannedAccessControlList.PublicRead)
+				);
+				
 		String fileSname = uuid + extension;
 		String filePath = fileDir1 + nowDate + "/" + fileSname;
-
+		
 		File directory = new File(fileDir1 + nowDate);
 
 		if (!directory.exists()) {
@@ -95,57 +121,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		files.transferTo(new File(filePath));
 
 	}
-
-	/*
-	 * // 블록 그룹 status별 리스트 만들기
-	 * 
-	 * @Override public Map<String, List> listBlockGroup() { List<BlockGroup>
-	 * status1blockGroupList = new ArrayList<BlockGroup>(); List<BlockGroup>
-	 * status2blockGroupList = new ArrayList<BlockGroup>(); List<BlockGroup>
-	 * status3blockGroupList = new ArrayList<BlockGroup>(); List<BlockGroup>
-	 * status4blockGroupList = new ArrayList<BlockGroup>(); List<BlockGroup>
-	 * status5blockGroupList = new ArrayList<BlockGroup>(); List<BlockGroup>
-	 * status6blockGroupList = new ArrayList<BlockGroup>(); List<BlockGroup>
-	 * status7blockGroupList = new ArrayList<BlockGroup>();
-	 * 
-	 * Map<String, List> resultMap = new HashMap<String, List>(); // List resultList
-	 * = resultMap.get("status1");
-	 * 
-	 * List<BlockGroup> blockGroupList = (List<BlockGroup>)
-	 * blockGroupRepo.findAll(); for(BlockGroup blockGroup : blockGroupList) {
-	 * 
-	 * if(blockGroup.getStatus().getStatus_seq() == 1) {
-	 * status1blockGroupList.add(blockGroup); resultMap.put("status1",
-	 * status1blockGroupList);
-	 * 
-	 * } else if(blockGroup.getStatus().getStatus_seq() == 2) {
-	 * status2blockGroupList.add(blockGroup); resultMap.put("status2",
-	 * status2blockGroupList);
-	 * 
-	 * } else if(blockGroup.getStatus().getStatus_seq() == 3) {
-	 * status3blockGroupList.add(blockGroup); resultMap.put("status3",
-	 * status3blockGroupList);
-	 * 
-	 * } else if(blockGroup.getStatus().getStatus_seq() == 4) {
-	 * status4blockGroupList.add(blockGroup); resultMap.put("status4",
-	 * status4blockGroupList);
-	 * 
-	 * } else if(blockGroup.getStatus().getStatus_seq() == 5) {
-	 * status5blockGroupList.add(blockGroup); resultMap.put("status5",
-	 * status5blockGroupList);
-	 * 
-	 * } else if(blockGroup.getStatus().getStatus_seq() == 6) {
-	 * status6blockGroupList.add(blockGroup); resultMap.put("status6",
-	 * status6blockGroupList);
-	 * 
-	 * } else if(blockGroup.getStatus().getStatus_seq() == 7) {
-	 * status7blockGroupList.add(blockGroup); resultMap.put("status7",
-	 * status7blockGroupList); } }
-	 * 
-	 * return resultMap;
-	 * 
-	 * }
-	 */
 	
 	// 인기 블록 리스트
 	@Override

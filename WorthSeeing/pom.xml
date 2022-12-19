@@ -125,6 +125,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-quartz</artifactId>
 		</dependency>
+		
+	    <!-- AWS -->
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-aws</artifactId>
+	        <version>2.2.6.RELEASE</version>
+	    </dependency>		
+	    
 	</dependencies>
 
 
