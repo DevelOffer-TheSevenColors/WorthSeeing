@@ -12,45 +12,44 @@
       <h2>구매 내역</h2>
       </div>
       
-    <table border="1" th:each="blockGroup, state : ${blockGroupList}">
+    <table border="1" th:each="blockGroup, state : ${blockGroupUserId}">
     <tr align="center">
-      <th colspan="4">17번 블록 구매내역</th>
+      <th colspan="4" th:text="${blockGroup.blockGroup_seq}"></th>
     </tr>
     <tr align="center">
-      <td>구매일자</td>
-      <td>결제상태</td>
-      <td>구매일수</td>
-      <td>잔여일수</td>
+      <td>구매일수(월)</td>
+      <td>결제금액</td>
+      <td>종료일자</td>
+<!--       <td>잔여일수</td> -->
     </tr>
      <tr align="center">
-      <td th:text="${blockGroup.startDate}"></td>
-      <td>(얜 엔터티가 없는데 뭘로 비교해서 할지 아니면 없앨지~)</td>
-      <td th:text="${blockGroup.purchaseDay}">30일</td>
-      <td>15일</td>
+      <td th:text="${blockGroup.purchaseDay}"></td>
+      <td th:text="${blockGroup.price}"></td>
+      <td th:text="${blockGroup.endDate}"></td>
+<!--       <td>15일</td> -->
     </tr>
     </table>
-      
         <h3>결제정보</h3>
-    <table th:each="auction, state : ${auctionList}">
-        <tr>
-            <th scope="row">결제방법</th>
-            <td>카카오페이</td>
-             <th scope="row">휴대전화</th>
-            <td th:text="${users.tel}"></td>
-        </tr>
-         <tr>
-            <th scope="row">-</th>
-            <td>-</td>
-             <th scope="row">이메일</th>
-            <td th:text="${users.email}"></td>
-        </tr>
-        <tr>
-            <th scope="row">결제금액</th>
-            <td th:text="${auction.finishPrice}"></td>
-             <th scope="row">결제상태</th>
-            <td>✔</td>
-        </tr>
-    </table>
+<!--     <table th:each="auction, state : ${auctionList}"> -->
+<!--         <tr> -->
+<!--             <th scope="row">결제방법</th> -->
+<!--             <td>카카오페이</td> -->
+<!--              <th scope="row">휴대전화</th> -->
+<!--             <td th:text="${users.tel}"></td> -->
+<!--         </tr> -->
+<!--          <tr> -->
+<!--             <th scope="row">-</th> -->
+<!--             <td>-</td> -->
+<!--              <th scope="row">이메일</th> -->
+<!--             <td th:text="${users.email}"></td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--             <th scope="row">결제금액</th> -->
+<!--             <td th:text="${auction.finishPrice}"></td> -->
+<!--              <th scope="row">결제상태</th> -->
+<!--             <td>✔</td> -->
+<!--         </tr> -->
+<!--     </table> -->
     </div>
 </div>
 <button type="button" onclick="">환불요청</button>

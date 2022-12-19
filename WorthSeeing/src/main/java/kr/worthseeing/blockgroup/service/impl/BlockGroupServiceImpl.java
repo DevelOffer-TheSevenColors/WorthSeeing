@@ -45,13 +45,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	private String S3Bucket = "kwangan2-worthseeing-burket"; // Bucket 이름
 
 	@Override
-	public List<BlockGroup> getListBlockGroup(String userId) {
-		
-		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
-	}
-	
-
-	@Override
 	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files) {
 		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString(); // 접근가능한 URL 가져오기
 

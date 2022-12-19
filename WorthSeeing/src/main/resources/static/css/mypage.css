@@ -59,9 +59,10 @@ body {
 
 .couponlist {
 	background-color: lightgreen;
-	width: 100%;
+	width: 50%;
 	height: 30%;
 	padding: 20px;
+	margin-bottom: 20px;
 }
 
 .card {

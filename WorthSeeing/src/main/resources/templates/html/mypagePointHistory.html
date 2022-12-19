@@ -6,52 +6,27 @@
 </head>
 <body>
 
-<div class="row">
-  <div class="rightcolumn">
-    <div class="card">
-      <h2>포인트 사용내역</h2>
-      </div>
-<!--       <table> -->
-<!-- 		<tr> -->
-<!-- 	      	<th>기프티콘 가격</th> -->
-<!-- 	      	<th>기프티콘 구매일자</th> -->
-<!-- 		</tr> -->
-<!-- 		<tr th:each="coupon, state : ${couponList}"> -->
-<!-- <td> -->
-<!-- 			<td th:text="${coupon.couponPrice}"></td> -->
-<!-- 			<td th:text="${coupon.couponUsedDate}"></td> -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
+	<div class="row">
+		<div class="rightcolumn">
+			<div class="card">
+				<h2>포인트 사용내역</h2>
+			</div>
 
-			<table>
+			<table class="couponlist" th:each="coupon, state : ${couponUserId}">
 				<tr>
-					<th>기프티콘 가격</th>
+					<th>포인트 사용금액</th>
+					<th>구매일시</th>
+					<th>기프티콘 시리얼번호</th>
 				</tr>
-				<tr th:each="coupon, state : ${couponList}">
-					<td>
+				<tr>
 					<td th:text="${coupon.couponPrice}"></td>
+					<td th:text="${coupon.couponUsedDate}"></td>
+					<td th:text="${coupon.couponSerialNum}"></td>
 				</tr>
 			</table>
-			<!-- 	<ul> -->
-<!-- 	<li class="couponlist">상품명 : 30,000원권 기프티콘 -->
-<!-- 	<div><br />포인트 사용금액</div> -->
-<!-- 	<div>구매일</div> -->
-<!-- 	<div>사용일</div><br /> -->
-<!-- 	<div>결제금액</div> -->
-<!-- 	</li> -->
-<!-- 	</ul> -->
-<!-- 	<ul> -->
-<!-- 	<li class="couponlist">상품명 : 30,000원권 기프티콘 -->
-<!-- 	<div><br />포인트 사용금액</div> -->
-<!-- 	<div>구매일</div> -->
-<!-- 	<div>사용일</div><br /> -->
-<!-- 	<div>결제금액</div> -->
-<!-- 	</li> -->
-<!-- 	</ul> -->
+		</div>
+
 	</div>
-      
-    </div>
-<!-- </div> -->
 
 
 </body>

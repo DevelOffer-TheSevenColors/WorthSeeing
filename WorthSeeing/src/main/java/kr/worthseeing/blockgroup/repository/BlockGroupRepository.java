@@ -10,7 +10,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 
-public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer> , QuerydslPredicateExecutor<BlockGroup>  {
+public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer>,
+	QuerydslPredicateExecutor<BlockGroup>  {
 	
 	@Query("select b from BlockGroup b")
 	Page<BlockGroup> listBoard(Pageable pageable);

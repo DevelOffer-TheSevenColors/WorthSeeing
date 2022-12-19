@@ -34,29 +34,29 @@ public class MyPageController {
 	
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model,@AuthenticationPrincipal SecurityUser principal) {
-		List<BlockGroup> BGL = blockGroupService.getListBlockGroup(principal.getUsers().getUserId());
-		model.addAttribute("users",principal.getUsers().getUserId());
-		model.addAttribute("BGL",BGL);
-		System.out.println("=======================>"+principal.getUsers().getUserId());
-		System.out.println("=============BGLBGLBGLBGLBGL==========>"+BGL);
-		
+		List<BlockGroup> BlockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+//		List<BlockGroup> BlockGroupList = myPageService.getListBlockGroup();
+		model.addAttribute("users",principal.getUsers());
+		model.addAttribute("userId",principal.getUsers().getUserId());
+		model.addAttribute("BlockGroupUserId",BlockGroupUserId);
+//		System.out.println("=======================>"+principal.getUsers().getUserId());
 		return "/mypageMain";
 	}
 	
-	@GetMapping("/mypagePointHistory")
-	public String getlistcoupon(Model model,@AuthenticationPrincipal SecurityUser principal) {
-		List<Coupon> couponList = couponService.listCoupon();
-		model.addAttribute("couponList", couponList);
-		model.addAttribute("users", principal.getUsers());
-		
-		return "/mypagePointHistory";
-	}
 	
 	@GetMapping("/mypageCouponMall")
 	public String getmypageCouponMall() {
 		return "/mypageCouponMall";
 	}
 	
+	@GetMapping("/mypagePointHistory")
+	public String getlistcoupon(Model model,@AuthenticationPrincipal SecurityUser principal) {
+		List<Coupon> couponUserId = myPageService.getCouponUserId(principal.getUsers().getUserId());
+		model.addAttribute("couponUserId", couponUserId);
+		model.addAttribute("users", principal.getUsers());
+		
+		return "/mypagePointHistory";
+	}
 
 	@GetMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
@@ -69,11 +69,9 @@ public class MyPageController {
 
 	@GetMapping("/mypagePurchaseHistory")
 	public String getmyagePurchaseHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
-		List<Auction> auctionList = auctionService.getlistAuction();
-		List<BlockGroup> blockGroupList = blockGroupService.getListBlockGroup(principal.getUsers().getUserId());
-		model.addAttribute("auctionList",auctionList);
-		model.addAttribute("users",principal.getUsers());
-		model.addAttribute("blockGroupList",blockGroupList);
+		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+		model.addAttribute("userId",principal.getUsers().getUserId());
+		model.addAttribute("blockGroupUserId",blockGroupUserId);
 		
 		return "/mypagePurchaseHistory";
 	}

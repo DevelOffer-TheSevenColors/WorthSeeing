@@ -21,6 +21,4 @@ public interface BlockGroupService {
 	
 	Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable);
 	
-	List<BlockGroup> getListBlockGroup(String userId);
-	
 }
