@@ -23,7 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Data
-@ToString(excludes = {"status", "blockGroup", "users"})
+@ToString(excludes = {"status",  "users"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notify {
@@ -51,14 +51,14 @@ public class Notify {
 		status.getNotifyList().add(this);
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
-	private BlockGroup blockGroup;
-	
-	public void setBlockGroup(BlockGroup blockGroup) {
-		this.blockGroup = blockGroup;
-		blockGroup.getNotifyList().add(this);
-	}
+//	@ManyToOne
+//	@JoinColumn(name = "blockGroup_seq", nullable = false, updatable = false)
+//	private BlockGroup blockGroup;
+//	
+//	public void setBlockGroup(BlockGroup blockGroup) {
+//		this.blockGroup = blockGroup;
+//		blockGroup.getNotifyList().add(this);
+//	}
 
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false, updatable = false)

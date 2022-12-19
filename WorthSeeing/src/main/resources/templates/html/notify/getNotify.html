@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시글 상세</title>
+</head>
+<body>
+	<div id="wrapper" class="alignCenter">
+
+		<div id="title">
+			<h1>게시글 상세</h1>
+		</div>
+
+		<div id="content">
+
+			<form th:action="@{/notify/updateNotifyProc}" method="post">
+				<table class="getNotify">
+					<tr>
+						<td th:text="제목" width="80"></td>
+						<td>
+							<input name="notify_seq" type="hidden" th:value="${notify.notify_seq}">
+							<input name="title" type="text" th:value="${notify.title}">
+						</td>
+					</tr>
+					<tr>
+						<td th:text="작성자"></td>
+						<td><span sec:authentication="principal.users.name"></span></td>
+					</tr>
+					<tr>
+						<td th:text="내용">
+						<td>
+							<textarea name="content" th:text="${notify.content}"
+								cols="40" rows="10"></textarea>
+						</td>
+					</tr>
+					
+					<tr>
+						<td th:text="조회수"></td>
+						<td th:text="${notify.viewCnt}"></td>
+					</tr>
+					
+					<tr>
+						<td th:text="등록일"></td>
+						<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}">
+					</tr>
+					
+				</table>
+				<input th:if="${notify.users.userId == principal.users.userId}"
+					type="submit" value="게시글 수정" class="btn">
+			</form>
+
+			<div class="aLink">
+				<a th:if="${notify.users.userId == principal.users.userId}"
+					th:href="@{/notify/deleteNotifyProc(notify_seq=${notify.notify_seq})}">게시글 삭제</a>
+			</div>
+			<div>
+				<a th:href="@{/notify}">게시글 목록</a>
+			</div>
+			
+			
+						
+			
+		</div>
+
+	</div>
+		
+</body>
+</html>
