@@ -14,8 +14,8 @@
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
-				<form th:action="@{/reservation/insertReservation}" method="post">
-				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}">
+				<form th:action="@{/reservation/insertReservation(reservation_seq=${reservationCreditInfo.reservation_seq})}" method="post">
+<!-- 				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}"> -->
 					<table class="customBoard">
 						<thead>
 							<tr>

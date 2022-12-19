@@ -27,10 +27,9 @@ public class reservationController {
 	@Autowired
 	private BlockGroupService blockGroupService;
 
-	// 예약 가능 목록 띄우기
+	// 예약가능 목록 띄우기
 	@GetMapping("/auctionList")
-	private String selectBoard(Model model, Reservation reservation) {
-
+	private String selectauctonList(Model model, Reservation reservation) {
 
 		List<Reservation> reservationList = reservationservice.selectReservation(reservation);
 		model.addAttribute("reservationList", reservationList);
@@ -38,28 +37,33 @@ public class reservationController {
 		return "/reservation/auctionList";
 	}
 
+	// 나의 예약가능 목록 띄우기
+	@GetMapping("/myAuctionList")
+	private String selectMyAuctionList(Model model, Reservation reservation,
+			@AuthenticationPrincipal SecurityUser principal) {
+
+		List<Reservation> reservationList = reservationservice.selectReservation(reservation);
+		model.addAttribute("principal", principal);
+		model.addAttribute("reservationList", reservationList);
+
+		return "/reservation/auctionList";
+	}
+
 	// 예약하기 눌리면 10프로 만결제하는 창으로 이동
 	@GetMapping("/reservationCredit")
-	private String reservationCredit(Model model, Reservation reservation) {
+	private String reservationCredit(Model model, Reservation reservation,
+			@AuthenticationPrincipal SecurityUser principal) {
 
-		
-		 
 		model.addAttribute("reservationCreditInfo", reservationservice.selectReservationCreditInfo(reservation));
-
+		model.addAttribute("principal", principal);
 		return "/reservation/reservationCredit";
 	}
 
-
-
-
 	@PostMapping("/insertReservation")
-	private String insertReservation( Reservation reservation,ReservationUserId reservationUserid,@AuthenticationPrincipal SecurityUser principal) {
-		
-		System.out.println("principal--->"+principal);
-		reservationUserid.setUsers(principal.getUsers());
-		reservationUserid.setReservation(reservation);
-		reservationservice.insertReservation(reservation,reservationUserid);
-		 
+	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
+
+		reservationservice.insertReservation(reservation, principal.getUsers());
+
 		return "redirect:/reservation/auctionList";
 	}
 }

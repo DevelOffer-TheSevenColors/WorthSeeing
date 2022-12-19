@@ -8,10 +8,11 @@ import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUserId;
+import kr.worthseeing.users.entity.Users;
 
 public interface ReservationService {
 
-	void insertReservation(Reservation reservation,ReservationUserId reservationUserid);
+	void insertReservation(Reservation reservation, Users users);
 	
 	void deleteReservation(Reservation reservation);
 	

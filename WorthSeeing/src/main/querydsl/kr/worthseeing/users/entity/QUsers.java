@@ -18,8 +18,6 @@ public class QUsers extends EntityPathBase<Users> {
 
     private static final long serialVersionUID = 1409820795L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QUsers users = new QUsers("users");
 
     public final StringPath address = createString("address");
@@ -54,8 +52,6 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final NumberPath<Integer> reservationCnt = createNumber("reservationCnt", Integer.class);
 
-    public final kr.worthseeing.main.reservation.entity.QReservationUserId reservationUserId;
-
     public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final StringPath tel = createString("tel");
@@ -67,24 +63,15 @@ public class QUsers extends EntityPathBase<Users> {
     public final StringPath userPw = createString("userPw");
 
     public QUsers(String variable) {
-        this(Users.class, forVariable(variable), INITS);
+        super(Users.class, forVariable(variable));
     }
 
     public QUsers(Path<? extends Users> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QUsers(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QUsers(PathMetadata metadata, PathInits inits) {
-        this(Users.class, metadata, inits);
-    }
-
-    public QUsers(Class<? extends Users> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.reservationUserId = inits.isInitialized("reservationUserId") ? new kr.worthseeing.main.reservation.entity.QReservationUserId(forProperty("reservationUserId"), inits.get("reservationUserId")) : null;
+        super(Users.class, metadata);
     }
 
 }

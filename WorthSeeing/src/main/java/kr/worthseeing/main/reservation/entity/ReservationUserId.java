@@ -21,7 +21,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"reservation", "users", "message"})
+@ToString(exclude = {"reservation", "users"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationUserId  {
@@ -32,10 +32,11 @@ public class ReservationUserId  {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")
-	private Date reservationUserIdDate;
-
+	private Date reservationUserIdDate = new Date();
+	private String userId;
+	
 	@ManyToOne
-	@JoinColumn(name = "reservation_seq", nullable = false)
+	@JoinColumn(name = "reservation_seq")
 	private Reservation reservation;
 
 	public void setReservation(Reservation reservation) {
@@ -44,14 +45,14 @@ public class ReservationUserId  {
 	}
 
 	
-	@OneToOne
-	@JoinColumn(name = "userid", nullable = false)
-	private Users users;
-
-	public void setUsers(Users users) {
-		this.users = users;
-		users.setReservationUserId(this);
-	}
+//	@ManyToOne
+//	@JoinColumn(name = "userId")
+//	private Users users;
+//
+//	public void setUsers(Users users) {
+//		this.users = users;
+//		users.getReservationUserIDList().add(this);
+//	}
 	
 //	@OneToOne
 //	@JoinColumn(name = "message_seq", nullable = false)

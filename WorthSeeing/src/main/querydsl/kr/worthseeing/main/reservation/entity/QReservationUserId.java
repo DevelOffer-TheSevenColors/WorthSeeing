@@ -28,7 +28,7 @@ public class QReservationUserId extends EntityPathBase<ReservationUserId> {
 
     public final DateTimePath<java.util.Date> reservationUserIdDate = createDateTime("reservationUserIdDate", java.util.Date.class);
 
-    public final kr.worthseeing.users.entity.QUsers users;
+    public final StringPath userId = createString("userId");
 
     public QReservationUserId(String variable) {
         this(ReservationUserId.class, forVariable(variable), INITS);
@@ -49,7 +49,6 @@ public class QReservationUserId extends EntityPathBase<ReservationUserId> {
     public QReservationUserId(Class<? extends ReservationUserId> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.reservation = inits.isInitialized("reservation") ? new QReservation(forProperty("reservation"), inits.get("reservation")) : null;
-        this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

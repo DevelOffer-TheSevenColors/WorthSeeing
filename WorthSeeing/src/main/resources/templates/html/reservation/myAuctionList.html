@@ -27,7 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="reservation, state : ${reservationList}">
+    <tr th:if="${principal.username}==${reservationList.reservationUserIDList.users.userId}"  th:each="reservation, state : ${reservationList}" >
         <td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
         <td th:text="${reservation.startPrice}"></td>
         <td th:text="${reservation.userCnt}"></td>
