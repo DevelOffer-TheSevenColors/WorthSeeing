@@ -8,11 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.querydsl.core.BooleanBuilder;
 
-import kr.worthseeing.notify.dto.SearchDTO;
 import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.notify.entity.QNotify;
 import kr.worthseeing.notify.repository.NotifyRepository;
@@ -68,9 +66,14 @@ public class NotifyServiceImpl implements NotifyService {
 	
 	
 	@Override
-	public List<Notify> listNotify() {
-		return (List<Notify>) notifyRepo.findAll();
+	public Page<Notify> listNotify(Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "notify_seq");
+		
+		return notifyRepo.getNotifyList(pageable);
 	}
+	
+	    
 	
 
 }
