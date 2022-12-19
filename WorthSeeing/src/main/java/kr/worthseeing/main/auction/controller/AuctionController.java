@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.security.config.SecurityUser;
@@ -31,7 +32,14 @@ public class AuctionController {
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Auction auction) {
+	public String Auction(Model model,Auction auction) {
+		model.addAttribute("auction",auctionService.selectAuction(auction));
+		String block = "";
+		for(Block block_ : auctionService.selectAuction(auction).getReservation().getBlockGroup().getBlockList()) {
+			block += String.valueOf(block_.getBlock_seq()) + ", ";
+		}
+		block = block.substring(0, block.length()-2);
+		model.addAttribute("block", block);
 		return "/auction";
 	}
 
@@ -39,6 +47,7 @@ public class AuctionController {
 	@PostMapping("/bidding")
 	public String bidding(Auction auction, @AuthenticationPrincipal SecurityUser principal) {
 		auction.setUsers(principal.getUsers());
+		if(auctionService.findAuctionPrice(auction)<auction.getSuggestPrice())
 		auctionService.updateAuction(auction);
 		return "/auction";
 	}

@@ -1,9 +1,9 @@
 package kr.worthseeing.main.auction.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,9 +30,24 @@ public class Auction {
 	@GeneratedValue
 	private int auction_seq;
 	private int auctionPrice;
-	private int finishPrice;
 	private int suggestPrice;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date auctionStartDate = new Date();
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date auctionEndDate;
+	
+	// 경매 끝나는 날짜는 endDATE
+	public Auction(Date auctionEndDate) {
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(new Date()); 
+		cal.add(Calendar.DATE, 3); // 시작날짜에 3일 더하기
+		this.auctionEndDate= cal.getTime();
+	}
+	
+
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date suggestDate = new Date();
 	// private String userId;

@@ -24,9 +24,11 @@ public class QAuction extends EntityPathBase<Auction> {
 
     public final NumberPath<Integer> auction_seq = createNumber("auction_seq", Integer.class);
 
+    public final DateTimePath<java.util.Date> auctionEndDate = createDateTime("auctionEndDate", java.util.Date.class);
+
     public final NumberPath<Integer> auctionPrice = createNumber("auctionPrice", Integer.class);
 
-    public final NumberPath<Integer> finishPrice = createNumber("finishPrice", Integer.class);
+    public final DateTimePath<java.util.Date> auctionStartDate = createDateTime("auctionStartDate", java.util.Date.class);
 
     public final kr.worthseeing.main.reservation.entity.QReservation reservation;
 

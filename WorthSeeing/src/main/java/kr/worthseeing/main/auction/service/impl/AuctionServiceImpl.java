@@ -51,6 +51,11 @@ public class AuctionServiceImpl implements AuctionService{
 		auctionRepo.save(auction);
 	}
 	
+	@Override
+	public Auction selectAuction(Auction auction) {
+		return auctionRepo.findById(auction.getAuction_seq()).get();
+	}
+	
 	// 경매 종료
 	@Override
 	public void deleteAuction(Auction auction) {
@@ -68,8 +73,9 @@ public class AuctionServiceImpl implements AuctionService{
 		auctionRepo.save(findAuction);
 	}
 	
+	@Override
 	public int findAuctionPrice(Auction auction) {
-		return auctionRepo.findById(auction.getAuction_seq()).get().getFinishPrice();
+		return auctionRepo.findById(auction.getAuction_seq()).get().getSuggestPrice();
 	}
 	
 	// 경매 리스트 불러오기
