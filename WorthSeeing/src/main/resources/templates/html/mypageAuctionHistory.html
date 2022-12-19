@@ -1,65 +1,40 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
 </head>
 <body>
 
-<div class="row">
-  <div class="rightcolumn">
-    <div class="card">
-      <h2>구매 내역</h2>
-      </div>
-     <div>
-     <hr>
-     <table border="1">
-    <tr align="center">
-      <th scope="col">No.</th>
-      <th scope="col">시작가</th>
-      <th scope="col">낙찰가</th>
-      <th scope="col">낙찰자</th>
-      <th scope="col">경매일시</th>
-      <th scope="col">낙찰유무</th>
-    </tr>
-    <tr align="center">
-      <td>1</td>
-      <td>10,000</td>
-      <td>100,000,000</td>
-      <td>최환석</td>
-      <td>2022-12-12</td>
-      <td>✔</td>
-    </tr>
-  <tr align="center">
-      <td>1</td>
-      <td>10,000</td>
-      <td>90,000,000</td>
-      <td>여승현</td>
-      <td>2022-12-12</td>
-      <td>❌</td>
-    </tr>
-    <tr align="center">
-      <td>1</td>
-      <td>10,000</td>
-      <td>77,000,000</td>
-      <td>최환석</td>
-      <td>2022-12-12</td>
-      <td>✔</td>
-    </tr>
-    <tr align="center">
-      <td>1</td>
-      <td>10,000</td>
-      <td>10,000,000,000</td>
-      <td>최환석</td>
-      <td>2022-12-12</td>
-      <td>✔</td>
-    </tr>
-  </table>
-     
+	<div class="row">
+		<div class="rightcolumn">
+			<div class="card">
+				<h2>구매 내역</h2>
+			</div>
+			<div>
+				<hr>
+				<table border="1">
+					<tr align="center">
+						<th scope="col">No.</th>
+						<th scope="col">시작가</th>
+						<th scope="col">낙찰가</th>
+						<th scope="col">낙찰자</th>
+						<th scope="col">경매일시</th>
+						<th scope="col">낙찰유무</th>
+					</tr>
+					<tr align="center" th:each="auction, state : ${auctionList}">
+						<td th:text="${auction.auction_seq}"></td>
+						<td th:text="${auction.auctionPrice}"></td>
+						<td th:text="${auction.finishPrice}"></td>
+						<td th:text="${users.name}"></td>
+						<td th:text="${auction.suggestDate}"></td>
+						<td th:text="${users.userId == auction.users.userId}"></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
 	</div>
-      
-    </div>
-</div>
 
 
 </body>

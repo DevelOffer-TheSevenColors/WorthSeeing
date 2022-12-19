@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.event.coupon.entity.Coupon;
 
 public interface BlockGroupService {
 
@@ -16,5 +17,7 @@ public interface BlockGroupService {
 	Map<Integer, List<BlockGroup>> listBlockGroup();
 	
 	Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable);
+	
+	List<BlockGroup> getListBlockGroup();
 	
 }

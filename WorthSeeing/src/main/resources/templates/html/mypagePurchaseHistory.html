@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
@@ -12,12 +12,12 @@
       <h2>구매 내역</h2>
       </div>
       
-    <table border="1">
+    <table border="1" th:each="blockGroup, state : ${blockGroupList}">
     <tr align="center">
       <th colspan="4">17번 블록 구매내역</th>
     </tr>
     <tr align="center">
-      <td>구매일자</td>
+      <td th:text="${blockGroup.endDate}">구매일자</td>
       <td>결제상태</td>
       <td>구매일수</td>
       <td>잔여일수</td>
@@ -30,30 +30,23 @@
     </tr>
     </table>
       
-      
         <h3>결제정보</h3>
-    <table class="purchasetable">
-        <tr>
-            <td></td>
-            <th scope="col">아침</th>
-            <th scope="col">점심</th>
-            <th scope="col">저녁</tH>
-        </tr>
+    <table class="purchasetable" th:each="auction, state : ${auctionList}">
         <tr>
             <th scope="row">결제방법</th>
             <td>카카오페이</td>
              <th scope="row">휴대전화</th>
-            <td>010-1234-1234</td>
+            <td th:text="${users.tel}"></td>
         </tr>
          <tr>
             <th scope="row">-</th>
             <td>-</td>
              <th scope="row">이메일</th>
-            <td>thesevencolors@gmail.com</td>
+            <td th:text="${users.email}"></td>
         </tr>
         <tr>
             <th scope="row">결제금액</th>
-            <td>10,000,000,000</td>
+            <td th:text="${auction.finishPrice}"></td>
              <th scope="row">결제상태</th>
             <td>✔</td>
         </tr>

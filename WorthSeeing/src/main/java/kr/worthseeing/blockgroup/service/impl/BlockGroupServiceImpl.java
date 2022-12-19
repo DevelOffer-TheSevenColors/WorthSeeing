@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
@@ -188,6 +189,11 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		}
 
 		return resultMap;
+	}
+	
+	@Override
+	public List<BlockGroup> getListBlockGroup() {
+		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
 
 }
