@@ -46,6 +46,9 @@ public class BlockGroup {
 	@Column(columnDefinition = "number default 0")
 	private int price;
 	private int avgPrice;
+	
+	@Column(columnDefinition = "number default 0")
+	private int purchaseDay;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)

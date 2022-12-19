@@ -18,7 +18,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
@@ -27,6 +26,11 @@ import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
 public class BlockGroupServiceImpl implements BlockGroupService {
+	@Override
+	public List<BlockGroup> getListBlockGroup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
@@ -140,35 +144,15 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	 * 
 	 * }
 	 */
-//	Sort.by(Sort.Direction.DESC/ASC, "기준컬럼명")
 	
+	// 인기 블록 리스트
 	@Override
 	public Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable) {
-		
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "clickCnt");
 		
 		return blockGroupRepo.listBoard(pageable);
-//		List<BlockGroup> blockGroupList = blockGroupRepo.findOrderByclickCntDesc();
-
-//		for (BlockGroup blockGroup : blockGroupList) {
-//			int status = blockGroup.getStatus().getStatus_seq();
-//
-//			if (!resultMap.containsKey(status)) { // 
-//				resultMap.put(status, new ArrayList<>());
-//			}
-//
-//			resultMap.get(status).add(blockGroup);
-//		}
-		
-//		for(BlockGroup blockGroup : blockGroupList) {
-//			System.out.println("--> " + blockGroup);
-//		}
-//
-//		return blockGroupList;
 	}
-	
-	
 	
 	@Override
 	public Map<Integer, List<BlockGroup>> listBlockGroup() {
@@ -189,11 +173,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		}
 
 		return resultMap;
-	}
-	
-	@Override
-	public List<BlockGroup> getListBlockGroup() {
-		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
 
 }

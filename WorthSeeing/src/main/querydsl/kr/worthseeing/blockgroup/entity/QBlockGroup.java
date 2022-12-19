@@ -42,6 +42,8 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
+    public final NumberPath<Integer> purchaseDay = createNumber("purchaseDay", Integer.class);
+
     public final ListPath<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund> refundList = this.<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund>createList("refundList", kr.worthseeing.refund.entity.Refund.class, kr.worthseeing.refund.entity.QRefund.class, PathInits.DIRECT2);
 
     public final kr.worthseeing.main.reservation.entity.QReservation reservation;
