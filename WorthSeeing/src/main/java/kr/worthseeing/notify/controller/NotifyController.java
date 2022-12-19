@@ -21,7 +21,7 @@ public class NotifyController {
 	public String getNotifyList(Pageable pageable, Status status, Model model){
 		model.addAttribute("notifyList", notifyService.listNotify(pageable));
 		
-		return "/notify";
+		return "/notify/notify";
 	}
 	
 	@GetMapping("/insertNotify")

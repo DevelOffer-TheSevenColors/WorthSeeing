@@ -64,7 +64,7 @@ public class reservationTest {
 	@Autowired
 	private AuctionRepository auctionRepo;
 
-	//@Test
+//	@Test
 	public void StatusInsert() {
 		for (int i = 1; i < 5; i++) {
 			System.out.println(DecimalToBinary("A", i));
@@ -84,7 +84,7 @@ public class reservationTest {
 
 	}
 
-	//@Test
+//	@Test
 	public void insertBlockGroup() {
 
 		Users users = new Users("user1", "user1", "사용자", "사용자1-닉네임", "부산", "센텀 광안대교", "email@gmail.com",
@@ -105,7 +105,7 @@ public class reservationTest {
 
 	}
 
-	//@Test
+//	@Test
 	public void insertBlock() {
 
 		// block
@@ -188,7 +188,7 @@ public class reservationTest {
 
 	}
 
-	//@Test
+//	@Test
 	public void updateBlockGroupClickCnt() {
 
 		for (int i = 0; i < 153; i++) {

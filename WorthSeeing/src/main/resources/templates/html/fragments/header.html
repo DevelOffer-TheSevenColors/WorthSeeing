@@ -58,7 +58,8 @@
 					<div class="col-lg-6 text-center text-lg-right">
 						<div class="d-inline-flex align-items-center">
 							<div>
-								<span class="text-primary px-3">홍길동 님</span> <a
+								<span class="text-primary px-3"
+									sec:authentication="principal.users.name">님</span> <a
 									class="text-primary pl-3" href=""> <i
 									class="fa-solid fa-circle-user"></i>
 								</a>
@@ -91,13 +92,13 @@
 						<div class="navbar-nav ml-auto py-0">
 							<a href="index.html" class="nav-item nav-link active">Home</a> <a
 								href="/list/blockGroupRankList" class="nav-item nav-link">인기블록</a>
-							<a href="service.html" class="nav-item nav-link">1:1문의</a>
+							<a href="/notify" class="nav-item nav-link">공지사항</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle"
 									data-toggle="dropdown">경매공지</a>
 								<div class="dropdown-menu border-0 rounded-0 m-0">
-									<a href="/notify" class="dropdown-item">공지사항</a> <a
-										href="/logout" class="dropdown-item">로그아웃</a> <a
+									<a href="/logout" class="dropdown-item">로그아웃</a> <a
+										href="service.html" class="dropdown-item">1:1문의</a><a
 										href="single.html" class="dropdown-item">입찰 진행목록</a> <a
 										href="myAuctionList" class="dropdown-item">나의 경매목록</a>
 									<button onclick="location.href='/reservation/auctionList';">경매예약가능목록</button>
