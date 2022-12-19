@@ -2,14 +2,15 @@ package kr.worthseeing.main.auction.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.Transactional;
 
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.users.entity.Users;
@@ -33,15 +34,15 @@ public class Auction {
 	private int suggestPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
-	private Date suggestDate;
+	private Date suggestDate = new Date();
 	// private String userId;
 
 	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	@JoinColumn(name = "userId", nullable = false)
 	private Users users;
 
-	public void setUser(Users users) {
+	@Transactional
+	public void setUsers(Users users) {
 		this.users = users;
 		users.getAuctionList().add(this);
 	}

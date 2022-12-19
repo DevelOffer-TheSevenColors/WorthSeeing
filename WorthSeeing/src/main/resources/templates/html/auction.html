@@ -1,41 +1,52 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src = "/js/count.js"></script>
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/js/count.js"></script>
 </head>
+
 <body>
-
-<div>
-	    <h1 class = "h1-clock"></h1>
-	    <script src ="/js/clock.js"></script>
-	    <script src ="/js/timer.js"></script>
-	    
-	    <p class="font18">경매 운영시간</p>
-              <p class="runTimeCon font25">PM 12:00 ~ PM 15:00 </p>
-               <p class="font15 time-title">경매 마감까지 남은 시간</p>
-              <div class="time font40">
-                <span class="hours"></span>
-                <span class="col">:</span>
-                <span class="minutes"></span>
-                <span class="col">:</span>
-                <span class="seconds"></span>
-              </div>
-	</div>
-
 	<div>
-		<button onclick='count("10")'>+10</button>
-		<button onclick='count("100")'>+100</button>
-		<button onclick='count("1000")'>+1000</button>
-		<button onclick='count("10000")'>+10000</button>
-			<form th:action="@{/bidding}" method="post">
- 				<div id='result' th:value="${auction.suggestPrice}"></div>
-				<input type="submit" value="입찰하기" />
-			</form>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+
+
+				<h1 class="h1-clock"></h1>
+				<script src="/js/clock.js"></script>
+				<script src="/js/timer.js"></script>
+
+				<p style= "color: black" class="font18">경매 운영시간</p>
+				<p style= "color: black" class="runTimeCon font25">PM 12:00 ~ PM 15:00</p>
+				<p style= "color: black" class="font15 time-title">경매 마감까지 남은 시간</p>
+				<span style= "color: black" >가격 :</span><input readonly style="border: 0px;" id="ab"></input>
+				<div class="time font40">
+					<span class="hours"></span> <span class="col">:</span> <span
+						class="minutes"></span> <span class="col">:</span> <span
+						class="seconds"></span>
+				</div>
+
+				<form th:action="@{/bidding}" method="post">
+					<input type="hidden" name="auction_seq" id="auction_seq" value="1"></input>
+					<input name="suggestPrice"></input>
+					<!--  				<div id='result' th:value="${auction.suggestPrice}"></div> -->
+					<input type="submit" value="입찰하기" />
+				</form>
+
+			</div>
+
+			<input sec:authorize="hasRole('ROLE_ADMIN')" type="button"
+				action="@{/deleteAuction}" value="경매 중단" />
+
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
-		<input sec:authorize="hasRole('ROLE_ADMIN')" type="button" action="@{/deleteAuction}" value="경매 중단"/>
 
 </body>
+
 </html>

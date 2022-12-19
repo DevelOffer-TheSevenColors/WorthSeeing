@@ -3,13 +3,18 @@ package kr.worthseeing.main.auction.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.users.entity.Users;
 
 @Controller
@@ -18,17 +23,24 @@ public class AuctionController {
 	@Autowired
 	private AuctionService auctionService;
 
+	@ResponseBody // ajax를 불르기 위한 어노테이션
+	@RequestMapping(value = "/auction/selectPrice", method = RequestMethod.POST)
+	public int selectPrice(Auction auction) throws Throwable {
+		return auctionService.findAuctionPrice(auction);
+	}
+
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
 	public String Auction(Auction auction) {
-		return "auction";
+		return "/auction";
 	}
 
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Auction auction) {
+	public String bidding(Auction auction, @AuthenticationPrincipal SecurityUser principal) {
+		auction.setUsers(principal.getUsers());
 		auctionService.updateAuction(auction);
-		return "auction";
+		return "/auction";
 	}
 
 	// 경매 종료
@@ -57,12 +69,12 @@ public class AuctionController {
 		return "/mypageMain";
 	}
 
-	//결제 할 때 페이지 넘기는 값들 ㅎㅎ
+	// 결제 할 때 페이지 넘기는 값들 ㅎㅎ
 	@PostMapping("/updateCredit")
 	public String updateCredit(Users users, Auction auction) {
-		
+
 		auctionService.updateCreditInfo(users, auction);
 		return "/";
 	}
-	
+
 }

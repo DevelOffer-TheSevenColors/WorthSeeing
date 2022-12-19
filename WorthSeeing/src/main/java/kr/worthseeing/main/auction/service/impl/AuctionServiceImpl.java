@@ -61,10 +61,15 @@ public class AuctionServiceImpl implements AuctionService{
 	@Override
 	public void updateAuction(Auction auction) {
 		Auction findAuction = auctionRepo.findById(auction.getAuction_seq()).get();
-		findAuction.setUser(auction.getUsers());
+		System.out.println("@@@au"+findAuction);
+		findAuction.setUsers(auction.getUsers());
 		findAuction.setSuggestPrice(auction.getSuggestPrice());
 		findAuction.setSuggestDate(auction.getSuggestDate());
 		auctionRepo.save(findAuction);
+	}
+	
+	public int findAuctionPrice(Auction auction) {
+		return auctionRepo.findById(auction.getAuction_seq()).get().getFinishPrice();
 	}
 	
 	// 경매 리스트 불러오기

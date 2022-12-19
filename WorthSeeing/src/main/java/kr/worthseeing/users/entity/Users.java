@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -62,7 +63,7 @@ public class Users {
 	@Column(columnDefinition = "number default 0") //유저 데일리 클릭 수!(칼럼 추가 -환석-)
 	private int dailyClick;
 
-	@OneToMany(mappedBy = "users")
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Auction> auctionList = new ArrayList<Auction>();
 
 	@OneToMany(mappedBy = "users")

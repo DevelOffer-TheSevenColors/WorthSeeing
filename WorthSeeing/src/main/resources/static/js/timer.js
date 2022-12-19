@@ -1,5 +1,19 @@
 
+
  function remaindTime() {
+	
+	 $.ajax({
+        url: "/auction/selectPrice",
+        type: "POST",
+        data: {auction_seq:$("#auction_seq").val()},
+        success: function(data){
+            console.log(data);
+            $('#ab').val(data);
+        },
+        error: function(){
+        }
+  	});
+  	
     var now = new Date();
     var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,00,00);
@@ -46,3 +60,4 @@
    }
  }
  setInterval(remaindTime,1000);
+ 
