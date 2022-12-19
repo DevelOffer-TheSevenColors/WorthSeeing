@@ -48,8 +48,8 @@ public class BlockGroup {
 	private int avgPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false, columnDefinition = "date default sysdate")
-	private Date startDate;
+	@Column(updatable = false)
+	private Date startDate = new Date();
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false, columnDefinition = "date default sysdate")

@@ -24,7 +24,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public void insertReservation(Reservation reservation ,ReservationUserId reservationUserid) {
 		
-		
+		System.out.println("=====>"+reservation);
 		Reservation findreservation = reservationRepo.findById(reservation.getReservation_seq()).get();
 		findreservation.setUserCnt(findreservation.getUserCnt() + 1);
 		

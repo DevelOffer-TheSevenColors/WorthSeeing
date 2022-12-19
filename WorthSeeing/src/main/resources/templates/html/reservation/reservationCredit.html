@@ -15,6 +15,7 @@
 			<div class="container pt-5 pb-3">
 
 				<form th:action="@{/reservation/insertReservation}" method="post">
+				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}">
 					<table class="customBoard">
 						<thead>
 							<tr>
@@ -26,6 +27,7 @@
 								<td>선택한 블록</td>
 								<td th:name="reservation_seq"
 									th:text="${reservationCreditInfo.reservation_seq}"></td>
+									
 							</tr>
 							<tr>
 								<td>보증금</td>
