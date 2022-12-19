@@ -93,6 +93,14 @@ public class BlockGroup {
 		status.getBlockGroupList().add(this);
 	}
 
+	public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
+		this.blockGroup_seq = blockGroup_seq;
+		this.linkUrl = linkUrl;
+		this.cImg = cImg;
+		this.sImg = sImg;
+		this.avgPrice = avgPrice;
+	}
+	
 	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {
 		this.linkUrl = linkUrl;
 		this.cImg = cImg;

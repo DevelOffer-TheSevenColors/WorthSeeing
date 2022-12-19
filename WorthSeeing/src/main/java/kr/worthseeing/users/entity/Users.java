@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.auction.entity.Auction;
-import kr.worthseeing.main.reservation.entity.ReservationUserId;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.notify.entity.Notify;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +27,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"auctionList", "blockGroupList", "notifyList",  "couponList"})
+@ToString(exclude = { "auctionList", "blockGroupList", "notifyList", "couponList", "reservationUsersList" })
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users {
@@ -51,7 +51,7 @@ public class Users {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")
 	private Date joindate;
-	
+
 	@Column(columnDefinition = "number default 0")
 	private int point;
 	@Column(columnDefinition = "number default 0")
@@ -60,7 +60,7 @@ public class Users {
 	private int finishedAuctionCnt;
 	@Column(columnDefinition = "number default 0")
 	private int totalMoney;
-	@Column(columnDefinition = "number default 0") //유저 데일리 클릭 수!(칼럼 추가 -환석-)
+	@Column(columnDefinition = "number default 0") // 유저 데일리 클릭 수!(칼럼 추가 -환석-)
 	private int dailyClick;
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
@@ -72,13 +72,14 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
-//	@OneToMany(mappedBy = "users")
-//	private List<ReservationUserId> reservationUserIDList= new ArrayList<ReservationUserId>();
+	@OneToMany(mappedBy = "users")
+	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
 
 	@OneToMany(mappedBy = "users")
-	private List<Coupon> couponList= new ArrayList<Coupon>();
-	
-	public Users(String userId, String userPw, String name, String nickName, String address, String detailAddress, String email, String tel) {
+	private List<Coupon> couponList = new ArrayList<Coupon>();
+
+	public Users(String userId, String userPw, String name, String nickName, String address, String detailAddress,
+			String email, String tel) {
 		this.userId = userId;
 		this.userPw = userPw;
 		this.name = name;
@@ -88,5 +89,5 @@ public class Users {
 		this.email = email;
 		this.tel = tel;
 	}
-	
+
 }

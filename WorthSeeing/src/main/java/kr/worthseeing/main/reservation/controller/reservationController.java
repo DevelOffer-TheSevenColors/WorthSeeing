@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.main.reservation.entity.ReservationUserId;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
-import kr.worthseeing.users.entity.Users;
 
 @Controller
 @RequestMapping("/reservation")
@@ -28,13 +26,13 @@ public class reservationController {
 	private BlockGroupService blockGroupService;
 
 	// 예약가능 목록 띄우기
-	@GetMapping("/auctionList")
+	@GetMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation) {
 
 		List<Reservation> reservationList = reservationservice.selectReservation(reservation);
 		model.addAttribute("reservationList", reservationList);
 
-		return "/reservation/auctionList";
+		return "/reservation/reservationList";
 	}
 
 	// 나의 예약가능 목록 띄우기
@@ -49,16 +47,16 @@ public class reservationController {
 		return "/reservation/auctionList";
 	}
 
-	// 예약하기 눌리면 10프로 만결제하는 창으로 이동
+	// 예약하기 눌리면 10프로 만 결제하는 창으로 이동
 	@GetMapping("/reservationCredit")
-	private String reservationCredit(Model model, Reservation reservation,
-			@AuthenticationPrincipal SecurityUser principal) {
+	private String reservationCredit(Model model, Reservation reservation) {
 
 		model.addAttribute("reservationCreditInfo", reservationservice.selectReservationCreditInfo(reservation));
-		model.addAttribute("principal", principal);
+		
 		return "/reservation/reservationCredit";
 	}
 
+	// 결제하기 버튼 클릭 시 
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
 

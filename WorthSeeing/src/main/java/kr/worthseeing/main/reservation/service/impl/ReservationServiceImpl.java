@@ -3,15 +3,13 @@ package kr.worthseeing.main.reservation.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.main.reservation.entity.ReservationUserId;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
-import kr.worthseeing.main.reservation.repository.ReservationUserIdRepository;
+import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
 import kr.worthseeing.main.reservation.service.ReservationService;
-import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.users.entity.Users;
 
 @Service
@@ -21,9 +19,9 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationRepository reservationRepo;
 
 	@Autowired
-	private ReservationUserIdRepository reservationUseridRepo;
+	private ReservationUsersRepository reservationUsersRepo;
 
-	// 예약
+	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
 	public void insertReservation(Reservation reservation, Users users) {
 		System.out.println("reservation==>" + reservation);
@@ -31,13 +29,13 @@ public class ReservationServiceImpl implements ReservationService {
 
 		findreservation.setUserCnt(findreservation.getUserCnt() + 1); // 예약자 수 + 1
 
-		ReservationUserId reservationUserid = new ReservationUserId();
+		ReservationUsers reservationUsers = new ReservationUsers();
 
-		reservationUserid.setUserId("testid");
-		reservationUserid.setReservation(findreservation);
-		System.out.println("reservationUserid-==>" + reservationUserid);
+		reservationUsers.getUsers().setUserId("testid");;
+		reservationUsers.setReservation(findreservation);
+		System.out.println("reservationUserid-==>" + reservationUsers);
 		reservationRepo.save(findreservation);
-		reservationUseridRepo.save(reservationUserid);
+		reservationUsersRepo.save(reservationUsers);
 	}
 
 	// 예약 취소

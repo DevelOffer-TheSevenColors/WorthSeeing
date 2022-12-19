@@ -28,7 +28,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"auctionList", "reservationUserIDList", "blockGroup"})
+@ToString(exclude = {"auctionList", "reservationUsersList", "blockGroup"})
 public class Reservation {
 
 	@Id
@@ -44,22 +44,12 @@ public class Reservation {
 	private List<Auction> auctionList = new ArrayList<Auction>();
 
 	@OneToMany(mappedBy = "reservation")
-	private List<ReservationUserId> reservationUserIDList = new ArrayList<ReservationUserId>();
+	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
 
 	@OneToOne
 	@JoinColumn(name = "blockGroup_seq")
 	private BlockGroup blockGroup;
 
-//	public void setBlockGroup(BlockGroup blockGroup) {
-//		this.blockGroup=blockGroup;
-//		blockGroup.setResrvation(this);
-//		
-//	}
-	
-//	public void setBlockGroup(BlockGroup blockGroup) {
-//		this.blockGroup = blockGroup;
-//		blockGroup.getReservationList().add(this);
-//	}
 	
 	public Reservation(int startPrice, int userCnt) {
 		this.startPrice = startPrice;

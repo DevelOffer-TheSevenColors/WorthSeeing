@@ -28,7 +28,7 @@ public class QReservation extends EntityPathBase<Reservation> {
 
     public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
 
-    public final ListPath<ReservationUserId, QReservationUserId> reservationUserIDList = this.<ReservationUserId, QReservationUserId>createList("reservationUserIDList", ReservationUserId.class, QReservationUserId.class, PathInits.DIRECT2);
+    public final ListPath<ReservationUsers, QReservationUsers> reservationUsersList = this.<ReservationUsers, QReservationUsers>createList("reservationUsersList", ReservationUsers.class, QReservationUsers.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> startPrice = createNumber("startPrice", Integer.class);
 

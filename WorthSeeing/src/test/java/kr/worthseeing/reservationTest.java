@@ -1,13 +1,13 @@
 package kr.worthseeing;
 
+import org.junit.jupiter.api.Test;
+import java.util.Random;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Random;
-
-import org.junit.jupiter.api.Test;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -17,9 +17,9 @@ import kr.worthseeing.event.coupon.repository.CouponRepository;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.main.reservation.entity.ReservationUserId;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
-import kr.worthseeing.main.reservation.repository.ReservationUserIdRepository;
+import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.status.repository.StatusRepository;
 import kr.worthseeing.users.entity.Users;
@@ -56,7 +56,7 @@ public class reservationTest {
 	private ReservationRepository reservationRepo;
 
 	@Autowired
-	private ReservationUserIdRepository reservationUserIdRepo;
+	private ReservationUsersRepository reservationUserIdRepo;
 
 	@Autowired
 	private CouponRepository couponRepo;
@@ -172,10 +172,10 @@ public class reservationTest {
 		Reservation reservation = new Reservation();
 		reservation.setReservation_seq(28); // error 나면 seq 보고 변경하기
 
-		ReservationUserId reservationUserId = new ReservationUserId();
+		ReservationUsers reservationUserId = new ReservationUsers();
 
 		reservationUserId.setReservation(reservation);
-//		reservationUserId.setUsers(users);
+		reservationUserId.setUsers(users);
 
 		reservationUserIdRepo.save(reservationUserId);
 
@@ -206,7 +206,7 @@ public class reservationTest {
 	
 //	@Test
 	public void ReservationUserid() {
-		ReservationUserId reservationUserId = new ReservationUserId();
+		ReservationUsers reservationUserId = new ReservationUsers();
 		
 		Reservation reservation = new Reservation();
 		reservation.setReservation_seq(28);

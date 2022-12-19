@@ -14,8 +14,10 @@
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
-				<form th:action="@{/reservation/insertReservation(reservation_seq=${reservationCreditInfo.reservation_seq})}" method="post">
-<!-- 				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}"> -->
+				<form
+					th:action="@{/reservation/insertReservation(reservation_seq=${reservationCreditInfo.reservation_seq})}"
+					method="post">
+					<!-- 				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}"> -->
 					<table class="customBoard">
 						<thead>
 							<tr>
@@ -25,8 +27,9 @@
 						<tbody>
 							<tr>
 								<td>선택한 블록</td>
-								<td></td>
-									
+								<td th:name="reservation_seq"
+									th:text="${reservationCreditInfo.reservation_seq}"></td>
+
 							</tr>
 							<tr>
 								<td>보증금</td>
@@ -52,7 +55,7 @@
 				</form>
 
 				<div>
-					<a th:href="@{/reservation/auctionList}">돌아가기</a> 
+					<a th:href="@{/reservation/auctionList}">돌아가기</a>
 				</div>
 
 			</div>

@@ -52,6 +52,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final NumberPath<Integer> reservationCnt = createNumber("reservationCnt", Integer.class);
 
+    public final ListPath<kr.worthseeing.main.reservation.entity.ReservationUsers, kr.worthseeing.main.reservation.entity.QReservationUsers> reservationUsersList = this.<kr.worthseeing.main.reservation.entity.ReservationUsers, kr.worthseeing.main.reservation.entity.QReservationUsers>createList("reservationUsersList", kr.worthseeing.main.reservation.entity.ReservationUsers.class, kr.worthseeing.main.reservation.entity.QReservationUsers.class, PathInits.DIRECT2);
+
     public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final StringPath tel = createString("tel");
