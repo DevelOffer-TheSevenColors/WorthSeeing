@@ -21,4 +21,6 @@ public interface BlockGroupService {
 	
 	Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable);
 	
+	public BlockGroup findBlockGroup(BlockGroup blockGroup);
+	
 }

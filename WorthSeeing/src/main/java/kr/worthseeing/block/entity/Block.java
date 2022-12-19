@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,7 @@ public class Block {
 
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "blockGroup_seq", nullable = false)
 	private BlockGroup blockGroup;
 

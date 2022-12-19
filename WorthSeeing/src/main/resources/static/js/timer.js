@@ -3,14 +3,32 @@
  function remaindTime() {
 	
 	 $.ajax({
-        url: "/auction/selectPrice",
+        url: "/auction/selectAuction",
         type: "POST",
-        data: {auction_seq:$("#auction_seq").val()},
+        data: {auction_seq : $("#auction_seq").val()},
         success: function(data){
-            console.log(data);
-            $('#ab').val(data);
+            $('#currentPrice').val(data.suggestPrice);
+            $('#startPrice').val(data.auctionPrice);
         },
         error: function(){
+        }
+  	});
+  	
+  	$.ajax({
+        url: "/auction/selectBlock",
+        type: "POST",
+        data: {reservation_seq : $("#reservation_seq").val()},
+        success: function(data){
+            console.log(data[0].block_seq);
+            var block ="";
+            $.each(data , function(i){
+                block += data[i].block_seq +",";
+            });
+            block = block.substring(0,block.length-1);
+            $('#block').val(block);
+        },
+        error: function(){
+        	console.log("err");
         }
   	});
   	

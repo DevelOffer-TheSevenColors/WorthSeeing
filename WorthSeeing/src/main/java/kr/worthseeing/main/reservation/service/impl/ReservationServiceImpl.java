@@ -57,4 +57,5 @@ public class ReservationServiceImpl implements ReservationService {
 
 		return reservationRepo.findById(reservation.getReservation_seq()).get();
 	}
+	
 }

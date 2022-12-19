@@ -145,5 +145,9 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		return resultMap;
 	}
 	
+	@Override
+	public BlockGroup findBlockGroup(BlockGroup blockGroup) {
+		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+	}
 	
 }

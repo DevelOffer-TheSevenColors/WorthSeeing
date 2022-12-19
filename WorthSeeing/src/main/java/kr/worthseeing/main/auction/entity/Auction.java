@@ -3,7 +3,6 @@ package kr.worthseeing.main.auction.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.users.entity.Users;
@@ -38,6 +39,7 @@ public class Auction {
 
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)
+	@JsonIgnore
 	private Users users;
 
 	@Transactional
@@ -47,6 +49,7 @@ public class Auction {
 	}
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "reservation_seq", nullable = false, updatable = false)
 	private Reservation reservation;
 

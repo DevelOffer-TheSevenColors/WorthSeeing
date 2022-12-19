@@ -40,22 +40,25 @@
 							</td>
 						</tr>
 						<tr>
-							<td>현재 가격</td>
-							<td><input readonly style="border: 0px; text-align: center;" id="ab"></input>원</td>
+							<td>시작가</td>
+							<td><input readonly style="border: 0px; text-align: center;" id="startPrice"></input>원</td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<td>선택한 블록</td> -->
-<!-- 							<td th:text="${block}"></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>보증금</td> -->
-<!-- 							<td th:text="${auction.auctionPrice}"></td> -->
-<!-- 						</tr> -->
+						<tr>
+							<td>현재 가격</td>
+							<td><input readonly style="border: 0px; text-align: center;" id="currentPrice"></input>원</td>
+						</tr>
+						<tr>
+							<td>선택한 블록</td>
+							<td><input readonly style="border: 0px; text-align: center;" id="block"></input></td>
+						</tr>
 						<tr>
 							<td>입찰금액</td>
 							<td><form th:action="@{/bidding}" method="post">
 									<input type="hidden" name="auction_seq" id="auction_seq"
-										value="1"></input> <input name="suggestPrice"></input> <input
+										value="1" />
+									<input type="hidden" name="reservation_seq" id="reservation_seq"
+										value="19" /> <input name="suggestPrice"></input>
+									<input
 										type="submit" value="입찰하기" />
 								</form></td>
 						</tr>

@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.users.entity.Users;
 
@@ -22,11 +26,23 @@ public class AuctionController {
 
 	@Autowired
 	private AuctionService auctionService;
+	
+	@Autowired
+	private ReservationService reservationService;
+	
+	@Autowired
+	private BlockService blockService;
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
-	@RequestMapping(value = "/auction/selectPrice", method = RequestMethod.POST)
-	public int selectPrice(Auction auction) throws Throwable {
-		return auctionService.findAuctionPrice(auction);
+	@RequestMapping(value = "/auction/selectAuction", method = RequestMethod.POST)
+	public Auction selectAuction(Auction auction) throws Throwable {
+		return auctionService.findAuction(auction);
+	}
+
+	@ResponseBody // ajax를 불르기 위한 어노테이션
+	@RequestMapping(value = "/auction/selectBlock", method = RequestMethod.POST)
+	public List<Block> selectBlock(Reservation reservation) throws Throwable {
+		return blockService.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
 	}
 
 	// 경매 페이지로 이동
@@ -40,8 +56,6 @@ public class AuctionController {
 		return "/credit";
 	}
 	
-	
-
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
 	public String bidding(Auction auction, @AuthenticationPrincipal SecurityUser principal) {
