@@ -92,5 +92,4 @@ public class AuctionController {
 		auctionService.updateCreditInfo(users, auction);
 		return "/";
 	}
-
 }

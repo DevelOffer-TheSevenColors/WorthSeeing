@@ -44,7 +44,6 @@ public class AuctionServiceImpl implements AuctionService{
 		return listAuction;
 	}
 	*/
-	
 	// 경매 시작
 	@Override
 	public void insertAuction(Auction auction) {
