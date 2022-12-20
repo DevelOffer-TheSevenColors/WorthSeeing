@@ -87,7 +87,7 @@
 
 <form th:action="@{/admin/adminUserList}" method="post">
 					<div>
-						<nav class="customNav">
+						<nav class="customNav"> 
 							<ul class="customPagination"
 								th:with="start=${(1-(userList.number%1))%1 + 1},
 	                    	last=(${start + 9 < userList.totalPages ? start + 9 : userList.totalPages})">

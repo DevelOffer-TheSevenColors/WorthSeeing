@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 	
-	@Override
+	@Override 
 	protected void configure(HttpSecurity security) throws Exception {
 		security.authorizeHttpRequests().antMatchers("/system/**").permitAll();
 		security.authorizeHttpRequests().antMatchers("/member/**","/board/**","/mail", "/admin/**").authenticated();

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import kr.worthseeing.users.entity.Users;
 
-public interface adminService {
+public interface adminService { 
 
 Page<Users> selectUsers(Pageable pageable);
 

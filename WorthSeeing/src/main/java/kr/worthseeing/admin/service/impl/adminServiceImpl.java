@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.admin.service.adminService;
-import kr.worthseeing.users.entity.Users;
+import kr.worthseeing.users.entity.Users; 
 import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
