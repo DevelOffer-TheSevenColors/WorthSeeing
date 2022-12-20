@@ -1,3 +1,9 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Auction Reservation List</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
+</head>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -14,33 +20,32 @@
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-<table class="customBoard">
+				<table class="customBoard">
 
-    <thead>
-    <tr>
-        <th>블록 번호</th>
-        <th>경매 시작가격</th>
-        <th>예약 인원</th>
-        <th>일단 빈칸</th>
-        <th >예약 하러 가기</th>
+					<thead>
+						<tr>
+							<th>블록 번호</th>
+							<th>경매 시작가격</th>
+							<th>예약 인원</th>
+							<th>일단 빈칸</th>
+							<th>예약 하러 가기</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${principal.username}==${reservationList.reservationUserIDList.users.userId}"  th:each="reservation, state : ${reservationList}" >
-        <td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
-        <td th:text="${reservation.startPrice}"></td>
-        <td th:text="${reservation.userCnt}"></td>
-        <td>여기 뭐가들어가면 좋을지 다들 생각해보세용 ㅎㅎ</td>
-        <td ><a th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약 해야징 ㅋㅋ</a></td>
-    </tr>
-<!-- @{/board/getBoard(seq=${board.seq})} -->
-    </tbody>
-</table>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reservationUsers, state : ${reservationUsersList}" >
+							<td th:text="${reservationUsers.reservation.reservation_seq}"></td>
+					        <td th:text="${reservationUsers.reservation.startPrice}"></td>
+					        <td th:text="${reservationUsers.reservation.userCnt}"></td>
+					        <td>여기 뭐가들어가면 좋을지 다들 생각해보세용 ㅎㅎ</td>
+					        <td ><a th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매 참여하기</a></td>
+						</tr>
+					</tbody>
+				</table>
 
-	</div>
+			</div>
 		</div>
-	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
 
 </body>

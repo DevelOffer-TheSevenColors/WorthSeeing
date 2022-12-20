@@ -9,6 +9,7 @@
 
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/js/admin.js"></script>
 <body>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
@@ -53,33 +54,8 @@
 								<input  type="text" class="inputCustomCSS" name="blackYn" th:value="${user.blackYn}" readonly>
 								
 							</td>
+
 							
-							<script>
-								function changeCheckBox() {
-									
-									$(".blackYnCheckBox").change(function() {
-									
-									const is_checked = $(this).is(':checked');
-									console.log(is_checked);
-									
-									if(is_checked) {
-// 										$(this).next().text("yes");
-// 										$("#text1").val("test");
-										$(this).next().val("yes");
-									} else {
-// 										$(this).next().text("no");
-										$(this).next().val("no");
-									}
-										
-									});
-								}
-								
-									$(document).ready(function() {
-										
-										changeCheckBox();
-										
-									});
-							</script>
 						</tr>
 				</table>
 						<input type="submit" th:value="변경"/>

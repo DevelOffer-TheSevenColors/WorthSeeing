@@ -22,7 +22,6 @@ public interface AuctionService {
 	
 	void deleteAuction(Auction auction);
 	
-	List<Auction> getlistAuction();
 
 	//결제페이지에서 블록정보 가져올떄
 	Auction selectCredit(Auction auction);

@@ -51,12 +51,22 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	// 예약 가능 목록
+	@Override
 	public List<Reservation> selectReservation(Reservation reservation) {
 
 		return (List<Reservation>) reservationRepo.findAll();
 
 	}
 
+	// 나의 예약 리스트 목록
+		@Override
+		public List<ReservationUsers> selectMyReservation(String userid) {
+
+			return reservationUsersRepo.findReservationUsers(userid);
+			
+		}
+	
+	
 	// 10프로 예약결제페이지
 	@Override
 	public Reservation selectReservationCreditInfo(Reservation reservation) {

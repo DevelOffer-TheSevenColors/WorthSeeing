@@ -74,14 +74,7 @@ public class AuctionController {
 		return "redirect:/main";
 	}
 
-	// 경매중 리스트 페이지
-	@GetMapping("/myAuctionList")
-	public String getAuctionList(Model model) {
-		List<Auction> auctionList = auctionService.getlistAuction();
-
-		model.addAttribute("auctionList", auctionList);
-		return "/myAuctionList";
-	}
+	
 
 	// 결제할때 페이지 정보 불러오기
 	@GetMapping("/seletCredit")

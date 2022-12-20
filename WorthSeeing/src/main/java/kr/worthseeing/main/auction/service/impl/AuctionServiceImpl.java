@@ -71,11 +71,7 @@ public class AuctionServiceImpl implements AuctionService{
 		return auctionRepo.findById(auction.getAuction_seq()).get();
 	}
 
-	// 경매 리스트 불러오기
-	@Override
-	public List<Auction> getlistAuction() {
-		return (List<Auction>) auctionRepo.findAll();		
-	}
+	
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;

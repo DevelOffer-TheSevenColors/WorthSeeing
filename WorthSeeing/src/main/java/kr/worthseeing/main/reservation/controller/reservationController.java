@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
 
@@ -34,16 +35,18 @@ public class reservationController {
 		return "/reservation/reservationList";
 	}
 
+	
+	
 	// 나의 예약가능 목록 띄우기
 	@GetMapping("/myAuctionList")
 	private String selectMyAuctionList(Model model, Reservation reservation,
 			@AuthenticationPrincipal SecurityUser principal) {
 
-		List<Reservation> reservationList = reservationservice.selectReservation(reservation);
+		List<ReservationUsers> reservationUsersList = reservationservice.selectMyReservation(principal.getUsers().getUserId());
 		model.addAttribute("principal", principal);
-		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("reservationUsersList", reservationUsersList);
 
-		return "/reservation/auctionList";
+		return "/reservation/myAuctionList";
 	}
 
 	// 예약하기 눌리면 10프로 만 결제하는 창으로 이동
@@ -55,11 +58,11 @@ public class reservationController {
 		return "/reservation/reservationCredit";
 	}
 
-	// 결제하기 버튼 클릭 시 
+	// 10프로 결제하기 버튼 클릭 시 
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
 		reservationservice.insertReservationUsers(reservation, principal.getUsers().getUserId());
 
-		return "/reservation/auctionList";
+		return "redirect:/reservation/reservationList";
 	}
 }
