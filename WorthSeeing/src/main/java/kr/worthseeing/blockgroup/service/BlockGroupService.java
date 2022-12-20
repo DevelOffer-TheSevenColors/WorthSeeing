@@ -20,4 +20,9 @@ public interface BlockGroupService {
 	
 	public BlockGroup findBlockGroup(BlockGroup blockGroup);
 	
+	List<Integer> listBoardGroupSeq();
+	
+	List<String> listcImg();
+	
+	
 }

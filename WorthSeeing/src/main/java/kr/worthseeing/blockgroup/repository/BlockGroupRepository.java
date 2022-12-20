@@ -21,4 +21,12 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	
 	@Query("select max(b.blockGroup_seq) from BlockGroup b ")
 	int getMaxBlockGroupSeq();
+	
+	@Query("select b.blockGroup_seq from BlockGroup b order by b.blockGroup_seq")
+	List<Integer> listBlockGroupSeq();
+	
+	@Query("select b.cImg from BlockGroup b order by b.blockGroup_seq")
+	List<String> listcImg();
+	
+	
 }

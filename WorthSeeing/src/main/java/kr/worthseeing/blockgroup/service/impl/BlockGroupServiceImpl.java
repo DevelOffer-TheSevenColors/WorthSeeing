@@ -149,6 +149,17 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	}
 	
 	@Override
+	public List<Integer> listBoardGroupSeq() {
+		
+		return blockGroupRepo.listBlockGroupSeq();
+	}
+	
+	@Override
+	public List<String> listcImg() {
+		return blockGroupRepo.listcImg();
+	}
+	
+	@Override
 	public BlockGroup findBlockGroup(BlockGroup blockGroup) {
 		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 	}

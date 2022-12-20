@@ -21,6 +21,12 @@
 	height: 100px;
 	background-color: yellow;
 }
+
+.tt img {
+	width: 100%;
+	height:100%;
+}
+
 </style>
 	<script>
 		function createBlock(number) {
@@ -39,17 +45,20 @@
 
 		}
 
-		$(document).ready(
-				function() {
-					topSize = 0;
+		$(document).ready(function() {
+			topSize = 0;
+			var mapJson = [[${blockGroupSeqList}]];
+	        console.log(mapJson);
 
-					for (var i = 1; i <= 153; i++) {
-						var child = "<div class='tt' id=" + i + ">block" + i
-								+ "</div>";
-
-						$(".blockTest").append(child);
-
-						createBlock(i);
+	        var cImgList = encodeURI("[[${listcImg}]]");
+	        var cImgArr = cImgList.split(",");
+	        console.log(cImgArr);
+	        
+            for (var i = 1; i <= mapJson.length; i++) {
+               var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
+               
+               $(".blockTest").append(child);
+               createBlock(i);
 
 						if (i % 17 == 0) {
 							// 				$("#" + i).css('margin-left', 100 * i + 'px');
