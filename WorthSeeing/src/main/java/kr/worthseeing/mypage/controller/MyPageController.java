@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
@@ -76,11 +77,19 @@ public class MyPageController {
 		return "/mypagePurchaseHistory";
 	}
 	
+	// 클릭 시 db에 저장된 url로 이동 추가
 	@GetMapping("/click")
-	public String getClick(BlockGroup blockGroup, @AuthenticationPrincipal SecurityUser principal) {
+	public String getClick(BlockGroup blockGroup, 
+			@AuthenticationPrincipal SecurityUser principal,
+			@RequestParam("blockGroup_seq") int paramBlockGroupSeq) {
 		myPageService.getClick(blockGroup, principal);
-		
-		return "/main";
+
+		BlockGroup blockGroupSeq = blockGroupService.findBlockGroup(blockGroup);
+	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == paramBlockGroupSeq) {
+	        return "redirect:" + blockGroupSeq.getLinkUrl();
+	    } else {
+	        return null;
+	    }
 		
 	}
 
