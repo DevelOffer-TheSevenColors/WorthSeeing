@@ -79,6 +79,9 @@ public class AuctionServiceImpl implements AuctionService{
 	@Autowired
 	private UsersRepository usersRepo;
 	
+	@Autowired
+	private AuctionRepository auctionRepository;
+	
 	@Override
 	public void updateCreditInfo(Users users, Auction auction) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
 		
@@ -102,5 +105,16 @@ public class AuctionServiceImpl implements AuctionService{
 		return (Auction) auctionRepo.findAll();
 	}
 
+	
+	@Override
+	public void auctionCreditView(Auction auction ,Users users	) {
+		
+		Users findUser =usersRepo.findById(users.getUserId()).get();
+		Auction findAuction = auctionRepository.findById(auction.getAuctionPrice()).get();
+		findAuction.setSuggestPrice(auction.getSuggestPrice());
+		
+	findUser.setBlockGroupList((List<BlockGroup>) auction.getReservation().getBlockGroup());
+	
+	}
 	
 }

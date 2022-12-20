@@ -51,11 +51,24 @@ public class AuctionController {
 		model.addAttribute("user", principal.getUsers());
 		return "/auction";
 	}
-	// 낙착되어서 결제하러 갈떄
+	
+	
+	// 낙착되어서 결제하기 창
 	@GetMapping("/credit")
-	public String AuctionCredit(Auction auction) {
+	public String AuctionCreditview(Auction auction,Users user) {
+		
+	auctionService.auctionCreditView(auction, user);
+		
 		return "/credit";
 	}
+	
+	@PostMapping("/insertCredit")
+	public String AuctionCredit(Users user) {
+		
+		
+		return"";
+	}
+	
 	
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
