@@ -14,15 +14,15 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.service.CouponService;
-import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
+import kr.worthseeing.users.service.UsersService;
 
 @Controller
 public class MyPageController {
-	
+	 
 	@Autowired
 	private CouponService couponService;
 	
@@ -34,6 +34,11 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private UsersService usersService;
+	
+	
 	
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model,@AuthenticationPrincipal SecurityUser principal) {

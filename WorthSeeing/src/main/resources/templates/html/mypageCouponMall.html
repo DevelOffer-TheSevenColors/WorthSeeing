@@ -5,42 +5,38 @@
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
 <script type="text/javascript"></script>
 </head>
+
 <body>
 
-<div class="row">
-  <div class="menuItem">
-    <div class="card">
-      <h2>포인트 몰</h2>
-      </div>
-     <div>
-     <hr>
-     <h4>상품 정보</h4>
-     
-	<ul class="listLeftSort">
-	<li class="fakeimg">
-	<img src="coupon30000.jpg" width="200px" height="200px"></li>
-	 <div>30,000Point</div>
-	  <a onclick="alert('구매가 완료되었습니다.\n등록하신 휴대폰으로 메세지를 전송하였습니다.');" style="cursor:pointer">구매하기</a></li>
-	</ul>
-	
-	<ul class="listLeftSort">
-	<li class="fakeimg">
-	<img src="coupon50000.jpg" width="200px" height="200px"></li>
-	 <div>50,000Point</div>
-	  <a onclick="alert('구매가 완료되었습니다.\n등록하신 휴대폰으로 메세지를 전송하였습니다.');" style="cursor:pointer">구매하기</a></li>
-	</ul>
-	
-	<ul class="listLeftSort">
-	<li class="fakeimg">
-	<img src="coupon100000.jpg" width="200px" height="200px"></li>
-	 <div>100,000Point</div>
-	  <a onclick="alert('구매가 완료되었습니다.\n등록하신 휴대폰으로 메세지를 전송하였습니다.');" style="cursor:pointer">구매하기</a></li>
-	</ul>
-	
+	<div class="displayTable">
+		<div class="menuItem">
+			<div>
+				<h2>포인트 몰</h2>
+			</div>
+			<div>
+				<h3>상품 정보</h3>
+				<form th:action="@{/mypage/buyCouponProc}" method="post">
+					<ul class="listLeftSort">
+						<li><img src="coupon30000.jpg">
+							<p class="blackColor">30,000Point</p> 
+							<!-- onclick="alert('구매가 완료되었습니다.\n등록하신 휴대폰으로 메세지를 전송하였습니다.');" -->
+							<input type="submit" value="구매하기" /></li>
+
+						<li><img src="coupon50000.jpg">
+							<p class="blackColor">50,000Point</p> <input type="submit"
+							value="구매하기" /></li>
+
+						<li><img src="coupon100000.jpg">
+							<p class="blackColor">100,000Point</p> <input type="submit"
+							value="구매하기" />
+					</ul>
+
+				</form>
+
+			</div>
+
+		</div>
 	</div>
-      
-    </div>
-</div>
 
 </body>
 </html>

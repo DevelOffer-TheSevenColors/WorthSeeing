@@ -1,29 +1,27 @@
 package kr.worthseeing.mypage.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.repository.CouponRepository;
-import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.mypage.service.MyPageService;
-import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
+@Component
 public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
@@ -50,10 +48,10 @@ public class MyPageServiceImpl implements MyPageService {
 	public void getClick(BlockGroup blockGroup, Users users) {
 		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
-		
+
 		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt() + 1);
 		findUsers.setDailyClick(findUsers.getDailyClick() + 1);
-		
+
 		blockGroupRepo.save(findBlockGroup);
 		usersRepo.save(findUsers);
 
@@ -86,6 +84,20 @@ public class MyPageServiceImpl implements MyPageService {
 
 		return auctionLogMap;
 	}
+
+	@Scheduled(cron= "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정
+	public void updateUsersPoint() {
+		usersRepo.updateUsersPoint();
+
+//		updateUsers.setPoint(users.getPoint());
+//		usersRepo.save(updateUsers);
+		System.out.println("============>" + "10초마다 실행");
+	}
+
+//	@Scheduled(cron = "3 * * * * *", zone = "Asia/Seoul")
+//	public void test() {
+//		System.out.println("3초마다 실행");
+//	}
 
 	@Override
 	public List<BlockGroup> getListBlockGroup() {

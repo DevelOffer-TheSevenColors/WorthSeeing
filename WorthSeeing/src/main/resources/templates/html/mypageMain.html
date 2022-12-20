@@ -53,17 +53,16 @@
 						<div>
 							<table>
 								<tr>
-									<th scope="row">닉네임 :</th>
-									<td th:text="${users.nickName}"></td>
+									<th colspan="2"><span sec:authentication="principal.users.name"></span></th>
 									<td>님</td>
 								</tr>
 								<tr>
-									<th scope="row">보유포인트 :</th>
+									<th>보유포인트 :</th>
 									<td th:text="${users.point}"></td>
 									<td>Point</td>
 								</tr>
 								<tr>
-									<th scope="row">오늘 활동횟수 :</th>
+									<th>오늘 활동횟수 :</th>
 									<td th:text="${users.dailyClick}"></td>
 									<td>Click</td>
 								</tr>
@@ -95,7 +94,7 @@
 
 					</div>
 				</div>
-				<h1>MyPage</h1>
+				
 				<div>
 					<div class="menuItem">
 						<div class="card">

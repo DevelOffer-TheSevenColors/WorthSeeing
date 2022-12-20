@@ -1,5 +1,28 @@
 @charset "UTF-8";
 
+.listLeftSort li {
+	float: left;
+}
+
+.listLeftSort img {
+	width: 200px;
+	height: 200px;
+}
+
+.blackColor {
+	color: black;
+}
+
+.displayTable {
+	display: table;
+}
+
+
+
+
+
+
+
 * {
 	box-sizing: border-box;
 }

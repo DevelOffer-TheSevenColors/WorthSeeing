@@ -14,6 +14,9 @@ public interface UsersRepository  extends CrudRepository<Users, String>,Querydsl
 	@Query("select u From Users u")
 	Page<Users> findAll(Pageable pageable);
 	
+	@Query(value=" update Users u set daily_Click = 0 ", nativeQuery = true)
+	void updateUsersPoint();
+	
 	
 	
 }
