@@ -21,7 +21,10 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationUsersRepository reservationUsersRepo;
 	
-	
+	@Override
+	public void insertUserMaxPrice(ReservationUsers reservationUser) {
+		reservationUsersRepo.save(reservationUser);
+	}
 
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
@@ -66,7 +69,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 예약 가능 목록
 	@Override
-	public ReservationUsers findOneReservation(Reservation reservation, Users user) {	
+	public List<ReservationUsers> findOneReservation(Reservation reservation, Users user) {	
 		return reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), user.getUserId());
 	}
 

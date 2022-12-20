@@ -18,5 +18,7 @@ public interface ReservationService {
 	
 	public Reservation selectReservationCreditInfo(Reservation reservation);
 	
-	public ReservationUsers findOneReservation(Reservation reservation, Users user);
+	public List<ReservationUsers> findOneReservation(Reservation reservation, Users user);
+	
+	public void insertUserMaxPrice(ReservationUsers reservationUser);
 }

@@ -15,5 +15,5 @@ public interface ReservationUsersRepository  extends CrudRepository<ReservationU
 	List<ReservationUsers> findReservationUsers(String keyword);
 
 	@Query(" SELECT r FROM ReservationUsers r Where reservation_seq = ?1 AND user_Id =?2 "  )
-	ReservationUsers findOneReservationUsers(int reservation_seq, String userid);
+	List<ReservationUsers> findOneReservationUsers(int reservation_seq, String userid);
 }

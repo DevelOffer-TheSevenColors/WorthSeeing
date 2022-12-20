@@ -101,18 +101,13 @@ function checkForm() {
     var currentPrice = document.currentPrice;
     console.log(suggestPrice.value);
    
-    // 아이디 입력 유무 체크
-    if(suggestPrice.value == '') {
-        window.alert("입찰금액을 입력하시오");
-        document.fmField.suggestPrice.focus();
-        document.getElementById('suggestPrice').select();
-        return false; // 입찰금액 입력이 안되어 있다면 submint 이벤트를 중지
-    }
     // 암호 입력 유무 체크
-    if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){
-        alert('현재 입찰가격보다 큰 금액을 입력해주세요!');
-        suggestPrice.focus();
-        return false;
+    if(!$('#autoCheck').is(':checked')){
+	    if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){
+	        alert('현재 입찰가격보다 큰 금액을 입력해주세요!');
+	        suggestPrice.focus();
+	        return false;
+	    }
     }
 }
 

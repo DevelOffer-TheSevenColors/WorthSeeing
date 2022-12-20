@@ -17,6 +17,7 @@ import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.users.entity.Users;
@@ -59,11 +60,17 @@ public class AuctionController {
 	
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Auction auction,String cPrice, @AuthenticationPrincipal SecurityUser principal, String autoPrice) {
-		reservationService.selectMyReservation(principal.getUsers().getUserId());
-		if(Integer.parseInt(cPrice)<auction.getSuggestPrice()) {
-			auction.setUsers(principal.getUsers());
-			auctionService.updateAuction(auction);
+	public String bidding(Reservation reservation,Auction auction,String cPrice, @AuthenticationPrincipal SecurityUser principal, String autoPrice) {
+		if(autoPrice==null) {
+			if(Integer.parseInt(cPrice)<auction.getSuggestPrice()) {
+				auction.setUsers(principal.getUsers());
+				auctionService.updateAuction(auction);
+			}
+		}else {
+			ReservationUsers reservationUser = reservationService.findOneReservation(reservation, principal.getUsers()).get(0);
+			System.out.println("@maxPrice@"+reservationUser.getMaxPrice());
+			reservationUser.setMaxPrice(Integer.parseInt(autoPrice));
+			reservationService.insertUserMaxPrice(reservationUser);
 		}
 		return "/auction";
 	}
