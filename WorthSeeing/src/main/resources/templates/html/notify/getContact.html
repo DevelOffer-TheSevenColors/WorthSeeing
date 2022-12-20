@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시글 상세</title>
+</head>
+<body>
+	<div id="wrapper" class="alignCenter">
+
+		<div id="title">
+			<h1>게시글 상세</h1>
+		</div>
+
+		<div id="content">
+
+			<form th:action="@{/notify/updateNotifyProc}" method="post">
+				<table class="getNotify">
+					<tr>
+						<td th:text="제목" width="80"></td>
+						<td><input name="notify_seq" type="hidden"
+							th:value="${notify.notify_seq}"> <input name="title"
+							type="text" th:value="${notify.title}"></td>
+					</tr>
+					<tr>
+						<td th:text="작성자"></td>
+						<td><span sec:authentication="principal.users.name"></span></td>
+					</tr>
+					<tr>
+						<td th:text="내용">
+						<td><textarea name="content" th:text="${notify.content}"
+								cols="40" rows="10"></textarea></td>
+					</tr>
+
+					<tr>
+						<td th:text="조회수"></td>
+						<td th:text="${notify.viewCnt}"></td>
+					</tr>
+
+					<tr>
+						<td th:text="등록일"></td>
+						<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}">
+					</tr>
+
+				</table>
+				<input th:if="${notify.users.userId == principal.users.userId}"
+					type="submit" value="게시글 수정" class="btn">
+			</form>
+
+			<div class="aLink">
+				<a th:if="${notify.users.userId == principal.users.userId}"
+					th:href="@{/notify/deleteNotifyProc(notify_seq=${notify.notify_seq})}">게시글
+					삭제</a>
+			</div>
+			<div>
+				<a th:href="@{/notify}">게시글 목록</a>
+			</div>
+
+			<!-- 댓글 -->
+			<table class="reply">
+				<colgroup>
+					<col width="10%" />
+					<col width="20%" />
+					<col width="20%" />
+					<col width="30%" />
+					<col width="10%" />
+				</colgroup>
+
+				<tr class="tableTRHeight">
+					<th colspan="5">댓글 목록</th>
+				</tr>
+
+				<tr class="tableTRHeight">
+					<td></td>
+					<td><span sec:authentication="principal.users.userId"></span> :</td>
+					<td colspan="2" id="insertContact"><input type="text"
+						name="replyContent" size="100" /></td>
+					<td colspan="2"><input type="submit" value="등록" /></td>
+				</tr>
+
+				<tr>
+					<td class="borderTop">번호</td>
+					<td class="borderTop">댓글 작성자</td>
+					<td class="borderTop">댓글 내용</td>
+					<td class="borderTop">댓글 작성일</td>
+					<td class="borderTop"></td>
+				</tr>
+
+				<tr th:each="reply, state : ${replyList}">
+					<td th:text="${state.count}">
+					<td th:text="${reply.replyer}"></td>
+					<td th:text="${reply.replyContent}"></td>
+					<td th:text="${#dates.format(reply.replyDate, 'yyyy-MM-dd')}"></td>
+					<td><a th:if="${reply.replyer == principal.users.name}"
+						th:href="@{/notify/deleteReply(rid=${reply.rid}, notify_seq=${notify.notify_seq})}">삭제</a>
+					</td>
+				</tr>
+				
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
