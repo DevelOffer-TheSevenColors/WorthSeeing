@@ -10,12 +10,15 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
+import kr.worthseeing.users.entity.Users;
 
 @Controller
 public class BlockGroupController {
@@ -30,8 +33,8 @@ public class BlockGroupController {
 	}
 	
 	@PostMapping("/writeURLThumb")
-	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files) {
-		blockGroupService.insertBlockGroup(blockGroup, files);
+	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files, Users users) {
+		blockGroupService.insertBlockGroup(blockGroup, files, users);
 		
 		return "redirect:/main";
 	}

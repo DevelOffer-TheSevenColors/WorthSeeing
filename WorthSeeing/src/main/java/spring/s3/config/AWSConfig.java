@@ -16,7 +16,7 @@ public class AWSConfig {
 	// @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
 	
-	// @Value("${cloud.aws.credentials.secretKey}")
+	// @Value("${cloud.aws.credentials.secretKey}") 
     private String secretKey;
 	
 	@Value("${cloud.aws.region.static}")

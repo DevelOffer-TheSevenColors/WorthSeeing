@@ -81,11 +81,11 @@ public class MyPageController {
 	@GetMapping("/click")
 	public String getClick(BlockGroup blockGroup, 
 			@AuthenticationPrincipal SecurityUser principal,
-			@RequestParam("blockGroup_seq") int paramBlockGroupSeq) {
+			@RequestParam int blockGroup_seq) {
 		myPageService.getClick(blockGroup, principal);
 
 		BlockGroup blockGroupSeq = blockGroupService.findBlockGroup(blockGroup);
-	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == paramBlockGroupSeq) {
+	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == blockGroup_seq) {
 	        return "redirect:" + blockGroupSeq.getLinkUrl();
 	    } else {
 	        return null;
