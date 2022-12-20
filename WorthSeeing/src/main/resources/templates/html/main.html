@@ -30,11 +30,15 @@
 </style>
 	<script>
 		function createBlock(number) {
-
+			
 			// 			Block cnt && User Daily Click
 			$("#" + number).click(function() {
-				location.href = "/click?blockGroup_seq=" + number;
+// 				location.href = "/click?blockGroup_seq=" + number;
+				const dummy = Math.random();
+				setWithExpiry("myKey" + dummy, "test", number);
+				
 			});
+			
 			//현재페이지에서 1클릭씩 증가하는 변수 생성하여 10이되면 알림창 띄우게..
 
 			if (number % 17 == 0) {
@@ -44,6 +48,22 @@
 			}
 
 		}
+		
+		var arr = new Array();
+		
+		function setWithExpiry(key, userId, number) {
+			arr.push(number);
+			const item = {
+					number: arr.toString()
+				};
+			localStorage.setItem(userId, JSON.stringify(item))
+		}
+		
+		
+		function getWithExpiry(key) {
+			return localStorage.getItem(key)
+		}
+		
 
 		$(document).ready(function() {
 			topSize = 0;

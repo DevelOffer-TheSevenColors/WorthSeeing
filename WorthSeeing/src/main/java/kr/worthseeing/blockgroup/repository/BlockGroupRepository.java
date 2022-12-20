@@ -28,5 +28,7 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	@Query("select b.cImg from BlockGroup b order by b.blockGroup_seq")
 	List<String> listcImg();
 	
+	@Query("select b from BlockGroup b order by b.blockGroup_seq")
+	List<BlockGroup> orderByBlockGroupSeq();
 	
 }

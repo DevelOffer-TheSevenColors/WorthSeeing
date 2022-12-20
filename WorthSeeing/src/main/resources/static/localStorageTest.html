@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',() => {
+   const c = document.querySelector('c')
+   const button = document.querySelector('button')
+   const input = document.querySelector('input')
+   
+   const key = localStorage.getItem('키')
+   if(key !== null){
+      c.textContent = '이전 실행 때의 마지막 값 : ${key}'
+      input.value = key
+   }
+   
+   button.addEventListener('click',() => {
+      localStorage.clear()
+   })
+   input.addEventListener('keyup',() => {
+      localStorage.setItem('키',input.value)
+   })
+})
+</script>
+</head>
+<body>
+<p></p>
+<button>버어튼</button>
+<input type="text">
+</body>
+</html>
