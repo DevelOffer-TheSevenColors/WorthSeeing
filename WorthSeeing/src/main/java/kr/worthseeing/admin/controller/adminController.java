@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.worthseeing.admin.service.adminService;
+import kr.worthseeing.admin.service.AdminService;
 import kr.worthseeing.users.entity.Users;
 
 @Controller
@@ -20,7 +20,7 @@ import kr.worthseeing.users.entity.Users;
 public class adminController {
 
 	@Autowired
-	adminService adminService;
+	AdminService adminService;
 	
 	@RequestMapping("/adminUserList")
 	public String selectUsersList(Model model ,  @PageableDefault Pageable pageable) {
