@@ -26,7 +26,10 @@ public class adminController {
 	public String selectUsersList(Model model ,  @PageableDefault Pageable pageable) {
 		
 		Page<Users> userList = adminService.selectUsers(pageable);
+		int nowPage=  userList.getPageable().getPageNumber()+1;
+		
 		model.addAttribute("userList", userList);
+		model.addAttribute("nowPage", nowPage);
 		
 		return "/admin/adminUserList";
 	

@@ -69,7 +69,7 @@
 
 								<li th:each="page : ${#numbers.sequence(start, last)}"
 									th:class="${page == notifyList.number + 1} ? 'active'">
-									<button name="page" th:value="${page}" th:text="${page}"></button>
+									<button  name="page" th:value="${page}" th:text="${page}"></button>
 								</li>
 
 								<li th:class="${notifyList.last} ? 'disabled'">
