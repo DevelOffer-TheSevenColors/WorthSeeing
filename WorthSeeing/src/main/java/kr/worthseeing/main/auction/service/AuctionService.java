@@ -2,6 +2,7 @@ package kr.worthseeing.main.auction.service;
 
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
+import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.users.entity.Users;
 
 public interface AuctionService {
@@ -10,7 +11,9 @@ public interface AuctionService {
 	
 	void deleteAuctionLog(AuctionLog auctionLog);
 	
-	void updateAuction(Auction auction);
+	void updateAuction(Auction auction, Reservation reservation);
+	
+	void updateMaxPrice(Reservation reservation, String maxPrice);
 	
 	// Auction listAuction(Auction auction);
 	
@@ -21,11 +24,12 @@ public interface AuctionService {
 	//결제페이지에서 블록정보 가져올떄
 	Auction selectCredit(Auction auction);
 	
-	public Auction findAuction(Auction auction);
+	public Auction findAuction(Reservation reservation);
 	
 	//페이지 작성후 등록할 때
 	void updateCreditInfo(Users users, Auction auction);
 	
+	void autoAuction(Reservation reservation, Users user);
 	
 	//결제하기 회원 블록 가격 정보 띄우기 
 	void auctionCreditView(Auction auction,Users users);

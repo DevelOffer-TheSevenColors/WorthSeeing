@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.action_return;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.main.auction.entity.Auction;
@@ -27,50 +28,62 @@ public class AuctionController {
 
 	@Autowired
 	private AuctionService auctionService;
-	
+
 	@Autowired
 	private ReservationService reservationService;
-	
+
 	@Autowired
 	private BlockService blockService;
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/selectAuction", method = RequestMethod.POST)
-	public Auction selectAuction(Auction auction) throws Throwable {
-		return auctionService.findAuction(auction);
+	public Auction selectAuction(Reservation reservation) throws Throwable {
+		return auctionService.findAuction(reservation);
 	}
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/selectBlock", method = RequestMethod.POST)
 	public List<Block> selectBlock(Reservation reservation) throws Throwable {
-		return blockService.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
+		return blockService
+				.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
+	}
+
+	@ResponseBody // ajax를 불르기 위한 어노테이션
+	@RequestMapping(value = "/auction/autoBidding", method = RequestMethod.POST)
+	public String autoBidding(Reservation reservation ,@AuthenticationPrincipal SecurityUser principal) throws Throwable {
+		auctionService.autoAuction(reservation, principal.getUsers());
+		return "success";
 	}
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Model model,Auction auction, @AuthenticationPrincipal SecurityUser principal) {
+	public String Auction(Model model, Auction auction, @AuthenticationPrincipal SecurityUser principal) {
 		model.addAttribute("user", principal.getUsers());
 		return "/auction";
 	}
+
 	// 낙착되어서 결제하러 갈떄
 	@GetMapping("/credit")
 	public String AuctionCredit(Auction auction) {
 		return "/credit";
 	}
-	
+
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Reservation reservation,Auction auction,String cPrice, @AuthenticationPrincipal SecurityUser principal, String autoPrice) {
-		if(autoPrice==null) {
-			if(Integer.parseInt(cPrice)<auction.getSuggestPrice()) {
+	public String bidding(Reservation reservation, String suggestPrice, String cPrice,
+			@AuthenticationPrincipal SecurityUser principal, String autoPrice) {
+		System.out.println("@@aa@@");
+		Auction auction = null;
+		if (autoPrice.equals("")) {
+			auction = new Auction();
+			auction.setSuggestPrice(Integer.parseInt(suggestPrice));
+			if (Integer.parseInt(cPrice) < auction.getSuggestPrice()) {
 				auction.setUsers(principal.getUsers());
-				auctionService.updateAuction(auction);
+				auctionService.updateAuction(auction, reservation);
 			}
-		}else {
-			ReservationUsers reservationUser = reservationService.findOneReservation(reservation, principal.getUsers()).get(0);
-			System.out.println("@maxPrice@"+reservationUser.getMaxPrice());
-			reservationUser.setMaxPrice(Integer.parseInt(autoPrice));
-			reservationService.insertUserMaxPrice(reservationUser);
+		}
+		else {
+			auctionService.updateMaxPrice(reservation, autoPrice);
 		}
 		return "/auction";
 	}
@@ -82,15 +95,13 @@ public class AuctionController {
 		return "redirect:/main";
 	}
 
-	
-
 	// 결제할때 페이지 정보 불러오기
 	@GetMapping("/seletCredit")
 	public String selectCredit(Model model, Auction auction) {
 		auctionService.selectCredit(auction);
-		
+
 		model.addAttribute("reservationList", auctionService.selectCredit(auction));
-		
+
 		return "/mypageMain";
 	}
 

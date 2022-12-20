@@ -33,9 +33,6 @@ public class ReservationUsers  {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date reservationUserIdDate = new Date();
 	
-	@Column(columnDefinition = "number default 0")
-	private int MaxPrice;
-	
 	@ManyToOne
 	@JoinColumn(name = "reservation_seq")
 	private Reservation reservation;

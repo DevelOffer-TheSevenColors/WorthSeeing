@@ -26,6 +26,8 @@ public class QAuction extends EntityPathBase<Auction> {
 
     public final NumberPath<Integer> auctionPrice = createNumber("auctionPrice", Integer.class);
 
+    public final NumberPath<Integer> maxPrice = createNumber("maxPrice", Integer.class);
+
     public final kr.worthseeing.main.reservation.entity.QReservation reservation;
 
     public final DateTimePath<java.util.Date> suggestDate = createDateTime("suggestDate", java.util.Date.class);

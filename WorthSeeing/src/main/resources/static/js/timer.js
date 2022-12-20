@@ -5,11 +5,14 @@
 	 $.ajax({
         url: "/auction/selectAuction",
         type: "POST",
-        data: {auction_seq : $("#auction_seq").val()},
+        data: {reservation_seq : $("#reservation_seq").val()},
         success: function(data){
             $('#currentPrice').val(data.suggestPrice);
+            $('#currentPrice1').val(data.suggestPrice);
             $('#currentPriceSend').val(data.suggestPrice);
             $('#startPrice').val(data.auctionPrice);
+            $('#currentMaxPrice').val(data.maxPrice);
+            $('#currentMaxPrice1').val(data.maxPrice);
         },
         error: function(){
         }
@@ -27,6 +30,18 @@
             block = block.substring(0,block.length-1);
             $('#block').val(block);
             $('#startDate').val(data[0].endDate.substring(0,data[0].endDate.indexOf('T')));
+        },
+        error: function(){
+        	console.log("err");
+        }
+  	});
+  	
+  	  $.ajax({
+        url: "/auction/autoBidding",
+        type: "POST",
+        data: {reservation_seq : $("#reservation_seq").val()},
+        success: function(data){
+           console.log(data);
         },
         error: function(){
         	console.log("err");
@@ -76,20 +91,18 @@
       $(".minutes").html(min);
       $(".seconds").html(sec);
    }
-      console.log("@");
-    console.log($('#currentPrice').val());
  }
  
  $(window).on("load",function(){
  	remaindTime();
- 	$("#autoPrice").hide();
+ 	$(".autoPrice").hide();
  	$("#autoCheck").on('click', function() {
       	if ($('#autoCheck').is(':checked')) {
-       	 $("#autoPrice").show();
-       	 $("#sPrice").hide();
+       	 $(".autoPrice").show();
+       	 $(".sPrice").hide();
       	} else {
-        	$("#autoPrice").hide();
-        	$("#sPrice").show();
+        	$(".autoPrice").hide();
+        	$(".sPrice").show();
     	  }
    });
  });
@@ -98,14 +111,20 @@
  
 function checkForm() {
     var suggestPrice = document.fmField.suggestPrice;
-    var currentPrice = document.currentPrice;
-    console.log(suggestPrice.value);
+    var autoPrice = document.fmField.autoPrice;
+ 	
+   
    
     // 암호 입력 유무 체크
     if(!$('#autoCheck').is(':checked')){
 	    if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){
 	        alert('현재 입찰가격보다 큰 금액을 입력해주세요!');
 	        suggestPrice.focus();
+	        return false;
+	    }
+    }else{
+    	if( parseInt($('#currentMaxPrice').val()) >= parseInt(autoPrice.value) ){
+	        alert('현재 최대입찰가격보다 큰 금액을 입력해주세요!');
 	        return false;
 	    }
     }

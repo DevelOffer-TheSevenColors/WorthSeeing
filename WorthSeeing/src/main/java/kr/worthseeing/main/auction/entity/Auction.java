@@ -2,6 +2,7 @@ package kr.worthseeing.main.auction.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -32,6 +33,8 @@ public class Auction {
 	private int auction_seq;
 	private int auctionPrice;
 	private int suggestPrice;
+	@Column(columnDefinition = "number default 0")
+	private int maxPrice;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date suggestDate = new Date();

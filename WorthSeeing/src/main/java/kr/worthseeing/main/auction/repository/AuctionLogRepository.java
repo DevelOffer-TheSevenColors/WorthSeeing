@@ -12,6 +12,7 @@ import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.pointlog.entity.PointLog;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
+import kr.worthseeing.main.reservation.entity.Reservation;
 
 public interface AuctionLogRepository  extends CrudRepository<AuctionLog, Integer>,
 QuerydslPredicateExecutor<AuctionLog>  {

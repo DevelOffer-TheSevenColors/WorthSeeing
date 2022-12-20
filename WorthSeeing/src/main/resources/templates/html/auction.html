@@ -88,7 +88,8 @@
 						<input type="hidden" name="auction_seq" id="auction_seq" value="1" />
 						<input type="hidden" name="reservation_seq" id="reservation_seq"
 							value="19" /></input> <input type="hidden" name="cPrice"
-							id="currentPriceSend"></input> <br />
+							id="currentPriceSend"></input> <input type="hidden"
+							name="currentMaxPrice" id="currentMaxPrice"></input> <br />
 
 						<table
 							style="font-size: 20px; text-align: center; margin-left: 70px;">
@@ -98,15 +99,25 @@
 									<td><input style="width: 16px; height: 16px;"
 										type="checkbox" name="autoCheck" id="autoCheck" />
 								<tr>
-								<tr id="sPrice">
+								<tr class="sPrice">
+									<td>현재금액</td>
+									<td><input readonly
+										style="border: 0px; text-align: center;" id="currentPrice1"></input>원</td>
+								</tr>
+								<tr class="sPrice">
 									<td>입찰금액</td>
 									<td><input style="text-align: center; width: 150px;"
 										id="suggestPrice" name="suggestPrice"></td>
 								<tr>
-								<tr id="autoPrice">
+								<tr class="autoPrice">
+									<td>현재최대금액</td>
+									<td><input readonly
+										style="border: 0px; text-align: center;" id="currentMaxPrice1"></input>원</td>
+								</tr>
+								<tr class="autoPrice">
 									<td>최대입찰금액</td>
 									<td><input name="autoPrice"
-										style=" text-align: center; width: 150px;"></input></td>
+										style="text-align: center; width: 150px;"></input></td>
 								<tr>
 								<tr>
 									<td>서비스시작일</td>
@@ -117,9 +128,10 @@
 						</table>
 						<br />
 						<p style="text-align: center; font-size: 25px;">자동입찰시 유의사항</p>
-						<textarea readonly style="font-size:20px; margin-left: 80px; width: 75%; height: 10.85em;">&#10;&#10;&nbsp;&nbsp;1. 최대금액까지 입찰이 진행된다. &#10;&#10;&nbsp;&nbsp;2. 최대금액의 10%로 입찰이 진행된다.&#10;&#10;&nbsp;&nbsp;3.자동입찰시 입찰을 중단할 수 있다.
+						<textarea readonly
+							style="font-size: 20px; margin-left: 80px; width: 75%; height: 10.85em;">&#10;&#10;&nbsp;&nbsp;1. 최대금액까지 입찰이 진행된다. &#10;&#10;&nbsp;&nbsp;2. 최대금액의 10%로 입찰이 진행된다.&#10;&#10;&nbsp;&nbsp;3.자동입찰시 입찰을 중단할 수 있다.
 						</textarea>
-						<br /><br />
+						<br /> <br />
 					</form>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary" form="fmField">Save
