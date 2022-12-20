@@ -41,7 +41,7 @@
 <th:block th:fragment="TopbarFragment">
 	<body>
 		<!-- Topbar Start -->
-		<div class="container-fluid bg-dark pt-3 d-none d-lg-block">
+		<div class="container-fluid bg-light pt-3 d-none d-lg-block">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
@@ -78,7 +78,7 @@
 				style="z-index: 9;">
 				<nav
 					class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
-					<a href="/main" class="navbar-brand">
+					<a href="" class="navbar-brand">
 						<h1 class="m-0 text-primary">
 							<span class="text-dark">WORTHSEEING</span>SEEING
 						</h1>
@@ -87,6 +87,9 @@
 						data-target="#navbarCollapse">
 						<span class="navbar-toggler-icon"></span>
 					</button>
+
+
+
 					<div class="collapse navbar-collapse justify-content-between px-3"
 						id="navbarCollapse">
 						<div class="navbar-nav ml-auto py-0">
@@ -100,16 +103,14 @@
 									<a href="/logout" class="dropdown-item">로그아웃</a> <a
 										href="service.html" class="dropdown-item">1:1문의</a><a
 										href="single.html" class="dropdown-item">입찰 진행목록</a> <a
-										href="myAuctionList" class="dropdown-item">나의 경매목록</a>
-									<a href="/reservation/reservationList">경매예약가능목록</a>
+										href="myAuctionList" class="dropdown-item">나의 경매목록</a> <a
+										href="/reservation/reservationList" class="dropdown-item">경매예약목록</a>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</nav>
 			</div>
 		</div>
 		<!-- Navbar End -->
-	</body>
-</th:block>
-</html>
