@@ -67,4 +67,9 @@ public class BlockGroupController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/buyBlock")
+	public String buyBlock() {
+		return "/buyBlock";
+	}
+	
 }

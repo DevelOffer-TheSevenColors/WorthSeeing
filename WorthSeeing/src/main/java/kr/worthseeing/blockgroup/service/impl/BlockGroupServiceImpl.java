@@ -55,7 +55,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 				blockGroupParam.getLinkUrl(), files.getOriginalFilename(), imagePath, 500);
 
 		Status status = new Status();
-		status.setStatus_seq(7);
+		status.setStatus_seq(3);
 		
 		blockGroup.setStatus(status);
 		blockGroup.setUsers(usersRepo.findById(users.getUserId()).get());
