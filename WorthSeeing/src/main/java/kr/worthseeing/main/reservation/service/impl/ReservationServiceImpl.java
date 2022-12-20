@@ -20,6 +20,8 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private ReservationUsersRepository reservationUsersRepo;
+	
+	
 
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
@@ -29,11 +31,15 @@ public class ReservationServiceImpl implements ReservationService {
 		users2.setUserId(userId);
 
 		ReservationUsers reservationUserId = new ReservationUsers();
-
-		reservationUserId.setReservation(reservation);
+		if(reservationUserId.getUsers().getUserId()== userId) {
+			
+		}else {
+			reservationUserId.setReservation(reservation);
 		reservationUserId.setUsers(users2);
 
 		reservationUsersRepo.save(reservationUserId);
+		}		
+		
 		
 //		ReservationUsers reservationUsers = new ReservationUsers();
 //

@@ -62,7 +62,7 @@ public class reservationController {
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
 		reservationservice.insertReservationUsers(reservation, principal.getUsers().getUserId());
-
+		
 		return "redirect:/reservation/reservationList";
 	}
 }
