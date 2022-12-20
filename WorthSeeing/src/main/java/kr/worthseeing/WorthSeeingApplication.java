@@ -11,5 +11,4 @@ public class WorthSeeingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WorthSeeingApplication.class, args);
 	}
-
 }
