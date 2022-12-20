@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>로그인</title>
@@ -95,7 +95,6 @@ body {
 	background-color: #53A3CD;
 	border-color: #53A3CD;
 }
-
 </style>
 </head>
 
@@ -105,17 +104,21 @@ body {
 			<div class="panel panel-login">
 				<div class="panel-heading">
 					<div class="row">
-						<div style="left:24%" class="col-xs-6">
+						<div style="left: 24%" class="col-xs-6">
 							<a href="#" class="active" id="login-form-link">로그인</a>
 						</div>
 					</div>
 					<hr>
 				</div>
+				<span th:if="${error}">
+					<p id="valid" class="alert alert-danger" th:text="${exception}"></p>
+				</span>
+   
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-12">
-							<form id="login-form"
-								method="post" role="form" style="display: block;">
+							<form id="login-form" method="post" role="form"
+								style="display: block;">
 								<div class="form-group">
 									<input type="text" name="username" id="username" tabindex="1"
 										class="form-control" placeholder="이름" value="">
@@ -128,8 +131,7 @@ body {
 									<div class="row">
 										<div class="col-sm-6 col-sm-offset-3">
 											<input type="submit" name="login-submit" id="login-submit"
-												tabindex="4" class="form-control btn btn-login"
-												value="로그인">
+												tabindex="4" class="form-control btn btn-login" value="로그인">
 										</div>
 									</div>
 								</div>
@@ -154,4 +156,4 @@ body {
 
 </html>
 
-
+ 

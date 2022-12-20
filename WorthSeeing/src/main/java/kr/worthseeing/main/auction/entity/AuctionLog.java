@@ -32,6 +32,7 @@ public class AuctionLog {
 	private int auctionPrice;
 	private int finishPrice;
 	private int suggestPrice;
+	private int status_seq;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
@@ -42,4 +43,4 @@ public class AuctionLog {
 	@JoinColumn(name = "reservationLog", nullable = false)
 	private ReservationLog reservationLog;
 	
-}
+} 

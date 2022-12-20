@@ -22,17 +22,15 @@
 	background-color: yellow;
 }
 </style>
-
 	<script>
-	
 		function createBlock(number) {
-			
-// 			Block cnt && User Daily Click
-			$("#" + number).click(
-					function(){
-				location.href="/click?blockGroup_seq="+number;
+
+			// 			Block cnt && User Daily Click
+			$("#" + number).click(function() {
+				location.href = "/click?blockGroup_seq=" + number;
 			});
-			
+			//현재페이지에서 1클릭씩 증가하는 변수 생성하여 10이되면 알림창 띄우게..
+
 			if (number % 17 == 0) {
 				$("#" + number).css('margin-left', 1700 + 'px');
 			} else {
@@ -48,7 +46,6 @@
 					for (var i = 1; i <= 153; i++) {
 						var child = "<div class='tt' id=" + i + ">block" + i
 								+ "</div>";
-
 
 						$(".blockTest").append(child);
 
@@ -84,7 +81,6 @@
 					$("#47").css('z-index', '51');
 
 				});
-		
 	</script>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>

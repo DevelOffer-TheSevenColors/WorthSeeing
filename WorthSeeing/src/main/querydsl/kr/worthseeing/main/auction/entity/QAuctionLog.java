@@ -32,6 +32,8 @@ public class QAuctionLog extends EntityPathBase<AuctionLog> {
 
     public final kr.worthseeing.main.reservation.entity.QReservationLog reservationLog;
 
+    public final NumberPath<Integer> status_seq = createNumber("status_seq", Integer.class);
+
     public final DateTimePath<java.util.Date> suggestDate = createDateTime("suggestDate", java.util.Date.class);
 
     public final NumberPath<Integer> suggestPrice = createNumber("suggestPrice", Integer.class);

@@ -64,3 +64,7 @@
 .customPagination button:hover:not(.active) {
 	background-color: #ddd;
 }
+.inputCustomCSS {
+	width:35px;
+  height:27px;
+}

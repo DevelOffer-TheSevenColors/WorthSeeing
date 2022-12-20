@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -27,6 +28,7 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.status.entity.Status;
+import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
@@ -45,17 +47,18 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	private String S3Bucket = "kwangan2-worthseeing-burket"; // Bucket 이름
 
 	@Override
-	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files) {
+	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files, Users users) {
 		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString(); // 접근가능한 URL 가져오기
 
-		BlockGroup blockGroup = new BlockGroup(blockGroupParam.getLinkUrl(), files.getOriginalFilename(),
-				imagePath, 500);
+		BlockGroup blockGroup = new BlockGroup(
+				blockGroupRepo.getMaxBlockGroupSeq() + 1, 
+				blockGroupParam.getLinkUrl(), files.getOriginalFilename(), imagePath, 500);
 
 		Status status = new Status();
 		status.setStatus_seq(7);
 		
 		blockGroup.setStatus(status);
-		blockGroup.setUsers(usersRepo.findById("user1").get());
+		blockGroup.setUsers(usersRepo.findById(users.getUserId()).get());
 
 		try {
 			saveFile(files);
@@ -149,5 +152,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	public BlockGroup findBlockGroup(BlockGroup blockGroup) {
 		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 	}
+	
 	
 }

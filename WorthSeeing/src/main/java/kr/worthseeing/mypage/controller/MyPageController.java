@@ -1,18 +1,21 @@
 package kr.worthseeing.mypage.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.service.CouponService;
 import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
@@ -60,9 +63,11 @@ public class MyPageController {
 
 	@GetMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
-		List<Auction> auctionList = auctionService.getlistAuction();
-		model.addAttribute("auctionList",auctionList);
-		model.addAttribute("users",principal.getUsers());
+		
+		Map<Integer, List<AuctionLog>> auctionLogUserIdMap = myPageService
+				.getAuctionLogUserId(principal.getUsers().getUserId());
+		model.addAttribute("successedAuctionList", auctionLogUserIdMap.get(1)); // 낙찰
+		model.addAttribute("failedAuctionList", auctionLogUserIdMap.get(2)); // 입찰
 		
 		return "/mypageAuctionHistory";
 	}
@@ -76,11 +81,19 @@ public class MyPageController {
 		return "/mypagePurchaseHistory";
 	}
 	
+	// 클릭 시 db에 저장된 url로 이동 추가
 	@GetMapping("/click")
-	public String getClick(BlockGroup blockGroup, @AuthenticationPrincipal SecurityUser principal) {
-		myPageService.getClick(blockGroup, principal);
-		
-		return "/main";
+	public String getClick(BlockGroup blockGroup, 
+			@AuthenticationPrincipal SecurityUser principal,
+			@RequestParam int blockGroup_seq) {
+		myPageService.getClick(blockGroup, principal.getUsers());
+
+		BlockGroup blockGroupSeq = blockGroupService.findBlockGroup(blockGroup);
+	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == blockGroup_seq) {
+	        return "redirect:" + blockGroupSeq.getLinkUrl();
+	    } else {
+	        return null;
+	    }
 		
 	}
 
