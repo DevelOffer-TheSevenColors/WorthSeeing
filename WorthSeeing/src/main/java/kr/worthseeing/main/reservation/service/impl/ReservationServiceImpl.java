@@ -41,8 +41,6 @@ public class ReservationServiceImpl implements ReservationService {
 			
 			users2.setUserId(userId);
 			
-				System.out.println("=====>1"+reservation);
-				System.out.println("=====>2"+userId);
 			ReservationUsers reservationUsers = null;
 			
 			if(reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), userId).isEmpty()) {
@@ -53,7 +51,27 @@ public class ReservationServiceImpl implements ReservationService {
 
 				reservationUsersRepo.save(reservationUsers);
 			}
+			
 	}
+		
+		// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
+		@Override
+		public void deleteReservationUsers(Reservation reservation, String userId, ReservationUsers reservationUsers) {
+			
+			Users users2 = UsersRepo.findById(userId).get();
+			users2.setUserId(userId);
+			
+			ReservationUsers reservationUsers2 = reservationUsersRepo.findById(reservationUsers.getReservationUsers_seq()).get();
+			
+			if(!reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), userId).isEmpty()) {
+				
+				reservationUsers2.setReservation(reservation);
+				reservationUsers2.setUsers(users2);
+				
+				reservationUsersRepo.delete(reservationUsers2);
+			}
+			
+		}
 
 	// 예약 취소
 	@Override

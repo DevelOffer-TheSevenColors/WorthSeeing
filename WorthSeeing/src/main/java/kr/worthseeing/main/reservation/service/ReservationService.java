@@ -8,7 +8,11 @@ import kr.worthseeing.users.entity.Users;
 
 public interface ReservationService {
 
+	//결제후 예약목록에 추가
 	void insertReservationUsers(Reservation reservation, String userId);
+
+	//마이예약목록에서 삭제
+	void deleteReservationUsers(Reservation reservation, String userId, ReservationUsers reservationUsers);
 	
 	void deleteReservation(Reservation reservation);
 	

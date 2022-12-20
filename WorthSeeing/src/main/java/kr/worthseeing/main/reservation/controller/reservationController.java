@@ -65,4 +65,13 @@ public class reservationController {
 		
 		return "redirect:/reservation/reservationList";
 	}
+	
+	// 10프로 결제하기 버튼 클릭 시 
+	@GetMapping("/delectReservation")
+	private String deleteReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal, ReservationUsers reservationUsers) {
+		
+		reservationservice.deleteReservationUsers(reservation, principal.getUsers().getUserId(),reservationUsers);
+		
+		return "redirect:/reservation/myAuctionList";
+	}
 }

@@ -27,7 +27,7 @@
 							<th>블록 번호</th>
 							<th>경매 시작가격</th>
 							<th>예약 인원</th>
-							<th>일단 빈칸</th>
+							<th>예약 취소</th>
 							<th>예약 하러 가기</th>
 
 						</tr>
@@ -37,7 +37,8 @@
 							<td th:text="${reservationUsers.reservation.reservation_seq}"></td>
 					        <td th:text="${reservationUsers.reservation.startPrice}"></td>
 					        <td th:text="${reservationUsers.reservation.userCnt}"></td>
-					        <td>여기 뭐가들어가면 좋을지 다들 생각해보세용 ㅎㅎ</td>
+					        <td><a th:href="@{/reservation/delectReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
+					        ReservationUsers_seq=${reservationUsers.ReservationUsers_seq})}">예약 취소</a></td>
 					        <td ><a th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매 참여하기</a></td>
 						</tr>
 					</tbody>

@@ -24,9 +24,11 @@ public class QNotify extends EntityPathBase<Notify> {
 
     public final StringPath content = createString("content");
 
-    public final NumberPath<Integer> notify_seq = createNumber("notify_seq", Integer.class);
+    public final NumberPath<Integer> notifySeq = createNumber("notifySeq", Integer.class);
 
     public final DateTimePath<java.util.Date> notifyTime = createDateTime("notifyTime", java.util.Date.class);
+
+    public final ListPath<kr.worthseeing.reply.entity.Reply, kr.worthseeing.reply.entity.QReply> replyList = this.<kr.worthseeing.reply.entity.Reply, kr.worthseeing.reply.entity.QReply>createList("replyList", kr.worthseeing.reply.entity.Reply.class, kr.worthseeing.reply.entity.QReply.class, PathInits.DIRECT2);
 
     public final kr.worthseeing.status.entity.QStatus status;
 
