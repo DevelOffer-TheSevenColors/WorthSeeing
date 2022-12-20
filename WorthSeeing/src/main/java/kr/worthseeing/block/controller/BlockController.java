@@ -31,18 +31,19 @@ public class BlockController {
 		sessionUserDTO.setUsers(principal.getUsers());
 		System.out.println("sessionUserDTO========>" + sessionUserDTO.toString());
 
-		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
+//		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
 //		model.addAttribute("blockGroupMap", blockGroupMap);
 		
 		List<Integer> blockGroupSeqList = blockGroupService.listBoardGroupSeq();
 		model.addAttribute("blockGroupSeqList", blockGroupSeqList);
 		
-		JSONObject jsonObject = new JSONObject(blockGroupMap);
-		System.out.println("jsonObject--->" + jsonObject.get(3).toString());
+//		JSONObject jsonObject = new JSONObject(blockGroupMap);
+//		System.out.println("jsonObject--->" + jsonObject.get(3).toString());
 		
-		List<BlockGroup> blockGroupList = blockGroupMap.get(3);
+//		List<BlockGroup> blockGroupList = blockGroupMap.get(3);
 		
 		List<String> urlList = new ArrayList<String>();
+		urlList.add(0, null);
 		
 		for(String url : blockGroupService.listcImg()) {
 			try {
@@ -57,7 +58,7 @@ public class BlockController {
 //		blockGroupList.get(0).getLinkUrl();
 		model.addAttribute("listcImg", urlList);
 		
-		model.addAttribute("blockGroupMap", jsonObject.get(3)); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
+//		model.addAttribute("blockGroupMap", jsonObject.get(3)); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
 
 		return "/main";
 	}

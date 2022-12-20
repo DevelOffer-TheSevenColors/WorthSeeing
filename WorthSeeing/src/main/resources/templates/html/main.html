@@ -47,14 +47,12 @@
 
 		$(document).ready(function() {
 			topSize = 0;
-			var mapJson = [[${blockGroupSeqList}]];
-	        console.log(mapJson);
+			var listBGSeq = [[${blockGroupSeqList}]];
 
 	        var cImgList = encodeURI("[[${listcImg}]]");
 	        var cImgArr = cImgList.split(",");
-	        console.log(cImgArr);
 	        
-            for (var i = 1; i <= mapJson.length; i++) {
+            for (var i = 1; i <= listBGSeq.length + 1; i++) {
                var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
                
                $(".blockTest").append(child);
