@@ -9,7 +9,7 @@
 	<div id="wrapper" class="alignCenter">
 
 		<div id="title">
-			<h1>게시글 상세</h1>
+			<h1>1:1 문의</h1>
 		</div>
 
 		<div id="content">
@@ -43,40 +43,143 @@
 					</tr>
 
 				</table>
-				<input th:if="${notify.users.userId == principal.users.userId}"
-					type="submit" value="게시글 수정" class="btn">
+
 			</form>
 
 			<div class="aLink">
 				<a th:if="${notify.users.userId == principal.users.userId}"
-					th:href="@{/notify/deleteNotifyProc(notify_seq=${notify.notify_seq})}">게시글
+					th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">게시글
 					삭제</a>
 			</div>
 			<div>
-				<a th:href="@{/notify}">게시글 목록</a>
+				<a th:href="@{/notify}">1:1문의 목록</a>
 			</div>
+			
+			<!-- 댓글 css -->
+<!-- 			<div class="container-fluid py-5"> -->
+<!-- 				<div class="container py-5"> -->
+<!-- 					<div class="text-center mb-3 pb-3"> -->
+<!-- 						<h6 class="text-primary text-uppercase" -->
+<!-- 							style="letter-spacing: 5px;">Contact</h6> -->
+<!-- 						<h1>Contact For Any Query</h1> -->
+<!-- 					</div> -->
+<!-- 					<div class="row justify-content-center"> -->
+<!-- 						<div class="col-lg-8"> -->
+<!-- 							<div class="contact-form bg-white" style="padding: 30px;"> -->
+<!-- 								<div id="success"></div> -->
+<!-- 								<form name="sentMessage" id="contactForm" -->
+<!-- 									novalidate="novalidate"> -->
+<!-- 									<div class="form-row"> -->
+<!-- 										<div class="control-group col-sm-6"> -->
+<!-- 											<input type="text" class="form-control p-4" id="name" -->
+<!-- 												placeholder="Your Name" required="required" -->
+<!-- 												data-validation-required-message="Please enter your name" /> -->
+<!-- 											<p class="help-block text-danger"></p> -->
+<!-- 										</div> -->
+<!-- 										<div class="control-group col-sm-6"> -->
+<!-- 											<input type="email" class="form-control p-4" id="email" -->
+<!-- 												placeholder="Your Email" required="required" -->
+<!-- 												data-validation-required-message="Please enter your email" /> -->
+<!-- 											<p class="help-block text-danger"></p> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 									<div class="control-group"> -->
+<!-- 										<input type="text" class="form-control p-4" id="subject" -->
+<!-- 											placeholder="Subject" required="required" -->
+<!-- 											data-validation-required-message="Please enter a subject" /> -->
+<!-- 										<p class="help-block text-danger"></p> -->
+<!-- 									</div> -->
+<!-- 									<div class="control-group"> -->
+<!-- 										<textarea class="form-control py-3 px-4" rows="5" id="message" -->
+<!-- 											placeholder="Message" required="required" -->
+<!-- 											data-validation-required-message="Please enter your message"></textarea> -->
+<!-- 										<p class="help-block text-danger"></p> -->
+<!-- 									</div> -->
+<!-- 									<div class="text-center"> -->
+<!-- 										<button class="btn btn-primary py-3 px-4" type="submit" -->
+<!-- 											id="sendMessageButton">Send Message</button> -->
+<!-- 									</div> -->
+<!-- 								</form> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 
 			<!-- 댓글 -->
-			<table class="reply">
-				<colgroup>
-					<col width="10%" />
-					<col width="20%" />
-					<col width="20%" />
-					<col width="30%" />
-					<col width="10%" />
-				</colgroup>
+			
+			
+<!-- 			<table class="reply"> -->
+<!-- 				<colgroup> -->
+<!-- 					<col width="10%" /> -->
+<!-- 					<col width="20%" /> -->
+<!-- 					<col width="20%" /> -->
+<!-- 					<col width="30%" /> -->
+<!-- 					<col width="10%" /> -->
+<!-- 				</colgroup> -->
 
-				<tr class="tableTRHeight">
-					<th colspan="5">댓글 목록</th>
-				</tr>
+<!-- 				<tr class="tableTRHeight"> -->
+<!-- 					<th colspan="5">댓글 목록</th> -->
+<!-- 				</tr> -->
 
-				<tr class="tableTRHeight">
-					<td></td>
-					<td><span sec:authentication="principal.users.userId"></span> :</td>
-					<td colspan="2" id="insertContact"><input type="text"
-						name="replyContent" size="100" /></td>
-					<td colspan="2"><input type="submit" value="등록" /></td>
-				</tr>
+<!-- 				<tr class="tableTRHeight"> -->
+<!-- 					<td></td> -->
+<!-- 					<td><span sec:authentication="principal.users.userId"></span> -->
+<!-- 						:</td> -->
+<!-- 					<td colspan="2" id="insertContact"><input type="text" -->
+<!-- 						name="replyContent" size="100" /></td> -->
+<!-- 					<td colspan="2"><input type="submit" value="등록" /></td> -->
+<!-- 				</tr> -->
+			<table class="container-fluid py-5">
+				<div class="container py-5">
+					<div class="text-center mb-3 pb-3">
+						<h6 class="text-primary text-uppercase"
+							style="letter-spacing: 5px;">Contact</h6>
+						<h1>Contact For Any Query</h1>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<div class="contact-form bg-white" style="padding: 30px;">
+								<div id="success"></div>
+								<form name="sentMessage" id="contactForm"
+									novalidate="novalidate">
+									<div class="form-row">
+										<div class="control-group col-sm-6">
+											<input type="text" class="form-control p-4" id="name"
+												placeholder="Your Name" required="required"
+												data-validation-required-message="Please enter your name" />
+											<p class="help-block text-danger"></p>
+										</div>
+										<div class="control-group col-sm-6">
+											<input type="email" class="form-control p-4" id="email"
+												placeholder="Your Email" required="required"
+												data-validation-required-message="Please enter your email" />
+											<p class="help-block text-danger"></p>
+										</div>
+									</div>
+									<div class="control-group">
+										<input type="text" class="form-control p-4" id="subject"
+											placeholder="Subject" required="required"
+											data-validation-required-message="Please enter a subject" />
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="control-group">
+										<textarea class="form-control py-3 px-4" rows="5" id="message"
+											placeholder="Message" required="required"
+											data-validation-required-message="Please enter your message"></textarea>
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="text-center">
+										<button class="btn btn-primary py-3 px-4" type="submit"
+											id="sendMessageButton">Send Message</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+
 
 				<tr>
 					<td class="borderTop">번호</td>
@@ -92,12 +195,12 @@
 					<td th:text="${reply.replyContent}"></td>
 					<td th:text="${#dates.format(reply.replyDate, 'yyyy-MM-dd')}"></td>
 					<td><a th:if="${reply.replyer == principal.users.name}"
-						th:href="@{/notify/deleteReply(rid=${reply.rid}, notify_seq=${notify.notify_seq})}">삭제</a>
+						th:href="@{/notify/deleteReply(rid=${reply.rid}, notifySeq=${notify.notifySeq})}">삭제</a>
 					</td>
 				</tr>
-				
-				</table>
-			</div>
+
+			</table>
 		</div>
-	</body>
+	</div>
+</body>
 </html>

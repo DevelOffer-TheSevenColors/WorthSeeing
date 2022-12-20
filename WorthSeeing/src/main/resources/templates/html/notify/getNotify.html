@@ -19,7 +19,7 @@
 					<tr>
 						<td th:text="제목" width="80"></td>
 						<td>
-							<input name="notify_seq" type="hidden" th:value="${notify.notify_seq}">
+							<input name="notifySeq" type="hidden" th:value="${notify.notifySeq}">
 							<input name="title" type="text" th:value="${notify.title}">
 						</td>
 					</tr>
@@ -46,13 +46,12 @@
 					</tr>
 					
 				</table>
-				<input th:if="${notify.users.userId == principal.users.userId}"
-					type="submit" value="게시글 수정" class="btn">
+				
 			</form>
 
 			<div class="aLink">
 				<a th:if="${notify.users.userId == principal.users.userId}"
-					th:href="@{/notify/deleteNotifyProc(notify_seq=${notify.notify_seq})}">게시글 삭제</a>
+					th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">게시글 삭제</a>
 			</div>
 			<div>
 				<a th:href="@{/notify}">게시글 목록</a>

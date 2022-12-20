@@ -85,8 +85,17 @@ public class NotifyServiceImpl implements NotifyService {
 		BooleanBuilder builder = new BooleanBuilder();
 		
 		QNotify qnotify = QNotify.notify;
+		if(status==null) {
+			status = "1";
+		}
+		if(!status.equals("1")) {
+			builder.and(qnotify.status.status_seq.like("%" + status + "%"));
+		} else {
+			builder.and(qnotify.status.status_seq.like("%" + "%"));
+			
+		}
 		
-		builder.and(qnotify.status.status_seq.like("%" + status + "%"));
+		
 //		builder.and(qnotify.viewCnt.like("%" + status + "%"));
 		System.out.println("impl---->" + status);
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
