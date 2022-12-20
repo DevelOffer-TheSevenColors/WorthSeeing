@@ -47,7 +47,8 @@ public class AuctionController {
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Auction auction) {
+	public String Auction(Model model,Auction auction, @AuthenticationPrincipal SecurityUser principal) {
+		model.addAttribute("user", principal.getUsers());
 		return "/auction";
 	}
 	// 낙착되어서 결제하러 갈떄
@@ -58,9 +59,11 @@ public class AuctionController {
 	
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Auction auction, @AuthenticationPrincipal SecurityUser principal) {
-		auction.setUsers(principal.getUsers());
-		auctionService.updateAuction(auction);
+	public String bidding(Auction auction,String cPrice, @AuthenticationPrincipal SecurityUser principal) {
+		if(Integer.parseInt(cPrice)<auction.getSuggestPrice()) {
+			auction.setUsers(principal.getUsers());
+			auctionService.updateAuction(auction);
+		}
 		return "/auction";
 	}
 

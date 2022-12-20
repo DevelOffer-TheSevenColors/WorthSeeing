@@ -8,6 +8,7 @@
         data: {auction_seq : $("#auction_seq").val()},
         success: function(data){
             $('#currentPrice').val(data.suggestPrice);
+            $('#currentPriceSend').val(data.suggestPrice);
             $('#startPrice').val(data.auctionPrice);
         },
         error: function(){
@@ -76,5 +77,35 @@
       $(".seconds").html(sec);
    }
  }
- setInterval(remaindTime,1000);
  
+ $(window).on("load",function(){
+ 	remaindTime();
+ 	$("#autoCheck").on('click', function() {
+	console.log();
+      	if ($('#autoCheck').is(':checked')) {
+       	 $("#autoPrice").show();
+      	} else {
+        	$("#autoPrice").hide();
+    	  }
+   });
+ });
+ 
+ setInterval(remaindTime, 1000);
+ 
+function checkForm() {
+    var suggestPrice = document.fmField.suggestPrice;
+    var currentPrice = document.currentPrice;
+    // 아이디 입력 유무 체크
+    if(suggestPrice.value == '') {
+        window.alert("입찰금액을 입력하시오");
+        document.fmField.suggestPrice.focus();
+        document.getElementById('suggestPrice').select();
+        return false; // 입찰금액 입력이 안되어 있다면 submint 이벤트를 중지
+    }
+    // 암호 입력 유무 체크
+    if(suggestPrice.value <= $('#currentPrice').val()){
+        alert('현재 입찰가격보다 큰 금액을 입력해주세요!');
+        suggestPrice.focus();
+        return false;
+    }
+}
