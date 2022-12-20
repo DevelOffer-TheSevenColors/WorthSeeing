@@ -34,6 +34,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final NumberPath<Integer> dailyClick = createNumber("dailyClick", Integer.class);
 
+    public final NumberPath<Integer> dailyClickCheck = createNumber("dailyClickCheck", Integer.class);
+
     public final StringPath detailAddress = createString("detailAddress");
 
     public final StringPath email = createString("email");
