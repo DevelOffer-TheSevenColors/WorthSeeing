@@ -65,8 +65,10 @@
 									data-toggle="dropdown"><i style="color: gray;"
 									class="fa-solid fa-circle-user"></i></a> <span
 									class="dropdown-menu border-0 rounded-0 m-0"> <a
-									href="myAuctionList" class="dropdown-item">나의 경매목록</a> <a
-									href="/logout" class="dropdown-item">로그아웃</a></span>
+									th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의
+										경매목록</a> <a href="/logout" class="dropdown-item">로그아웃</a> <a
+									href="/admin/adminUserList" class="dropdown-item">관리자 페이지 </a>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -107,8 +109,6 @@
 									<a href="service.html" class="dropdown-item">1:1문의</a><a
 										href="single.html" class="dropdown-item">입찰 진행목록</a><a
 										href="/reservation/reservationList" class="dropdown-item">경매예약목록</a>
-									<a href="/admin/adminUserList" class="dropdown-item">관리자
-										페이지 </a>
 								</div>
 							</div>
 
