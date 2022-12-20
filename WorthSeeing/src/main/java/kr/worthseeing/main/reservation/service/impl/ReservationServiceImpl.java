@@ -1,6 +1,7 @@
 package kr.worthseeing.main.reservation.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.users.entity.Users;
+import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -21,36 +23,36 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationUsersRepository reservationUsersRepo;
 	
+	
+	
+	@Autowired
+	private UsersRepository UsersRepo;
+	
 	@Override
 	public void insertUserMaxPrice(ReservationUsers reservationUser) {
 		reservationUsersRepo.save(reservationUser);
 	}
 
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
-	@Override
-	public void insertReservationUsers(Reservation reservation, String userId) {
+		@Override
+		public void insertReservationUsers(Reservation reservation, String userId) {
 
-		Users users2 = new Users();
-		users2.setUserId(userId);
-
-		ReservationUsers reservationUserId = new ReservationUsers();
-		if(reservationUserId.getUsers().getUserId()== userId) {
+			Users users2 = UsersRepo.findById(userId).get();
 			
-		}else {
-			reservationUserId.setReservation(reservation);
-		reservationUserId.setUsers(users2);
+			users2.setUserId(userId);
+			
+				System.out.println("=====>1"+reservation);
+				System.out.println("=====>2"+userId);
+			ReservationUsers reservationUsers = null;
+			
+			if(reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), userId).isEmpty()) {
+				reservationUsers =new ReservationUsers();
+				
+				reservationUsers.setReservation(reservation);
+				reservationUsers.setUsers(users2);
 
-		reservationUsersRepo.save(reservationUserId);
-		}		
-		
-		
-//		ReservationUsers reservationUsers = new ReservationUsers();
-//
-//		reservationUsers.setReservation(reservation);
-//
-//		reservationUsers.setUsers(users);
-//
-//		reservationUsersRepo.save(reservationUsers);
+				reservationUsersRepo.save(reservationUsers);
+			}
 	}
 
 	// 예약 취소
