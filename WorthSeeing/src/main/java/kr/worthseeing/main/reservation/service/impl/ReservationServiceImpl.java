@@ -64,6 +64,12 @@ public class ReservationServiceImpl implements ReservationService {
 
 	}
 
+	// 예약 가능 목록
+	@Override
+	public ReservationUsers findOneReservation(Reservation reservation, Users user) {	
+		return reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), user.getUserId());
+	}
+
 	// 나의 예약 리스트 목록
 		@Override
 		public List<ReservationUsers> selectMyReservation(String userid) {

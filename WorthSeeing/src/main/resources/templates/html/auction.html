@@ -58,22 +58,10 @@
 								id="block"></input></td>
 						</tr>
 						<tr>
-							<td>입찰금액</td>
-							<td><form id="fmField" name="fmField"
-									th:action="@{/bidding}" method="post"
-									onsubmit="return checkForm();">
-									<input type="hidden" name="auction_seq" id="auction_seq"
-										value="1" /> <input type="hidden" name="reservation_seq"
-										id="reservation_seq" value="19" /> <input id="suggestPrice"
-										name="suggestPrice"></input> <input type="hidden"
-										name="cPrice" id="currentPriceSend"></input>
-<!-- 									<button class="send,btn btn-primary center-block" type="submit">입찰하기</button> -->
-								</form></td>
-						</tr>
-						<tr>
 							<td colspan="2"><div class="center">
-									<a href="#myModal" data-toggle="modal" title="Compose"
-										class="dropdown-item"> 입찰하기 </a>
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#exampleModal">
+										Launch demo modal</button>
 								</div></td>
 						</tr>
 					</tbody>
@@ -82,57 +70,66 @@
 		</div>
 
 
-
-		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
-			tabindex="-1" id="myModal" class="modal fade" style="display: none;">
-			<div class="modal-dialog">
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" style="margin-left: 180px;">Compose</h4>
-						<button aria-hidden="true" data-dismiss="modal" class="close"
-							type="button">×</button>
+						<h5 class="modal-title" id="exampleModalLabel"
+							style="margin-left:">입찰</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
-					<div class="modal-body">
-						<form id="fmField" name="fmField"
-									th:action="@{/bidding}" method="post"
-									onsubmit="return checkForm();">
-							<div class="form-group">
-								<label style="padding-left: 14px;">자동입찰</label> <input style="width:13px; height: 13px;"
-									type="checkbox" name="autoCheck" id="autoCheck">
-							</div>
-							<div class="form-group" id="autoPrice">
-								<label style="padding-left: 14px;">최대가격</label>
-								<div class="col-lg-10">
-									<input
-										name="autoPrice" class="form-control"></input>
-								</div>
-							</div>
-							<div class="form-group">
-								<label style="padding-left: 14px;">입찰가격</label>
-								<div class="col-lg-10">
-									<input id="suggestPrice"
-										name="suggestPrice" class="form-control"></input>
-								</div>
-							</div>
-							<div class="form-group" style="display: inline;">
-								<label style="padding-left: 14px;">유의사항</label>
-								<div class="col-lg-10">
-									<textarea readonly rows="10" cols="30" class="form-control" id=""
-										name="mailContent"></textarea>
-								</div>
-							</div>
+					<form id="fmField" name="fmField" th:action="@{/bidding}"
+						method="post" onsubmit="return checkForm();">
+						<input type="hidden" name="auction_seq" id="auction_seq" value="1" />
+						<input type="hidden" name="reservation_seq" id="reservation_seq"
+							value="19" /></input> <input type="hidden" name="cPrice"
+							id="currentPriceSend"></input> <br />
 
-							<button style="margin-left: 325px;" class="btn btn-send"
-								type="submit">확인</button>
-
-						</form>
+						<table
+							style="font-size: 20px; text-align: center; margin-left: 70px;">
+							<tbody>
+								<tr>
+									<td>자동입찰</td>
+									<td><input style="width: 16px; height: 16px;"
+										type="checkbox" name="autoCheck" id="autoCheck" />
+								<tr>
+								<tr id="sPrice">
+									<td>입찰금액</td>
+									<td><input style="text-align: center; width: 150px;"
+										id="suggestPrice" name="suggestPrice"></td>
+								<tr>
+								<tr id="autoPrice">
+									<td>최대입찰금액</td>
+									<td><input name="autoPrice"
+										style=" text-align: center; width: 150px;"></input></td>
+								<tr>
+								<tr>
+									<td>서비스시작일</td>
+									<td><input readonly id="startDate"
+										style="border: 0px; text-align: center;"></input></td>
+								<tr>
+							</tbody>
+						</table>
+						<br />
+						<p style="text-align: center; font-size: 25px;">자동입찰시 유의사항</p>
+						<textarea readonly style="font-size:20px; margin-left: 80px; width: 75%; height: 10.85em;">&#10;&#10;&nbsp;&nbsp;1. 최대금액까지 입찰이 진행된다. &#10;&#10;&nbsp;&nbsp;2. 최대금액의 10%로 입찰이 진행된다.&#10;&#10;&nbsp;&nbsp;3.자동입찰시 입찰을 중단할 수 있다.
+						</textarea>
+						<br /><br />
+					</form>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary" form="fmField">Save
+							changes</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal -->
 
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>

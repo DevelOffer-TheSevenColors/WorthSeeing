@@ -20,13 +20,13 @@
         type: "POST",
         data: {reservation_seq : $("#reservation_seq").val()},
         success: function(data){
-            console.log(data[0].block_seq);
             var block ="";
             $.each(data , function(i){
                 block += data[i].block_seq +",";
             });
             block = block.substring(0,block.length-1);
             $('#block').val(block);
+            $('#startDate').val(data[0].endDate.substring(0,data[0].endDate.indexOf('T')));
         },
         error: function(){
         	console.log("err");
@@ -76,16 +76,20 @@
       $(".minutes").html(min);
       $(".seconds").html(sec);
    }
+      console.log("@");
+    console.log($('#currentPrice').val());
  }
  
  $(window).on("load",function(){
  	remaindTime();
+ 	$("#autoPrice").hide();
  	$("#autoCheck").on('click', function() {
-	console.log();
       	if ($('#autoCheck').is(':checked')) {
        	 $("#autoPrice").show();
+       	 $("#sPrice").hide();
       	} else {
         	$("#autoPrice").hide();
+        	$("#sPrice").show();
     	  }
    });
  });
@@ -95,6 +99,8 @@
 function checkForm() {
     var suggestPrice = document.fmField.suggestPrice;
     var currentPrice = document.currentPrice;
+    console.log(suggestPrice.value);
+   
     // 아이디 입력 유무 체크
     if(suggestPrice.value == '') {
         window.alert("입찰금액을 입력하시오");
@@ -103,9 +109,13 @@ function checkForm() {
         return false; // 입찰금액 입력이 안되어 있다면 submint 이벤트를 중지
     }
     // 암호 입력 유무 체크
-    if(suggestPrice.value <= $('#currentPrice').val()){
+    if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){
         alert('현재 입찰가격보다 큰 금액을 입력해주세요!');
         suggestPrice.focus();
         return false;
     }
 }
+
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})

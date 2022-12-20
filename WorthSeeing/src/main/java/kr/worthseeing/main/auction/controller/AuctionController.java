@@ -51,28 +51,16 @@ public class AuctionController {
 		model.addAttribute("user", principal.getUsers());
 		return "/auction";
 	}
-	
-	
-	// 낙착되어서 결제하기 창
+	// 낙착되어서 결제하러 갈떄
 	@GetMapping("/credit")
-	public String AuctionCreditview(Auction auction,Users user) {
-		
-	auctionService.auctionCreditView(auction, user);
-		
+	public String AuctionCredit(Auction auction) {
 		return "/credit";
 	}
 	
-	@PostMapping("/insertCredit")
-	public String AuctionCredit(Users user) {
-		
-		
-		return"";
-	}
-	
-	
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Auction auction,String cPrice, @AuthenticationPrincipal SecurityUser principal) {
+	public String bidding(Auction auction,String cPrice, @AuthenticationPrincipal SecurityUser principal, String autoPrice) {
+		reservationService.selectMyReservation(principal.getUsers().getUserId());
 		if(Integer.parseInt(cPrice)<auction.getSuggestPrice()) {
 			auction.setUsers(principal.getUsers());
 			auctionService.updateAuction(auction);
@@ -93,9 +81,9 @@ public class AuctionController {
 	@GetMapping("/seletCredit")
 	public String selectCredit(Model model, Auction auction) {
 		auctionService.selectCredit(auction);
-
+		
 		model.addAttribute("reservationList", auctionService.selectCredit(auction));
-
+		
 		return "/mypageMain";
 	}
 

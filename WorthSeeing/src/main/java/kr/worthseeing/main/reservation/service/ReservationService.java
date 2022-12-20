@@ -17,4 +17,6 @@ public interface ReservationService {
 	public List<ReservationUsers> selectMyReservation(String userid);
 	
 	public Reservation selectReservationCreditInfo(Reservation reservation);
+	
+	public ReservationUsers findOneReservation(Reservation reservation, Users user);
 }

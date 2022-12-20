@@ -13,7 +13,8 @@
 .customBoard thead {
 	font-weight: bold;
 	color: #fff;
-	background: #000142;
+	font-size:20px;
+	background: gray;
 }
 
 .customBoard td, th {

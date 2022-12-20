@@ -22,6 +22,8 @@ public class QReservationUsers extends EntityPathBase<ReservationUsers> {
 
     public static final QReservationUsers reservationUsers = new QReservationUsers("reservationUsers");
 
+    public final NumberPath<Integer> MaxPrice = createNumber("MaxPrice", Integer.class);
+
     public final QReservation reservation;
 
     public final DateTimePath<java.util.Date> reservationUserIdDate = createDateTime("reservationUserIdDate", java.util.Date.class);
