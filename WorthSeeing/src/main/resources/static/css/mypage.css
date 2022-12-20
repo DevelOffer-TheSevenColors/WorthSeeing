@@ -52,7 +52,7 @@ body {
 }
 
 .fakeimg {
-	background-color: #aaa;
+	background-color: white;
 	width: 100%;
 	padding: 20px;
 }
@@ -113,4 +113,8 @@ body {
 }
 .mypagetable th, td{
 	border:none;
+}
+
+li{
+	list-style: none;
 }
