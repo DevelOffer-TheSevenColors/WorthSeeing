@@ -1,4 +1,4 @@
-package kr.worthseeing.blockgroup.entity;
+package kr.worthseeing.blockGroupReservation.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -11,22 +11,22 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QBlockGroup is a Querydsl query type for BlockGroup
+ * QBlockGroupReservaton is a Querydsl query type for BlockGroupReservaton
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QBlockGroup extends EntityPathBase<BlockGroup> {
+public class QBlockGroupReservaton extends EntityPathBase<BlockGroupReservaton> {
 
-    private static final long serialVersionUID = 1455116377L;
+    private static final long serialVersionUID = 323781580L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QBlockGroup blockGroup = new QBlockGroup("blockGroup");
+    public static final QBlockGroupReservaton blockGroupReservaton = new QBlockGroupReservaton("blockGroupReservaton");
 
     public final NumberPath<Integer> avgPrice = createNumber("avgPrice", Integer.class);
 
-    public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
+    public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
-    public final kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton blockGroupReservation;
+    public final NumberPath<Integer> blockGroupReservation_seq = createNumber("blockGroupReservation_seq", Integer.class);
 
     public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
 
@@ -46,7 +46,7 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final ListPath<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund> refundList = this.<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund>createList("refundList", kr.worthseeing.refund.entity.Refund.class, kr.worthseeing.refund.entity.QRefund.class, PathInits.DIRECT2);
 
-    public final kr.worthseeing.main.reservation.entity.QReservation reservation;
+    public final NumberPath<Integer> reservation = createNumber("reservation", Integer.class);
 
     public final StringPath sImg = createString("sImg");
 
@@ -54,30 +54,28 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final kr.worthseeing.status.entity.QStatus status;
 
-    public final kr.worthseeing.users.entity.QUsers users;
+    public final StringPath users = createString("users");
 
-    public QBlockGroup(String variable) {
-        this(BlockGroup.class, forVariable(variable), INITS);
+    public QBlockGroupReservaton(String variable) {
+        this(BlockGroupReservaton.class, forVariable(variable), INITS);
     }
 
-    public QBlockGroup(Path<? extends BlockGroup> path) {
+    public QBlockGroupReservaton(Path<? extends BlockGroupReservaton> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QBlockGroup(PathMetadata metadata) {
+    public QBlockGroupReservaton(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QBlockGroup(PathMetadata metadata, PathInits inits) {
-        this(BlockGroup.class, metadata, inits);
+    public QBlockGroupReservaton(PathMetadata metadata, PathInits inits) {
+        this(BlockGroupReservaton.class, metadata, inits);
     }
 
-    public QBlockGroup(Class<? extends BlockGroup> type, PathMetadata metadata, PathInits inits) {
+    public QBlockGroupReservaton(Class<? extends BlockGroupReservaton> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroupReservation = inits.isInitialized("blockGroupReservation") ? new kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton(forProperty("blockGroupReservation"), inits.get("blockGroupReservation")) : null;
-        this.reservation = inits.isInitialized("reservation") ? new kr.worthseeing.main.reservation.entity.QReservation(forProperty("reservation"), inits.get("reservation")) : null;
+        this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
-        this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;
     }
 
 }

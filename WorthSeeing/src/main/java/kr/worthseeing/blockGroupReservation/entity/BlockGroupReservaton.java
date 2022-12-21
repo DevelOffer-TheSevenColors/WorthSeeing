@@ -1,4 +1,4 @@
-package kr.worthseeing.blockgroup.entity;
+package kr.worthseeing.blockGroupReservation.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,9 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
+import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
@@ -29,14 +28,14 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockList", "refundList", "reservation", "users", "status"})
+@ToString(exclude = { "blockGroup" })
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlockGroup {
+public class BlockGroupReservaton {
 
 	@Id
 	@GeneratedValue
-	private int blockGroup_seq;
+	private int blockGroupReservation_seq;
 	private String linkUrl;
 	private String cImg;
 	private String sImg;
@@ -52,68 +51,40 @@ public class BlockGroup {
 	private int purchaseDay;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
+	@Column
 	private Date startDate = new Date();
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false, columnDefinition = "date default sysdate")
-	private Date endDate;
+	@Column
+	private Date endDate = new Date();
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "date default sysdate")
-	private Date groupDate;
+	@Column
+	private Date groupDate = new Date();
 
-	@OneToMany(mappedBy = "blockGroup")
+	@OneToMany(mappedBy = "blockGroupReservation")
 	private List<Block> blockList = new ArrayList<Block>();
 
-	@OneToMany(mappedBy = "blockGroup")
+	@OneToMany(mappedBy = "blockGroupReservation")
 	private List<Refund> refundList = new ArrayList<Refund>();
 
-//	@OneToMany(mappedBy = "blockGroup")
-//	private List<Notify> notifyList = new ArrayList<Notify>();
-
-	@OneToOne(mappedBy = "blockGroup" )
-	private Reservation reservation;
-//	private List<Reservation> reservationList = new ArrayList<Reservation>();
 	
-	@OneToOne(mappedBy ="blockGroup")
-	private BlockGroupReservaton blockGroupReservation;
+	private int reservation;
+
+	private String users;
+
+	@OneToOne
+	@JoinColumn(name = "blockGroupReservation")
+	private BlockGroup blockGroup;
 	
-
-	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false)
-	private Users users;
-
-	public void setUsers(Users users) {
-		this.users = users;
-		users.getBlockGroupList().add(this);
-	}
-
+	
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
 
 	public void setStatus(Status status) {
 		this.status = status;
-		status.getBlockGroupList().add(this);
+		status.getBlockGroupReservationList().add(this);
 	}
-
-	public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
-		this.blockGroup_seq = blockGroup_seq;
-		this.linkUrl = linkUrl;
-		this.cImg = cImg;
-		this.sImg = sImg;
-		this.avgPrice = avgPrice;
-	}
-	
-	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {
-		this.linkUrl = linkUrl;
-		this.cImg = cImg;
-		this.sImg = sImg;
-		this.avgPrice = avgPrice;
-	}
-	
-	
-	
 
 }

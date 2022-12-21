@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
@@ -49,6 +50,16 @@ public class Block {
 	public void setBlockGroup(BlockGroup blockGroup) {
 		this.blockGroup = blockGroup;
 		blockGroup.getBlockList().add(this);
+	}
+
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "blockGroupReservation_seq", nullable = false)
+	private BlockGroupReservaton blockGroupReservation;
+	
+	public void setBlockGroupReservation(BlockGroupReservaton blockGroupReservation) {
+		this.blockGroupReservation = blockGroupReservation;
+		blockGroupReservation.getBlockList().add(this);
 	}
 
 }

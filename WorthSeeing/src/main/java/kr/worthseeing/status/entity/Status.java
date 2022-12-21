@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.notify.entity.Notify;
@@ -50,5 +51,8 @@ public class Status {
 
 	@OneToMany(mappedBy = "status")
 	private List<Coupon> couponList = new ArrayList<Coupon>();
+	
+	@OneToMany(mappedBy="status")
+	private List<BlockGroupReservaton> blockGroupReservationList = new ArrayList<BlockGroupReservaton>();
 
 }

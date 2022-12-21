@@ -24,6 +24,8 @@ public class QRefund extends EntityPathBase<Refund> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
+    public final kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton blockGroupReservation;
+
     public final NumberPath<Integer> refund_seq = createNumber("refund_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> refundDate = createDateTime("refundDate", java.util.Date.class);
@@ -51,6 +53,7 @@ public class QRefund extends EntityPathBase<Refund> {
     public QRefund(Class<? extends Refund> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
+        this.blockGroupReservation = inits.isInitialized("blockGroupReservation") ? new kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton(forProperty("blockGroupReservation"), inits.get("blockGroupReservation")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
     }
 
