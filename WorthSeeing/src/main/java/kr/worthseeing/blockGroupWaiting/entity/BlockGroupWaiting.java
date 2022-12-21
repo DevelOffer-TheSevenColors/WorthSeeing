@@ -28,7 +28,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = { "blockGroup" })
+@ToString(exclude = { "blockGroup","status" })
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockGroupWaiting {
@@ -62,16 +62,13 @@ public class BlockGroupWaiting {
 	@Column
 	private Date groupDate = new Date();
 
-	@OneToMany(mappedBy = "blockGroupWaiting")
-	private List<Block> blockList = new ArrayList<Block>();
-
-
+	
 
 
 	private String userId;
 
 	@OneToOne
-	@JoinColumn(name = "blockGroupWaiting")
+	@JoinColumn(name = "blockGroup_seq")
 	private BlockGroup blockGroup;
 	
 	

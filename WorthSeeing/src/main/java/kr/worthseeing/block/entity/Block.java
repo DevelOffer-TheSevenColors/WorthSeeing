@@ -48,14 +48,6 @@ public class Block {
 		blockGroup.getBlockList().add(this);
 	}
 
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "blockGroupReservation_seq", nullable = false)
-	private BlockGroupWaiting blockGroupWaiting;
 	
-	public void setBlockGroupReservation(BlockGroupWaiting blockGroupWaiting) {
-		this.blockGroupWaiting = blockGroupWaiting;
-		blockGroupWaiting.getBlockList().add(this);
-	}
 
 }

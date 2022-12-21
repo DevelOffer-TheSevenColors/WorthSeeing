@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import groovy.transform.ToString;
 import kr.worthseeing.main.reservation.entity.ReservationLog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
+@ToString(excludes = "reservationLog")
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuctionLog {
@@ -39,8 +41,8 @@ public class AuctionLog {
 	private Date suggestDate;
 	private String userId;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "reservationLog", nullable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "reservationLog_seq")
 	private ReservationLog reservationLog;
 	
 } 
