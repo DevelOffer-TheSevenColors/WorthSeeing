@@ -45,23 +45,23 @@ public class MyPageServiceImpl implements MyPageService {
 
 	}
 
-	@Override
-	public void getClick(BlockGroup blockGroup, Users users) {
-		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-		Users findUsers = usersRepo.findById(users.getUserId()).get();
-
-		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt() + 1);
-		findUsers.setDailyClick(findUsers.getDailyClick() + 1);
-
-		blockGroupRepo.save(findBlockGroup);
-		usersRepo.save(findUsers);
-
-		if (findUsers.getDailyClick() == 10) {
-			findUsers.setPoint(findUsers.getPoint() + 500);
-			usersRepo.save(findUsers);
-		}
-
-	}
+//	@Override
+//	public void getClick(BlockGroup blockGroup, Users users) {
+//		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+//		Users findUsers = usersRepo.findById(users.getUserId()).get();
+//
+//		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt() + 1);
+//		findUsers.setDailyClick(findUsers.getDailyClick() + 1);
+//
+//		blockGroupRepo.save(findBlockGroup);
+//		usersRepo.save(findUsers);
+//
+//		if (findUsers.getDailyClick() == 10) {
+//			findUsers.setPoint(findUsers.getPoint() + 500);
+//			usersRepo.save(findUsers);
+//		}
+//
+//	}
 
 	@Override
 	public List<BlockGroup> getBlockGroupUserId(String userId) {

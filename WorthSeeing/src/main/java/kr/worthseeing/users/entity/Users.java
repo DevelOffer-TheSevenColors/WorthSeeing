@@ -47,6 +47,9 @@ public class Users {
 
 	private String adminYn = "no";
 	private String blackYn = "no";
+	
+	@Column(columnDefinition = "varchar2(100) default 'no'")
+	private String dailyClickCheck;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")
@@ -60,10 +63,6 @@ public class Users {
 	private int finishedAuctionCnt;
 	@Column(columnDefinition = "number default 0")
 	private int totalMoney;
-	@Column(columnDefinition = "number default 0") // 유저 데일리 클릭 수!(칼럼 추가 -환석-)
-	private int dailyClick;
-	@Column(columnDefinition = "number default 0")
-	private int dailyClickCheck;
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Auction> auctionList = new ArrayList<Auction>();

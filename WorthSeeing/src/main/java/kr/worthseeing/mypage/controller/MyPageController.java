@@ -97,19 +97,19 @@ public class MyPageController {
 	}
 	
 	// 클릭 시 db에 저장된 url로 이동 추가
-	@GetMapping("/click")
-	public String getClick(BlockGroup blockGroup, 
-			@AuthenticationPrincipal SecurityUser principal,
-			@RequestParam int blockGroup_seq) {
-		myPageService.getClick(blockGroup, principal.getUsers());
-
-		BlockGroup blockGroupSeq = blockGroupService.findBlockGroup(blockGroup);
-	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == blockGroup_seq) {
-	        return "redirect:" + blockGroupSeq.getLinkUrl();
-	    } else {
-	        return null;
-	    }
-		
-	}
+//	@GetMapping("/click")
+//	public String getClick(BlockGroup blockGroup, 
+//			@AuthenticationPrincipal SecurityUser principal,
+//			@RequestParam int blockGroup_seq) {
+//		myPageService.getClick(blockGroup, principal.getUsers());
+//
+//		BlockGroup blockGroupSeq = blockGroupService.findBlockGroup(blockGroup);
+//	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == blockGroup_seq) {
+//	        return "redirect:" + blockGroupSeq.getLinkUrl();
+//	    } else {
+//	        return null;
+//	    }
+//		
+//	}
 
 }
