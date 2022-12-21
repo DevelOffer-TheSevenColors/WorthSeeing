@@ -34,13 +34,24 @@
 							<td>경매 운영시간</td>
 							<td>12PM ~ 15PM</td>
 						</tr>
-						<tr>
+						<tr id="starting">
 							<td>남은시간</td>
 							<td><span style="color: black" class="font15 time-title"></span>
 								<span class="time font40"> <span class="hours"></span> <span
 									class="col">:</span> <span class="minutes"></span> <span
 									class="col">:</span> <span class="seconds"></span>
 							</span></td>
+						</tr>
+						<tr id="opening">
+							<td>오픈시간</td>
+							<td>
+								<span class="time font40"> <span class="hours"></span> <span
+									class="col">:</span> <span class="minutes"></span> <span
+									class="col">:</span> <span class="seconds"></span>
+							</span></td>
+						</tr>
+						<tr id="ending">
+							<td colspan="2">금일마감</td>
 						</tr>
 						<tr>
 							<td>시작가</td>
@@ -57,11 +68,11 @@
 							<td><input readonly style="border: 0px; text-align: center;"
 								id="block"></input></td>
 						</tr>
-						<tr>
+						<tr id="bidbutton">
 							<td colspan="2"><div class="center">
 									<button type="button" class="btn btn-primary"
 										data-toggle="modal" data-target="#exampleModal">
-										Launch demo modal</button>
+										입찰하기</button>
 								</div></td>
 						</tr>
 					</tbody>
@@ -89,7 +100,9 @@
 						<input type="hidden" name="reservation_seq" id="reservation_seq"
 							value="19" /></input> <input type="hidden" name="cPrice"
 							id="currentPriceSend"></input> <input type="hidden"
-							name="currentMaxPrice" id="currentMaxPrice"></input> <br />
+							name="currentMaxPrice" id="currentMaxPrice"></input> 
+							
+							<br />
 
 						<table
 							style="font-size: 20px; text-align: center; margin-left: 70px;">
@@ -129,7 +142,7 @@
 						<br />
 						<p style="text-align: center; font-size: 25px;">자동입찰시 유의사항</p>
 						<textarea readonly
-							style="font-size: 20px; margin-left: 80px; width: 75%; height: 10.85em;">&#10;&#10;&nbsp;&nbsp;1. 최대금액까지 입찰이 진행된다. &#10;&#10;&nbsp;&nbsp;2. 최대금액의 10%로 입찰이 진행된다.&#10;&#10;&nbsp;&nbsp;3.자동입찰시 입찰을 중단할 수 있다.
+							style="font-size: 20px; margin-left: 80px; width: 75%; height: 10.85em;">&#10;&#10;&nbsp;&nbsp;1. 최대금액까지 입찰이 진행된다. &#10;&#10;&nbsp;&nbsp;2. 입찰금액의 1.1배로 입찰이 진행된다.&#10;&#10;&nbsp;&nbsp;3.자동입찰시 입찰을 중단할 수 있다.
 						</textarea>
 						<br /> <br />
 					</form>

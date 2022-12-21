@@ -36,17 +36,19 @@
         }
   	});
   	
-  	  $.ajax({
-        url: "/auction/autoBidding",
-        type: "POST",
-        data: {reservation_seq : $("#reservation_seq").val()},
-        success: function(data){
-           console.log(data);
-        },
-        error: function(){
-        	console.log("err");
-        }
-  	});
+  	if(document.fmField.autoPrice.value!=null){
+  	  	$.ajax({
+	        url: "/auction/autoBidding",
+	        type: "POST",
+	        data: {reservation_seq : $("#reservation_seq").val()},
+	        success: function(data){
+	           console.log(data);
+	        },
+	        error: function(){
+	        	console.log("err");
+	        }
+  		});
+  	}
   	
     var now = new Date();
     var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
@@ -56,9 +58,14 @@
     var ot = open.getTime();
     var et = end.getTime();
   
+  
    if(nt<ot){
+   	 $("#ending").hide();
+   	 $("#starting").hide();
+   	 $("#bidbutton").hide();
+   	 $("#opening").show();
      $(".time").fadeIn();
-     $("p.time-title").html("금일 오픈까지 남은 시간");
+    // $("p.time-title").html("금일 오픈까지 남은 시간");
      sec =parseInt(ot - nt) / 1000;
      day  = parseInt(sec/60/60/24);
      sec = (sec - (day * 60 * 60 * 24));
@@ -72,10 +79,18 @@
       $(".hours").html(hour);
       $(".minutes").html(min);
       $(".seconds").html(sec);
-   } else if(nt>et){
-    $("span.time-title").html("금일 마감");
+   }else if(nt>et){
+   	$("#starting").hide();
+   	$("#opening").hide();
+   	$("#bidbutton").hide();
+   	$("#ending").show();
+  //  $("span.time-title").html("금일 마감");
     $(".time").fadeOut();
    }else {
+   $("#ending").hide();
+   	$("#opening").hide();
+   	$("#bidbutton").show();
+   	$("#starting").show();
        $(".time").fadeIn();
      sec =parseInt(et - nt) / 1000;
      day  = parseInt(sec/60/60/24);
@@ -113,8 +128,6 @@ function checkForm() {
     var suggestPrice = document.fmField.suggestPrice;
     var autoPrice = document.fmField.autoPrice;
  	
-   
-   
     // 암호 입력 유무 체크
     if(!$('#autoCheck').is(':checked')){
 	    if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){

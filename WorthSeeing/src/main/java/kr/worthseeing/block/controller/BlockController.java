@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,8 +56,25 @@ public class BlockController {
 			
 		}
 		
+		
+		List<String> urlTopList = new ArrayList<String>();
+		urlTopList.add(0, null);
+		
+		for(BlockGroup blockgroup : blockGroupService.topBlock(0).getContent()) {
+			try {
+				String encodeResult = URLEncoder.encode(blockgroup.getCImg(), "utf-8");
+				System.out.println("@@@aa@@"+blockgroup.getCImg());
+				System.out.println("@@@bb@@"+blockgroup.getBlockGroup_seq());
+				urlTopList.add(blockgroup.getCImg());
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 //		blockGroupList.get(0).getLinkUrl();
 		model.addAttribute("listcImg", urlList);
+		model.addAttribute("listTopcImg", urlTopList);
 		
 //		model.addAttribute("blockGroupMap", jsonObject.get(3)); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
 

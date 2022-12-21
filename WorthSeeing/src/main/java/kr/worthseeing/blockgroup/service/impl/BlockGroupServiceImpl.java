@@ -128,6 +128,12 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	}
 	
 	@Override
+	public Page<BlockGroup> topBlock(int page) {
+		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "clickCnt");
+		return blockGroupRepo.listBoard(pageable);
+	}
+	
+	@Override
 	public Map<Integer, List<BlockGroup>> listBlockGroup() {
 
 		// resultMap : key의 타입 : String, value의 타입 : List<BlockGroup>
