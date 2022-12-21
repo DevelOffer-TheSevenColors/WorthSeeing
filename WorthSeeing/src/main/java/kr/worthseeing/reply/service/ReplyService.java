@@ -8,14 +8,13 @@ import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.reply.entity.Reply;
 
 public interface ReplyService {
-	
-void insertReply(Reply reply);
-	
-	void updateReply(Reply reply);
-	
+
+	void insertReply(Reply reply, Notify notify);
+
+	// void updateReply(Reply reply);
+
 	void deleteReply(Reply reply);
-	
-	List<Reply> listReply(Notify notify, Pageable pageable);
-	
+
+	List<Reply> listReply(Notify notify);
 
 }

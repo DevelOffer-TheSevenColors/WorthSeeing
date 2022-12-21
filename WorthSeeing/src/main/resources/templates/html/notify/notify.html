@@ -40,7 +40,7 @@
 								<tr th:each="notify, state : ${notifyList}">
 									<td th:text="${(notifyList.number * 10) + state.count}"></td>
 									<td><a
-										th:href="@{/notify/getNotify(notifySeq=${notify.notifySeq})}"
+										th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
 										th:text="${notify.title}"></a></td>
 									<td th:text="${notify.content}"></td>
 									<td th:text="${notify.viewCnt}"></td>

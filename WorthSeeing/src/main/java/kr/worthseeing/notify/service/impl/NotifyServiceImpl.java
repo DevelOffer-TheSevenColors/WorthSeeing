@@ -13,6 +13,7 @@ import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.notify.entity.QNotify;
 import kr.worthseeing.notify.repository.NotifyRepository;
 import kr.worthseeing.notify.service.NotifyService;
+import kr.worthseeing.reply.entity.Reply;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 
@@ -31,6 +32,9 @@ public class NotifyServiceImpl implements NotifyService {
 		Users users = new Users();
 		users.setUserId("user1");
 		notify.setUsers(users);
+		
+		Reply reply = new Reply();
+		notify.setReplyList(null);
 		notifyRepo.save(notify);
 	}
 	
@@ -74,6 +78,8 @@ public class NotifyServiceImpl implements NotifyService {
 	public Notify getContact(Notify notify) {
 		Notify findNotify = notifyRepo.findById(notify.getNotifySeq()).get();
 		findNotify.setViewCnt(findNotify.getViewCnt() + 1);
+		
+		System.out.println("impl status====>" + notify.getStatus());
 		return findNotify;
 	}
 	

@@ -21,20 +21,21 @@ public class ReplyServiceImpl implements ReplyService{
 	private ReplyRepository replyRepo;
 	
 	@Override
-	public void insertReply(Reply reply) {
+	public void insertReply(Reply reply, Notify notify) {
+		reply.setNotify(notify);
+		
 		replyRepo.save(reply);
 	}
 	
+	
+	
 	//댓글목록, 페이징
 	@Override
-	public List<Reply> listReply(Notify notify, Pageable pageable) {
-		int page = (pageable.getPageNumber() == 0) ? 0:(pageable.getPageNumber() -1);
-		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "userId");
-		
+	public List<Reply> listReply(Notify notify) {
 		List<Reply> replyList = new ArrayList<Reply>();
+		
 		for(Reply reply : replyRepo.findAll()) {
-			Notify allNotify = reply.getNotify();
-			if(allNotify.getUsers().equals(notify.getUsers())) {
+			if (notify.getNotifySeq() == reply.getNotify().getNotifySeq()) {
 				replyList.add(reply);
 			}
 		}
@@ -42,16 +43,16 @@ public class ReplyServiceImpl implements ReplyService{
 		return replyList;
 	}
 	
-	//댓글 수정
-	@Override
-	public void updateReply(Reply reply) {
-		Reply findReply = replyRepo.findById(reply.getReply_seq()).get();
-		
-		findReply.setReplyContent(reply.getReplyContent());
-		findReply.setReplyDate(reply.getReplyDate());
-		findReply.setReplyer(reply.getReplyer());
-		
-	}
+//	//댓글 수정
+//	@Override
+//	public void updateReply(Reply reply) {
+//		Reply findReply = replyRepo.findById(reply.getReply_seq()).get();
+//		
+//		findReply.setReplyContent(reply.getReplyContent());
+//		findReply.setReplyDate(reply.getReplyDate());
+//		findReply.setReplyer(reply.getReplyer());
+//		
+//	}
 	
 	//댓글삭제
 	@Override
