@@ -30,6 +30,11 @@ public class SecurityController {
 	public String memberJoin(Users user) {
 		return "/system/join";
 	}
+	
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "/system/accessDenied";
+	}
 
 	@PostMapping("/joinProc")
 	public String memberJoinProc(Users user) {
@@ -46,5 +51,7 @@ public class SecurityController {
 
 		return "redirect:/system/login";
 	}
+	
+	
 
 }

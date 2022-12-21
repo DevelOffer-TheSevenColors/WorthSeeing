@@ -6,7 +6,23 @@
 </head>
 
 <body>
-	<h3>페이지에 대한 접근 권한이 없습니다.</h3>
-	<a th:href="@{/system/login}">돌아가기</a>
+	<div id="wrapper" class="alignCenter">
+
+		<div id="title">
+			<h1>접근 거부</h1>
+		</div>
+
+		<div id="content">
+	
+			<div>
+				<p>죄송합니다. 페이지에 대한 접근 권한이 없네요.</p>
+				<p>관리자로 다시 로그인하세요.</p>
+		
+				<h3>페이지에 대한 접근 권한이 없습니다.</h3>
+				<a th:href="@{/system/login}">돌아가기</a>
+			
+			</div>
+		</div>
+	</div>
 </body>
 </html>
