@@ -21,7 +21,7 @@ public class CustomErrorController implements ErrorController {
 
 	// 에러 페이지 정의
 	private final String ERROR_404_PAGE_PATH = "/error/404error";
-	private final String ERROR_500_PAGE_PATH = "/error/500";
+	private final String ERROR_500_PAGE_PATH = "/error/500error";
 	private final String ERROR_ETC_PAGE_PATH = "/error/error";
 
 	@RequestMapping(value = "/error")
@@ -62,8 +62,15 @@ public class CustomErrorController implements ErrorController {
 
 	@GetMapping("/error/404error")
 	public String ErrorController() {
-
+		
 		return "/error/404error";
 	}
+	
+	@GetMapping("/error/500error")
+	public String ErrorController1() {
+		
+		return "/error/505error";
+	}
+	
 
 }
