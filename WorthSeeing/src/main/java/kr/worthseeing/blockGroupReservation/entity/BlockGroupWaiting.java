@@ -31,21 +31,21 @@ import lombok.ToString;
 @ToString(exclude = { "blockGroup" })
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlockGroupReservaton {
+public class BlockGroupWaiting {
 
 	@Id
 	@GeneratedValue
 	private int blockGroupReservation_seq;
+	
 	private String linkUrl;
 	private String cImg;
 	private String sImg;
 
-	@Column(columnDefinition = "number default 0")
-	private int clickCnt;
+	
 
 	@Column(columnDefinition = "number default 0")
 	private int price;
-	private int avgPrice;
+	
 
 	@Column(columnDefinition = "number default 0")
 	private int purchaseDay;
@@ -62,19 +62,16 @@ public class BlockGroupReservaton {
 	@Column
 	private Date groupDate = new Date();
 
-	@OneToMany(mappedBy = "blockGroupReservation")
+	@OneToMany(mappedBy = "blockGroupWaiting")
 	private List<Block> blockList = new ArrayList<Block>();
 
-	@OneToMany(mappedBy = "blockGroupReservation")
-	private List<Refund> refundList = new ArrayList<Refund>();
 
-	
-	private int reservation;
 
-	private String users;
+
+	private String userId;
 
 	@OneToOne
-	@JoinColumn(name = "blockGroupReservation")
+	@JoinColumn(name = "blockGroupWaiting")
 	private BlockGroup blockGroup;
 	
 	
@@ -84,7 +81,7 @@ public class BlockGroupReservaton {
 
 	public void setStatus(Status status) {
 		this.status = status;
-		status.getBlockGroupReservationList().add(this);
+		status.getBlockGroupWaitingList().add(this);
 	}
 
 }

@@ -16,9 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
+import kr.worthseeing.blockGroupReservation.entity.BlockGroupWaiting;
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
@@ -29,7 +28,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockList", "refundList", "reservation", "users", "status"})
+@ToString(exclude = {"blockList", "refundList", "reservation", "users", "status","blockGroupWaiting"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockGroup {
@@ -77,7 +76,7 @@ public class BlockGroup {
 //	private List<Reservation> reservationList = new ArrayList<Reservation>();
 	
 	@OneToOne(mappedBy ="blockGroup")
-	private BlockGroupReservaton blockGroupReservation;
+	private BlockGroupWaiting blockGroupWaiting;
 	
 
 	@ManyToOne

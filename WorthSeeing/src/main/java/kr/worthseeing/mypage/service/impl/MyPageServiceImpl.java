@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.blockGroupReservation.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
@@ -85,6 +86,16 @@ public class MyPageServiceImpl implements MyPageService {
 		return auctionLogMap;
 	}
 
+	@Override
+	public List<BlockGroupWaiting> selectBlockGroupWaiting(String userId) {
+		
+		
+		return null;
+	}
+
+	
+	
+	
 	@Scheduled(cron= "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정
 	public void updateUsersPoint() {
 		usersRepo.updateUsersPoint();
@@ -104,5 +115,6 @@ public class MyPageServiceImpl implements MyPageService {
 
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
+
 
 }

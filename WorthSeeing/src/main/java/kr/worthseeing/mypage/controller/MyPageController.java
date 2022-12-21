@@ -66,13 +66,23 @@ public class MyPageController {
 		return "/mypagePointHistory";
 	}
 
+//	@GetMapping("/mypageAuctionHistory")
+//	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
+//		
+//		Map<Integer, List<AuctionLog>> auctionLogUserIdMap = myPageService
+//				.getAuctionLogUserId(principal.getUsers().getUserId());
+//		model.addAttribute("successedAuctionList", auctionLogUserIdMap.get(1)); // 낙찰
+//		model.addAttribute("failedAuctionList", auctionLogUserIdMap.get(2)); // 입찰
+//		
+//		return "/mypageAuctionHistory";
+//	}
+
+	
 	@GetMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
+			
 		
-		Map<Integer, List<AuctionLog>> auctionLogUserIdMap = myPageService
-				.getAuctionLogUserId(principal.getUsers().getUserId());
-		model.addAttribute("successedAuctionList", auctionLogUserIdMap.get(1)); // 낙찰
-		model.addAttribute("failedAuctionList", auctionLogUserIdMap.get(2)); // 입찰
+		
 		
 		return "/mypageAuctionHistory";
 	}

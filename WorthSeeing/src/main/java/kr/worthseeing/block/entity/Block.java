@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,14 +12,11 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
+import kr.worthseeing.blockGroupReservation.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
-import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -55,11 +51,11 @@ public class Block {
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "blockGroupReservation_seq", nullable = false)
-	private BlockGroupReservaton blockGroupReservation;
+	private BlockGroupWaiting blockGroupWaiting;
 	
-	public void setBlockGroupReservation(BlockGroupReservaton blockGroupReservation) {
-		this.blockGroupReservation = blockGroupReservation;
-		blockGroupReservation.getBlockList().add(this);
+	public void setBlockGroupReservation(BlockGroupWaiting blockGroupWaiting) {
+		this.blockGroupWaiting = blockGroupWaiting;
+		blockGroupWaiting.getBlockList().add(this);
 	}
 
 }

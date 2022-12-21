@@ -26,7 +26,7 @@ public class QBlock extends EntityPathBase<Block> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
-    public final kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton blockGroupReservation;
+    public final kr.worthseeing.blockGroupReservation.entity.QBlockGroupWaiting blockGroupWaiting;
 
     public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
 
@@ -51,7 +51,7 @@ public class QBlock extends EntityPathBase<Block> {
     public QBlock(Class<? extends Block> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
-        this.blockGroupReservation = inits.isInitialized("blockGroupReservation") ? new kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton(forProperty("blockGroupReservation"), inits.get("blockGroupReservation")) : null;
+        this.blockGroupWaiting = inits.isInitialized("blockGroupWaiting") ? new kr.worthseeing.blockGroupReservation.entity.QBlockGroupWaiting(forProperty("blockGroupWaiting"), inits.get("blockGroupWaiting")) : null;
     }
 
 }

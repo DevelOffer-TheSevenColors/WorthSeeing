@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
@@ -54,13 +53,5 @@ public class Refund {
 	}
 
 	
-	@ManyToOne
-	@JoinColumn(name = "blockGroupReservation_seq", nullable = false)
-	private BlockGroupReservaton blockGroupReservation;
-	
-	public void setBlockGroupReservation(BlockGroupReservaton blockGroupReservation) {
-		this.blockGroupReservation = blockGroupReservation;
-		blockGroupReservation.getRefundList().add(this);
-	}
 
 }

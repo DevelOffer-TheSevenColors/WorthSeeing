@@ -26,7 +26,7 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
 
-    public final kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton blockGroupReservation;
+    public final kr.worthseeing.blockGroupReservation.entity.QBlockGroupWaiting blockGroupWaiting;
 
     public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
 
@@ -74,7 +74,7 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public QBlockGroup(Class<? extends BlockGroup> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroupReservation = inits.isInitialized("blockGroupReservation") ? new kr.worthseeing.blockGroupReservation.entity.QBlockGroupReservaton(forProperty("blockGroupReservation"), inits.get("blockGroupReservation")) : null;
+        this.blockGroupWaiting = inits.isInitialized("blockGroupWaiting") ? new kr.worthseeing.blockGroupReservation.entity.QBlockGroupWaiting(forProperty("blockGroupWaiting"), inits.get("blockGroupWaiting")) : null;
         this.reservation = inits.isInitialized("reservation") ? new kr.worthseeing.main.reservation.entity.QReservation(forProperty("reservation"), inits.get("reservation")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
         this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;

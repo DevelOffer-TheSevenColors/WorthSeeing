@@ -8,22 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import kr.worthseeing.block.entity.Block;
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupReservaton;
+import kr.worthseeing.blockGroupReservation.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockGroupList", "refundList", "notifyList", "couponList"})
+@ToString(exclude = {"blockGroupList", "refundList", "notifyList", "couponList","blockGroupWaitingList"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Status {
@@ -53,6 +50,6 @@ public class Status {
 	private List<Coupon> couponList = new ArrayList<Coupon>();
 	
 	@OneToMany(mappedBy="status")
-	private List<BlockGroupReservaton> blockGroupReservationList = new ArrayList<BlockGroupReservaton>();
+	private List<BlockGroupWaiting> blockGroupWaitingList = new ArrayList<BlockGroupWaiting>();
 
 }
