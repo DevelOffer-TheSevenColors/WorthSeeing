@@ -3,7 +3,7 @@ package kr.worthseeing.mypage.service;
 import java.util.List;
 import java.util.Map;
 
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.auction.entity.AuctionLog;

@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import kr.worthseeing.blockGroupReservation.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import lombok.AllArgsConstructor;
 import lombok.Data;

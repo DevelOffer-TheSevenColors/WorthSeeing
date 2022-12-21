@@ -1,4 +1,4 @@
-package kr.worthseeing.blockGroupReservation.entity;
+package kr.worthseeing.blockGroupWaiting.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +35,7 @@ public class BlockGroupWaiting {
 
 	@Id
 	@GeneratedValue
-	private int blockGroupReservation_seq;
+	private int blockGroupWaiting_seq;
 	
 	private String linkUrl;
 	private String cImg;

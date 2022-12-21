@@ -1,4 +1,4 @@
-package kr.worthseeing.blockGroupReservation.entity;
+package kr.worthseeing.blockGroupWaiting.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
-    private static final long serialVersionUID = -1211530820L;
+    private static final long serialVersionUID = -1514436773L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -24,7 +24,7 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
-    public final NumberPath<Integer> blockGroupReservation_seq = createNumber("blockGroupReservation_seq", Integer.class);
+    public final NumberPath<Integer> blockGroupWaiting_seq = createNumber("blockGroupWaiting_seq", Integer.class);
 
     public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
 
