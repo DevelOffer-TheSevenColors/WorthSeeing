@@ -26,7 +26,10 @@
 
 					<thead>
 						<tr>
-							<th colspan="2">경매 입찰</th>
+							<th id="stringTitle" colspan="2">경매 입찰</th>
+						</tr>
+						<tr>
+							<th style="background-color: black;" id="ending" colspan="2">금일 마감</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,9 +53,6 @@
 									class="col">:</span> <span class="seconds"></span>
 							</span></td>
 						</tr>
-						<tr id="ending">
-							<td colspan="2">금일마감</td>
-						</tr>
 						<tr>
 							<td>시작가</td>
 							<td><input readonly style="border: 0px; text-align: center;"
@@ -68,7 +68,7 @@
 							<td><input readonly style="border: 0px; text-align: center;"
 								id="block"></input></td>
 						</tr>
-						<tr id="bidbutton">
+						<tr id=bidbutton>
 							<td colspan="2"><div class="center">
 									<button type="button" class="btn btn-primary"
 										data-toggle="modal" data-target="#exampleModal">

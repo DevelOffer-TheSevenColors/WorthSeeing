@@ -44,6 +44,9 @@ public class Auction {
 	@JoinColumn(name = "userId", nullable = false)
 	@JsonIgnore
 	private Users users;
+	
+	 @Column(columnDefinition = "varchar(100) default ' '")
+	private String userAutoId;
 
 	@Transactional
 	public void setUsers(Users users) {

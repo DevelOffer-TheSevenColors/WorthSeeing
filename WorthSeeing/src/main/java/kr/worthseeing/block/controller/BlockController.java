@@ -63,8 +63,6 @@ public class BlockController {
 		for(BlockGroup blockgroup : blockGroupService.topBlock(0).getContent()) {
 			try {
 				String encodeResult = URLEncoder.encode(blockgroup.getCImg(), "utf-8");
-				System.out.println("@@@aa@@"+blockgroup.getCImg());
-				System.out.println("@@@bb@@"+blockgroup.getBlockGroup_seq());
 				urlTopList.add(blockgroup.getCImg());
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();

@@ -23,11 +23,13 @@
         type: "POST",
         data: {reservation_seq : $("#reservation_seq").val()},
         success: function(data){
+
             var block ="";
             $.each(data , function(i){
                 block += data[i].block_seq +",";
             });
             block = block.substring(0,block.length-1);
+
             $('#block').val(block);
             $('#startDate').val(data[0].endDate.substring(0,data[0].endDate.indexOf('T')));
         },
@@ -54,10 +56,10 @@
     var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,00,00);
   
+  
     var nt = now.getTime();
     var ot = open.getTime();
     var et = end.getTime();
-  
   
    if(nt<ot){
    	 $("#ending").hide();
@@ -79,11 +81,25 @@
       $(".hours").html(hour);
       $(".minutes").html(min);
       $(".seconds").html(sec);
+   }else if(parseInt(nt-et)>0&&parseInt(nt-et)<1000){
+	   	$.ajax({
+		        url: "/auction/endAuction",
+		        type: "POST",
+		        data: {reservation_seq : $("#reservation_seq").val()},
+		        success: function(data){
+		           console.log(data);
+		        },
+		        error: function(){
+		        	console.log("err");
+		        }
+	  	});
+   
    }else if(nt>et){
    	$("#starting").hide();
    	$("#opening").hide();
    	$("#bidbutton").hide();
    	$("#ending").show();
+   	$("#stringTitle").hide();
   //  $("span.time-title").html("금일 마감");
     $(".time").fadeOut();
    }else {
@@ -130,13 +146,23 @@ function checkForm() {
  	
     // 암호 입력 유무 체크
     if(!$('#autoCheck').is(':checked')){
-	    if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){
+	    if(suggestPrice.value == ''){
+	        alert('입찰가격을 입력해주세요!!');
+	        suggestPrice.focus();
+	        return false;
+	    }else if(parseInt(suggestPrice.value) <= parseInt($('#currentPrice').val())){
 	        alert('현재 입찰가격보다 큰 금액을 입력해주세요!');
 	        suggestPrice.focus();
 	        return false;
 	    }
     }else{
-    	if( parseInt($('#currentMaxPrice').val()) >= parseInt(autoPrice.value) ){
+    	if( autoPrice.value == '' ){
+	        alert('최대입찰가격을 입력해주세요!');
+	        return false;
+	    }else if( parseInt($('#currentPrice').val()) >= parseInt(autoPrice.value) ){
+	    	 alert('현재 현재입찰가격보다 큰 금액을 입력해주세요!');
+	        return false;
+	    }else if( parseInt($('#currentMaxPrice').val()) >= parseInt(autoPrice.value) ){
 	        alert('현재 최대입찰가격보다 큰 금액을 입력해주세요!');
 	        return false;
 	    }

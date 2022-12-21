@@ -28,15 +28,7 @@ public class BlockServiceImpl implements BlockService{
 	
 	@Override
 	public  List<Block> findAuctionBlock(BlockGroup blockGroup){
-		System.out.println("aaaaa");
-		
-		System.out.println("bbbb"+blockRepo.findAuctionBlock(String.valueOf(blockGroup.getBlockGroup_seq())));
-		
-		System.out.println("cccccc");
 		return blockRepo.findAuctionBlock(String.valueOf(blockGroup.getBlockGroup_seq()));
 	}
-	
-	
-	
 	
 }

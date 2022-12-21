@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.main.auction.entity.Auction;
@@ -14,6 +16,8 @@ import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.status.entity.Status;
+import kr.worthseeing.status.repository.StatusRepository;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
@@ -25,6 +29,12 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private AuctionLogRepository auctLogRepo;
+	
+	@Autowired
+	private BlockGroupWaitingRepository blockGroupWaitingRepo;
+	
+	@Autowired
+	private StatusRepository statusRepo;
 
 	// 경매 기록 저장
 	@Override
@@ -36,6 +46,18 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public void deleteAuctionLog(AuctionLog auctionLog) {
 		auctLogRepo.deleteById(auctionLog.getAuctionLog_seq());
+	}
+
+	@Override
+	public void endAuction(Reservation reservation,BlockGroup blockGroup) {
+		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
+		BlockGroupWaiting bgwr = new BlockGroupWaiting();
+		bgwr.setPrice(findAuction.getSuggestPrice());
+		bgwr.setUserId(findAuction.getUsers().getUserId());
+		bgwr.setStatus(statusRepo.findById(12).get());
+		bgwr.setBlockGroup(blockGroup);
+		bgwr.setAuctionDate(findAuction.getSuggestDate());
+		blockGroupWaitingRepo.save(bgwr);
 	}
 
 	/*
@@ -54,7 +76,6 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public void deleteAuction(Auction auction) {
 		auctionRepo.deleteById(auction.getAuction_seq());
-		;
 	}
 
 	// 입찰 시 업데이트
@@ -68,21 +89,30 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 	
 	@Override
-	public void updateMaxPrice(Reservation reservation, String maxPrice) {
+	public void updateMaxPrice(Reservation reservation, String maxPrice, Users user) {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
+		findAuction.setUserAutoId(user.getUserId());
 		findAuction.setMaxPrice(Integer.parseInt(maxPrice));
 		auctionRepo.save(findAuction);
 	}
 	
 	@Override
-	public void autoAuction(Reservation reservation, Users user) {
+	public void autoAuction(Reservation reservation) {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
-		if(findAuction.getSuggestPrice()*1.1<=findAuction.getMaxPrice()&&!findAuction.getUsers().getUserId().equals(user.getUserId())) {
-			findAuction.setUsers(user);
+		if(findAuction.getSuggestPrice()*1.1<=findAuction.getMaxPrice()&&!findAuction.getUsers().getUserId().equals(findAuction.getUserAutoId())) {
+			findAuction.getUsers().setUserId(findAuction.getUserAutoId());
+			findAuction.setUsers(findAuction.getUsers());
 			findAuction.setSuggestPrice((int)(findAuction.getSuggestPrice()*1.1));
 			findAuction.setSuggestDate(new Date());
-		}else if(findAuction.getSuggestPrice()*1.1>=findAuction.getMaxPrice()){
+		}else if( (findAuction.getSuggestPrice()*1.1>=findAuction.getMaxPrice())
+				&& (findAuction.getSuggestPrice()<findAuction.getMaxPrice()) ){
+			findAuction.getUsers().setUserId(findAuction.getUserAutoId());
+			findAuction.setUsers(findAuction.getUsers());
+			findAuction.setSuggestPrice((int)(findAuction.getMaxPrice()));
+			findAuction.setSuggestDate(new Date());
+		}else if( findAuction.getSuggestPrice()>=findAuction.getMaxPrice() ){
 			findAuction.setMaxPrice(0);
+			findAuction.setUserAutoId(null);
 		}
 		auctionRepo.save(findAuction);
 	}

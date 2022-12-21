@@ -34,6 +34,8 @@ public class QAuction extends EntityPathBase<Auction> {
 
     public final NumberPath<Integer> suggestPrice = createNumber("suggestPrice", Integer.class);
 
+    public final StringPath userAutoId = createString("userAutoId");
+
     public final kr.worthseeing.users.entity.QUsers users;
 
     public QAuction(String variable) {

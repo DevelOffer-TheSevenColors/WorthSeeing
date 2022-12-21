@@ -50,9 +50,17 @@ public class AuctionController {
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/autoBidding", method = RequestMethod.POST)
-	public String autoBidding(Reservation reservation ,@AuthenticationPrincipal SecurityUser principal) throws Throwable {
-		auctionService.autoAuction(reservation, principal.getUsers());
+	public String autoBidding(Reservation reservation) throws Throwable {
+		auctionService.autoAuction(reservation);
 		return "success";
+	}
+
+	@ResponseBody // ajax를 불르기 위한 어노테이션
+	@RequestMapping(value = "/auction/endAuction", method = RequestMethod.POST)
+	public String endAuction(Reservation reservation) throws Throwable {
+		auctionService.endAuction(reservation, 
+				reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
+		return "end";
 	}
 
 	// 경매 페이지로 이동
@@ -83,7 +91,7 @@ public class AuctionController {
 			}
 		}
 		else {
-			auctionService.updateMaxPrice(reservation, autoPrice);
+			auctionService.updateMaxPrice(reservation, autoPrice,principal.getUsers());
 		}
 		return "/auction";
 	}
