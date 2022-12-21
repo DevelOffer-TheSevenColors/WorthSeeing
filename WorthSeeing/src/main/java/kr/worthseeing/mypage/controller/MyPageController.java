@@ -17,6 +17,7 @@ import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.message.dto.MessageDTO;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
+import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.service.UsersService;
 
 @Controller
@@ -36,6 +37,8 @@ public class MyPageController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	
 	
 	
 	
@@ -64,7 +67,7 @@ public class MyPageController {
 		
 		return "/mypagePointHistory";
 	}
-
+ 
 //	@GetMapping("/mypageAuctionHistory")
 //	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
 //		
@@ -78,10 +81,11 @@ public class MyPageController {
 
 	
 	@GetMapping("/mypageAuctionHistory")
-	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
+	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal,Status status) {
 			
+		myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq());
 		
-		
+		model.addAttribute("waiting",myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq()));
 		
 		return "/mypageAuctionHistory";
 	}

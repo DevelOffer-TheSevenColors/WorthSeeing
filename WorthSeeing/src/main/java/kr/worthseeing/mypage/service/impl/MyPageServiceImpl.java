@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
@@ -39,6 +40,9 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private AuctionLogRepository auctionLogRepo;
+	
+	@Autowired
+	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 
 	@Override
 	public void getMyPage() {
@@ -79,9 +83,14 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<BlockGroupWaiting> selectBlockGroupWaiting(String userId) {
-
-		return null;
+	public List<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq) {
+		
+		List<BlockGroupWaiting> findBlockWaiting =   blockGroupWaitingRepo.selectBlockGroupWaiting(userId);
+		System.out.println("====>5"+findBlockWaiting);
+		
+		
+		
+		return findBlockWaiting;
 	}
 
 	@Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") // 매일 자정

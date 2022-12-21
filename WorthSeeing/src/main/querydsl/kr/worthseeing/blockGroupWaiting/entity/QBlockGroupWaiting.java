@@ -22,6 +22,8 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public static final QBlockGroupWaiting blockGroupWaiting = new QBlockGroupWaiting("blockGroupWaiting");
 
+    public final DateTimePath<java.util.Date> auctionDate = createDateTime("auctionDate", java.util.Date.class);
+
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
     public final NumberPath<Integer> blockGroupWaiting_seq = createNumber("blockGroupWaiting_seq", Integer.class);

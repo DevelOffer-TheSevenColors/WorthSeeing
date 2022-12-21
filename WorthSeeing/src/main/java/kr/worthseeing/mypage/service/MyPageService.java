@@ -21,7 +21,7 @@ public interface MyPageService {
 	
 	Map<Integer, List<AuctionLog>> getAuctionLogUserId(String userId);
 	
-	List<BlockGroupWaiting> selectBlockGroupWaiting(String userId);
+	List<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq);
 	
 	List<BlockGroup> getListBlockGroup();
 	

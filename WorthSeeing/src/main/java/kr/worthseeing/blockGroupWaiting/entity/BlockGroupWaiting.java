@@ -55,8 +55,6 @@ public class BlockGroupWaiting {
 	@Column
 	private Date groupDate = new Date();
 
-	
-
 
 	private String userId;
 
@@ -73,5 +71,8 @@ public class BlockGroupWaiting {
 		this.status = status;
 		status.getBlockGroupWaitingList().add(this);
 	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date auctionDate= new Date();
 
 }

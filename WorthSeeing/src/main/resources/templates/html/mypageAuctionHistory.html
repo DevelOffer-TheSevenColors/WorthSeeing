@@ -22,35 +22,35 @@
 						<th scope="col">경매일시</th>
 						<th scope="col">낙찰유무</th>
 					</tr>
-					<tr align="center" th:each="auction, state : ${successedAuctionList}">
-						<td th:text="${auction.auction_seq}"></td>
-						<td th:text="${auction.auctionPrice}"></td>
-						<td th:text="${auction.finishPrice}"></td>
+					<tr align="center" th:each="waiting, state : ${waiting}">
+						<td  th:text="${waiting.userId}"></td>
+						<td th:text="${waiting.price}"></td>
+						<td ></td>
 						<td></td>
-						<td th:text="${auction.suggestDate}"></td>
+						<td ></td>
 						<td>O</td>
 					</tr>
 					
 				</table>
 				
-				<table border="1">
-					<tr align="center" class="customBoard">
-						<th scope="col">No.</th>
-						<th scope="col">시작가</th>
-						<th scope="col">입찰가</th>
-						<th scope="col">낙찰자</th>
-						<th scope="col">경매일시</th>
-						<th scope="col">낙찰유무</th>
-					</tr>
-					<tr align="center" th:each="auction, state : ${failedAuctionList}">
-						<td th:text="${auction.auction_seq}"></td>
-						<td th:text="${auction.auctionPrice}"></td>
-						<td th:text="${auction.finishPrice}"></td>
-						<td ></td>
-						<td th:text="${auction.suggestDate}"></td>
-						<td>X</td>
-					</tr>
-				</table>
+<!-- 				<table border="1"> -->
+<!-- 					<tr align="center" class="customBoard"> -->
+<!-- 						<th scope="col">No.</th> -->
+<!-- 						<th scope="col">시작가</th> -->
+<!-- 						<th scope="col">입찰가</th> -->
+<!-- 						<th scope="col">낙찰자</th> -->
+<!-- 						<th scope="col">경매일시</th> -->
+<!-- 						<th scope="col">낙찰유무</th> -->
+<!-- 					</tr> -->
+<!-- 					<tr align="center" th:each="auction, state : ${failedAuctionList}"> -->
+<!-- 						<td th:text="${auction.auction_seq}"></td> -->
+<!-- 						<td th:text="${auction.auctionPrice}"></td> -->
+<!-- 						<td th:text="${auction.finishPrice}"></td> -->
+<!-- 						<td ></td> -->
+<!-- 						<td th:text="${auction.suggestDate}"></td> -->
+<!-- 						<td>X</td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
 				
 			</div>
 

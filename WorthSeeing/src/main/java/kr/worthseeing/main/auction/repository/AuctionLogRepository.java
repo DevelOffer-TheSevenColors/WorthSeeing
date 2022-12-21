@@ -15,6 +15,5 @@ QuerydslPredicateExecutor<AuctionLog>  {
 	@Query("select a from AuctionLog a where a.userId like ?1 and a.status_seq =?2")
 	List<AuctionLog> findByUserId(String userId, int status_seq);
 	
-
 	
 }
