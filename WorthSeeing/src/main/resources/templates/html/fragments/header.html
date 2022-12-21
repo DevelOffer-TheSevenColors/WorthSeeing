@@ -59,16 +59,15 @@
 						<div class="d-inline-flex align-items-center">
 							<div>
 								<span style="color: gray; margin-left: 100px;"
-									sec:authentication="principal.users.name" id="userName">님</span> <a
-									style="display: inline;" href="#"
-									class="nav-link dropdown-toggle,text-primary pl-3"
-									data-toggle="dropdown"><i style="color: gray;"
-									class="fa-solid fa-circle-user"></i></a> <span
-									class="dropdown-menu border-0 rounded-0 m-0"> <a
-									th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의
-										경매목록</a> <a href="/logout" class="dropdown-item">로그아웃</a> <a
-									href="/admin/adminUserList" class="dropdown-item">관리자 페이지 </a>
-								</span>
+									sec:authentication="principal.users.name" id="userName">님</span> 
+									<a style="display: inline;" href="#" class="nav-link dropdown-toggle,text-primary pl-3"
+										data-toggle="dropdown"><i style="color: gray;" class="fa-solid fa-circle-user"></i></a> 
+									<span class="dropdown-menu border-0 rounded-0 m-0"> 
+										<a th:href="@{/mypageMain}" class="dropdown-item">MyPage</a>
+										<a th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의 경매목록</a> 
+										<a href="/logout" class="dropdown-item">로그아웃</a> 
+										<a href="/admin/adminUserList" class="dropdown-item">관리자 페이지 </a>
+									</span>
 							</div>
 						</div>
 					</div>
