@@ -1,159 +1,102 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
 <head>
-<title>로그인</title>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
-body {
-	padding-top: 90px;
-}
-
-.panel-login {
-	border-color: #ccc;
-	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
-	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
-}
-
-.panel-login>.panel-heading {
-	color: #00415d;
-	background-color: #fff;
-	border-color: #fff;
-	text-align: center;
-}
-
-.panel-login>.panel-heading a {
-	text-decoration: none;
-	color: #666;
-	font-weight: bold;
-	font-size: 15px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-}
-
-.panel-login>.panel-heading a.active {
-	color: #029f5b;
-	font-size: 18px;
-}
-
-.panel-login>.panel-heading hr {
-	margin-top: 10px;
-	margin-bottom: 0px;
-	clear: both;
-	border: 0;
-	height: 1px;
-	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-	background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-	background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-}
-
-.panel-login input[type="text"], .panel-login input[type="email"],
-	.panel-login input[type="password"] {
-	height: 45px;
-	border: 1px solid #ddd;
-	font-size: 16px;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-}
-
-.panel-login input:hover, .panel-login input:focus {
-	outline: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	border-color: #ccc;
-}
-
-.btn-login {
-	background-color: #59B2E0;
-	outline: none;
-	color: #fff;
-	font-size: 14px;
-	height: auto;
-	font-weight: normal;
-	padding: 14px 0;
-	text-transform: uppercase;
-	border-color: #59B2E6;
-}
-
-.btn-login:hover, .btn-login:focus {
-	color: #fff;
-	background-color: #53A3CD;
-	border-color: #53A3CD;
-}
-</style>
+<title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="../images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../css/login/util.css">
+<link rel="stylesheet" type="text/css" href="../css/login/main.css">
+<!--===============================================================================================-->
 </head>
+<body>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="panel panel-login">
-				<div class="panel-heading">
-					<div class="row">
-						<div style="left: 24%" class="col-xs-6">
-							<a href="#" class="active" id="login-form-link">로그인</a>
-						</div>
-					</div>
-					<hr>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title"
+					style="background-image: url(../images/bg-01.jpg);">
+					<span class="login100-form-title-1"> Sign In </span>
 				</div>
 				<span th:if="${error}">
 					<p id="valid" class="alert alert-danger" th:text="${exception}"></p>
 				</span>
-   
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-12">
-							<form id="login-form" method="post" role="form"
-								style="display: block;">
-								<div class="form-group">
-									<input type="text" name="username" id="username" tabindex="1"
-										class="form-control" placeholder="이름" value="">
-								</div>
-								<div class="form-group">
-									<input type="password" name="password" id="password"
-										tabindex="2" class="form-control" placeholder="비밀번호">
-								</div>
-								<div class="form-group">
-									<div class="row">
-										<div class="col-sm-6 col-sm-offset-3">
-											<input type="submit" name="login-submit" id="login-submit"
-												tabindex="4" class="form-control btn btn-login" value="로그인">
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="text-center">
-												<a th:href="@{/system/join}" tabindex="5"
-													class="forgot-password">회원가입</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
+				<form class="login100-form validate-form" method="post">
+					<div class="wrap-input100 validate-input m-b-26"
+						data-validate="Username is required">
+						<span class="label-input100">아이디</span> <input class="input100"
+							type="text" name="username" placeholder="아이디를 입력하세요"> <span
+							class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18"
+						data-validate="Password is required">
+						<span class="label-input100">비밀번호</span> <input class="input100"
+							type="password" name="password" placeholder="비밀번호를 입력하세요">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="flex-sb-m w-full p-b-30">
+						<div class="contact100-form-checkbox">
+							<a style="text-decoration: underline;" th:href="@{/system/join}" class="txt1">회원가입</a>
+						</div>
+
+						<div>
+							<a style="text-decoration: underline;" href="#" class="txt1">아이디/비밀번호찾기 </a>
 						</div>
 					</div>
-				</div>
+
+					<div style="margin-left: 20%;" class="container-login100-form-btn">
+						<button style="background-color: #7FA998" class="login100-form-btn">로그인</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-</div>
 
+	<!--===============================================================================================-->
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/daterangepicker/moment.min.js"></script>
+	<script src="../vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script src="../js/login/main.js"></script>
+
+</body>
 </html>
-
- 
