@@ -61,7 +61,7 @@ public class NotifyController {
 	@PostMapping("/notify/insertContactProc")
 	public String insertContactProc(Notify notify) {
 		notifyService.insertContact(notify);
-		return "redirect:/notify/getNotify";
+		return "redirect:/notify";
 	}
 
 	// 문의글 상세

@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/* static 관련설정은 무시 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**","/reply/**");
+		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
 	}
 
 	@Bean
@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity security) throws Exception {
 		security.authorizeHttpRequests().antMatchers("/system/**", "/error/**").permitAll();
-		security.authorizeHttpRequests().antMatchers("/member/**", "/board/**", "/mail").authenticated();
+		security.authorizeHttpRequests().antMatchers("/member/**", "/board/**", "/mail","/reply/**").authenticated();
 //		security.authorizeHttpRequests().antMatchers("/admin/**").hasRole("ROLE_ADMIN");
 
 		security.csrf().disable(); 

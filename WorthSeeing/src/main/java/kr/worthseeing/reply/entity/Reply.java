@@ -33,7 +33,7 @@ public class Reply {
 	private Date replyDate;
 	
 	@ManyToOne
-	@JoinColumn(name="notifySeq", nullable = false)
+	@JoinColumn(name="notifySeq")
 	private Notify notify;
 	
 	public void setNotify(Notify notify) {

@@ -32,7 +32,9 @@ public class ReplyController {
 	
 	@PostMapping("/insertReplyProc")
 	public String insertReplyProc(Reply reply, Notify notify, Status status, @AuthenticationPrincipal SecurityUser principal) {
+		System.out.println("================>" + principal);
 		reply.setReplyer(principal.getUsers().getUserId());
+		
 		replyService.insertReply(reply, notify);
 		return "redirect:/notify/getDetail?notifySeq="+notify.getNotifySeq()+"&status_seq="+status.getStatus_seq();
 	}
