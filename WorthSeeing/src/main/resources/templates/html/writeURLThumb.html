@@ -7,35 +7,67 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
+<style>
+
+#image_container {
+	height: 150px; 
+	width: 150px;
+}
+
+#image_container img {
+	height: 100%; 
+	width: 100%;
+}
+</style>
+
 <body>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-
-		<div class="container-fluid py-5">
-			<div class="container pt-5 pb-3">
-			
-				<form th:action="@{/writeURLThumb}" method="post"
-					enctype="multipart/form-data">
-					<table class="insertBoard">
-						<tr>
-							<td th:text="URL"></td>
-							<td><input name="linkUrl" type="text" size="50"></td>
-						</tr>
-						<tr>
-							<td th:text="썸네일"></td>
-							<td><input type="file" multiple="multiple" name="files">
+		
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="contact-form bg-white" style="padding: 30px;">
+				
+					<form th:action="@{/writeURLThumb}" name="sentMessage" id="contactForm" novalidate="novalidate" method="post">
+						<table class="insertBoard">
+							<tr>
+								<td>썸네일 미리보기</td>
+								<td><div id="image_container"></div></td>
+							</tr>
+							<tr>
+								<td>URL:</td>
+								<td><input class="help-block text-danger" name="linkUrl" type="text" size="50"></td>
+							</tr>
+							<tr>
+								<td th:text="썸네일"></td>
+								<td><input type="file" multiple="multiple" name="files"
+								 	id="image" accept="image/*" onchange="setThumbnail(event);">
 							</td>
 						</tr>
 					</table>
-					<input type="submit" value="등록하기" class="btn">
-				</form>
+						<input type="submit" value="등록하기" class="btn btn-primary py-3 px-4" style="margin-left: 45%">
+					</form>
 
+    <script>
+      function setThumbnail(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    </script>
+				</div>
 			</div>
 		</div>
-
+		
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
-
+	
 </body>
 
 </html>
