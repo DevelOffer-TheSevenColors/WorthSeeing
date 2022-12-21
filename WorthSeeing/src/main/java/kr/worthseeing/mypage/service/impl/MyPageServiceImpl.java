@@ -45,23 +45,15 @@ public class MyPageServiceImpl implements MyPageService {
 
 	}
 
-//	@Override
-//	public void getClick(BlockGroup blockGroup, Users users) {
-//		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-//		Users findUsers = usersRepo.findById(users.getUserId()).get();
-//
-//		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt() + 1);
-//		findUsers.setDailyClick(findUsers.getDailyClick() + 1);
-//
-//		blockGroupRepo.save(findBlockGroup);
-//		usersRepo.save(findUsers);
-//
-//		if (findUsers.getDailyClick() == 10) {
-//			findUsers.setPoint(findUsers.getPoint() + 500);
-//			usersRepo.save(findUsers);
-//		}
-//
-//	}
+	@Override
+	public void getClick(Users users) {
+		Users findUsers = usersRepo.findById(users.getUserId()).get();
+
+		findUsers.setPoint(findUsers.getPoint() + 500);
+		findUsers.setDailyClickCheck("yes");
+		
+		usersRepo.save(findUsers);
+	}
 
 	@Override
 	public List<BlockGroup> getBlockGroupUserId(String userId) {
@@ -88,15 +80,11 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public List<BlockGroupWaiting> selectBlockGroupWaiting(String userId) {
-		
-		
+
 		return null;
 	}
 
-	
-	
-	
-	@Scheduled(cron= "0 0 0 * * *", zone = "Asia/Seoul") //매일 자정
+	@Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") // 매일 자정
 	public void updateUsersPoint() {
 		usersRepo.updateUsersPoint();
 
@@ -115,6 +103,5 @@ public class MyPageServiceImpl implements MyPageService {
 
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
-
 
 }

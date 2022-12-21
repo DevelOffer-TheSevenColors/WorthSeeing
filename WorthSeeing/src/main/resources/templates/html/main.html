@@ -29,76 +29,83 @@
 
 </style>
 	<script>
-		function createBlock(number) {
+function createBlock(number) {
+		
+		// Block cnt && User Daily Click
+		$("#" + number).click(function() {
+			setLocalStorage($("#userName").text(), number);
+		});
+		
+		// 현재페이지에서 1클릭씩 증가하는 변수 생성하여 10이되면 알림창 띄우게..
 
-			// 			Block cnt && User Daily Click
-			$("#" + number).click(function() {
-				location.href = "/click?blockGroup_seq=" + number;
-			});
-			//현재페이지에서 1클릭씩 증가하는 변수 생성하여 10이되면 알림창 띄우게..
-
-			if (number % 17 == 0) {
-				$("#" + number).css('margin-left', 1700 + 'px');
-			} else {
-				$("#" + number).css('margin-left', 100 * (number % 17) + 'px');
-			}
-
+		if (number % 17 == 0) {
+			$("#" + number).css('margin-left', 1700 + 'px');
+		} else {
+			$("#" + number).css('margin-left', 100 * (number % 17) + 'px');
 		}
 
-		$(document).ready(function() {
-			topSize = 0;
-			var listBGSeq = [[${blockGroupSeqList}]];
+	}
+	
+	var set = new Set();
+	
+	function setLocalStorage(key, number) {
+		set.add(number); // 중복없이 사용자가 클릭한 블록 번호 추가
+		
+		const arr = Array.from(set); // Set -> Array 변환
+		
+		const item = { number: arr.toString() }; // property : number, value : 중복없는 클릭한 블록 번호
+		
+		localStorage.setItem(key, JSON.stringify(item)); // localStorage에 저장
 
-	        var cImgList = encodeURI("[[${listcImg}]]");
-	        var cImgArr = cImgList.split(",");
-	        
-	        var cImgTopList = encodeURI("[[${listTopcImg}]]");
-	        var cImgTopArr = cImgTopList.split(",");
-	        
-	        for (var i = 1; i <= 5; i++) {
-	        	document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3);
-	        	console.log(cImgTopArr[i].slice(3));
-	        	if(i==5){
-	        		document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3).slice(0,-3);
-	        	}
-	        }
-	        
-            for (var i = 1; i <= listBGSeq.length + 1; i++) {
-               var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
-               
-               $(".blockTest").append(child);
-               createBlock(i);
+		if (arr.length == 10) { // 클릭한 블록 개수가 10개가 되면 /click 요청
+			location.href="/click"; // db에 데이터 저장, 포인트 지급 alert 창 띄움
+		}
+	}
+	
+	$(document).ready(function() {
+		topSize = 0;
+		var listBGSeq = [[${blockGroupSeqList}]];
+		var listBG
+       var cImgList = encodeURI("[[${listcImg}]]");
+       var cImgArr = cImgList.split(",");
+       
+       for (var i = 1; i <= listBGSeq.length; i++) {
+          var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
+          
+          $(".blockTest").append(child);
+          createBlock(i);
 
-						if (i % 17 == 0) {
-							// 				$("#" + i).css('margin-left', 100 * i + 'px');
-							$("#" + i).css('margin-top', topSize + 'px');
-							topSize += 100;
-						} else {
-							$("#" + i).css('margin-top', topSize + 'px');
-						}
-
+					if (i % 17 == 0) {
+						// 				$("#" + i).css('margin-left', 100 * i + 'px');
+						$("#" + i).css('margin-top', topSize + 'px');
+						topSize += 100;
+					} else {
+						$("#" + i).css('margin-top', topSize + 'px');
 					}
 
-					$("#12").css('z-index', '50');
+				}
 
-					var xindex = parseInt($("#12").css('margin-left')); // 200
-					var yindex = parseInt($("#12").css('margin-top')); // 30
+       /*
+				$("#12").css('z-index', '50');
 
-					var changedxindex = xindex - 100; // 100
-					var changedyindex = yindex; // 0
+				var xindex = parseInt($("#12").css('margin-left')); // 200
+				var yindex = parseInt($("#12").css('margin-top')); // 30
 
-					$("#12").css('margin-left', changedxindex + 'px');
-					$("#12").css('margin-top', changedyindex + 'px');
-					$("#12").css('width', '300px');
-					$("#12").css('height', '300px');
-					$("#12").css('text-align', 'center');
+				var changedxindex = xindex - 100; // 100
+				var changedyindex = yindex; // 0
 
-					$("#11").css('z-index', '51');
-					$("#13").css('z-index', '51');
-					$("#45").css('z-index', '51');
-					$("#47").css('z-index', '51');
+				$("#12").css('margin-left', changedxindex + 'px');
+				$("#12").css('margin-top', changedyindex + 'px');
+				$("#12").css('width', '300px');
+				$("#12").css('height', '300px');
+				$("#12").css('text-align', 'center');
 
-				});
+				$("#11").css('z-index', '51');
+				$("#13").css('z-index', '51');
+				$("#45").css('z-index', '51');
+				$("#47").css('z-index', '51');
+		*/
+			});
 	</script>
 
 	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>

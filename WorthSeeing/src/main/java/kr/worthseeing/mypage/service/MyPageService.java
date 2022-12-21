@@ -13,7 +13,7 @@ public interface MyPageService {
 
 	void getMyPage();
 	
-//	void getClick(BlockGroup blockGroup, Users users);
+	void getClick(Users users);
 	
 	List<BlockGroup> getBlockGroupUserId(String userId);
 	

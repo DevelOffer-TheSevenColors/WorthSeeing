@@ -1,21 +1,20 @@
 package kr.worthseeing.mypage.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.service.CouponService;
-import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.message.dto.MessageDTO;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.users.service.UsersService;
@@ -97,19 +96,18 @@ public class MyPageController {
 	}
 	
 	// 클릭 시 db에 저장된 url로 이동 추가
-//	@GetMapping("/click")
-//	public String getClick(BlockGroup blockGroup, 
-//			@AuthenticationPrincipal SecurityUser principal,
-//			@RequestParam int blockGroup_seq) {
-//		myPageService.getClick(blockGroup, principal.getUsers());
-//
-//		BlockGroup blockGroupSeq = blockGroupService.findBlockGroup(blockGroup);
-//	    if (blockGroupSeq != null && blockGroupSeq.getBlockGroup_seq() == blockGroup_seq) {
-//	        return "redirect:" + blockGroupSeq.getLinkUrl();
-//	    } else {
-//	        return null;
-//	    }
-//		
-//	}
+	@GetMapping("/click")
+	public String getClick(@AuthenticationPrincipal SecurityUser principal, Model model) {
+		myPageService.getClick(principal.getUsers());
+		
+		 MessageDTO message = new MessageDTO("500Pt 지급 완료!!!", "/main", RequestMethod.GET, null);
+		 
+		return showMessageAndRedirect(message, model);
+	}
+	
+	private String showMessageAndRedirect(final MessageDTO params, Model model) {
+		model.addAttribute("params", params);
+		return "/common/messageRedirect";
+	}
 
 }
