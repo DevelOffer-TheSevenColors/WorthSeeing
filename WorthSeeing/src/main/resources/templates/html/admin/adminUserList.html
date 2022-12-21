@@ -29,7 +29,6 @@
 						<th>전화번호</th>
 						<th>가입날짜</th>
 						<th>포인트</th>
-						<th>클릭 수</th>
 						<th>사용 금액</th>
 						<th>쿠폰 갯수</th>
 						<th>블랙리스트</th>
@@ -44,14 +43,13 @@
 							<td><a th:text="${user.tel}"></a></td>
 							<td th:text="${user.joindate}"></td>
 							<td th:text="${user.point}"></td>
-							<td th:text="${user.dailyClick}"></td>
 							<td th:text="${user.totalMoney}"></td>
 							<td th:text="${user.couponList.size()}"></td>
 							<td>
 								<input type="hidden" th:name="userId" th:value="${user.userId}" />
 								
 								<input  type="checkbox" th:id="${state.count}" name="checkbox" class="blackYnCheckBox" th:checked="${user.blackYn=='yes'}" />
-								<input  type="text" class="inputCustomCSS" name="blackYn" th:value="${user.blackYn}" readonly>
+								<input  type="text" class="inputCustomCSS" name="blackYn" th:value="${user.blackYn}"  readonly>
 								
 							</td>
 

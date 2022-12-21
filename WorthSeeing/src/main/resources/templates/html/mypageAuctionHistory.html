@@ -13,26 +13,36 @@
 			</div>
 			<div>
 				<hr>
+			<form   th:action="@{/credit}" method="get">	
 				<table border="1" class="customBoard">
 					<tr align="center">
 						<th scope="col">No.</th>
-						<th scope="col">시작가</th>
+						<th scope="col">빈칸</th>
 						<th scope="col">낙찰가</th>
 						<th scope="col">낙찰자</th>
 						<th scope="col">경매일시</th>
 						<th scope="col">낙찰유무</th>
+						<th scope="col">결제하기</th>
 					</tr>
 					<tr align="center" th:each="waiting, state : ${waiting}">
-						<td  th:text="${waiting.userId}"></td>
-						<td th:text="${waiting.price}"></td>
-						<td ></td>
-						<td></td>
-						<td ></td>
-						<td>O</td>
+						<td  th:text="${state.count}"></td>
+						<td th:text="${waiting.blockGroup.blockGroup_seq}"> 빈칸</td>
+						<td  th:text="${waiting.price}"></td>
+						<td th:text="${waiting.userId}"></td>
+						<td th:text="${waiting.auctionDate}"></td>
+						<td th:if="${waiting.userId}">O</td>
+						<td  >
+						<th:block  th:if="${waiting.status.status_seq==12}">
+						<button type="submit" onclick="this.from.submit();"  >결제하기로 이동</button>
+						</th:block>
+						<th:block th:if="${waiting.status.status_seq!=12}">
+						<button >결제 완료</button>
+						</th:block>
+						</td>
 					</tr>
 					
 				</table>
-				
+				</form>
 <!-- 				<table border="1"> -->
 <!-- 					<tr align="center" class="customBoard"> -->
 <!-- 						<th scope="col">No.</th> -->

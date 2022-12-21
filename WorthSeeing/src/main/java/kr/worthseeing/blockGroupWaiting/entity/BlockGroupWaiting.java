@@ -73,6 +73,6 @@ public class BlockGroupWaiting {
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date auctionDate= new Date();
+	private Date auctionDate;
 
 }
