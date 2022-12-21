@@ -31,6 +31,17 @@ public class SecurityController {
 		return "/system/join";
 	}
 	
+	@GetMapping("/find")
+	public String memberFind() {
+		return "/system/find";
+	}
+	
+	@PostMapping("/findProc")
+	public String memberFindProc(Users user,Model model) {
+		model.addAttribute("result",userService.findUser(user));
+		return "/system/find";
+	}
+	
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
 		return "/system/accessDenied";

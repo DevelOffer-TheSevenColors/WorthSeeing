@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.UserDetailsManagerConfigurer.UserDetailsBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,33 @@ public class UsersServiceImpl implements UsersService{
 		findUser.setTel(user.getTel());
 		findUser.setRole(Role.ROLE_MEMBER);
 		userRepo.save(findUser);
+	}
+	
+	@Override
+	public String findUser(Users user) {
+		String flag = "회원정보가 다릅니다";
+		System.out.println("@@@@b@@@@");
+		System.out.println(user.getUserId());
+		System.out.println(user.getUserId().isEmpty());
+		if(!user.getUserId().isEmpty()) {
+			Users userdb = userRepo.findById(user.getUserId()).get();
+			if( userdb.getName().equals(user.getName()) && userdb.getEmail().equals(user.getEmail()) && userdb.getUserId().equals(user.getUserId()) ) {
+				String randomPW = "";
+				for(int i=0; i<8; i++) {
+					char randomPW_ = (char)((int)(Math.random()*25)+97);
+					randomPW += randomPW_;
+				}
+				flag = randomPW;
+				userdb.setUserPw(encoder.encode(randomPW));
+				userRepo.save(userdb);
+			}
+		}else {
+			Users userdb = userRepo.findUser(user.getEmail());
+			if( userdb.getName().equals(user.getName())&& userdb.getEmail().equals(user.getEmail())) {
+				flag = userdb.getUserId();
+			}
+		}
+		return flag;
 	}
 
 	@Override

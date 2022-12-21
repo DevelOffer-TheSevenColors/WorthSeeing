@@ -16,4 +16,6 @@ public interface UsersService {
 	
 	public List<Users> listUsers();
 	
+	public String findUser(Users user);
+	
 }
