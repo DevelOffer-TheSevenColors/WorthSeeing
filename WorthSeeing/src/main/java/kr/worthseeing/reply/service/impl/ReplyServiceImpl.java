@@ -24,7 +24,7 @@ public class ReplyServiceImpl implements ReplyService{
 	public void insertReply(Reply reply, Notify notify) {
 		reply.setNotify(notify);
 		
-		replyRepo.save(reply);
+		replyRepo.save(reply);  
 	}
 	
 	

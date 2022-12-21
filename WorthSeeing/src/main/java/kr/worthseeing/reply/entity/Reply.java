@@ -19,7 +19,7 @@ import lombok.ToString;
 @Entity
 @Data
 @ToString(exclude = "notify")
-@NoArgsConstructor
+@NoArgsConstructor 
 public class Reply {
 
 	@Id

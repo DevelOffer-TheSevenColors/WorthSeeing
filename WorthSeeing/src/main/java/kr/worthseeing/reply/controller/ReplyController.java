@@ -22,7 +22,7 @@ public class ReplyController {
 	
 	@Autowired
 	ReplyService replyService;
-	
+	 
 	//댓글 목록
 	@RequestMapping("/listReply")
 	public String listReply(Reply reply, @PageableDefault Pageable pageable, Model model) {

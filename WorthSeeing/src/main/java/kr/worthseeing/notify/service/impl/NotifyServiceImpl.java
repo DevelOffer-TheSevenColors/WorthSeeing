@@ -70,7 +70,7 @@ public class NotifyServiceImpl implements NotifyService {
 	public Notify getNotify(Notify notify) {
 		Notify findNotify = notifyRepo.findById(notify.getNotifySeq()).get();
 		findNotify.setViewCnt(findNotify.getViewCnt() + 1);
-		return findNotify;
+		return findNotify; 
 	}
 	
 	//문의글 상세, 조회수
