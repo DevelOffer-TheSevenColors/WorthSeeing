@@ -24,13 +24,13 @@ public class QReply extends EntityPathBase<Reply> {
 
     public final kr.worthseeing.notify.entity.QNotify notify;
 
-    public final NumberPath<Integer> reply_seq = createNumber("reply_seq", Integer.class);
-
     public final StringPath replyContent = createString("replyContent");
 
     public final DateTimePath<java.util.Date> replyDate = createDateTime("replyDate", java.util.Date.class);
 
     public final StringPath replyer = createString("replyer");
+
+    public final NumberPath<Integer> replySeq = createNumber("replySeq", Integer.class);
 
     public QReply(String variable) {
         this(Reply.class, forVariable(variable), INITS);

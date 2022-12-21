@@ -26,9 +26,9 @@
 							<div class="col-lg-8">
 								<div class="contact-form bg-white" style="padding: 30px;">
 									<div id="success"></div>
-									
+
 									<form action="/notify/insertNotifyProc" name="sentMessage"
-										 novalidate="novalidate" method="post">
+										novalidate="novalidate" method="post">
 										<div class="form-row"></div>
 										<div class="control-group">
 											<input type="text" class="form-control p-4" id="name"
@@ -37,22 +37,26 @@
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="control-group">
-											<textarea class="form-control py-3 px-4" rows="5" name="content"
-												id="message" placeholder="Content"
+											<textarea class="form-control py-3 px-4" rows="5"
+												name="content" id="message" placeholder="Content"
 												required="required"
 												data-validation-required-message="Please enter your message"></textarea>
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="text-center">
-											<input class="btn btn-primary py-3 px-4" type="submit" value="등록하기"
-												/>
+											<input class="btn btn-primary py-3 px-4" type="submit"
+												value="등록하기" />
 										</div>
-<!-- 										<input type="hidden" name="notifySeq" -->
-<!-- 											th:value="${notify.notifySeq}"> <input type="hidden" -->
-<!-- 											name="status_seq" th:value="${status_seq}"> -->
+										<!-- 										<input type="hidden" name="notifySeq" -->
+										<!-- 											th:value="${notify.notifySeq}"> <input type="hidden" -->
+										<!-- 											name="status_seq" th:value="${status_seq}"> -->
+
+										<div>
+											<a th:href="@{/notify}">글 목록 돌아가기</a>
+										</div>
 									</form>
-									
-									
+
+
 								</div>
 							</div>
 						</div>

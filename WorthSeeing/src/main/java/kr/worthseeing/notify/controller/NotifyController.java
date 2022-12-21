@@ -31,10 +31,9 @@ public class NotifyController {
 	// 글 목록
 	@RequestMapping("/notify")
 	public String getList(@PageableDefault Pageable pageable, Model model, String status) {
-		System.out.println("controller status===>" + status);
-		System.out.println(notifyService.getListNotify(pageable, "2").getTotalPages());
-		System.out.println(notifyService.getListNotify(pageable, "2").getTotalElements());
+		
 		model.addAttribute("notifyList", notifyService.getListNotify(pageable, status));
+		
 		return "/notify/notify";
 	}
 
@@ -65,19 +64,18 @@ public class NotifyController {
 	}
 
 	// 문의글 상세
-	@GetMapping("/notify/getContact")
-	public String getContact(Notify notify, Model model, @AuthenticationPrincipal SecurityUser principal) {
-		model.addAttribute("notify", notifyService.getContact(notify));
-		
-		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());
-		
+	@RequestMapping("/notify/getContact")
+	public String getContact(Notify notify,Status status, Model model, @AuthenticationPrincipal SecurityUser principal, Pageable pageable) {
+		System.out.println("controller principal.getUsers().getUserId()--->" + principal.getUsers().getUserId());
 		Users users = new Users();
 		users.setUserId(principal.getUsers().getUserId());
 		notify.setUsers(users);
 		
-		System.out.println("controller rep[ly----->" + replyService.listReply(notify));
-		model.addAttribute("replyList", replyService.listReply(notify));
+		model.addAttribute("principal", principal);
+		model.addAttribute("notify", notifyService.getContact(notify));
 		
+		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());
+		model.addAttribute("replyList", replyService.listReply(notify, pageable));
 		
 		return "/notify/getContact";
 	}

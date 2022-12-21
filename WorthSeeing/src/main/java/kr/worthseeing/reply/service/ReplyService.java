@@ -2,6 +2,7 @@ package kr.worthseeing.reply.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import kr.worthseeing.notify.entity.Notify;
@@ -15,6 +16,6 @@ public interface ReplyService {
 
 	void deleteReply(Reply reply);
 
-	List<Reply> listReply(Notify notify);
+	Page<Reply> listReply(Notify notify, Pageable pageable);
 
 }

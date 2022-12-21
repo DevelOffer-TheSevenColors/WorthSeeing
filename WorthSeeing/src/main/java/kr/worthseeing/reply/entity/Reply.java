@@ -24,7 +24,7 @@ public class Reply {
 
 	@Id
 	@GeneratedValue
-	private int reply_seq;
+	private int replySeq;
 	private String replyContent;
 	private String replyer;
 	

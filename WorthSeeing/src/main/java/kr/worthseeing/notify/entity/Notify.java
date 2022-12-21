@@ -59,8 +59,8 @@ public class Notify {
 	@OneToMany(mappedBy = "notify")
 	private List<Reply> replyList = new ArrayList<Reply>();
 	
-	public Notify(int notify_seq, String title, String content, int viewCnt) {
-		this.notifySeq = notify_seq;
+	public Notify(int notifySeq, String title, String content, int viewCnt) {
+		this.notifySeq = notifySeq;
 		this.title = title;
 		this.content = content;
 		this.viewCnt = viewCnt;

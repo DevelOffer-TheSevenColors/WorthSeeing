@@ -52,14 +52,14 @@
 				</form>
 
 				<div class="aLink">
-					<a th:if="${notify.users.userId == principal.users.userId}"
+					<a th:if="${notify.users.userId eq principal.users.userId}"
 						th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">게시글
 						삭제</a>
 				</div>
 				<div>
 					<a th:href="@{/notify}">목록 이동</a>
 				</div>
- 
+
 
 				<!-- 댓글 -->
 				<table class="container-fluid py-5">
@@ -77,7 +77,8 @@
 										id="contactForm" novalidate="novalidate" method="post">
 										<div class="form-row"></div>
 										<div class="control-group">
-											<p  class="form-control p-4" id="name" th:text="${principal.users.userId}"></p>
+											<p class="form-control p-4" id="name"
+												th:text="${principal.users.userId}"></p>
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="control-group">
@@ -88,8 +89,8 @@
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="text-center">
-											<input value="댓글 등록"class="btn btn-primary py-3 px-4" type="submit"
-												id="sendMessageButton" />
+											<input value="댓글 등록" class="btn btn-primary py-3 px-4"
+												type="submit" id="sendMessageButton" />
 										</div>
 										<input type="hidden" name="notifySeq"
 											th:value="${notify.notifySeq}"> <input type="hidden"
@@ -99,13 +100,10 @@
 							</div>
 						</div>
 					</div>
-
-					<!--댓글목록 -->
-
-
 				</table>
 
 
+				<!--댓글목록 -->
 				<div class="bg-white" style="padding: 30px; margin-bottom: 30px;">
 					<h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">댓글</h4>
 					<div class="media mb-4" th:each="reply, state : ${replyList}">
@@ -119,7 +117,41 @@
 					</div>
 				</div>
 
+				<!-- Paging -->
+				<form th:action="@{/notify/getContact}" method="post">
+					<input name="notifySeq" type="hidden"
+						th:value="${notify.notifySeq}"> <input type="hidden"
+						name="status_seq" th:value="${status_seq}">
+					<div>
+						<nav class="customNav">
+							<ul class="customPagination"
+								th:with="start=${(1-(replyList.number%1))%1 + 1},
+	                    	last=(${start + 9 < replyList.totalPages ? start + 9 : replyList.totalPages})">
 
+								<li th:class="${replyList.first} ? 'disabled'">
+									<button name="page" value="1">First</button>
+								</li>
+
+								<li th:class="${replyList.first} ? 'disabled'">
+									<button name="page" th:value="${replyList.number}">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == replyList.number + 1} ? 'active'">
+									<button name="page" th:value="${page}" th:text="${page}"></button>
+								</li>
+
+								<li th:class="${replyList.last} ? 'disabled'">
+									<button name="page" th:value="${replyList.number + 2}">&gt;</button>
+								</li>
+
+								<li th:class="${replyList.last} ? 'disabled'">
+									<button name="page" th:value="${replyList.totalPages}">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</form>
 
 
 

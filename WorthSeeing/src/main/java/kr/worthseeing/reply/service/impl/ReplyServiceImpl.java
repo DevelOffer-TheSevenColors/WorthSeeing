@@ -1,15 +1,19 @@
 package kr.worthseeing.reply.service.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.BooleanBuilder;
+
 import kr.worthseeing.notify.entity.Notify;
+import kr.worthseeing.notify.entity.QNotify;
+import kr.worthseeing.reply.entity.QReply;
 import kr.worthseeing.reply.entity.Reply;
 import kr.worthseeing.reply.repository.ReplyRepository;
 import kr.worthseeing.reply.service.ReplyService;
@@ -31,16 +35,26 @@ public class ReplyServiceImpl implements ReplyService{
 	
 	//댓글목록, 페이징
 	@Override
-	public List<Reply> listReply(Notify notify) {
-		List<Reply> replyList = new ArrayList<Reply>();
+	public Page<Reply> listReply(Notify notify, Pageable pageable) {
+		BooleanBuilder builder = new BooleanBuilder();
 		
-		for(Reply reply : replyRepo.findAll()) {
-			if (notify.getNotifySeq() == reply.getNotify().getNotifySeq()) {
-				replyList.add(reply);
-			}
-		}
+		QReply qreply = QReply.reply;
+		System.out.println("impl notify.getNotifySeq()--->" + notify.getNotifySeq());
+		builder.and(qreply.notify.notifySeq.eq(notify.getNotifySeq()));
 		
-		return replyList;
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "replySeq");
+		
+		return replyRepo.findAll(builder, pageable);
+		
+		
+//		for(Reply reply : replyRepo.findAll()) {
+//			if (notify.getNotifySeq() == reply.getNotify().getNotifySeq()) {
+//				replyList.add(reply);
+//			}
+//		}
+		
+//		return replyList;
 	}
 	
 //	//댓글 수정
