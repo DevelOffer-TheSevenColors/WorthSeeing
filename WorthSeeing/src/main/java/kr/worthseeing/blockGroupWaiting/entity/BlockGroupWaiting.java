@@ -49,7 +49,7 @@ public class BlockGroupWaiting {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
-	private Date endDate = new Date();
+	private Date endDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column

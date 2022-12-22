@@ -122,10 +122,13 @@ public class AuctionController {
 		return "/mypageMain";
 	}
 
-	//  최종결제 할 때 페이지 넘기는 값들 ㅎㅎ
+//  최종결제 할 때 페이지 넘기는 값들 ㅎㅎ
 	@PostMapping("/updateCredit")
-	public String updateCredit(BlockGroupWaiting blockGroupWaiting ,Status status,Users users) {
-		auctionService.updateCreditInfo(blockGroupWaiting, status, users);
+	public String updateCredit(BlockGroupWaiting blockGroupWaiting ,Status status,Users users, int month) {
+
+		System.out.println("===>>"+month);
+		
+		auctionService.updateCreditInfo(blockGroupWaiting, status, users,month);
 		return "/main";
 	}
 }

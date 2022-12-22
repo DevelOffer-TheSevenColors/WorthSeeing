@@ -1,5 +1,6 @@
 package kr.worthseeing.main.auction.service.impl;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -138,27 +139,46 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 
-	@Override
-    public void updateCreditInfo(BlockGroupWaiting blockGroupWaiting ,Status status, Users user) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
+	//낙찰받은 블록 결제하기 
+			@Override
+			public void updateCreditInfo(BlockGroupWaiting blockGroupWaiting ,Status status, Users user, int month) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
 
-       System.out.println("====>"+blockGroupWaiting);
-       System.out.println("====>2"+user);
-       
-       Users findUser=usersRepo.findById(user.getUserId()).get();
-       findUser.setPoint(user.getPoint());
-       
-       BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
-       
-       
-       findBlockGroupWaiting.setPrice(blockGroupWaiting.getPrice());
-       findBlockGroupWaiting.setPurchaseDay(new Date());
-       findBlockGroupWaiting.setStatus(status);
-       
-       
-       blockGroupWaitingRepo.save(findBlockGroupWaiting);
-       usersRepo.save(findUser);
-       
-    }
+				
+				Users findUser=usersRepo.findById(user.getUserId()).get();
+				findUser.setPoint(user.getPoint());
+				
+				BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+				
+				LocalDate now= LocalDate.now();
+				
+				
+					if(month == 1) {
+						LocalDate result1= now.plusMonths(1);
+						Date enddate1 = java.sql.Date.valueOf(result1);
+						findBlockGroupWaiting.setEndDate(enddate1);
+				
+					}else if(month == 2){
+						LocalDate result1= now.plusMonths(2);
+						Date enddate1 = java.sql.Date.valueOf(result1);
+						findBlockGroupWaiting.setEndDate(enddate1);
+					
+					}else if(month ==3) {
+						LocalDate result1= now.plusMonths(3);
+						Date enddate1 = java.sql.Date.valueOf(result1);
+						findBlockGroupWaiting.setEndDate(enddate1);
+					}
+				
+					
+					
+				findBlockGroupWaiting.setPrice(blockGroupWaiting.getPrice());
+				findBlockGroupWaiting.setPurchaseDay(new Date());
+				findBlockGroupWaiting.setStatus(status);
+				
+				
+				
+				blockGroupWaitingRepo.save(findBlockGroupWaiting);
+				usersRepo.save(findUser);
+			}
 
 	  @Override
       public BlockGroupWaiting auctionCreditView(BlockGroupWaiting blockGroupWaiting) {

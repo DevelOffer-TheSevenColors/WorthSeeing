@@ -183,9 +183,9 @@ function changePoint(amt,pnt,min,unit){
 							</tr>
 							<tr>
 								<td><select  id="month" name="month" class="month" >
-											<option value="1">1개월</option>
-											<option value="2">2개월</option>
-											<option value="3">3개월</option>
+											<option th:name="month" value="1">1개월</option>
+											<option th:name="month" value="2">2개월</option>
+											<option th:name="month" value="3">3개월</option>
 								</select></td>
 								<td>
 									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${waiting.price}" ></span> 원</p>

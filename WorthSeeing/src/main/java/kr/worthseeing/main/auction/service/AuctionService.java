@@ -34,7 +34,7 @@ public interface AuctionService {
 	public Auction findAuction(Reservation reservation);
 	
 	//페이지 작성 후 최종구매할 때
-		void updateCreditInfo(BlockGroupWaiting blockGroupWaiting ,Status status, Users user);
+		void updateCreditInfo(BlockGroupWaiting blockGroupWaiting ,Status status, Users user , int month);
 	
 	void autoAuction(Reservation reservation);
 	
