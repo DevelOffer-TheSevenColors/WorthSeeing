@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import groovyjarjarantlr4.v4.parse.ANTLRParser.action_return;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
+import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 
 @Controller
@@ -70,9 +72,16 @@ public class AuctionController {
 		return "/auction";
 	}
 
-	// 낙착되어서 결제하러 갈떄
+	// 낙찰해서 결제하러 갈때
 	@GetMapping("/credit")
-	public String AuctionCredit(Auction auction) {
+	public String AuctionCredit(Model model, BlockGroupWaiting blockGroupWaiting,@AuthenticationPrincipal SecurityUser principal) {
+		
+		System.out.println("====>1"+blockGroupWaiting);
+		auctionService.auctionCreditView(blockGroupWaiting);
+		
+		model.addAttribute("blockGroupWaiting",auctionService.auctionCreditView(blockGroupWaiting));
+		model.addAttribute("users",principal.getUsers());
+		
 		return "/credit";
 	}
 
@@ -103,7 +112,7 @@ public class AuctionController {
 		return "redirect:/main";
 	}
 
-	// 결제할때 페이지 정보 불러오기
+	// 예약 결제할때 페이지 정보 불러오기
 	@GetMapping("/seletCredit")
 	public String selectCredit(Model model, Auction auction) {
 		auctionService.selectCredit(auction);
@@ -113,11 +122,12 @@ public class AuctionController {
 		return "/mypageMain";
 	}
 
-	// 결제 할 때 페이지 넘기는 값들 ㅎㅎ
+	//  최종결제 할 때 페이지 넘기는 값들 ㅎㅎ
 	@PostMapping("/updateCredit")
-	public String updateCredit(Users users, Auction auction) {
+	public String updateCredit(BlockGroupWaiting blockGroupWaiting ,Status status,Users users) {
 
-		auctionService.updateCreditInfo(users, auction);
-		return "/";
+		
+		auctionService.updateCreditInfo(blockGroupWaiting, status, users);
+		return "/main";
 	}
 }

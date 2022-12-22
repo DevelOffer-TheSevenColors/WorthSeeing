@@ -121,18 +121,39 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq) {
 		
 		List<BlockGroupWaiting> findBlockWaiting =   blockGroupWaitingRepo.selectBlockGroupWaiting(userId);
-		System.out.println("====>5"+findBlockWaiting);
 		
 		return findBlockWaiting;
 	}
-	
-	
-	
 
+	
+	
 	@Override
 	public List<BlockGroup> getListBlockGroup() {
-
+		
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
+	
+	
+
+//	@Override
+//	public List<BlockGroup> getListBlockGroup() {
+//
+//		return (List<BlockGroup>) blockGroupRepo.findAll();
+//	}
+//	
+//	@Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") // 매일 자정
+//	public void updateUsersPoint() {
+//		usersRepo.updateUsersPoint();
+//
+////		updateUsers.setPoint(users.getPoint());
+////		usersRepo.save(updateUsers);
+//		System.out.println("============>" + "10초마다 실행");
+//	}
+//
+////	@Scheduled(cron = "3 * * * * *", zone = "Asia/Seoul")
+////	public void test() {
+////		System.out.println("3초마다 실행");
+////	}
+//
 
 }

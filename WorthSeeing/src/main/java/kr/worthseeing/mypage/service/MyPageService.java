@@ -26,6 +26,7 @@ public interface MyPageService {
 	List<BlockGroupWaiting> selectBlockGroupWaiting(String userId, int status_seq);
 
 	List<BlockGroup> getListBlockGroup();
+	
 
 	void getUserPoint(Users users, String price);
 
