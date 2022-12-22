@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
-import kr.worthseeing.users.entity.Users;
+import kr.worthseeing.mypage.service.MyPageService;
+import kr.worthseeing.security.config.SecurityUser;
 
 @Controller
 public class BlockGroupController {
@@ -26,7 +26,10 @@ public class BlockGroupController {
 	@Autowired
 	private BlockGroupService blockGroupService;
 	
-	@GetMapping("/writeURLThumb")
+	@Autowired
+	private MyPageService myPageService;
+	
+	@PostMapping("/writeURLThumb")
 	public String writeURLThumb(BlockGroup blockGroup, Model model) {
 		BlockGroup myBlockGroup = blockGroupService.findBlockGroup(blockGroup);
 		model.addAttribute("blockGroup", myBlockGroup);
@@ -35,18 +38,20 @@ public class BlockGroupController {
 		return "/writeURLThumb";
 	}
 	
-	// @PostMapping("/writeURLThumb")
-	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files, Users users) {
-		blockGroupService.insertBlockGroup(blockGroup, files, users);
+//	@PostMapping("/writeURLThumb")
+	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
+		blockGroupService.insertBlockGroup(blockGroup, files, principal.getUsers());
 		
 		return "redirect:/main";
 	}
 	
 	@PostMapping("/updateURLThumb")
-	public String updateURLThumbProc(BlockGroup blockGroup, MultipartFile files) {
-		blockGroupService.updateBlockGroup(blockGroup, files);
-		System.out.println();
-		return "/mypageMain";
+	public String updateURLThumbProc(Model model, BlockGroup blockGroup, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
+		blockGroupService.updateBlockGroup(blockGroup, files, principal.getUsers());
+		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
+		model.addAttribute("BlockGroupUserId", blockGroupUserId);
+		return "redirect:/mypageMain";
 	}
 	
 	
