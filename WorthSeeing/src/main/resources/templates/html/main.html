@@ -28,74 +28,96 @@
 }
 </style>
 	<script>
-function createBlock(number) {
-		
-		// Block cnt && User Daily Click
-		$("#" + number).click(function() {
-			setLocalStorage($("#userName").text(), number);
-		});
-		
-		// 현재페이지에서 1클릭씩 증가하는 변수 생성하여 10이되면 알림창 띄우게..
+	function createBlock(listBGSeq) { // 인기순위 top 5 사진 띄우기 + 
+		var cImgList = encodeURI("[[${listcImg}]]");
+	    var cImgArr = cImgList.split(",");
+	    var topSize = 0;
+	    
+		for (var i = 1; i <= listBGSeq.length; i++) {
+	          var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
+	          
+	          $(".blockTest").append(child);
 
-		if (number % 17 == 0) {
-			$("#" + number).css('margin-left', 1700 + 'px');
-		} else {
-			$("#" + number).css('margin-left', 100 * (number % 17) + 'px');
+			if (i % 17 == 0) {
+				// 	$("#" + i).css('margin-left', 100 * i + 'px');
+				$("#" + i).css('margin-top', topSize + 'px');
+				topSize += 100;
+			} else {
+				$("#" + i).css('margin-top', topSize + 'px');
+			}
+			
+			if (i % 17 == 0) {
+				$("#" + i).css('margin-left', 1700 + 'px');
+			} else {
+				$("#" + i).css('margin-left', 100 * (i % 17) + 'px');
+			}
+
 		}
-
+		
 	}
 	
-	var set = new Set();
 	
-	function setLocalStorage(key, number) {
-		set.add(number); // 중복없이 사용자가 클릭한 블록 번호 추가
+	
+	function setLocalStorage(key, number, today, expireDate) {
+		var random = Math.random();
+		localStorage.setItem(key + random, JSON.stringify({ number: number, expire : expireDate })); // localStorage에 저장
 		
-		const arr = Array.from(set); // Set -> Array 변환
+		var setList = new Set();
+		for (var i=0; i<localStorage.length; i++) {
+			  var searchKey = localStorage.key(i);
+			  const obj = JSON.parse(localStorage.getItem(searchKey)).expire;
+			  
+			  if(today >= expireDate) {
+				  window.localStorage.removeItem(searchKey);
+				}
+			  
+			  if (searchKey.slice(0, 3) == key) {
+						setList.add(JSON.parse(localStorage.getItem(searchKey)).number.toString());
+				}
+			  
+			}
 		
-		const item = { number: arr.toString() }; // property : number, value : 중복없는 클릭한 블록 번호
-		
-		localStorage.setItem(key, JSON.stringify(item)); // localStorage에 저장
-
-		if (arr.length == 10) { // 클릭한 블록 개수가 10개가 되면 /click 요청
-			location.href="/click"; // db에 데이터 저장, 포인트 지급 alert 창 띄움
+		if (setList.size == 10) { // 클릭한 블록 개수가 중복 없이 10개가 되면 사용자 포인트 + 500
+			// db에 사용자 포인트 + 500 저장, 포인트 지급 alert 창 띄움, 걸려있는 링크로 이동
+			location.href="/updatePoint?blockGroup_seq=" + number;
 		}
+		else {
+			 // 걸려있는 링크로 이동
+			location.href="/click?blockGroup_seq=" + number; 
+		}
+		
 	}
+	
+	
 	
 	$(document).ready(function() {
-		topSize = 0;
-		var listBGSeq = [[${blockGroupSeqList}]];
-		var listBG
-       var cImgList = encodeURI("[[${listcImg}]]");
-       var cImgArr = cImgList.split(",");
+		
+		// 인기순위 Top 5 이미지 띄우기
+		var cImgTopList = encodeURI("[[${listTopcImg}]]");
+	       var cImgTopArr = cImgTopList.split(",");
+	       
+	       for (var i = 1; i <= 5; i++) {
+	           document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3);
+	           if(i==5){
+	              document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3).slice(0,-3);
+	           }
+	       }
+	   
+	       
+	   // 블록 153개 생성
+       createBlock([[${blockGroupSeqList}]]);
        
+       var today = new Date();
+		var expireDate = today.getFullYear() + (today.getMonth() + 1) + today.getDate() + 1;
+		today = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
+		
+		// 각 블록 클릭 시 localStorage에 저장 후 click 수 계산하여 처리
+		$(".tt").click(function() {
+			setLocalStorage($("#userName").text(), $(this).attr("id"), today, expireDate);
+		});
+		
+		
        
-       var cImgTopList = encodeURI("[[${listTopcImg}]]");
-       var cImgTopArr = cImgTopList.split(",");
-       
-       for (var i = 1; i <= 5; i++) {
-           document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3);
-           console.log(cImgTopArr[i].slice(3));
-           if(i==5){
-              document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3).slice(0,-3);
-           }
-       }
-       
-       for (var i = 1; i <= listBGSeq.length; i++) {
-          var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
-          
-          $(".blockTest").append(child);
-          createBlock(i);
-
-					if (i % 17 == 0) {
-						// 				$("#" + i).css('margin-left', 100 * i + 'px');
-						$("#" + i).css('margin-top', topSize + 'px');
-						topSize += 100;
-					} else {
-						$("#" + i).css('margin-top', topSize + 'px');
-					}
-
-				}
-
        /*
 				$("#12").css('z-index', '50');
 
@@ -116,7 +138,7 @@ function createBlock(number) {
 				$("#45").css('z-index', '51');
 				$("#47").css('z-index', '51');
 		*/
-			});
+		});
 	</script>
 
 	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>

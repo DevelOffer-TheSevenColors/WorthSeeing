@@ -11,25 +11,24 @@ import kr.worthseeing.users.entity.Users;
 
 public interface MyPageService {
 
-	void getMyPage();
-	
-	void getClick(Users users);
-	
+	Users getUsers(Users users);
+
+	void add500Point(Users users);
+
+	String getClick(BlockGroup blockGroup);
+
 	List<BlockGroup> getBlockGroupUserId(String userId);
-	
+
 	List<Coupon> getCouponUserId(String userId);
-	
+
 	Map<Integer, List<AuctionLog>> getAuctionLogUserId(String userId);
-	
-	List<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq);
-	
+
+	List<BlockGroupWaiting> selectBlockGroupWaiting(String userId, int status_seq);
+
 	List<BlockGroup> getListBlockGroup();
-	
-	void getUserPoint(Users users,String price);
-	
-	void updateCoupon(Coupon coupon);
-	
-	
-	
-	
+
+	void getUserPoint(Users users, String price);
+
+	void updateCoupon(Users users,String price, Coupon coupon);
+
 }

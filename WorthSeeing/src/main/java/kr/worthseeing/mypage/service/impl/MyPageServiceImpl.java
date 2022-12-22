@@ -49,12 +49,18 @@ public class MyPageServiceImpl implements MyPageService {
 	
 
 	@Override
-	public void getMyPage() {
-
+	public Users getUsers(Users users) {
+		return usersRepo.findById(users.getUserId()).get();
 	}
 
 	@Override
-	public void getClick(Users users) {
+	public String getClick(BlockGroup blockGroup) {
+		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+		return findBlockGroup.getLinkUrl();
+	}
+
+	@Override
+	public void add500Point(Users users) {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
 
 		findUsers.setPoint(findUsers.getPoint() + 500);
@@ -65,7 +71,6 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public List<BlockGroup> getBlockGroupUserId(String userId) {
-
 		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
 	}
 
@@ -85,14 +90,19 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
-	public void updateCoupon(Coupon coupon) {
-		Coupon findCoupon = couponRepo.findByCoupon(coupon.getStatus().getStatus_seq()).get(0);
+	public void updateCoupon(Users users,String price, Coupon coupon) {
+		Users findUsers = usersRepo.findById(users.getUserId()).get();
+		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
+		usersRepo.save(findUsers);
+		
+		Coupon findCoupon = couponRepo.findByCoupon(coupon.getStatus().getStatus_seq()).get(1);
+		
 		findCoupon.setUsers(coupon.getUsers());
 		findCoupon.setCouponSerialNum(coupon.getCouponSerialNum());
 		findCoupon.setCouponUsedDate(coupon.getCouponUsedDate());
+		
 		couponRepo.save(findCoupon);
 		
-		System.out.println("findCoupon=================>"+findCoupon);
 	}
 	
 	
