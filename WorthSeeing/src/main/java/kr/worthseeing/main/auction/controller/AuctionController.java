@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import groovyjarjarantlr4.v4.parse.ANTLRParser.action_return;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.status.entity.Status;
@@ -118,17 +116,13 @@ public class AuctionController {
 	@GetMapping("/seletCredit")
 	public String selectCredit(Model model, Auction auction) {
 		auctionService.selectCredit(auction);
-
 		model.addAttribute("reservationList", auctionService.selectCredit(auction));
-
 		return "/mypageMain";
 	}
 
 	//  최종결제 할 때 페이지 넘기는 값들 ㅎㅎ
 	@PostMapping("/updateCredit")
 	public String updateCredit(BlockGroupWaiting blockGroupWaiting ,Status status,Users users) {
-
-		
 		auctionService.updateCreditInfo(blockGroupWaiting, status, users);
 		return "/main";
 	}
