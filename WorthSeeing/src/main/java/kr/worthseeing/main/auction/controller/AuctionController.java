@@ -80,6 +80,7 @@ public class AuctionController {
 		auctionService.auctionCreditView(blockGroupWaiting);
 		
 		model.addAttribute("blockGroupWaiting",auctionService.auctionCreditView(blockGroupWaiting));
+		
 		model.addAttribute("users",principal.getUsers());
 		
 		return "/credit";
