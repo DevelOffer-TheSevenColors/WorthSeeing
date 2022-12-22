@@ -72,17 +72,20 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	@Override
 	public void updateBlockGroup(BlockGroup blockGroup, MultipartFile files,Users users) {
 		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
 		
-		findBlockGroup.setCImg(imagePath); 
-		findBlockGroup.setLinkUrl(blockGroup.getLinkUrl());
-		findBlockGroup.setSImg(files.getOriginalFilename());
-		
-		try {
-			saveFile(files);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(!files.isEmpty()) {
+			String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
+			findBlockGroup.setCImg(imagePath); 
+			findBlockGroup.setSImg(files.getOriginalFilename());
+			try {
+				saveFile(files);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		findBlockGroup.setLinkUrl(blockGroup.getLinkUrl());
+		
 		blockGroupRepo.save(findBlockGroup);
 	}
 
