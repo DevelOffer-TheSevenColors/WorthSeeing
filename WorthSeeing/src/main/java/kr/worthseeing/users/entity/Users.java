@@ -8,16 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
-import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.notify.entity.Notify;
 import lombok.AllArgsConstructor;
@@ -27,7 +24,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = { "auctionList", "blockGroupList", "notifyList", "couponList", "reservationUsersList" })
+@ToString(exclude = {"blockGroupList", "notifyList", "couponList", "reservationUsersList" })
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users {
@@ -62,9 +59,6 @@ public class Users {
 	private int finishedAuctionCnt;
 	@Column(columnDefinition = "number default 0")
 	private int totalMoney;
-
-	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
-	private List<Auction> auctionList = new ArrayList<Auction>();
 
 	@OneToMany(mappedBy = "users")
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();

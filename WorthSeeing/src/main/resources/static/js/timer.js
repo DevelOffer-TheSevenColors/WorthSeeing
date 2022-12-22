@@ -1,7 +1,6 @@
 
 
  function remaindTime() {
-	
 	 $.ajax({
         url: "/auction/selectAuction",
         type: "POST",
@@ -38,19 +37,17 @@
         }
   	});
   	
-  	if(document.fmField.autoPrice.value!=null){
-  	  	$.ajax({
-	        url: "/auction/autoBidding",
-	        type: "POST",
-	        data: {reservation_seq : $("#reservation_seq").val()},
-	        success: function(data){
-	           console.log(data);
-	        },
-	        error: function(){
-	        	console.log("err");
-	        }
-  		});
-  	}
+   	$.ajax({
+	       url: "/auction/autoBidding",
+	       type: "POST",
+	       data: {reservation_seq : $("#reservation_seq").val()},
+	       success: function(data){
+	          console.log(data);
+	       },
+	       error: function(){
+	       	console.log("err");
+	       }
+  	});
   	
     var now = new Date();
     var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);

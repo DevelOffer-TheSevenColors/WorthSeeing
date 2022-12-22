@@ -182,7 +182,7 @@ public class reservationTest {
 		Auction auction = new Auction();
 
 		auction.setReservation(reservation);
-		auction.setUsers(users);
+		auction.setUserId(users.getUserId());
 
 		auctionRepo.save(auction);
 

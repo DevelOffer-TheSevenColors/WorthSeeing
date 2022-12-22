@@ -17,7 +17,15 @@
 <body>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-
+		
+		<script th:inline="javascript">
+			var reservation_seq = [[${reservation_seq}]];
+		 	$(function(){
+		 		$("#reservation_seq").val(reservation_seq);	  
+		 	});
+		 	
+		</script>
+		
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
@@ -98,7 +106,7 @@
 						method="post" onsubmit="return checkForm();">
 						<input type="hidden" name="auction_seq" id="auction_seq" value="1" />
 						<input type="hidden" name="reservation_seq" id="reservation_seq"
-							value="19" /></input> <input type="hidden" name="cPrice"
+							 /></input> <input type="hidden" name="cPrice"
 							id="currentPriceSend"></input> <input type="hidden"
 							name="currentMaxPrice" id="currentMaxPrice"></input> 
 							

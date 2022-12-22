@@ -36,7 +36,7 @@ public class QAuction extends EntityPathBase<Auction> {
 
     public final StringPath userAutoId = createString("userAutoId");
 
-    public final kr.worthseeing.users.entity.QUsers users;
+    public final StringPath userId = createString("userId");
 
     public QAuction(String variable) {
         this(Auction.class, forVariable(variable), INITS);
@@ -57,7 +57,6 @@ public class QAuction extends EntityPathBase<Auction> {
     public QAuction(Class<? extends Auction> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.reservation = inits.isInitialized("reservation") ? new kr.worthseeing.main.reservation.entity.QReservation(forProperty("reservation"), inits.get("reservation")) : null;
-        this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;
     }
 
 }

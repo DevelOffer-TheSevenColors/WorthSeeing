@@ -34,7 +34,9 @@ public class ReservationServiceImpl implements ReservationService {
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
 	public void insertReservationUsers(Reservation reservation, String userId) {
-
+		
+		Reservation reservation_db = reservationRepo.findById(reservation.getReservation_seq()).get();
+		
 		Users users2 = UsersRepo.findById(userId).get();
 
 		users2.setUserId(userId);
@@ -45,10 +47,12 @@ public class ReservationServiceImpl implements ReservationService {
 
 		if (reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), userId).isEmpty()) {
 			reservationUsers = new ReservationUsers();
-
 			reservationUsers.setReservation(reservation);
 			reservationUsers.setUsers(users2);
 
+			reservation_db.setUserCnt(reservation_db.getUserCnt()+1);
+			
+			reservationRepo.save(reservation_db);
 			reservationUsersRepo.save(reservationUsers);
 		}
 	}

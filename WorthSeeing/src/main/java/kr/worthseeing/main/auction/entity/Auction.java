@@ -40,19 +40,10 @@ public class Auction {
 	private Date suggestDate = new Date();
 	// private String userId;
 
-	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false)
-	@JsonIgnore
-	private Users users;
+	private String userId;
 	
 	 @Column(columnDefinition = "varchar(100) default ' '")
 	private String userAutoId;
-
-	@Transactional
-	public void setUsers(Users users) {
-		this.users = users;
-		users.getAuctionList().add(this);
-	}
 
 	@ManyToOne
 	@JsonIgnore

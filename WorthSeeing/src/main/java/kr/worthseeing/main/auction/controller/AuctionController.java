@@ -88,7 +88,7 @@ public class AuctionController {
 
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Reservation reservation, String suggestPrice, String cPrice,
+	public String bidding(Model model,Reservation reservation, String suggestPrice, String cPrice,
 			@AuthenticationPrincipal SecurityUser principal, String autoPrice) {
 		System.out.println("@@aa@@");
 		Auction auction = null;
@@ -96,13 +96,14 @@ public class AuctionController {
 			auction = new Auction();
 			auction.setSuggestPrice(Integer.parseInt(suggestPrice));
 			if (Integer.parseInt(cPrice) < auction.getSuggestPrice()) {
-				auction.setUsers(principal.getUsers());
+				auction.setUserId(principal.getUsers().getUserId());
 				auctionService.updateAuction(auction, reservation);
 			}
 		}
 		else {
 			auctionService.updateMaxPrice(reservation, autoPrice,principal.getUsers());
 		}
+		model.addAttribute("reservation_seq",reservation.getReservation_seq());
 		return "/auction";
 	}
 
