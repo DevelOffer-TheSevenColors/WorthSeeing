@@ -22,7 +22,6 @@ public interface AuctionService {
 	
 	public List<Auction> listAuction();
 	
-	
 	// Auction listAuction(Auction auction);
 	
 	void insertAuction(Auction auction);
