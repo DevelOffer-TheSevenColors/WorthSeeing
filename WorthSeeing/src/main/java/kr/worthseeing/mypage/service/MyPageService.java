@@ -27,6 +27,8 @@ public interface MyPageService {
 	
 	void getUserPoint(Users users,String price);
 	
+	void updateCoupon(Coupon coupon);
+	
 	
 	
 	

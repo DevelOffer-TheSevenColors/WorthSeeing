@@ -78,10 +78,21 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void getUserPoint(Users users,String price) {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
-//		List<Coupon> findcoupon = (List<Coupon>) couponRepo.findCoupon(1);
 		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
 		usersRepo.save(findUsers);
+		
 		System.out.println(findUsers);
+	}
+	
+	@Override
+	public void updateCoupon(Coupon coupon) {
+		Coupon findCoupon = couponRepo.findByCoupon(coupon.getStatus().getStatus_seq()).get(0);
+		findCoupon.setUsers(coupon.getUsers());
+		findCoupon.setCouponSerialNum(coupon.getCouponSerialNum());
+		findCoupon.setCouponUsedDate(coupon.getCouponUsedDate());
+		couponRepo.save(findCoupon);
+		
+		System.out.println("findCoupon=================>"+findCoupon);
 	}
 	
 	
