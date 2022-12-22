@@ -3,7 +3,13 @@ package kr.worthseeing.main.reservation.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.querydsl.core.BooleanBuilder;
 
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
@@ -55,9 +61,12 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 예약 가능 목록
 	@Override
-	public List<Reservation> selectReservation(Reservation reservation) {
-
-		return (List<Reservation>) reservationRepo.findAll();
+	public Page<Reservation> selectReservation(Reservation reservation,Pageable pageable) {
+		
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "reservation_seq");
+		
+		return reservationRepo.listReservation(pageable);
 
 	}
 

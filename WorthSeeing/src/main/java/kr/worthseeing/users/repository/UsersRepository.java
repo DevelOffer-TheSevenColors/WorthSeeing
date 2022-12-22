@@ -22,8 +22,8 @@ public interface UsersRepository  extends CrudRepository<Users, String>,Querydsl
 	void updateUsersPoint();
 	
 	@Query("select u from Users u where email = ?1")
-	Users findUser(String email);
+	List<Users> findUser(String email);
 	
 	@Query("select u From Users u")
-	Users findUsersPoint(String userId);
+	List<Users> findUserPoint(String userId);
 }

@@ -27,8 +27,7 @@
 						<tbody>
 							<tr>
 								<td>선택한 블록</td>
-								<td th:name="reservation_seq"
-									th:text="${reservationCreditInfo.reservation_seq}"></td>
+								<td th:name="reservation_seq" th:text="${block}"></td>
 
 							</tr>
 							<tr>
@@ -46,18 +45,13 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="submit" value="결제하기"
-									class="btpay2"></td>
+								<td colspan="2"><input type="submit" value="결제하기" class="btpay2"></td>
 							</tr>
 						</tbody>
 
 					</table>
 				</form>
-
-				<div>
-					<a th:href="@{/reservation/auctionList}">돌아가기</a>
-				</div>
-
+			<a th:href="@{/reservation/reservationList}">돌아가기</a>
 			</div>
 		</div>
 

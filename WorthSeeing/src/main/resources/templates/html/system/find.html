@@ -58,21 +58,17 @@
 											</div>
 											<div th:if="${result}!=null" class="col-md-12">
 												<div class="form-group">
-													<label class="label" for="#">아이디 / 임시비밀번호</label>
-													<textarea readonly class="form-control" id="message"
+													<label class="label" for="#">회원정보보기</label>
+													<textarea readonly style="font-size: 25px;" class="form-control" id="message"
 														cols="30" rows="4" th:text="${result}"></textarea>
 												</div>
 											</div>
 											<div class="col-md-12">
-												<div class="form-group">
-													<input th:if="${result}==null" style="margin-left:74%; background-color: #7FA998; color:white;" type="submit" value="아이디 / 비밀번호찾기"
+												<span class="form-group">
+													<a th:href="@{/system/login}" style="text-align:right; background-color: #7FA998; color:white;" class="btn">로그인창</a>
+													<input th:if="${result}==null" style="background-color: #7FA998; color:white;" type="submit" value="아이디 / 비밀번호찾기"
 														class="btn">
-													<a th:if="${result}!=null" th:href="@{/system/login}" style="margin-left:88
-													
-													
-													%; background-color: #7FA998; color:white;" class="btn">로그인</a>
-													<div class="submitting"></div>
-												</div>
+												</span>
 											</div>
 										</div>
 									</form>

@@ -53,9 +53,7 @@ public class BlockGroupController {
 	@RequestMapping("/list/blockGroupRankList")
 	public String listBlockGroupRank(Model model, @PageableDefault Pageable pageable) {
 		Page<BlockGroup> blockGroupList = blockGroupService.listBlockGroupOrderByClickCnt(pageable);
-		System.out.println("blockGrou==>" + blockGroupList.getContent().toString());
 		model.addAttribute("blockGroupList", blockGroupList);
-		
 		return "/list/blockGroupRankList";
 	}
 	

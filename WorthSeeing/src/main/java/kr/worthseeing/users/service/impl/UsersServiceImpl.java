@@ -16,24 +16,24 @@ import kr.worthseeing.users.repository.UsersRepository;
 import kr.worthseeing.users.service.UsersService;
 
 @Service
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 	@Autowired
 	private UsersRepository userRepo;
-	
+
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	@Override
 	public Users getUsers(Users users) {
-		
+
 		// null 인지 아닌지 if문을 쓰지않고 optional 클래스를 사용하여 null인지 확인가능, null이더라도 일단 메소드를 제공해줌
 		Optional<Users> findUser = userRepo.findById(users.getUserId());
-		if(findUser.isPresent())	// findMember 객체가 값을 가지고 있다면 true, findMember != null
+		if (findUser.isPresent()) // findMember 객체가 값을 가지고 있다면 true, findMember != null
 			return findUser.get();
-		else 
+		else
 			return null;
 	}
-	
+
 	@Override
 	@Transactional
 	public void insertUsers(Users users) {
@@ -53,29 +53,31 @@ public class UsersServiceImpl implements UsersService{
 		findUser.setRole(Role.ROLE_MEMBER);
 		userRepo.save(findUser);
 	}
-	
+
 	@Override
 	public String findUser(Users user) {
-		String flag = "회원정보가 다릅니다";
+		String flag = "회원정보가 다릅니다.";
 		System.out.println("@@@@b@@@@");
 		System.out.println(user.getUserId());
 		System.out.println(user.getUserId().isEmpty());
-		if(!user.getUserId().isEmpty()) {
+		if (!user.getUserId().isEmpty()) {
 			Users userdb = userRepo.findById(user.getUserId()).get();
-			if( userdb.getName().equals(user.getName()) && userdb.getEmail().equals(user.getEmail()) && userdb.getUserId().equals(user.getUserId()) ) {
+			if (userdb.getName().equals(user.getName()) && userdb.getEmail().equals(user.getEmail())
+					&& userdb.getUserId().equals(user.getUserId())) {
 				String randomPW = "";
-				for(int i=0; i<8; i++) {
-					char randomPW_ = (char)((int)(Math.random()*25)+97);
+				for (int i = 0; i < 8; i++) {
+					char randomPW_ = (char) ((int) (Math.random() * 25) + 97);
 					randomPW += randomPW_;
 				}
-				flag = randomPW;
+				flag = "회원님의 임시비밀번호는 ' " + randomPW + " ' 입니다.";
 				userdb.setUserPw(encoder.encode(randomPW));
 				userRepo.save(userdb);
 			}
-		}else {
-			Users userdb = userRepo.findUser(user.getEmail());
-			if( userdb.getName().equals(user.getName())&& userdb.getEmail().equals(user.getEmail())) {
-				flag = userdb.getUserId();
+		} else {
+			for (Users userdb : userRepo.findUser(user.getEmail())) {
+				if (userdb.getName().equals(user.getName()) && userdb.getEmail().equals(user.getEmail())) {
+					flag = "회원님의 아이디는 ' " + userdb.getUserId() + " ' 입니다.";
+				}
 			}
 		}
 		return flag;
@@ -85,12 +87,11 @@ public class UsersServiceImpl implements UsersService{
 	public void deleteUsers(Users user) {
 		userRepo.deleteById(user.getUserId());
 	}
-	
-	
+
 	@Override
-	public List<Users> listUsers(){
+	public List<Users> listUsers() {
 		List<Users> userList = (List<Users>) userRepo.findAll();
 		return userList;
 	}
-	
+
 }

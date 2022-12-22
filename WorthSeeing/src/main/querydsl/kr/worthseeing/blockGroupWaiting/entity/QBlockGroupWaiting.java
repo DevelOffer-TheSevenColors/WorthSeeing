@@ -38,7 +38,7 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
-    public final NumberPath<Integer> purchaseDay = createNumber("purchaseDay", Integer.class);
+    public final DateTimePath<java.util.Date> purchaseDay = createDateTime("purchaseDay", java.util.Date.class);
 
     public final StringPath sImg = createString("sImg");
 
