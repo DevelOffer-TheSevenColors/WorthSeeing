@@ -46,7 +46,7 @@ public class Notify {
 	public void setStatus(Status status) {
 		this.status = status;
 		status.getNotifyList().add(this);
-	}
+	} 
 	
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)

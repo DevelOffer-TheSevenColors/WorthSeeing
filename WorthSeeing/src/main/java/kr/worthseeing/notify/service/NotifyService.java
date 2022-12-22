@@ -16,7 +16,7 @@ public interface NotifyService {
 	void deleteNotify(Notify notify);
 	
 	Page<Notify> getListNotify(Pageable pageable,  String status);
-	
+	 
 	
 	//문의하기(contact)
 	void insertContact(Notify notify, Users users);
