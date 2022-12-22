@@ -27,7 +27,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Auction {
-
 	@Id
 	@GeneratedValue
 	private int auction_seq;

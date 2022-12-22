@@ -65,8 +65,9 @@ public class AuctionController {
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Model model, Auction auction, @AuthenticationPrincipal SecurityUser principal) {
+	public String Auction(Model model, Auction auction,Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
 		model.addAttribute("user", principal.getUsers());
+		model.addAttribute("reservation_seq",reservation.getReservation_seq());
 		return "/auction";
 	}
 
@@ -90,10 +91,11 @@ public class AuctionController {
 			@AuthenticationPrincipal SecurityUser principal, String autoPrice) {
 		System.out.println("@@aa@@");
 		Auction auction = null;
+		System.out.println("@@Reser@@==>"+reservation.getReservation_seq());
 		if (autoPrice.equals("")) {
 			auction = new Auction();
 			auction.setSuggestPrice(Integer.parseInt(suggestPrice));
-			if (Integer.parseInt(cPrice) < auction.getSuggestPrice()) {
+			if (auctionService.findAuction(reservation).getSuggestPrice() < auction.getSuggestPrice()) {
 				auction.setUserId(principal.getUsers().getUserId());
 				auctionService.updateAuction(auction, reservation);
 			}

@@ -106,6 +106,8 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Override
 	public void autoAuction(Reservation reservation) {
+		System.out.println("@@1@@");
+		System.out.println("@@re"+reservation.getReservation_seq());
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
 		if (findAuction.getSuggestPrice() * 1.1 <= findAuction.getMaxPrice()
 				&& !findAuction.getUserId().equals(findAuction.getUserAutoId())) {

@@ -1,6 +1,7 @@
 
 
  function remaindTime() {
+	console.log($("#reservation_seq").val());
 	 $.ajax({
         url: "/auction/selectAuction",
         type: "POST",
@@ -22,7 +23,6 @@
         type: "POST",
         data: {reservation_seq : $("#reservation_seq").val()},
         success: function(data){
-
             var block ="";
             $.each(data , function(i){
                 block += data[i].block_seq +",";
@@ -50,7 +50,7 @@
   	});
   	
     var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,00,00);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,00,00);
   
   
