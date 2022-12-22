@@ -12,23 +12,29 @@
 <body>
 
 <script>
+function ChangeValue(){
+var month=document.getElementById('month');
+
+}
+
 
 $(document).ready(function() {
+	var totalPrice = [[${blockGroupWaiting.price}]]  * $("#month option:selected").val();
 	
-	$("#use_pnt").change(function() {
-		
-		changePoint([[${blockGroupWaiting.price}]],[[${users.point}]],500, 100);
-		
+	$("#month").change(function(){
+		$("#monthPrice").text([[${blockGroupWaiting.price}]] + " * " + $("#month option:selected").val());
+		totalPrice = [[${blockGroupWaiting.price}]]  * $("#month option:selected").val();
+		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
-})
-
-$(document).ready(function() {
+	$("#use_pnt").change(function() {
+		changePoint(totalPrice, [[${users.point}]], 500, 100);
+	})
+	
 	
 	$("#chk_use").change(function() {
 		
-		chkPoint([[${blockGroupWaiting.price}]],[[${users.point}]],500, 100);
-		
+		chkPoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
 })
@@ -63,12 +69,8 @@ function chkPoint(amt,pnt,min,unit) {
 	}
 	
 	
-	
-	
 	$("#use_pnt").val(v_point); //input 값 설정
 	changePoint(amt,pnt,min,unit);
-	
-	
 	
 }
 
@@ -114,6 +116,7 @@ function changePoint(amt,pnt,min,unit){
 	
 	$("#result_pnt").attr("value",amt - v_point);
 	$("#point2").text(pnt - v_point);
+	
 }
 
 
@@ -146,12 +149,12 @@ function changePoint(amt,pnt,min,unit){
 							
 							<tr>
 								<td>구매 할 블록</td>
-								<td th:text="${waiting.blockGroup.blockList}"></td>
+								<td th:text="${waiting.blockGroup.blockList[0].Block_seq}"></td>
 							</tr>
 
 							<tr>
-								<td>월 지불 금액</td>
-								<td th:text="${waiting.price}"></td>
+								<td> 지불 예정 금액</td>
+								<td id="monthPrice" th:text="${waiting.price}"></td>
 							</tr>
 							
 							<tr>
@@ -179,10 +182,10 @@ function changePoint(amt,pnt,min,unit){
 							
 							</tr>
 							<tr>
-								<td><select name="month">
-										<option value="1">1개월</option>
-										<option value="2">2개월</option>
-										<option value="3">3개월</option>
+								<td><select  id="month" name="month" class="month" >
+											<option value="1">1개월</option>
+											<option value="2">2개월</option>
+											<option value="3">3개월</option>
 								</select></td>
 								<td>
 									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${waiting.price}" ></span> 원</p>
