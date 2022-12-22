@@ -95,7 +95,7 @@ public class reservationTest {
 		Status status = new Status();
 		status.setStatus_seq(2);
 
-		for (int i = 0; i < 153; i++) {
+		for (int i = 0; i < 289; i++) {
 			BlockGroup blockGroup = new BlockGroup(i + 1, "https://www.naver.com", "/cimg/clientimg.png",
 					"C:/serverImage/serverimg.png", 500);
 			blockGroup.setUsers(users);
@@ -110,7 +110,7 @@ public class reservationTest {
 
 		// block
 
-		for (int i = 0; i < 153; i++) {
+		for (int i = 0; i < 289; i++) {
 
 			Block block = new Block();
 
@@ -164,7 +164,7 @@ public class reservationTest {
 
 	}
 
-	//@Test
+//	@Test
 	public void insertReservationUserId() {
 		Users users = new Users();
 		users.setUserId("user1");
@@ -191,7 +191,7 @@ public class reservationTest {
 //	@Test
 	public void updateBlockGroupClickCnt() {
 
-		for (int i = 0; i < 153; i++) {
+		for (int i = 0; i < 289; i++) {
 			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
 			
 			Random rand = new Random();
@@ -204,7 +204,7 @@ public class reservationTest {
 
 	}
 	
-	@Test
+//	@Test
 	public void ReservationUsers() {
 		ReservationUsers reservationUsers = new ReservationUsers();
 		
