@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
@@ -22,6 +23,7 @@ import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.mypage.service.MyPageService;
+import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
@@ -80,29 +82,26 @@ public class MyPageServiceImpl implements MyPageService {
 		return (List<Coupon>) couponRepo.findByUserId(userId);
 	}
 	
+	@Transactional
 	@Override
-	public void getUserPoint(Users users,String price) {
+	public void getUserPoint(Users users, String price, Coupon coupon) {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
 		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
 		usersRepo.save(findUsers);
+
+		Coupon findCoupon = couponRepo.findByCoupon(2, Integer.parseInt(price)).get(0); // status가 2인 쿠폰 리스트의 index 0번째 데이터 가져오기
+		System.out.println("finidCoupon impol====>" + findCoupon);
 		
-		System.out.println(findUsers);
-	}
-	
-	@Override
-	public void updateCoupon(Users users,String price, Coupon coupon) {
-		Users findUsers = usersRepo.findById(users.getUserId()).get();
-		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
-		usersRepo.save(findUsers);
+		Status status = new Status();
+		status.setStatus_seq(3);
 		
-		Coupon findCoupon = couponRepo.findByCoupon(coupon.getStatus().getStatus_seq()).get(1);
+		findCoupon.setStatus(status);
+		findCoupon.setUsers(findUsers);
 		
-		findCoupon.setUsers(coupon.getUsers());
-		findCoupon.setCouponSerialNum(coupon.getCouponSerialNum());
-		findCoupon.setCouponUsedDate(coupon.getCouponUsedDate());
+		findCoupon.setCouponUsedDate(new Date());
 		
 		couponRepo.save(findCoupon);
-		
+		System.out.println("-==-=--==-=-=-=-=---[][][][][][][]" + findUsers);
 	}
 	
 	
@@ -133,27 +132,4 @@ public class MyPageServiceImpl implements MyPageService {
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
 	
-	
-
-//	@Override
-//	public List<BlockGroup> getListBlockGroup() {
-//
-//		return (List<BlockGroup>) blockGroupRepo.findAll();
-//	}
-//	
-//	@Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") // 매일 자정
-//	public void updateUsersPoint() {
-//		usersRepo.updateUsersPoint();
-//
-////		updateUsers.setPoint(users.getPoint());
-////		usersRepo.save(updateUsers);
-//		System.out.println("============>" + "10초마다 실행");
-//	}
-//
-////	@Scheduled(cron = "3 * * * * *", zone = "Asia/Seoul")
-////	public void test() {
-////		System.out.println("3초마다 실행");
-////	}
-//
-
 }

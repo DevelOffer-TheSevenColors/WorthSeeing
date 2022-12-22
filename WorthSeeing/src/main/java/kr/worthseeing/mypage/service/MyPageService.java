@@ -27,9 +27,6 @@ public interface MyPageService {
 
 	List<BlockGroup> getListBlockGroup();
 	
-
-	void getUserPoint(Users users, String price);
-
-	void updateCoupon(Users users,String price, Coupon coupon);
+	void getUserPoint(Users users,String price, Coupon coupon);
 
 }

@@ -55,12 +55,22 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/buyCouponProc")
-	public String buyCouponProc(@AuthenticationPrincipal SecurityUser principal, String price) {
+	public String buyCouponProc(Model model,@AuthenticationPrincipal SecurityUser principal, String price,Coupon coupon) {
 		if (price != null) {
-			myPageService.getUserPoint(principal.getUsers(), price);
+			myPageService.getUserPoint(principal.getUsers(), price, coupon);
 		}
 		return "redirect:/mypageMain";
 	}
+	
+//	@GetMapping("/buyCouponProc")
+//	public String buyCouponProc(Model model,@AuthenticationPrincipal SecurityUser principal, String price) {
+//		if (price != null) {
+//			myPageService.getUserPoint(principal.getUsers(), price);
+//		}
+//		return "redirect:/mypageMain";
+//	}
+	
+	
 
 	@GetMapping("/mypageCouponMall")
 	public String getmypageCouponMall(Model model, @AuthenticationPrincipal SecurityUser principal) {

@@ -20,7 +20,7 @@ public interface CouponRepository  extends CrudRepository<Coupon, Integer>,
 	List<Coupon> findByUserId(String userId);
 	
 	
-	@Query("select c from Coupon c where status_seq = ?1")
-	List<Coupon> findByCoupon(int status_seq);
+	@Query(value="select c from Coupon c where c.status.status_seq = ?1 and couponPrice = ?2")
+	List<Coupon> findByCoupon(int status_seq, int couponPrice);
 	
 }
