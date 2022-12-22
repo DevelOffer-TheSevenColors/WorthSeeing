@@ -24,16 +24,16 @@ public class NotifyController {
 
 	@Autowired
 	private NotifyService notifyService;
-	
+
 	@Autowired
 	private ReplyService replyService;
 
 	// 글 목록
 	@RequestMapping("/notify")
 	public String getList(@PageableDefault Pageable pageable, Model model, String status) {
-		
+
 		model.addAttribute("notifyList", notifyService.getListNotify(pageable, status));
-		
+
 		return "/notify/notify";
 	}
 
@@ -65,31 +65,33 @@ public class NotifyController {
 
 	// 문의글 상세
 	@RequestMapping("/notify/getContact")
-	public String getContact(Notify notify,Status status, Model model, @AuthenticationPrincipal SecurityUser principal, Pageable pageable) {
+	public String getContact(Notify notify, Status status, Model model, @AuthenticationPrincipal SecurityUser principal,
+			Pageable pageable) {
 		System.out.println("controller principal.getUsers().getUserId()--->" + principal.getUsers().getUserId());
 		Users users = new Users();
 		users.setUserId(principal.getUsers().getUserId());
 		notify.setUsers(users);
-		
+
 		model.addAttribute("principal", principal);
 		model.addAttribute("notify", notifyService.getContact(notify));
-		
+
 		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());
 		model.addAttribute("replyList", replyService.listReply(notify, pageable));
-		
+
 		return "/notify/getContact";
 	}
-	
-	//제목 클릭 시 
+
+	// 제목 클릭 시
 	@RequestMapping("/notify/getDetail")
-	public String getDetail(Notify notify, Status status, Model model, @AuthenticationPrincipal SecurityUser principal) {
+	public String getDetail(Notify notify, Status status, Model model,
+			@AuthenticationPrincipal SecurityUser principal) {
 		model.addAttribute("notify", notifyService.getContact(notify));
 		model.addAttribute("principal", principal);
 
 		notify.setViewCnt(notify.getViewCnt() + 1);
-		
+
 		if (status.getStatus_seq() == 4) {
-			
+
 			return "forward:/notify/getContact";
 
 		} else if (status.getStatus_seq() == 2) {
@@ -111,12 +113,7 @@ public class NotifyController {
 		return "/notify/getNotify";
 	}
 
-//	@PostMapping("/notify/updateNotifyProc")
-//	public String updateNotifyProc(Notify notify) {
-//		notifyService.updateNotify(notify);
-//		return "/notify/updateNotifyProc";
-//	}
-	// 글 삭제
+	// 공지글 삭제
 	@GetMapping("/notify/deleteNotifyProc")
 	public String deleteNotifyProc(Notify notify) {
 		notifyService.deleteNotify(notify);

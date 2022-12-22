@@ -1,7 +1,5 @@
 package kr.worthseeing.reply.service.impl;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,68 +10,43 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 
 import kr.worthseeing.notify.entity.Notify;
-import kr.worthseeing.notify.entity.QNotify;
 import kr.worthseeing.reply.entity.QReply;
 import kr.worthseeing.reply.entity.Reply;
 import kr.worthseeing.reply.repository.ReplyRepository;
 import kr.worthseeing.reply.service.ReplyService;
 
 @Service
-public class ReplyServiceImpl implements ReplyService{
-	
+public class ReplyServiceImpl implements ReplyService {
+
 	@Autowired
 	private ReplyRepository replyRepo;
-	
+
 	@Override
 	public void insertReply(Reply reply, Notify notify) {
 		reply.setNotify(notify);
-		
-		replyRepo.save(reply);  
+
+		replyRepo.save(reply);
 	}
-	
-	
-	
-	//댓글목록, 페이징
+
+	// 댓글목록, 페이징
 	@Override
 	public Page<Reply> listReply(Notify notify, Pageable pageable) {
 		BooleanBuilder builder = new BooleanBuilder();
-		
 		QReply qreply = QReply.reply;
-		System.out.println("impl notify.getNotifySeq()--->" + notify.getNotifySeq());
+
 		builder.and(qreply.notify.notifySeq.eq(notify.getNotifySeq()));
-		
+
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "replySeq");
-		
+
 		return replyRepo.findAll(builder, pageable);
-		
-		
-//		for(Reply reply : replyRepo.findAll()) {
-//			if (notify.getNotifySeq() == reply.getNotify().getNotifySeq()) {
-//				replyList.add(reply);
-//			}
-//		}
-		
-//		return replyList;
+
 	}
-	
-//	//댓글 수정
-//	@Override
-//	public void updateReply(Reply reply) {
-//		Reply findReply = replyRepo.findById(reply.getReply_seq()).get();
-//		
-//		findReply.setReplyContent(reply.getReplyContent());
-//		findReply.setReplyDate(reply.getReplyDate());
-//		findReply.setReplyer(reply.getReplyer());
-//		
-//	}
-	
-	//댓글삭제
+
+	// 댓글삭제
 	@Override
 	public void deleteReply(Reply reply) {
 		replyRepo.delete(reply);
 	}
-	
-	
-	
+
 }
