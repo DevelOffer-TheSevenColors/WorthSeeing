@@ -48,8 +48,7 @@ public class Users {
 	private String adminYn = "no";
 	private String blackYn = "no";
 	
-	@Column(columnDefinition = "varchar2(100) default 'no'")
-	private String dailyClickCheck;
+	private String dailyClickCheck = "no";
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")

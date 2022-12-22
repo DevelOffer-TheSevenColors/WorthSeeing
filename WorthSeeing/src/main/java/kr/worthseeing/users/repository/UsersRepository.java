@@ -9,6 +9,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.users.entity.Users;
 
 
@@ -23,4 +24,6 @@ public interface UsersRepository  extends CrudRepository<Users, String>,Querydsl
 	@Query("select u from Users u where email = ?1")
 	Users findUser(String email);
 	
+	@Query("select u From Users u")
+	Users findUsersPoint(String userId);
 }

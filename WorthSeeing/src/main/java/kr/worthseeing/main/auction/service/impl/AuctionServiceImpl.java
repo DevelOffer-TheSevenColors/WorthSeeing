@@ -10,6 +10,7 @@ import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
+import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
@@ -66,6 +67,13 @@ public class AuctionServiceImpl implements AuctionService {
 	 * @Override public Auction listAuction(Auction auction) { Auction listAuction =
 	 * auctionRepo.findById(auction.getAuction_seq()).get(); return listAuction; }
 	 */
+	@Override
+	public List<Auction> listAuction() {
+		
+		return (List<Auction>) auctionRepo.findAll();
+		}	
+	
+	
 	// 경매 시작
 	@Override
 	public void insertAuction(Auction auction) {

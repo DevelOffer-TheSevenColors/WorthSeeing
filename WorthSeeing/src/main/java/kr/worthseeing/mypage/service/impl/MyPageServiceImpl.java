@@ -1,5 +1,6 @@
 package kr.worthseeing.mypage.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,11 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.repository.CouponRepository;
+import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
+import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
@@ -43,6 +46,7 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
+	
 
 	@Override
 	public void getMyPage() {
@@ -70,7 +74,17 @@ public class MyPageServiceImpl implements MyPageService {
 
 		return (List<Coupon>) couponRepo.findByUserId(userId);
 	}
-
+	
+	@Override
+	public void getUserPoint(Users users,String price) {
+		Users findUsers = usersRepo.findById(users.getUserId()).get();
+//		List<Coupon> findcoupon = (List<Coupon>) couponRepo.findCoupon(1);
+		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
+		usersRepo.save(findUsers);
+		System.out.println(findUsers);
+	}
+	
+	
 	@Override
 	public Map<Integer, List<AuctionLog>> getAuctionLogUserId(String userId) {
 		Map<Integer, List<AuctionLog>> auctionLogMap = new HashMap<Integer, List<AuctionLog>>();
@@ -88,24 +102,11 @@ public class MyPageServiceImpl implements MyPageService {
 		List<BlockGroupWaiting> findBlockWaiting =   blockGroupWaitingRepo.selectBlockGroupWaiting(userId);
 		System.out.println("====>5"+findBlockWaiting);
 		
-		
-		
 		return findBlockWaiting;
 	}
-
-	@Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") // 매일 자정
-	public void updateUsersPoint() {
-		usersRepo.updateUsersPoint();
-
-//		updateUsers.setPoint(users.getPoint());
-//		usersRepo.save(updateUsers);
-		System.out.println("============>" + "10초마다 실행");
-	}
-
-//	@Scheduled(cron = "3 * * * * *", zone = "Asia/Seoul")
-//	public void test() {
-//		System.out.println("3초마다 실행");
-//	}
+	
+	
+	
 
 	@Override
 	public List<BlockGroup> getListBlockGroup() {

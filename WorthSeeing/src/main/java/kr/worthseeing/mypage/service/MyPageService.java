@@ -25,6 +25,8 @@ public interface MyPageService {
 	
 	List<BlockGroup> getListBlockGroup();
 	
+	void getUserPoint(Users users,String price);
+	
 	
 	
 	
