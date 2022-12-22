@@ -68,6 +68,23 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		blockGroupRepo.save(blockGroup);
 
 	}
+	
+	@Override
+	public void updateBlockGroup(BlockGroup blockGroup, MultipartFile files) {
+		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
+		
+		findBlockGroup.setCImg(blockGroup.getCImg());
+		findBlockGroup.setLinkUrl(blockGroup.getLinkUrl());
+		findBlockGroup.setSImg(blockGroup.getSImg());
+	
+		try {
+			saveFile(files);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		blockGroupRepo.save(blockGroup);
+	}
 
 	private void saveFile(MultipartFile files) throws IOException {
 
@@ -169,6 +186,5 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	public BlockGroup findBlockGroup(BlockGroup blockGroup) {
 		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 	}
-	
 	
 }

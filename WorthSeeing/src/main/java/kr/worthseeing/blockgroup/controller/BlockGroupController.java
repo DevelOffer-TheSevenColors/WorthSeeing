@@ -27,16 +27,26 @@ public class BlockGroupController {
 	private BlockGroupService blockGroupService;
 	
 	@GetMapping("/writeURLThumb")
-	public String writeURLThumb() {
+	public String writeURLThumb(BlockGroup blockGroup, Model model) {
+		BlockGroup myBlockGroup = blockGroupService.findBlockGroup(blockGroup);
+		model.addAttribute("blockGroup", myBlockGroup);
+		System.out.println("Controller blockGroup-->" + myBlockGroup);
 		
 		return "/writeURLThumb";
 	}
 	
-	@PostMapping("/writeURLThumb")
+	// @PostMapping("/writeURLThumb")
 	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files, Users users) {
 		blockGroupService.insertBlockGroup(blockGroup, files, users);
 		
 		return "redirect:/main";
+	}
+	
+	@PostMapping("/updateURLThumb")
+	public String updateURLThumbProc(BlockGroup blockGroup, MultipartFile files) {
+		blockGroupService.updateBlockGroup(blockGroup, files);
+		System.out.println();
+		return "/mypageMain";
 	}
 	
 	

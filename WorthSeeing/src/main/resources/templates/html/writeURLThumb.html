@@ -9,14 +9,14 @@
 
 <style>
 
-#image_container {
-	height: 150px; 
+.image-container {
 	width: 150px;
+	height: 150px;
 }
 
-#image_container img {
-	height: 100%; 
+.image-container img {
 	width: 100%;
+	height: 100%;
 }
 </style>
 
@@ -28,39 +28,49 @@
 			<div class="col-lg-8">
 				<div class="contact-form bg-white" style="padding: 30px;">
 				
-					<form th:action="@{/writeURLThumb}" name="sentMessage" id="contactForm" novalidate="novalidate" method="post">
+					<form th:action="@{/updateURLThumb}" method="post">
+							<div class="image-container">
+								<img id="preview-image" th:src="${blockGroup.cImg}" />
+							</div>
+							<p>썸네일 미리보기</p>
 						<table class="insertBoard">
 							<tr>
-								<td>썸네일 미리보기</td>
-								<td><div id="image_container"></div></td>
-							</tr>
-							<tr>
 								<td>URL:</td>
-								<td><input class="help-block text-danger" name="linkUrl" type="text" size="50"></td>
+ 								<td><input type="text" th:value="${blockGroup.linkUrl}" /></td>
 							</tr>
 							<tr>
 								<td th:text="썸네일"></td>
-								<td><input type="file" multiple="multiple" name="files"
-								 	id="image" accept="image/*" onchange="setThumbnail(event);">
-							</td>
-						</tr>
-					</table>
+								<td><input type="file" id="input-image"></td>
+							</tr>
+						</table>
+						
 						<input type="submit" value="등록하기" class="btn btn-primary py-3 px-4" style="margin-left: 45%">
 					</form>
-
+ 
     <script>
-      function setThumbnail(event) {
-        var reader = new FileReader();
-
-        reader.onload = function(event) {
-          var img = document.createElement("img");
-          img.setAttribute("src", event.target.result);
-          document.querySelector("div#image_container").appendChild(img);
-        };
-
-        reader.readAsDataURL(event.target.files[0]);
-      }
+      function readImage(input) {
+    	    // 인풋 태그에 파일이 있는 경우
+    	    if(input.files && input.files[0]) {
+    	        // 이미지 파일인지 검사 (생략)
+    	        // FileReader 인스턴스 생성
+    	        const reader = new FileReader()
+    	        // 이미지가 로드가 된 경우
+    	        reader.onload = e => {
+    	            const previewImage = document.getElementById("preview-image")
+    	            previewImage.src = e.target.result
+    	        }
+    	        // reader가 이미지 읽도록 하기
+    	        reader.readAsDataURL(input.files[0])
+    	    }
+    	}
+    	// input file에 change 이벤트 부여
+    	const inputImage = document.getElementById("input-image")
+    	inputImage.addEventListener("change", e => {
+    	    readImage(e.target)
+    	})
     </script>
+    
+    
 				</div>
 			</div>
 		</div>

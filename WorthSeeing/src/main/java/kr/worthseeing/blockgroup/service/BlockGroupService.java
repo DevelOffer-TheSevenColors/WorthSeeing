@@ -25,4 +25,6 @@ public interface BlockGroupService {
 	List<String> listcImg();
 	
 	public Page<BlockGroup> topBlock(int page);
+	
+	void updateBlockGroup(BlockGroup blockGroup, MultipartFile files);
 }
