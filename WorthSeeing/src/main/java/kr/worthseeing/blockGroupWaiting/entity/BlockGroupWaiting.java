@@ -40,8 +40,8 @@ public class BlockGroupWaiting {
 	private int price;
 	
 
-	@Column(columnDefinition = "number default 0")
-	private int purchaseDay;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date purchaseDay;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
