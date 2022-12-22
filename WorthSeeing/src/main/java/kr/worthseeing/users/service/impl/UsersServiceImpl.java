@@ -71,7 +71,7 @@ public class UsersServiceImpl implements UsersService {
 				}
 				flag = "회원님의 임시비밀번호는 ' " + randomPW + " ' 입니다.";
 				userdb.setUserPw(encoder.encode(randomPW));
-				userRepo.save(userdb);
+				userRepo.save(userdb); 
 			}
 		} else {
 			for (Users userdb : userRepo.findUser(user.getEmail())) {

@@ -41,7 +41,7 @@ public class SecurityController {
 		model.addAttribute("result",userService.findUser(user));
 		return "/system/find";
 	}
-	
+	 
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
 		return "/system/accessDenied";

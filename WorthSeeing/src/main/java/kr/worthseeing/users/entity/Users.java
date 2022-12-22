@@ -68,7 +68,7 @@ public class Users {
 
 	@OneToMany(mappedBy = "users")
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
-
+ 
 	@OneToMany(mappedBy = "users" )
 	private List<Notify> notifyList = new ArrayList<Notify>();
 

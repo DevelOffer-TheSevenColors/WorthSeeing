@@ -14,7 +14,7 @@ import kr.worthseeing.users.entity.Users;
 
 
 public interface UsersRepository  extends CrudRepository<Users, String>,QuerydslPredicateExecutor<Users>{
-
+ 
 	@Query("select u From Users u")
 	Page<Users> findAll(Pageable pageable);
 	
