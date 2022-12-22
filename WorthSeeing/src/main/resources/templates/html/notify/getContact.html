@@ -123,33 +123,36 @@
 						th:value="${notify.notifySeq}"> <input type="hidden"
 						name="status_seq" th:value="${status_seq}">
 					<div>
-						<nav class="customNav">
-							<ul class="customPagination"
-								th:with="start=${(1-(replyList.number%1))%1 + 1},
+						<div th:if="${replyList.totalElements != 0}">
+							<nav class="customNav">
+								<ul class="customPagination"
+									th:with="start=${(1-(replyList.number%1))%1 + 1},
 	                    	last=(${start + 9 < replyList.totalPages ? start + 9 : replyList.totalPages})">
 
-								<li th:class="${replyList.first} ? 'disabled'">
-									<button name="page" value="1">First</button>
-								</li>
+									<li th:class="${replyList.first} ? 'disabled'">
+										<button name="page" value="1">First</button>
+									</li>
 
-								<li th:class="${replyList.first} ? 'disabled'">
-									<button name="page" th:value="${replyList.number}">&lt;</button>
-								</li>
+									<li th:class="${replyList.first} ? 'disabled'">
+										<button name="page" th:value="${replyList.number}">&lt;</button>
+									</li>
 
-								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == replyList.number + 1} ? 'active'">
-									<button name="page" th:value="${page}" th:text="${page}"></button>
-								</li>
+									<li th:each="page : ${#numbers.sequence(start, last)}"
+										th:class="${page == replyList.number + 1} ? 'active'">
+										<button name="page" th:value="${page}" th:text="${page}"></button>
+									</li>
 
-								<li th:class="${replyList.last} ? 'disabled'">
-									<button name="page" th:value="${replyList.number + 2}">&gt;</button>
-								</li>
+									<li th:class="${replyList.last} ? 'disabled'">
+										<button name="page" th:value="${replyList.number + 2}">&gt;</button>
+									</li>
 
-								<li th:class="${replyList.last} ? 'disabled'">
-									<button name="page" th:value="${replyList.totalPages}">Last</button>
-								</li>
-							</ul>
-						</nav>
+									<li th:class="${replyList.last} ? 'disabled'">
+										<button name="page" th:value="${replyList.totalPages}">Last</button>
+									</li>
+								</ul>
+							</nav>
+						</div>
+
 					</div>
 				</form>
 			</div>
