@@ -24,8 +24,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		if (!optional.isPresent()) {
 			throw new UsernameNotFoundException(username + " 사용자 없음");
 		} else {
-			Users user = optional.get();
-			return new SecurityUser(user);
+			Users users = optional.get();
+			return new SecurityUser(users);
 		}
 	}
 

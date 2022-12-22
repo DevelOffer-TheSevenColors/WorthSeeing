@@ -50,7 +50,7 @@ public class UsersServiceImpl implements UsersService {
 		findUser.setName(user.getName());
 		findUser.setNickName(user.getNickName());
 		findUser.setTel(user.getTel());
-		findUser.setRole(Role.ROLE_MEMBER);
+		findUser.setRole(Role.ROLE_USER);
 		userRepo.save(findUser);
 	}
 

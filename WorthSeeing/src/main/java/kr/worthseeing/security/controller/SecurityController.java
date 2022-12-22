@@ -56,7 +56,7 @@ public class SecurityController {
 			}
 		}
 
-		user.setRole(Role.ROLE_MEMBER);
+		user.setRole(Role.ROLE_USER);
 
 		userService.insertUsers(user);
 
