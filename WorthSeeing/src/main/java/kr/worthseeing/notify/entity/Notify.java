@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@ToString(excludes = {"status", "users", "replyList"})
+@ToString(excludes = {"status", "users"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Notify {
@@ -39,7 +40,7 @@ public class Notify {
 	private Date notifyTime = new Date();
 	
 	@ManyToOne
-	@JoinColumn(name = "status_seq", nullable = false, updatable = false)
+	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
 	
 	public void setStatus(Status status) {
@@ -48,7 +49,7 @@ public class Notify {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false)
+	@JoinColumn(name = "userId", nullable = false)
 	private Users users;
 	
 	public void setUsers(Users users) {
@@ -56,7 +57,7 @@ public class Notify {
 		users.getNotifyList().add(this);
 	}
 	
-	@OneToMany(mappedBy = "notify")
+	@OneToMany(mappedBy = "notify", orphanRemoval = true)
 	private List<Reply> replyList = new ArrayList<Reply>();
 	
 	public Notify(int notifySeq, String title, String content, int viewCnt) {
@@ -66,3 +67,8 @@ public class Notify {
 		this.viewCnt = viewCnt;
 	}
 }
+
+
+
+
+

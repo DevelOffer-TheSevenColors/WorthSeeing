@@ -37,29 +37,29 @@ public class NotifyController {
 		return "/notify/notify";
 	}
 
-	// 공지글 등록
+	// 공지글 등록 페이지 이동
 	@GetMapping("/notify/insertNotify")
 	public String insertNotify() {
 		return "/notify/insertNotify";
 	}
 
-	// 문의글 등록
+	// 문의글 등록 페이지 이동
 	@GetMapping("/notify/insertContact")
 	public String insertContact() {
 		return "/notify/insertContact";
 	}
 
-	// 사용자가 공지글 등록
+	// 관리자가 공지글 등록하기
 	@PostMapping("/notify/insertNotifyProc")
-	public String insertNotifyProc(Notify notify) {
-		notifyService.insertNotify(notify);
+	public String insertNotifyProc(Notify notify, @AuthenticationPrincipal SecurityUser principal) {
+		notifyService.insertNotify(notify, principal.getUsers());
 		return "redirect:/notify";
 	}
 
-	// 문의하기 글 등록
+	// 사용자가 문의하기 글 등록하기
 	@PostMapping("/notify/insertContactProc")
-	public String insertContactProc(Notify notify) {
-		notifyService.insertContact(notify);
+	public String insertContactProc(Notify notify, @AuthenticationPrincipal SecurityUser principal) {
+		notifyService.insertContact(notify, principal.getUsers());
 		return "redirect:/notify";
 	}
 
@@ -71,12 +71,14 @@ public class NotifyController {
 		Users users = new Users();
 		users.setUserId(principal.getUsers().getUserId());
 		notify.setUsers(users);
-
+		
 		model.addAttribute("principal", principal);
 		model.addAttribute("notify", notifyService.getContact(notify));
-
 		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());
 		model.addAttribute("replyList", replyService.listReply(notify, pageable));
+		
+		System.out.println("@@n==>" + notifyService.getContact(notify));
+		System.out.println("@@p==>" + principal.getUsers());
 
 		return "/notify/getContact";
 	}
@@ -117,7 +119,7 @@ public class NotifyController {
 	@GetMapping("/notify/deleteNotifyProc")
 	public String deleteNotifyProc(Notify notify) {
 		notifyService.deleteNotify(notify);
-		return "/notify/deleteNotifyProc";
+		return "redirect:/notify";
 	}
 
 }

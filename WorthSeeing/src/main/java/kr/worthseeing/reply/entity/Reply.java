@@ -1,3 +1,4 @@
+
 package kr.worthseeing.reply.entity;
 
 import java.util.Date;
@@ -29,7 +30,7 @@ public class Reply {
 	private String replyer;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
+	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date replyDate;
 	
 	@ManyToOne

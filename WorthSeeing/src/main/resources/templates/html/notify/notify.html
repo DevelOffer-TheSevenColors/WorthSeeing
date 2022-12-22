@@ -13,8 +13,13 @@
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
+				
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
 				<button onclick="location.href='/notify/insertNotify'">글쓰기</button>
+				</div>
+				<div sec:authorize="hasRole('ROLE_USER')">
 				<button onclick="location.href='/notify/insertContact'">1:1 문의글 쓰기</button>
+				</div>
 				
 				<div id="content">
 					<form th:action="@{/notify}" method="post">

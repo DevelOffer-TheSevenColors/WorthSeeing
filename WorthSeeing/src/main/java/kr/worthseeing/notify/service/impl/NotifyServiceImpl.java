@@ -1,3 +1,4 @@
+
 package kr.worthseeing.notify.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -22,43 +24,37 @@ public class NotifyServiceImpl implements NotifyService {
 
 	@Autowired
 	private NotifyRepository notifyRepo;
+	
 
 	//공지 글 등록
 	@Override
-	public void insertNotify(Notify notify) {
+	@Transactional
+	public void insertNotify(Notify notify, Users users) {
 		Status status = new Status();
 		status.setStatus_seq(1);
+		System.out.println("impl users---->" + users);
 		notify.setStatus(status);
-		Users users = new Users();
-		users.setUserId("user1");
 		notify.setUsers(users);
 		
-		Reply reply = new Reply();
-		notify.setReplyList(null);
+//		Reply reply = new Reply();
+//		notify.setReplyList(null);
 		notifyRepo.save(notify);
 	}
 	
 	//문의 글 등록
 	@Override
-	public void insertContact(Notify notify) {
+	public void insertContact(Notify notify, Users users) {
 		Status status = new Status();
 		status.setStatus_seq(4);
 		notify.setStatus(status);
-		Users users = new Users();
-		users.setUserId("user1");
-		notify.setUsers(users);
+
+		Users users2 = new Users();
+		users2.setUserId(users.getUserId());
+		notify.setUsers(users2);
+//		notify.setReplyList(null);
 		notifyRepo.save(notify);
 	}
 
-//	//글 수정
-//	@Override
-//	public void updateNotify(Notify notify) {
-//		Notify findNotify = notifyRepo.findById(notify.getNotify_seq()).get();
-//		findNotify.setContent(notify.getContent());
-//		findNotify.setTitle(notify.getTitle());
-//		notifyRepo.save(findNotify);
-//	}
-//	
 	//공지글 삭제
 	@Override
 	public void deleteNotify(Notify notify) {
@@ -101,23 +97,13 @@ public class NotifyServiceImpl implements NotifyService {
 			
 		}
 		
-		
-//		builder.and(qnotify.viewCnt.like("%" + status + "%"));
 		System.out.println("impl---->" + status);
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "notifySeq");
-		
-//		return notifyRepo.getNotifyList(pageable);
 		System.out.println("여긴뭐?"+notifyRepo.findAll(builder, pageable));
 		return notifyRepo.findAll(builder, pageable);
 	}
+	
 
-//	@Override
-//	public Page<Notify> listNotify(Pageable pageable,Status status) {
-//		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-//		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "notify_seq");
-//		
-//		return notifyRepo.getNotifyList(pageable);
-//	}
 
 }

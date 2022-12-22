@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -153,7 +154,16 @@
 							</nav>
 						</div>
 
-					</div>
+					</div> 
+<!-- 					<p th:text="${notify.users.userId}" ></p> -->
+<!-- 					<p th:text="${principal.users.userId}" ></p> -->
+					
+					<div class="aLink">
+					 <a th:if="${notify.users.userId == principal.users.userId}"
+					 		 th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">문의글 삭제</a>
+			</div>
+					
+					
 				</form>
 			</div>
 		</div>
