@@ -62,15 +62,6 @@ public class MyPageController {
 		return "redirect:/mypageMain";
 	}
 	
-//	@GetMapping("/buyCouponProc")
-//	public String buyCouponProc(Model model,@AuthenticationPrincipal SecurityUser principal, String price) {
-//		if (price != null) {
-//			myPageService.getUserPoint(principal.getUsers(), price);
-//		}
-//		return "redirect:/mypageMain";
-//	}
-	
-	
 
 	@GetMapping("/mypageCouponMall")
 	public String getmypageCouponMall(Model model, @AuthenticationPrincipal SecurityUser principal) {
@@ -88,6 +79,20 @@ public class MyPageController {
 
 		return "/mypagePointHistory";
 	}
+	
+	@GetMapping("/leftOverCoupon")
+	public String getcouponcount(Model model,Coupon coupon) {
+		List<Coupon> leftOverCouponList = myPageService.getleftOverCoupon();
+		List<Integer> leftOverCouponCount = myPageService.getCouponCount();
+		model.addAttribute("leftOverCouponList",leftOverCouponList);
+		model.addAttribute("leftOverCouponCount",leftOverCouponCount);
+		return "/adminCoupon";
+	}
+
+	
+	
+	
+	
 
 //	@GetMapping("/mypageAuctionHistory")
 //	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {

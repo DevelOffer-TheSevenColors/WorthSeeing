@@ -7,12 +7,10 @@
 <body>
 
 	<div class="row">
-		<div class="rightcolumn">
-			<div class="card">
+		<div class="menuItem">
 				<h2>포인트 사용내역</h2>
-			</div>
 
-			<table class="couponlist" th:each="coupon, state : ${couponUserId}">
+			<table class="customBoard" th:each="coupon, state : ${couponUserId}">
 				<tr>
 					<th>포인트 사용금액</th>
 					<th>구매일시</th>

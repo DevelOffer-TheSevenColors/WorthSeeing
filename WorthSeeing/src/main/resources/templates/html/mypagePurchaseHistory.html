@@ -5,14 +5,11 @@
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
 </head>
 <body>
-
 <div class="row">
-  <div class="rightcolumn">
-    <div class="card">
+  <div class="menuItem">
       <h2>구매 내역</h2>
-      </div>
       
-    <table border="1" th:each="blockGroup, state : ${blockGroupUserId}">
+    <table  class="customBoard" th:each="blockGroup, state : ${blockGroupUserId}">
     <tr align="center">
       <th colspan="4" th:text="${blockGroup.blockGroup_seq}"></th>
     </tr>

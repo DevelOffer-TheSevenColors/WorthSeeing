@@ -23,4 +23,10 @@ public interface CouponRepository  extends CrudRepository<Coupon, Integer>,
 	@Query(value="select c from Coupon c where c.status.status_seq = ?1 and couponPrice = ?2")
 	List<Coupon> findByCoupon(int status_seq, int couponPrice);
 	
+	@Query(value="select c from Coupon c where c.status.status_seq = 5")
+	List<Coupon> findLeftOverCoupon();
+	
+	//잔여쿠폰 쿼리.
+//	@Query(value="select c from Coupon c")
+//	List<Coupon> findCouponCount();
 }
