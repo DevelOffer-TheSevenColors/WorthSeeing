@@ -20,6 +20,14 @@
 	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 	<div class="container-fluid py-5">
 		<div class="container pt-5 pb-3">
+			<form th:action="@{/admin/salePriceChart}">
+				<select name="startYear">
+					<option th:value="2022">2022</option>
+					<option th:value="2023">2023</option>
+					<option th:value="2024">2024</option>
+				</select>
+				<button type="submit">보기</button>
+			</form>
 			<div class="container">
 				<div class="row my-2" style="">
 					<div class="col-md-6">

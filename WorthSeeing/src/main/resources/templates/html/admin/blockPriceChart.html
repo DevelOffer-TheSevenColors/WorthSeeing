@@ -7,11 +7,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<script
-	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 	<div class="container-fluid py-5">
 		<div class="container pt-5 pb-3">
+			<form th:action="@{/admin/blockPriceChart}">
+				<select name="block_seq">
+					<option th:each="num : ${#numbers.sequence(1,289)}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
+				</select>
+				<select name="startYear">
+					<option th:value="2022">2022</option>
+					<option th:value="2023">2023</option>
+					<option th:value="2024">2024</option>
+				</select>
+				<button type="submit">보기</button>
+			</form>
 			<div class="main">
 				<div class="chart-container"
 					style="position: relative; height: 500px; width: 1000px;">
