@@ -11,6 +11,9 @@ import kr.worthseeing.users.entity.Users;
 
 public interface ReservationService {
 
+	// Reservation의 BlockGroup_seq 가져오기
+	List<Integer> listReservationBlockGroupSeq();
+	
 	//결제후 예약목록에 추가
 	void insertReservationUsers(Reservation reservation, String userId);
 

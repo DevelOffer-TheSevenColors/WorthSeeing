@@ -1,5 +1,6 @@
 package kr.worthseeing.main.reservation.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,17 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private UsersRepository UsersRepo;
 
+	@Override
+	public List<Integer> listReservationBlockGroupSeq() {
+		List<Reservation> reservationList = (List<Reservation>) reservationRepo.findAll();
+		List<Integer> reservationBlockGroupList = new ArrayList<Integer>();
+		for(Reservation reservation : reservationList) {
+			System.out.println("reservation===?" + reservation.getBlockGroup().getBlockGroup_seq());
+			reservationBlockGroupList.add(reservation.getBlockGroup().getBlockGroup_seq());
+		}
+		return reservationBlockGroupList;
+	}
+	
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
 	public void insertReservationUsers(Reservation reservation, String userId) {

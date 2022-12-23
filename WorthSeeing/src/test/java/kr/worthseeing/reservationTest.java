@@ -1,6 +1,11 @@
 package kr.worthseeing;
 
 import org.junit.jupiter.api.Test;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 import org.junit.runner.RunWith;
@@ -192,35 +197,34 @@ public class reservationTest {
 	public void updateBlockGroupClickCnt() {
 
 		for (int i = 0; i < 289; i++) {
-			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
-			
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i + 1).get();
+
 			Random rand = new Random();
-			
+
 			findBlockGroup.setClickCnt(rand.nextInt(1000));
-			
+
 			blockGroupRepo.save(findBlockGroup);
-			
+
 		}
 
 	}
-	
+
 //	@Test
 	public void ReservationUsers() {
 		ReservationUsers reservationUsers = new ReservationUsers();
-		
+
 		Reservation reservation = new Reservation();
 		reservation.setReservation_seq(28);
-		
+
 		reservationUsers.setReservation(reservation);
-		
+
 		Users users = new Users();
 		users.setUserId("user1");
 
 		reservationUsers.setUsers(users);
-		
+
 		reservationUsersRepo.save(reservationUsers);
 	}
-
 
 	int DecimalToBinary(String A, int number) {
 		int Binary_number = 0;
@@ -238,55 +242,71 @@ public class reservationTest {
 		statusRepo.save(status);
 		return Binary_number;
 	}
-	//아래 #1, #2, #3를 하나씩 해서 3번 테스트 실행하시오!
-	
-	//@Test
+	// 아래 #1, #2, #3를 하나씩 해서 3번 테스트 실행하시오!
+
+	// @Test
 	public void CouponStatus() {
-	// 쿠폰
-			Status status = new Status();
-			for (int i = 0; i < 20; i++) {
-				
-				status.setStatus_seq(5);
-				int couponSize = 3;
+		// 쿠폰
+		Status status = new Status();
+		for (int i = 0; i < 20; i++) {
 
-				final char[] possibleCharacters = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D',
-						'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-						'Y', 'Z' };
+			status.setStatus_seq(5);
+			int couponSize = 3;
 
-				final int possibleCharacterCount = possibleCharacters.length;
-				Random rnd = new Random();
-				int currentIndex = 0;
-				int j = 0;
-				String couponnum = "";
-				while (currentIndex < couponSize) {
-					StringBuffer buf = new StringBuffer(16);
-					// i는 8자리의 랜덤값을 의미
-					for (j = 8; j > 0; j--) {
-						buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
-					}
-					couponnum += buf.toString() + "-";
-					currentIndex++;
+			final char[] possibleCharacters = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D',
+					'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+					'Y', 'Z' };
+
+			final int possibleCharacterCount = possibleCharacters.length;
+			Random rnd = new Random();
+			int currentIndex = 0;
+			int j = 0;
+			String couponnum = "";
+			while (currentIndex < couponSize) {
+				StringBuffer buf = new StringBuffer(16);
+				// i는 8자리의 랜덤값을 의미
+				for (j = 8; j > 0; j--) {
+					buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
 				}
-				couponnum = couponnum.substring(0, couponnum.length() - 1);
-				System.out.println("=====adsf==>" + couponnum);
+				couponnum += buf.toString() + "-";
+				currentIndex++;
+			}
+			couponnum = couponnum.substring(0, couponnum.length() - 1);
+			System.out.println("=====adsf==>" + couponnum);
 
-				//#1
+			// #1
 //				Coupon coupon1 = new Coupon(30000, couponnum);
 //				coupon1.setStatus(status);
 //				couponRepo.save(coupon1);
-				
-				//#2
+
+			// #2
 //				Coupon coupon2 = new Coupon(50000, couponnum);
 //				coupon2.setStatus(status);
 //				couponRepo.save(coupon2);
-				//#3
-				Coupon coupon3 = new Coupon(100000, couponnum);
-				coupon3.setStatus(status);
-				couponRepo.save(coupon3);
-			}
+			// #3
+			Coupon coupon3 = new Coupon(100000, couponnum);
+			coupon3.setStatus(status);
+			couponRepo.save(coupon3);
+		}
+
+	}
+
+//	@Test
+	public void updateBlockGroupEndDate() {
+		for (int i = 0; i < 289; i++) {
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i + 1).get();
+
+			LocalDate now = LocalDate.now();
+			Random rand = new Random();
+
+			LocalDate result1 = now.plusDays(rand.nextInt(1000));
+//			Date enddate1 = java.sql.Date.valueOf(result1);
+
+//			findBlockGroup.setEndDate(result1);
+
+			blockGroupRepo.save(findBlockGroup);
 
 		}
-	
-	
+	}
 
 }

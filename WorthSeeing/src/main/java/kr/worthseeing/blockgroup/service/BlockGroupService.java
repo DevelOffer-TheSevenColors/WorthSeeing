@@ -26,5 +26,7 @@ public interface BlockGroupService {
 	
 	public Page<BlockGroup> topBlock(int page);
 	
+	List getBlockGroupDate();
+	
 	void updateBlockGroup(BlockGroup blockGroup, MultipartFile files, Users users);
 }

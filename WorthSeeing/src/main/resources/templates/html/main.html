@@ -8,35 +8,98 @@
 </head>
 
 <body>
-	<style>
+<style>
 .blockTest {
 	position: relative;
 	z-index: 1;
 }
 
 .tt {
-	border: 1px solid black;
+	border: 1px solid gray;
 	position: absolute;
 	width: 100px;
 	height: 100px;
-	background-color: yellow;
+	background-color: #F3F3F3;
 }
 
 .tt img {
 	width: 100%;
 	height: 100%;
+	z-index: 3;
 }
+
+.topnav {
+	overflow: hidden;
+	background-color: #333;
+}
+
+.topnav div {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	margin-left: 20%;
+	text-decoration: none;
+}
+
+.numberDisplay{
+ 	display: none;
+	border-radius: 50%;
+	background: #7AB730;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
+	margin-left: 25px;
+	margin-top: 20px;
+	padding: 8px 0;
+}
+
+  
+.reservationBtn {
+  border: 1px solid #7AB730;
+  background-color: rgba(0,0,0,0);
+  color: #7AB730;
+  padding: 5px;
+  font-size: 30px;
+  display: none;
+}
+.reservationBtn:hover {
+	color:white;
+	background-color: #7AB730;
+}
+
+
 </style>
+
 	<script>
-	function createBlock(listBGSeq) { // 인기순위 top 5 사진 띄우기 + 
+	
+	// 인기순위 Top 5 이미지 띄우기
+	function top5Img() {
+		var cImgTopList = encodeURI("[[${listTopcImg}]]");
+		var cImgTopArr = cImgTopList.split(",");
+	       
+		for (var i = 1; i <= 5; i++) {
+			$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
+			if (i == 5) {
+				$("#topImg" + i).attr("src", cImgTopArr[i].slice(3).slice(0, -3));
+			}
+		}
+	}
+	
+	// 289개 블록 띄우기
+	function createBlock(listBGSeq) {
 		var cImgList = encodeURI("[[${listcImg}]]");
 	    var cImgArr = cImgList.split(",");
 	    var topSize = 0;
 	    
-		for (var i = 1; i <= listBGSeq.length; i++) {
-	          var child = "<div class='tt' id=" + i + "><img src='"+ cImgArr[i].slice(3) + "'/></div>";
+		for (var i = 1; i <= 289; i++) {
+			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgArr[i].slice(3) + "'/></li>";
 	          
-	          $(".blockTest").append(child);
+			$(".blockTest").append(child);
 
 			if (i % 17 == 0) {
 				// 	$("#" + i).css('margin-left', 100 * i + 'px');
@@ -51,13 +114,49 @@
 			} else {
 				$("#" + i).css('margin-left', 100 * (i % 17) + 'px');
 			}
-
 		}
-		
 	}
 	
 	
+	// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
+	function resetLocalStorage() {
+		var today = new Date();
+		
+		for (var i=0; i<sessionStorage.length; i++) {
+			  var searchKey = sessionStorage.key(i);
+			  const expireDate = JSON.parse(sessionStorage.getItem(searchKey)).expire;
+			  
+			  if (Number(today) > Number(expireDate)) {
+				  window.sessionStorage.clear();
+			}
+		}
+	}
 	
+	
+	// localStorage에 클릭한 블록 저장하기
+	function setLocalStorage(key, number, today, expireDate) {
+		var random = Math.random();
+		sessionStorage.setItem(key + random, JSON.stringify({ number: number, expire : expireDate })); // localStorage에 저장
+		
+		var setList = new Set();
+		for (var i=0; i<sessionStorage.length; i++) {
+			var searchKey = sessionStorage.key(i);
+			  if (searchKey.slice(0, 3) == key) {
+					setList.add(JSON.parse(sessionStorage.getItem(searchKey)).number.toString());
+				}
+			}
+		console.log(setList.size)
+		if (setList.size == 10) { // 클릭한 블록 개수가 중복 없이 10개가 되면 사용자 포인트 + 500
+			// db에 사용자 포인트 + 500 저장, 포인트 지급 alert 창 띄움, 걸려있는 링크로 이동
+			location.href="/updatePoint?blockGroup_seq=" + number;
+		} else {
+			// 걸려있는 링크로 이동
+// 			location.href="/click?blockGroup_seq=" + number;
+		}
+	}
+	
+	
+	/*
 	function setLocalStorage(key, number, today, expireDate) {
 		var random = Math.random();
 		localStorage.setItem(key + random, JSON.stringify({ number: number, expire : expireDate })); // localStorage에 저장
@@ -67,7 +166,7 @@
 			  var searchKey = localStorage.key(i);
 			  const obj = JSON.parse(localStorage.getItem(searchKey)).expire;
 			  
-			  if(today >= expireDate) {
+			  if(today > expireDate) {
 				  window.localStorage.removeItem(searchKey);
 				}
 			  
@@ -83,41 +182,139 @@
 		}
 		else {
 			 // 걸려있는 링크로 이동
-			location.href="/click?blockGroup_seq=" + number; 
+// 			location.href="/click?blockGroup_seq=" + number; 
 		}
 		
-	}
+	}*/
 	
+	// 남은 시간 계산
+	function remaindTime() {
+	    var now = new Date();
+	    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 00, 00);
+	    var open = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 09, 00, 00);
+	  
+	    var nt = now.getTime();
+	    var ot = open.getTime();
+	    var et = end.getTime();
+	  
+	   if (nt < ot){
+	     $(".time").fadeIn();
+	     
+	     sec = parseInt(ot - nt) / 1000;
+	     day  = parseInt(sec / 60 / 60 / 24);
+	     sec = (sec - (day * 60 * 60 * 24));
+	     hour = parseInt(sec / 60 / 60);
+	     sec = (sec - (hour * 60 * 60));
+	     min = parseInt(sec / 60);
+	     sec = parseInt(sec - (min * 60));
+	     
+	     if (hour < 10) {
+	    	 hour = "0" + hour;
+	   	}
+	     if (min < 10) {
+	    	 min = "0" + min;
+	   }
+	     if (sec < 10) {
+	    	 sec = "0" + sec;
+	   	}
+	     
+	      $(".hours").html(hour);
+	      $(".minutes").html(min);
+	      $(".seconds").html(sec);
+	      
+	   }if (nt > et) {
+	    $(".time").fadeOut();
+	   } else {
+	       $(".time").fadeIn();
+	       
+	     sec = parseInt(et - nt) / 1000;
+	     day  = parseInt(sec / 60 / 60 / 24);
+	     sec = (sec - (day * 60 * 60 * 24));
+	     hour = parseInt(sec / 60 / 60);
+	     sec = (sec - (hour * 60 * 60));
+	     min = parseInt(sec / 60);
+	     sec = parseInt(sec - (min * 60));
+	     
+	     if(hour<10){hour="0"+hour;}
+	     if(min<10){min="0"+min;}
+	     if(sec<10){sec="0"+sec;}
+	     
+	      $(".hours").html(hour);
+	      $(".minutes").html(min);
+	      $(".seconds").html(sec);
+	   }
+	 }
 	
-	
+
 	$(document).ready(function() {
 		
 		// 인기순위 Top 5 이미지 띄우기
-		var cImgTopList = encodeURI("[[${listTopcImg}]]");
-	       var cImgTopArr = cImgTopList.split(",");
+		top5Img();
 	       
-	       for (var i = 1; i <= 5; i++) {
-	           document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3);
-	           if(i==5){
-	              document.getElementById("topImg"+i).src = cImgTopArr[i].slice(3).slice(0,-3);
-	           }
-	       }
-	   
-	       
-	   // 블록 153개 생성
-       createBlock([[${blockGroupSeqList}]]);
+		// 블록 289개 생성
+		createBlock([[${blockGroupSeqList}]]);
        
-       var today = new Date();
+		// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
+		resetLocalStorage();
+		
+		// 각 블록 클릭 시 localStorage에 저장 후 click 수 계산하여 처리
+		var today = new Date();
 		var expireDate = today.getFullYear() + (today.getMonth() + 1) + today.getDate() + 1;
 		today = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
 		
-		// 각 블록 클릭 시 localStorage에 저장 후 click 수 계산하여 처리
 		$(".tt").click(function() {
 			setLocalStorage($("#userName").text(), $(this).attr("id"), today, expireDate);
 		});
 		
+		// 체크박스 이벤트
+		$(".displayCheckBtn").change(function() {
+			if ($(this).is(':checked')) {
+				$(".numberDisplay").css("display", "block");
+				$(".imgDisplay").css("display", "none");
+			} else {
+				$(".numberDisplay").css("display", "none");
+				$(".imgDisplay").css("display", "block");
+			}
+		});
 		
+		
+		
+		// 남은 시간
+// 		endDateList.forEach(function(endDate) {
+// 			console.log(endDate)
+// 	 	})
+			
+		
+// 		setInterval(remaindTime, 1000);
        
+		// 예약 가능 블록
+		var reservationBlockGroupSeqList = [[${reservationBlockGroupSeqList}]]
+		
+		reservationBlockGroupSeqList.forEach(function(BlockGroupSeq) {
+			console.log(BlockGroupSeq);
+			$("#" + 3).find("button").css("display", "block");
+// 			$("#" + BlockGroupSeq).parents("div").append("<button class='reservationBtn'>예약 하기</button>");
+// 			$("#" + BlockGroupSeq).css('margin-top', topSize + 'px');
+		})
+		
+		
+		$("#availableReserv").change(function() {
+			if ($(this).is(':checked')) {
+				reservationBtn
+				$(".numberDisplay").css("display", "block");
+				$(".imgDisplay").css("display", "none");
+			} else {
+				$(".numberDisplay").css("display", "none");
+				$(".imgDisplay").css("display", "block");
+			}
+		});
+		
+		
+		
+		
+// 		$(".tt").append("<button class='reservationBtn'>예약 하기</button>");
+		
+		
        /*
 				$("#12").css('z-index', '50');
 
@@ -138,7 +335,15 @@
 				$("#45").css('z-index', '51');
 				$("#47").css('z-index', '51');
 		*/
-		});
+		
+		
+		
+		
+		
+		
+	});
+	
+	
 	</script>
 
 	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
@@ -230,9 +435,41 @@
 	<!-- Carousel End -->
 
 	<div>
+		<div class="topnav">
+			<div>
+				<label> <input type="checkbox" name="checkbox"
+					class="displayCheckBtn" value="blockNumber" /> 블록 번호
+				</label>
+			</div>
+			<div>
+				<label> <input type="checkbox" name="checkbox"
+					class="displayCheckBtn" value="leftTime" /> 남은 사용 시간
+				</label>
+			</div>
+			<div>
+				<label> <input type="checkbox" name="checkbox"
+					id="availableReserv" value="reservAvailable"/> 예약 가능 블록
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+	<div>
 		<div>
 			<br /> <br /> <br />
-			<div class="col-lg-4 col-md-6 mb-4 pb-2 blockTest"></div>
+			<div class="col-lg-4 col-md-6 mb-4 pb-2">
+			
+			
+				<div class="blockTest">
+				</div>
+			
+			
+			
+			
+			
+			
+			</div>
 			<!--     Blog End -->
 
 
@@ -241,7 +478,22 @@
 			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-			<br />
+			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+			<br /> <br />
+
+<div class="sec7-text-box">
+  <div class="time font40">
+    <span class="hours"></span>
+    <span class="col">:</span>
+    <span class="minutes"></span>
+    <span class="col">:</span>
+    <span class="seconds"></span>
+  </div>
+
+</div>
 
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
+import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.security.config.SecurityUser;
-import kr.worthseeing.users.dto.SessionUserDTO;
 
 @Controller
 public class BlockController {
@@ -25,18 +25,20 @@ public class BlockController {
 	@Autowired
 	private BlockGroupService blockGroupService;
 
+	@Autowired
+	private ReservationService reservationService;
+	
 	@GetMapping("/main")
-	public String mainPage(Model model, @AuthenticationPrincipal SecurityUser principal) {
-
-		SessionUserDTO sessionUserDTO = new SessionUserDTO();
-		sessionUserDTO.setUsers(principal.getUsers());
-		System.out.println("sessionUserDTO========>" + sessionUserDTO.toString());
+	public String mainPage(Model model) {
 
 //		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
 //		model.addAttribute("blockGroupMap", blockGroupMap);
 		
 		List<Integer> blockGroupSeqList = blockGroupService.listBoardGroupSeq();
 		model.addAttribute("blockGroupSeqList", blockGroupSeqList);
+		
+//		지우지마셈
+//		model.addAttribute("endDateList", blockGroupService.getBlockGroupDate());
 		
 //		JSONObject jsonObject = new JSONObject(blockGroupMap);
 //		System.out.println("jsonObject--->" + jsonObject.get(3).toString());
@@ -55,6 +57,8 @@ public class BlockController {
 			}
 			
 		}
+		
+		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
 		
 		
 		List<String> urlTopList = new ArrayList<String>();
