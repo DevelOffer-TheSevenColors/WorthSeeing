@@ -66,8 +66,9 @@
 											<div class="col-md-12">
 												<span class="form-group">
 													<a th:href="@{/system/login}" style="text-align:right; background-color: #7FA998; color:white;" class="btn">로그인</a>
-													<input th:if="${result}==null" style="background-color: #7FA998; color:white;" type="submit" value="아이디 / 비밀번호 찾기"
+													<input th:if="${result}==null" style="background-color: #7FA998; color:white;" type="submit" value="확인"
 														class="btn">
+													<a th:if="${result}!=null" th:href="@{/system/find}" style="text-align:right; background-color: #7FA998; color:white;" class="btn">아이디 / 비밀번호 찾기</a>
 												</span>
 											</div>
 										</div>

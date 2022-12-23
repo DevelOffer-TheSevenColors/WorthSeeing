@@ -13,9 +13,11 @@
 	<div class="container-fluid py-5">
 		<div class="container pt-5 pb-3">
 			<form th:action="@{/admin/blockPriceChart}">
+				<span>블록번호 : </span>
 				<select name="block_seq">
 					<option th:each="num : ${#numbers.sequence(1,289)}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
 				</select>
+				<span> 년도 : </span>
 				<select name="startYear">
 					<option th:value="2022">2022</option>
 					<option th:value="2023">2023</option>

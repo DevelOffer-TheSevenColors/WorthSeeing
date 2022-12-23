@@ -50,7 +50,7 @@
   	});
   	
     var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,00,00);
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,00,00);
   
   
@@ -100,6 +100,7 @@
   //  $("span.time-title").html("금일 마감");
     $(".time").fadeOut();
    }else {
+   console.log("뭐고?");
    $("#ending").hide();
    	$("#opening").hide();
    	$("#bidbutton").show();
