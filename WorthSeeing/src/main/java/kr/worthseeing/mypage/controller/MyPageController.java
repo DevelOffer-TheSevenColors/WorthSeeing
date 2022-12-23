@@ -45,6 +45,8 @@ public class MyPageController {
 
 	@Autowired
 	private UsersService usersService;
+	
+	
 
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal) {

@@ -203,7 +203,6 @@ public class MyPageServiceImpl implements MyPageService {
 		findUser.setTel(users.getTel());
 		findUser.setEmail(users.getEmail());
 		findUser.setNickName(users.getNickName());
-		findUser.setUserPw(users.getUserPw());
 		
 		usersRepo.save(findUser);
 	}
