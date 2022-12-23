@@ -67,8 +67,3 @@ public class Notify {
 		this.viewCnt = viewCnt;
 	}
 }
-
-
-
-
-

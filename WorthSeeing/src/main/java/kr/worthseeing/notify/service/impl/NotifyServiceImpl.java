@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.transaction.annotation.Transactional; 
+ 
 import com.querydsl.core.BooleanBuilder;
 
 import kr.worthseeing.notify.entity.Notify;
@@ -24,8 +24,8 @@ public class NotifyServiceImpl implements NotifyService {
 
 	@Autowired
 	private NotifyRepository notifyRepo;
-	
-
+	 
+ 
 	//공지 글 등록
 	@Override
 	@Transactional

@@ -49,12 +49,12 @@ public class NotifyController {
 		return "/notify/insertContact";
 	}
 
-	// 관리자가 공지글 등록하기
+	// 관리자가 공지글 등록하기 
 	@PostMapping("/notify/insertNotifyProc")
 	public String insertNotifyProc(Notify notify, @AuthenticationPrincipal SecurityUser principal) {
 		notifyService.insertNotify(notify, principal.getUsers());
 		return "redirect:/notify";
-	}
+	} 
 
 	// 사용자가 문의하기 글 등록하기
 	@PostMapping("/notify/insertContactProc")

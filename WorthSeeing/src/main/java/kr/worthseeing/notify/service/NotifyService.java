@@ -8,7 +8,7 @@ import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.users.entity.Users;
 
 public interface NotifyService {
-
+ 
 	void insertNotify(Notify notify, Users users);
 
 	Notify getNotify(Notify notify);
@@ -16,7 +16,7 @@ public interface NotifyService {
 	void deleteNotify(Notify notify);
 	
 	Page<Notify> getListNotify(Pageable pageable,  String status);
-	
+	 
 	
 	//문의하기(contact)
 	void insertContact(Notify notify, Users users);

@@ -142,7 +142,7 @@
 										th:class="${page == replyList.number + 1} ? 'active'">
 										<button name="page" th:value="${page}" th:text="${page}"></button>
 									</li>
-
+ 
 									<li th:class="${replyList.last} ? 'disabled'">
 										<button name="page" th:value="${replyList.number + 2}">&gt;</button>
 									</li>
@@ -151,7 +151,7 @@
 										<button name="page" th:value="${replyList.totalPages}">Last</button>
 									</li>
 								</ul>
-							</nav>
+							</nav>  
 						</div>
 
 					</div> 
