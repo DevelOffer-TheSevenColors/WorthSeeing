@@ -4,8 +4,6 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 </head>
 
@@ -113,7 +111,6 @@ function changePoint(amt,pnt,min,unit){
 	$("#inputprice").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
 	$("#point2").val(pnt - v_point); 
 	$("#inputPoint").val(pnt - v_point); 
-	
 	$("#result_pnt").attr("value",amt - v_point);
 	$("#point2").text(pnt - v_point);
 	
@@ -178,14 +175,16 @@ function changePoint(amt,pnt,min,unit){
        								 <input type="hidden" th:name="point"  id="inputPoint" th:value="${users.point}">
        								 <input type="hidden" th:name="userId" th:value="${users.userId}">
        								 <input type="hidden" th:name="price" id="inputprice"   th:value="${waiting.price}">
+       								 
+       								 
 								</td>
 							
 							</tr>
 							<tr>
 								<td><select  id="month" name="month" class="month" >
-											<option th:name="month" value="1">1개월</option>
-											<option th:name="month" value="2">2개월</option>
-											<option th:name="month" value="3">3개월</option>
+											<option  id="month1" th:name="month" value="1">1개월</option>
+											<option   id="month2" th:name="month" value="2">2개월</option>
+											<option   id = "month3" th:name="month" value="3">3개월</option>
 								</select></td>
 								<td>
 									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${waiting.price}" ></span> 원</p>
