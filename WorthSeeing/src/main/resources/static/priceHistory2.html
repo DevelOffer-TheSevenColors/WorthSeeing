@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <html lang="en" style="height: 100%"> -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>worth-seeing profit</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- 차트 링크 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+      <div class="row my-3">
+          <div class="col">
+              <h3>분기별 매출 추이</h3>
+          </div>
+      </div>
+      <div class="row my-2">
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-body">
+                      <canvas class="myChart"></canvas>
+                  </div>
+                  <div class="card-body text-center text-align-center">
+                    <h3>Worth-seeing</h3>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </div>
+  <!-- 부트스트랩 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <!-- 차트 -->
+  <script>
+  const mydata = [15, 28, 24, 35];
+  const mydataHalf = [25, 20, 35, 30];
+  // var ctx = document.getElementById("myChart");
+  var ctx = document.getElementsByClassName("myChart");
+
+  var mixedChart = {
+    type: 'bar',
+    labels: ['1Q', '2Q', '3Q', '4Q'],
+    datasets : [
+      {
+        label: '매출액',
+        data : mydata,
+        backgroundColor: 'rgba(256, 0, 0, 0.1)'
+      },
+      {
+        label: '영업이익율',
+        data: mydataHalf,
+        backgroundColor: 'transparent',
+        borderColor: 'skyblue',
+        type: 'line'
+      }
+    ]
+    };
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: mixedChart,
+      options: {
+        legend: {
+          display: true
+        }
+      }
+    });  
+   
+  </script>
+</body>
+</html>

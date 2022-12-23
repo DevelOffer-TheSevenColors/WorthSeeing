@@ -10,15 +10,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.admin.service.AdminService;
-import kr.worthseeing.users.entity.Users; 
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.repository.BlockRepository;
+import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
-	UsersRepository userRepo;
+	UsersRepository userRepo; 
 
+	@Autowired
+	BlockRepository blockRepo;
+	
 	@Override
 	public Page<Users> selectUsers(Pageable pageable) {
 
@@ -36,6 +41,14 @@ public class AdminServiceImpl implements AdminService {
 			Users findUsers = userRepo.findById(userIdItem).get();
 			findUsers.setBlackYn(blackYn.get(i++));
 			userRepo.save(findUsers);
+		}
+
+	}
+	
+	@Override
+	public void blockChart() {
+		for(Block block : blockRepo.findAll()) {
+			System.out.println("@@as"+block.getBlockPrice());
 		}
 
 	}

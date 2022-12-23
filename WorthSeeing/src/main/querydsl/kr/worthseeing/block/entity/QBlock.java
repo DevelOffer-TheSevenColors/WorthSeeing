@@ -26,6 +26,8 @@ public class QBlock extends EntityPathBase<Block> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
+    public final NumberPath<Integer> blockPrice = createNumber("blockPrice", Integer.class);
+
     public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
 
     public final DateTimePath<java.util.Date> startDate = createDateTime("startDate", java.util.Date.class);
