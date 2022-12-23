@@ -50,8 +50,8 @@
 			</form>
 
 			<div class="aLink">
-				<a th:if="${notify.users.userId == principal.users.userId}"
-					th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">게시글 삭제</a>
+					<a sec:authorize="hasRole('ROLE_ADMIN')"
+					th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">공지글 삭제</a>
 			</div>
 			<div>
 				<a th:href="@{/notify}">게시글 목록</a>
