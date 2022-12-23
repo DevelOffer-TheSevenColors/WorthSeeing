@@ -38,7 +38,7 @@ public class Notify {
 	private int viewCnt;
 	
 	private Date notifyTime = new Date();
-	
+	 
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;

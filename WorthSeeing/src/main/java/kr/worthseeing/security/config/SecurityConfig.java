@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
- 
-import kr.worthseeing.security.service.impl.UserDetailServiceImpl;
+
+import kr.worthseeing.security.service.impl.UserDetailServiceImpl; 
  
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

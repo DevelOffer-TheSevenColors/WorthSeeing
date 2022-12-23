@@ -8,7 +8,7 @@ import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.users.entity.Users;
 
 public interface NotifyService {
-
+ 
 	void insertNotify(Notify notify, Users users);
 
 	Notify getNotify(Notify notify);
