@@ -13,4 +13,6 @@ Page<Users> selectUsers(Pageable pageable);
 
 void blackList(List<String> userId, List<String> blackYn);
 
+public List<Integer> blockChart(String startYear);
+
 }

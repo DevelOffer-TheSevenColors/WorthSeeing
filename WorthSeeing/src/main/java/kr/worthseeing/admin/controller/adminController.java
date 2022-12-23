@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,4 +47,15 @@ public class adminController {
 		
 		
 	}
+	
+	@GetMapping("/salePriceChart")
+	public String salePriceChart(Model model,String startYear) {
+		if(startYear==null) {
+			startYear = "2022";
+		}
+		model.addAttribute("salePriceList", adminService.blockChart(startYear));
+		System.out.println("===>"+model.getAttribute("salePriceList"));
+		return "/admin/salePriceChart";
+	}
+	
 }
