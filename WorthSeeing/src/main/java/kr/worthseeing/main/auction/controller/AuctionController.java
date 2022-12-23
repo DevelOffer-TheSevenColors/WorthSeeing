@@ -3,6 +3,9 @@ package kr.worthseeing.main.auction.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
@@ -34,6 +39,7 @@ public class AuctionController {
 
 	@Autowired
 	private BlockService blockService;
+	
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/selectAuction", method = RequestMethod.POST)
@@ -131,4 +137,24 @@ public class AuctionController {
 		auctionService.updateCreditInfo(blockGroupWaiting, status, users,month);
 		return "/main";
 	}
+	
+	@GetMapping("/alwaysBuyList")
+	public String selectAlwaysBuyList(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable) {
+		
+		Page<BlockGroup> alwaysList = auctionService.selectAlwaysBuyList(blockGroup, pageable);
+		
+			model.addAttribute("alwaysList",alwaysList);
+			int nowPage = alwaysList.getPageable().getPageNumber()+1;
+			model.addAttribute("nowPage",nowPage);
+			
+		
+		
+		return "/auction/alwaysBuyList";
+	}
 }
+
+
+
+
+
+

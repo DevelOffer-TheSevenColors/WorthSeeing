@@ -1,10 +1,12 @@
 package kr.worthseeing.mypage.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.util.buf.CharChunk.CharOutputChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -89,11 +91,11 @@ public class MyPageServiceImpl implements MyPageService {
 		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
 		usersRepo.save(findUsers);
 
-		Coupon findCoupon = couponRepo.findByCoupon(2, Integer.parseInt(price)).get(0); // status가 2인 쿠폰 리스트의 index 0번째 데이터 가져오기
+		Coupon findCoupon = couponRepo.findByCoupon(5, Integer.parseInt(price)).get(0); // status가 2인 쿠폰 리스트의 index 0번째 데이터 가져오기
 		System.out.println("finidCoupon impol====>" + findCoupon);
 		
 		Status status = new Status();
-		status.setStatus_seq(3);
+		status.setStatus_seq(6);
 		
 		findCoupon.setStatus(status);
 		findCoupon.setUsers(findUsers);
@@ -103,7 +105,34 @@ public class MyPageServiceImpl implements MyPageService {
 		couponRepo.save(findCoupon);
 		System.out.println("-==-=--==-=-=-=-=---[][][][][][][]" + findUsers);
 	}
+	@Override
+	public List<Coupon> getleftOverCoupon() {
+	List<Coupon> leftOverCoupon = couponRepo.findLeftOverCoupon();
+		return leftOverCoupon;
+	}
 	
+	@Override
+	public List<Integer> getCouponCount() {
+		List<Integer> cntList = new ArrayList<Integer>();
+		int tenthousandCnt = 0;
+		int fiftythousandCnt = 0;
+		int hundredthousandCnt = 0;
+
+		for (Coupon coupon : couponRepo.findLeftOverCoupon()) {
+			if (coupon.getCouponPrice() == 30000) {
+				tenthousandCnt++;
+			} else if (coupon.getCouponPrice() == 50000) {
+				fiftythousandCnt++;
+			} else {
+				hundredthousandCnt++;
+			}
+		}
+		cntList.add(tenthousandCnt);
+		cntList.add(fiftythousandCnt);
+		cntList.add(hundredthousandCnt); 
+		System.out.println("cnt===========================>" + cntList);
+		return cntList;
+	}
 	
 	@Override
 	public Map<Integer, List<AuctionLog>> getAuctionLogUserId(String userId) {
@@ -131,5 +160,6 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
+	
 	
 }

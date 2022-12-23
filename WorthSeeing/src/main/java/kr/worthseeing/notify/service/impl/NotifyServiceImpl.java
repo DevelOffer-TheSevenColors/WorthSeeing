@@ -89,7 +89,7 @@ public class NotifyServiceImpl implements NotifyService {
 		QNotify qnotify = QNotify.notify;
 		if(status==null) {
 			status = "1";
-		} 
+		}
 		if(!status.equals("1")) {
 			builder.and(qnotify.status.status_seq.like("%" + status + "%"));
 		} else {

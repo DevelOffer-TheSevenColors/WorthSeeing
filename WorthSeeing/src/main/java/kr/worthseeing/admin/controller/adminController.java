@@ -50,11 +50,13 @@ public class adminController {
 	
 	@GetMapping("/salePriceChart")
 	public String salePriceChart(Model model,String startYear) {
+		
 		if(startYear==null) {
 			startYear = "2022";
 		}
+		
 		model.addAttribute("salePriceList", adminService.blockChart(startYear));
-		System.out.println("===>"+model.getAttribute("salePriceList"));
+		
 		return "/admin/salePriceChart";
 	}
 	

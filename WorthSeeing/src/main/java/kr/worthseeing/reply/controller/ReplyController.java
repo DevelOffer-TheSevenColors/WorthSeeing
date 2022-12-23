@@ -19,7 +19,7 @@ import kr.worthseeing.status.entity.Status;
 @Controller
 @RequestMapping("/reply")
 public class ReplyController {
-	 
+	
 	@Autowired
 	ReplyService replyService;
 	 

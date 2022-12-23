@@ -28,5 +28,9 @@ public interface MyPageService {
 	List<BlockGroup> getListBlockGroup();
 	
 	void getUserPoint(Users users,String price, Coupon coupon);
+	
+	List<Coupon> getleftOverCoupon();
+	
+	List<Integer> getCouponCount();
 
 }
