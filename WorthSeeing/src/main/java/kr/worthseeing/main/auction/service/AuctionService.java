@@ -51,6 +51,11 @@ public interface AuctionService {
 	//상시판매 목록 리스트
 	public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup,Pageable pageable);
 	
+	public List<BlockGroup> selectAlwaysBuyListNoPage();
+	
 	//상시판매  결제 페이지 정보 select 
 	public  BlockGroup alwaysBuyCreditView(BlockGroup blockGroup);
+	
+	//상시판매 결제하기
+	public void updateAlwaysCreditInfo(BlockGroup blockGroup,Status status, Users user) ;
 }

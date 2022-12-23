@@ -11,19 +11,43 @@
 
 
 <script>
-function ChangeValue(){
- var month=document.getElementById('month');
+// function ChangeValue(){
+//  var month=document.getElementById('month');
 
-}
+// }
 
 
 $(document).ready(function() {
 	
-	var totalPrice = [[${blockGroup.price}]]  * $("#month option:selected").val();
+	var date = new Date();
+
+	y = date.getFullYear();
+
+	m = date.getMonth();
+
+	var firstDay = new Date(y, m, 1);
+
+	var lastDay = new Date(y, m + 1, 0);
+	
+// 	 document.write(date.getDate()+"<br/>");
+	
+// 	document.write(lastDay.getDate()+"<br/>");
+	
+	var calc =  lastDay.getDate()-date.getDate() ;
+	
+// 		document.write(calc+"<br/>");
+
+		var calcPrice=   Math.round(   ( [[${blockGroup.price}]]  / lastDay.getDate()  ) * calc );
+	
+	$("#monthPrice").text(calcPrice);
+	$("#result_pnt").text(calcPrice);
+// 		document.write(calcPrice+"<br/>");
+		
+	
+	var totalPrice = calcPrice  ;
 	
 	$("#month").change(function(){
-		$("#monthPrice").text([[${blockGroup.price}]] + " * " + $("#month option:selected").val());
-		totalPrice = [[${blockGroup.price}]]  * $("#month option:selected").val();
+		$("#monthPrice").text(calcPrice + " * " + $("#month option:selected").val());
 		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
@@ -129,7 +153,7 @@ function changePoint(amt,pnt,min,unit){
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 <h3>상시판매 결제하기</h3>
-<form th:action="@{/updateCredit}" method="post">
+<form th:action="@{/updateAlwaysCredit}" method="post">
 					<table class="customBoard">
 						<thead >
 							<tr>
@@ -168,17 +192,23 @@ function changePoint(amt,pnt,min,unit){
 								<td>
 									 <span> <input type="number" name="use_pnt" id="use_pnt" min="0" step="500" th:max="${users.point}"   ></span> p 
        								 <span> ( 남은포인트 : </span><span th:name="point" id="point" th:text="${users.point}" ></span>p )
-       								 
+       								  <input type="hidden" th:name="status_seq" th:value="10">
+       								  <input type="hidden" th:name="blockGroup_seq" th:value="${blockGroup.blockGroup_seq}">
+       								 <input type="hidden" th:name="point"  id="inputPoint" th:value="${users.point}">
+       								 <input type="hidden" th:name="userId" th:value="${users.userId}">
+       								 <input type="hidden" th:name="price" id="inputprice"   th:value="${blockGroup.price}">
        								 
 								</td>
 							
 							</tr>
 							<tr>
-								<td><select  id="month" name="month" class="month" >
-											<option  id="month1" th:name="month" value="1">1개월</option>
-											<option   id="month2" th:name="month" value="2">2개월</option>
-											<option   id = "month3" th:name="month" value="3">3개월</option>
-								</select></td>
+								<td>
+<!-- 								<select  id="month" name="month" class="month" > -->
+<!-- 											<option  id="month1" th:name="month" value="1">1개월</option> -->
+<!-- 											<option   id="month2" th:name="month" value="2">2개월</option> -->
+<!-- 											<option   id = "month3" th:name="month" value="3">3개월</option> -->
+<!-- 								</select> -->
+								</td>
 								<td>
 									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${blockGroup.price}" ></span> 원</p>
 								</td>

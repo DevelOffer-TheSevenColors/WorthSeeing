@@ -144,9 +144,13 @@ public class AuctionController {
 		
 		Page<BlockGroup> alwaysList = auctionService.selectAlwaysBuyList(blockGroup, pageable);
 		
-			model.addAttribute("alwaysList",alwaysList);
-			int nowPage = alwaysList.getPageable().getPageNumber()+1;
+		List<BlockGroup>  awlaysListNoPage  = auctionService.selectAlwaysBuyListNoPage();
+		
+		
+		int nowPage = alwaysList.getPageable().getPageNumber()+1;
+		model.addAttribute("alwaysList",alwaysList);
 			model.addAttribute("nowPage",nowPage);
+			model.addAttribute("alwaysListNoPage",awlaysListNoPage);
 			
 		 
 		
@@ -160,6 +164,13 @@ public class AuctionController {
 		model.addAttribute("users",principal.getUsers());
 		
 		return "/auction/alwaysCredit";
+	}
+	@PostMapping("/updateAlwaysCredit")
+	public String updateAlwaysCredit(BlockGroup blockGroup, Status status,Users users) {
+		
+		
+		auctionService.updateAlwaysCreditInfo(blockGroup, status, users);
+		return "/main";
 	}
 }
 

@@ -209,9 +209,16 @@ public class AuctionServiceImpl implements AuctionService {
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
 		
 		
+		blockGroupRepo.alwaysBuyListNoPage( 11);
 		
-		return blockGroupRepo.alwaysBuyList(pageable,11);
+		return blockGroupRepo.alwaysBuyList(pageable ,11);
 		
+	}
+	@Override
+	public List<BlockGroup> selectAlwaysBuyListNoPage() {
+		
+		
+		return blockGroupRepo.alwaysBuyListNoPage(11);
 	}
 
 	@Override
@@ -220,6 +227,30 @@ public class AuctionServiceImpl implements AuctionService {
 
         
 		return 	  blockGroupRepo.save(blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get());
+	}
+	
+	@Override
+	public void updateAlwaysCreditInfo(BlockGroup blockGroup,Status status, Users user) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
+
+		
+		Users findUser=usersRepo.findById(user.getUserId()).get();
+		findUser.setPoint(user.getPoint());
+		
+		BlockGroup findBlockGroup= blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+		
+		LocalDate now= LocalDate.now();
+		
+		
+			
+			
+		findBlockGroup.setPrice(blockGroup.getPrice());
+		findBlockGroup.setPurchaseDay(new Date());
+		findBlockGroup.setStatus(status);
+		
+		
+		 
+		blockGroupRepo.save(findBlockGroup);
+		usersRepo.save(findUser);
 	}
 	
 	
