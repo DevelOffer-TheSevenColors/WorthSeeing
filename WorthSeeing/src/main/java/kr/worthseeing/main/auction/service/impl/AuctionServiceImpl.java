@@ -5,11 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
@@ -38,6 +43,9 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private UsersRepository usersRepo;
+	
+	@Autowired
+	private BlockGroupRepository  blockGroupRepo;
 	
 	// 경매 기록 저장
 	@Override
@@ -190,4 +198,14 @@ public class AuctionServiceImpl implements AuctionService {
             return findblockGroupWaiting;
       }
 
+	@Override
+	public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup, Pageable pageable) {
+
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
+		
+		
+		return blockGroupRepo.alwaysBuyList(pageable,11);
+		
+	}
 }

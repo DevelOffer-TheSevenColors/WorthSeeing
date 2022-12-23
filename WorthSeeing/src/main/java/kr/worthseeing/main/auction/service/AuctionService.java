@@ -2,6 +2,9 @@ package kr.worthseeing.main.auction.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.auction.entity.Auction;
@@ -43,4 +46,9 @@ public interface AuctionService {
 	
 	
 	public void endAuction(Reservation reservation, BlockGroup blockGroup);
+	
+	//상시판매 목록 리스트
+	public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup,Pageable pageable);
+	
+	
 }

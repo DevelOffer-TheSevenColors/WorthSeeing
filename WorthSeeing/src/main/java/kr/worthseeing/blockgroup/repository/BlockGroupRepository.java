@@ -9,6 +9,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.main.reservation.entity.Reservation;
 
 public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer>,
 	QuerydslPredicateExecutor<BlockGroup>  {
@@ -31,4 +32,6 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	@Query("select b from BlockGroup b order by b.blockGroup_seq")
 	List<BlockGroup> orderByBlockGroupSeq();
 	
+	@Query("select b from BlockGroup b where status_seq = ?1")
+	Page<BlockGroup> alwaysBuyList(Pageable pageable, int keywoard);
 }

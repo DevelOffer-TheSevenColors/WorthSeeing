@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+
+
+				<table class="customBoard">
+
+					<thead>
+						<tr>
+							<th>블록 번호</th>
+							<th>구매 가격</th>
+							<th>평균 가격</th>
+							<th>구매하러 가기</th>
+
+						</tr>
+					</thead>
+					<tbody th:each="blockGroup, state : ${alwaysList}">
+						<tr >
+							<td th:text="${blockGroup.blockList[0].Block_seq}"></td>
+							<td  th:text="${blockGroup.price}"></td>
+							<td  th:text="${blockGroup.avgPrice}"></td>
+							<td  ></td>
+						</tr>
+				
+					</tbody>
+				</table>
+
+				<form th:action="@{/admin/adminalwaysList}" method="post">
+					<div>
+						<nav class="customNav"> 
+							<ul class="customPagination"
+								th:with="start=${(1-(alwaysList.number%1))%1 + 1},
+	                    	last=(${start + 9 < alwaysList.totalPages ? start + 9 : alwaysList.totalPages})">
+
+								<li th:class="${alwaysList.first} ? 'disabled'">
+									<button name="page" value="1">First</button>
+								</li>
+
+								<li th:class="${alwaysList.first} ? 'disabled'">
+									<button name="page" th:value="${alwaysList.number}">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == alwaysList.number + 1} ? 'active'">
+									<button th:if="${page==nowPage}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
+									<button th:if="${page!=nowPage}" name="page" th:value="${page}" th:text="${page}"></button>
+								</li>
+
+								<li th:class="${alwaysList.last} ? 'disabled'">
+									<button name="page" th:value="${alwaysList.number + 2}">&gt;</button>
+								</li>
+
+								<li th:class="${alwaysList.last} ? 'disabled'">
+									<button name="page" th:value="${alwaysList.totalPages}">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</form>
+			</div>
+		</div>
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+</html>
