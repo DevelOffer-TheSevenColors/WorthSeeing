@@ -40,4 +40,8 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	
 	@Query("select b from BlockGroup b where b.users.userId like %?1%")
 	Page<BlockGroup> findByUserList(String userId,Pageable pageable);
+
+	@Query("select b.endDate from BlockGroup b")
+	List<String> listBlockGroupEndDate();
+	
 }

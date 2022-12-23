@@ -32,8 +32,8 @@ public class reservationController {
 
 	// 예약가능 목록 띄우기
 	@RequestMapping("/reservationList")
-	private String selectauctonList(Model model, Reservation reservation,@PageableDefault Pageable pageable) {
-		model.addAttribute("reservationList", reservationservice.selectReservation(reservation,pageable));
+	private String selectauctonList(Model model, Reservation reservation, int blockGroup_seq, @PageableDefault Pageable pageable) {
+		model.addAttribute("reservationList", reservationservice.selectReservation(pageable));
 		return "/reservation/reservationList";
 	}
 
@@ -55,14 +55,20 @@ public class reservationController {
 	@GetMapping("/reservationCredit")
 	private String reservationCredit(Model model, Reservation reservation) {
 		Reservation reservation_ = reservationservice.selectReservationCreditInfo(reservation);
+		
 		String blockStr = "";
+		
 		for(Block block : blockService.findAuctionBlock(reservation_.getBlockGroup())) {
 			blockStr += block.getBlock_seq() + ",";
 		}
+		
 		model.addAttribute("reservationCreditInfo", reservation_);
+		
 		model.addAttribute("block",blockStr.substring(0, blockStr.length()-1));
+		
 		return "/reservation/reservationCredit";
 	}
+	
 	// 10프로 결제하기 버튼 클릭 시 
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {

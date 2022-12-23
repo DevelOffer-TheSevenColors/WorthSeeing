@@ -3,7 +3,9 @@ package kr.worthseeing;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -294,15 +296,17 @@ public class reservationTest {
 //	@Test
 	public void updateBlockGroupEndDate() {
 		for (int i = 0; i < 289; i++) {
-			BlockGroup findBlockGroup = blockGroupRepo.findById(i + 1).get();
-
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
+			
 			LocalDate now = LocalDate.now();
 			Random rand = new Random();
 
-			LocalDate result1 = now.plusDays(rand.nextInt(1000));
-//			Date enddate1 = java.sql.Date.valueOf(result1);
+			LocalDate result1 = now.plusDays(rand.nextInt(30));
+			
+			result1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			System.out.println("format--->" + result1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-//			findBlockGroup.setEndDate(result1);
+			findBlockGroup.setEndDate(result1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
 			blockGroupRepo.save(findBlockGroup);
 

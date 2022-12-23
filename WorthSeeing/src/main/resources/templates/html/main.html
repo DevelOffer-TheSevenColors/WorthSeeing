@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<style>
+	<style>
 .blockTest {
 	position: relative;
 	z-index: 1;
@@ -39,12 +39,12 @@
 	color: #f2f2f2;
 	text-align: center;
 	padding: 14px 16px;
-	margin-left: 20%;
+	margin-left: 13%;
 	text-decoration: none;
 }
 
-.numberDisplay{
- 	display: none;
+.numberDisplay {
+	display: none;
 	border-radius: 50%;
 	background: #7AB730;
 	color: white;
@@ -58,21 +58,24 @@
 	padding: 8px 0;
 }
 
-  
-.reservationBtn {
-  border: 1px solid #7AB730;
-  background-color: rgba(0,0,0,0);
-  color: #7AB730;
-  padding: 5px;
-  font-size: 30px;
-  display: none;
+.numberDisplay {
+	border-radius: 50%;
 }
+
+.reservationBtn, .betweenDay {
+	border: 1px solid #7AB730;
+	background-color: rgba(0, 0, 0, 0);
+	color: #7AB730;
+	padding: 5px;
+	font-size: 30px;
+	display: none;
+	text-align: center;
+}
+
 .reservationBtn:hover {
-	color:white;
+	color: white;
 	background-color: #7AB730;
 }
-
-
 </style>
 
 	<script>
@@ -95,9 +98,11 @@
 		var cImgList = encodeURI("[[${listcImg}]]");
 	    var cImgArr = cImgList.split(",");
 	    var topSize = 0;
+	    var betweenDaysList = [[${betweenDaysList}]]
+	    var betweenDaysArr = Array.from(betweenDaysList);
 	    
 		for (var i = 1; i <= 289; i++) {
-			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgArr[i].slice(3) + "'/></li>";
+			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'>" + betweenDaysArr[i] + " 일 남음</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgArr[i].slice(3) + "'/></li>";
 	          
 			$(".blockTest").append(child);
 
@@ -151,7 +156,7 @@
 			location.href="/updatePoint?blockGroup_seq=" + number;
 		} else {
 			// 걸려있는 링크로 이동
-// 			location.href="/click?blockGroup_seq=" + number;
+			location.href="/click?blockGroup_seq=" + number;
 		}
 	}
 	
@@ -187,64 +192,6 @@
 		
 	}*/
 	
-	// 남은 시간 계산
-	function remaindTime() {
-	    var now = new Date();
-	    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 00, 00);
-	    var open = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 09, 00, 00);
-	  
-	    var nt = now.getTime();
-	    var ot = open.getTime();
-	    var et = end.getTime();
-	  
-	   if (nt < ot){
-	     $(".time").fadeIn();
-	     
-	     sec = parseInt(ot - nt) / 1000;
-	     day  = parseInt(sec / 60 / 60 / 24);
-	     sec = (sec - (day * 60 * 60 * 24));
-	     hour = parseInt(sec / 60 / 60);
-	     sec = (sec - (hour * 60 * 60));
-	     min = parseInt(sec / 60);
-	     sec = parseInt(sec - (min * 60));
-	     
-	     if (hour < 10) {
-	    	 hour = "0" + hour;
-	   	}
-	     if (min < 10) {
-	    	 min = "0" + min;
-	   }
-	     if (sec < 10) {
-	    	 sec = "0" + sec;
-	   	}
-	     
-	      $(".hours").html(hour);
-	      $(".minutes").html(min);
-	      $(".seconds").html(sec);
-	      
-	   }if (nt > et) {
-	    $(".time").fadeOut();
-	   } else {
-	       $(".time").fadeIn();
-	       
-	     sec = parseInt(et - nt) / 1000;
-	     day  = parseInt(sec / 60 / 60 / 24);
-	     sec = (sec - (day * 60 * 60 * 24));
-	     hour = parseInt(sec / 60 / 60);
-	     sec = (sec - (hour * 60 * 60));
-	     min = parseInt(sec / 60);
-	     sec = parseInt(sec - (min * 60));
-	     
-	     if(hour<10){hour="0"+hour;}
-	     if(min<10){min="0"+min;}
-	     if(sec<10){sec="0"+sec;}
-	     
-	      $(".hours").html(hour);
-	      $(".minutes").html(min);
-	      $(".seconds").html(sec);
-	   }
-	 }
-	
 
 	$(document).ready(function() {
 		
@@ -262,50 +209,69 @@
 		var expireDate = today.getFullYear() + (today.getMonth() + 1) + today.getDate() + 1;
 		today = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
 		
-		$(".tt").click(function() {
-			setLocalStorage($("#userName").text(), $(this).attr("id"), today, expireDate);
-		});
-		
 		// 체크박스 이벤트
-		$(".displayCheckBtn").change(function() {
+		$("#displayBlock").change(function() {
+			if ($(this).is(':checked')) {
+				$(".tt").click(function() {
+					setLocalStorage($("#userName").text(), $(this).attr("id"), today, expireDate);
+				});
+				$(".numberDisplay").css("display", "none");
+				$(".imgDisplay").css("display", "block");
+				$(".reservationBtn").css("display", "none");
+				$(".betweenDay").css("display", "none");
+			} 
+		})
+		
+		$("#displayBlockNum").change(function() {
 			if ($(this).is(':checked')) {
 				$(".numberDisplay").css("display", "block");
 				$(".imgDisplay").css("display", "none");
+				$(".reservationBtn").css("display", "none");
+				$(".betweenDay").css("display", "none");
 			} else {
 				$(".numberDisplay").css("display", "none");
 				$(".imgDisplay").css("display", "block");
+				$(".reservationBtn").css("display", "none");
+				$(".betweenDay").css("display", "none");
 			}
 		});
 		
+		// 남은 날짜 표시
 		
-		
-		// 남은 시간
-// 		endDateList.forEach(function(endDate) {
-// 			console.log(endDate)
-// 	 	})
-			
-		
-// 		setInterval(remaindTime, 1000);
+		$("#displayBetweenDay").change(function() {
+			if ($(this).is(':checked')) {
+				$(".numberDisplay").css("display", "none");
+				$(".imgDisplay").css("display", "none");
+				$(".reservationBtn").css("display", "none");
+				$(".betweenDay").css("display", "block");
+			} else {
+				$(".numberDisplay").css("display", "none");
+				$(".imgDisplay").css("display", "block");
+				$(".reservationBtn").css("display", "none");
+				$(".betweenDay").css("display", "none");
+			}
+		});
        
 		// 예약 가능 블록
 		var reservationBlockGroupSeqList = [[${reservationBlockGroupSeqList}]]
 		
-		reservationBlockGroupSeqList.forEach(function(BlockGroupSeq) {
-			console.log(BlockGroupSeq);
-			$("#" + 3).find("button").css("display", "block");
-// 			$("#" + BlockGroupSeq).parents("div").append("<button class='reservationBtn'>예약 하기</button>");
-// 			$("#" + BlockGroupSeq).css('margin-top', topSize + 'px');
-		})
-		
-		
 		$("#availableReserv").change(function() {
 			if ($(this).is(':checked')) {
-				reservationBtn
-				$(".numberDisplay").css("display", "block");
+				reservationBlockGroupSeqList.forEach(function(BlockGroupSeq) {
+					$("#" + BlockGroupSeq).find("button").css("display", "block");
+				})
+				
+				
+// 				/reservation/reservationCredit?reservation_seq=
+				
 				$(".imgDisplay").css("display", "none");
-			} else {
+				$(".betweenDay").css("display", "none");
 				$(".numberDisplay").css("display", "none");
+			} else {
+				$(".reservationBtn").css("display", "none");
 				$(".imgDisplay").css("display", "block");
+				$(".numberDisplay").css("display", "none");
+				$(".betweenDay").css("display", "none");
 			}
 		});
 		
@@ -437,18 +403,23 @@
 	<div>
 		<div class="topnav">
 			<div>
-				<label> <input type="checkbox" name="checkbox"
-					class="displayCheckBtn" value="blockNumber" /> 블록 번호
+				<label> <input type="radio" name="checkbox" checked="checked"
+					id="displayBlock" /> 기존 이미지 표시
 				</label>
 			</div>
 			<div>
-				<label> <input type="checkbox" name="checkbox"
-					class="displayCheckBtn" value="leftTime" /> 남은 사용 시간
+				<label> <input type="radio" name="checkbox"
+					id="displayBlockNum" value="blockNumber" /> 블록 번호
 				</label>
 			</div>
 			<div>
-				<label> <input type="checkbox" name="checkbox"
-					id="availableReserv" value="reservAvailable"/> 예약 가능 블록
+				<label> <input type="radio" name="checkbox"
+					id="displayBetweenDay" value="leftTime" /> 남은 사용 시간
+				</label>
+			</div>
+			<div>
+				<label> <input type="radio" name="checkbox"
+					id="availableReserv" value="reservAvailable" /> 예약 가능 블록
 				</label>
 			</div>
 		</div>
@@ -459,16 +430,15 @@
 		<div>
 			<br /> <br /> <br />
 			<div class="col-lg-4 col-md-6 mb-4 pb-2">
-			
-			
-				<div class="blockTest">
-				</div>
-			
-			
-			
-			
-			
-			
+
+
+				<div class="blockTest"></div>
+
+
+
+
+
+
 			</div>
 			<!--     Blog End -->
 
@@ -484,16 +454,14 @@
 			<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 			<br /> <br />
 
-<div class="sec7-text-box">
-  <div class="time font40">
-    <span class="hours"></span>
-    <span class="col">:</span>
-    <span class="minutes"></span>
-    <span class="col">:</span>
-    <span class="seconds"></span>
-  </div>
+			<div class="sec7-text-box">
+				<div class="time font40">
+					<span class="hours"></span> <span class="col">:</span> <span
+						class="minutes"></span> <span class="col">:</span> <span
+						class="seconds"></span>
+				</div>
 
-</div>
+			</div>
 
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>

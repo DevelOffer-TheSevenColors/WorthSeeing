@@ -32,7 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockGroup {
-
+	
 	@Id
 //	@GeneratedValue
 	private int blockGroup_seq;
@@ -47,17 +47,12 @@ public class BlockGroup {
 	private int price;
 	private int avgPrice;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date purchaseDay;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate = new Date();
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date endDate;
+	private String endDate;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "date default sysdate")
 	private Date groupDate;
  
 	@OneToMany(mappedBy = "blockGroup")

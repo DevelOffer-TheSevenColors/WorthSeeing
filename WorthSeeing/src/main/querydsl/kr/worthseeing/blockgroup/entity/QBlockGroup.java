@@ -34,7 +34,7 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final NumberPath<Integer> clickCnt = createNumber("clickCnt", Integer.class);
 
-    public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
+    public final StringPath endDate = createString("endDate");
 
     public final DateTimePath<java.util.Date> groupDate = createDateTime("groupDate", java.util.Date.class);
 

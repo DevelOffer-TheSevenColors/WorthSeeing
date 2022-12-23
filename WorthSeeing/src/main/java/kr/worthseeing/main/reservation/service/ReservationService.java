@@ -22,7 +22,7 @@ public interface ReservationService {
 	
 	void deleteReservation(Reservation reservation);
 	
-	public Page<Reservation> selectReservation(Reservation reservation,Pageable pageable);
+	public Page<Reservation> selectReservation(Pageable pageable);
 	
 	public List<ReservationUsers> selectMyReservation(String userid);
 	

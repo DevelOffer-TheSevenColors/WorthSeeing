@@ -155,51 +155,24 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	}
 
 	@Override
-	public List getBlockGroupDate() {
+	public List<Integer> getBlockGroupDate() {
 
-		List<BlockGroup> listBlockGroup = (List<BlockGroup>) blockGroupRepo.findAll();
+		List<String> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
 
-		List<String> endDateList = new ArrayList<String>();
+		List<Integer> betweenDaysList = new ArrayList<Integer>();
 
-		for (BlockGroup blockGroup : listBlockGroup) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-			Date testDate = blockGroup.getEndDate();
-			
-//			LocalDate now = LocalDate.now(); // 현재시간
-
-//			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format 되게 구현
-
-			LocalDate date = LocalDate.parse(String.valueOf(testDate)); // 현재 시간 스
-//
-//			LocalDate startDate = LocalDate.now(); // 지금 시간
-//			LocalDate endDate = date.withDayOfMonth(date.lengthOfMonth()); // 현재 월의 일 수 31일까지 찍힘
-//
-//			LocalDateTime calcStartDate = startDate.atStartOfDay(); // 현재 시간 계산 할 수있도록 변환 - 시작
-//			LocalDateTime calcEndDate = endDate.atStartOfDay(); // 현재 월일수를 계산 할 수있도록 변환 - 끝
-//
-//			int betweenDays = (int) Duration.between(calcStartDate, calcEndDate).toDays(); // 시작과 끝을 빼서 계산한 값
-//
-//			System.out.println("betweenDays : " + betweenDays);
-//			
-//			
-//			endDate.getDayOfMonth();// 이번달 마지막날을 int로 가져오는것
-
-//			BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-//
-//			Date endDate = blockGroup.getEndDate();
-//			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//
-//			System.out.println("date--->" + simpleDateFormat.format(endDate));
-
-//			String endDateSubString = endDate.toString();
-//			System.out.println("endDateList Impl----->" + endDateSubString.substring(0, 10));
-//			System.out.println("endDateList Impl----->" + endDate);
-//			endDateList.add(simpleDateFormat.format(endDate));
-//			endDateList.add(simpleDateFormat.format(endDate));
-
+		for (String endDateItem : listBlockGroupEndDate) {
+			betweenDaysList.add(
+					(int) Duration.between(
+							LocalDate.now().atStartOfDay(), 
+							LocalDate.parse(endDateItem, formatter).atStartOfDay()
+					).toDays()
+			);
 		}
 
-		return endDateList;
+		return betweenDaysList;
 	}
 
 	@Override

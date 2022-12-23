@@ -34,13 +34,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<Integer> listReservationBlockGroupSeq() {
-		List<Reservation> reservationList = (List<Reservation>) reservationRepo.findAll();
-		List<Integer> reservationBlockGroupList = new ArrayList<Integer>();
-		for(Reservation reservation : reservationList) {
-			System.out.println("reservation===?" + reservation.getBlockGroup().getBlockGroup_seq());
-			reservationBlockGroupList.add(reservation.getBlockGroup().getBlockGroup_seq());
-		}
-		return reservationBlockGroupList;
+		return reservationRepo.listReservationBlockGroupSeq();
 	}
 	
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
@@ -77,7 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 예약 가능 목록
 	@Override
-	public Page<Reservation> selectReservation(Reservation reservation,Pageable pageable) {
+	public Page<Reservation> selectReservation(Pageable pageable) {
 		
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "reservation_seq");

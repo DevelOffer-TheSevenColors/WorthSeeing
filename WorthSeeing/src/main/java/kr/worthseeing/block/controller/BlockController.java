@@ -34,11 +34,10 @@ public class BlockController {
 //		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
 //		model.addAttribute("blockGroupMap", blockGroupMap);
 		
-		List<Integer> blockGroupSeqList = blockGroupService.listBoardGroupSeq();
-		model.addAttribute("blockGroupSeqList", blockGroupSeqList);
+		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq());
+		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate());
+		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
 		
-//		지우지마셈
-//		model.addAttribute("endDateList", blockGroupService.getBlockGroupDate());
 		
 //		JSONObject jsonObject = new JSONObject(blockGroupMap);
 //		System.out.println("jsonObject--->" + jsonObject.get(3).toString());
@@ -57,8 +56,6 @@ public class BlockController {
 			}
 			
 		}
-		
-		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
 		
 		
 		List<String> urlTopList = new ArrayList<String>();
