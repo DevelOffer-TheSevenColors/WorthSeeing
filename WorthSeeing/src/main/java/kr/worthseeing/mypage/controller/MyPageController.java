@@ -92,7 +92,21 @@ public class MyPageController {
 		model.addAttribute("leftOverCouponCount",leftOverCouponCount);
 		return "/adminCoupon";
 	}
-
+	
+	
+	@GetMapping("/system/mypageUpdate")
+		public String mypageUpdate(@AuthenticationPrincipal SecurityUser principal, Model model) {
+			model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
+			return "/system/mypageUpdate";
+		}
+	
+	
+	@PostMapping("/system/mypageUpdateProc")
+	public String mypageUpdateProc(Users users, Model model) {
+		myPageService.userUpdateProc(users);
+		return "redirect:/mypageMain";
+	}
+	
 	
 	
 

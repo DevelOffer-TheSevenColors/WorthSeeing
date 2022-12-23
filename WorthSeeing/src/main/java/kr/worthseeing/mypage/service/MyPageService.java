@@ -40,5 +40,7 @@ public interface MyPageService {
 
 	List<BlockGroup> getBlockGroupUserId(String userId);
 	
+	void userUpdateProc(Users users);
+	
 
 }

@@ -193,4 +193,18 @@ public class MyPageServiceImpl implements MyPageService {
 	//잔여쿠폰 페이징
 	
 	
+	//회원정보 수정
+	@Override
+	public void userUpdateProc(Users users) {
+		Users findUser = usersRepo.findById(users.getUserId()).get();
+		
+		findUser.setDetailAddress(users.getDetailAddress());
+		findUser.setAddress(users.getAddress());
+		findUser.setTel(users.getTel());
+		findUser.setEmail(users.getEmail());
+		findUser.setNickName(users.getNickName());
+		findUser.setUserPw(users.getUserPw());
+		
+		usersRepo.save(findUser);
+	}
 }
