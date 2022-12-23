@@ -147,9 +147,16 @@ public class AuctionController {
 			int nowPage = alwaysList.getPageable().getPageNumber()+1;
 			model.addAttribute("nowPage",nowPage);
 			
-		
+		 
 		
 		return "/auction/alwaysBuyList";
+	}
+	@GetMapping("/alwaysBuyCreditView")
+	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable) {
+		
+		
+		
+		return "/auction/alwaysCredit";
 	}
 }
 

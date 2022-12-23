@@ -32,7 +32,7 @@
 							<td th:text="${blockGroup.blockList[0].Block_seq}"></td>
 							<td  th:text="${blockGroup.price}"></td>
 							<td  th:text="${blockGroup.avgPrice}"></td>
-							<td  ></td>
+							<td  ><a th:href="@{/alwaysBuyCreditView}"> 구매하러가기</a></td>
 						</tr>
 				
 					</tbody>
@@ -52,11 +52,12 @@
 								<li th:class="${alwaysList.first} ? 'disabled'">
 									<button name="page" th:value="${alwaysList.number}">&lt;</button>
 								</li>
-
+ 
 								<li th:each="page : ${#numbers.sequence(start, last)}"
 									th:class="${page == alwaysList.number + 1} ? 'active'">
 									<button th:if="${page==nowPage}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
 									<button th:if="${page!=nowPage}" name="page" th:value="${page}" th:text="${page}"></button>
+									<
 								</li>
 
 								<li th:class="${alwaysList.last} ? 'disabled'">

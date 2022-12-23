@@ -61,7 +61,7 @@ public class BlockGroup {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "date default sysdate")
 	private Date groupDate;
-
+ 
 	@OneToMany(mappedBy = "blockGroup")
 	private List<Block> blockList = new ArrayList<Block>();
 

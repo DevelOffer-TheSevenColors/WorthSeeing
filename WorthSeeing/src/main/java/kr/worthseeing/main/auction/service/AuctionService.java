@@ -21,7 +21,7 @@ public interface AuctionService {
 	
 	void updateAuction(Auction auction, Reservation reservation);
 	
-	void updateMaxPrice(Reservation reservation, String maxPrice, Users user);
+	void  updateMaxPrice(Reservation reservation, String maxPrice, Users user);
 	
 	public List<Auction> listAuction();
 	

@@ -183,7 +183,7 @@ public class AuctionServiceImpl implements AuctionService {
 				findBlockGroupWaiting.setStatus(status);
 				
 				
-				
+				 
 				blockGroupWaitingRepo.save(findBlockGroupWaiting);
 				usersRepo.save(findUser);
 			}
