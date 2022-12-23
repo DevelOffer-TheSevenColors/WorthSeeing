@@ -80,7 +80,7 @@ public class NotifyController {
 		System.out.println("@@n==>" + notifyService.getContact(notify));
 		System.out.println("@@p==>" + principal.getUsers());
 
-		return "/notify/getContact";
+		return "/notify/getContact"; 
 	}
 
 	// 제목 클릭 시

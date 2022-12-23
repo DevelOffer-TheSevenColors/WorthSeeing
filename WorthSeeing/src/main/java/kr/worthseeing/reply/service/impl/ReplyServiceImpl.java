@@ -20,7 +20,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Autowired
 	private ReplyRepository replyRepo;
-
+ 
 	@Override
 	public void insertReply(Reply reply, Notify notify) {
 		reply.setNotify(notify);
