@@ -12,6 +12,7 @@ public interface AdminService {
 Page<Users> selectUsers(Pageable pageable);
 
 void blackList(List<String> userId, List<String> blackYn);
-public void blockChart();
+
+public List<Integer> blockChart(String startYear);
 
 }

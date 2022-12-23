@@ -35,9 +35,7 @@
 <link href="/css/style.css" rel="stylesheet">
 <link href="/css/customBoard.css" rel="stylesheet">
 <!-- <link rel="stylesheet" href="/css/auction/reservationCreaditTest.css"> -->
-
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	
 	</head>
 </th:block>
 <th:block th:fragment="TopbarFragment">
@@ -71,6 +69,8 @@
 									<a th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의에약목록</a>
 										 <a href="/logout" class="dropdown-item">로그아웃</a> <a
 									href="/admin/adminUserList" class="dropdown-item">관리자 페이지 </a>
+									<a
+									href="/salePriceChart" class="dropdown-item">분기별 이익차트 </a>
 								</span>
 							</div>
 						</div>
@@ -112,6 +112,8 @@
 									<a href="service.html" class="dropdown-item">1:1문의</a><a
 										href="single.html" class="dropdown-item">입찰가능목록</a><a
 										href="/reservation/reservationList" class="dropdown-item">예약가능목록</a>
+										<a
+										href="/alwaysBuyList" class="dropdown-item">상시판매목록</a>
 								</div>
 							</div>
 

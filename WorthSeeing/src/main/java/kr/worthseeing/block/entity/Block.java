@@ -39,7 +39,7 @@ public class Block {
 	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date endDate;
 	
-	@Column(columnDefinition = "number default 0")
+	@Column(columnDefinition = "number(10,0) default 0")
 	private int blockPrice;
 	
 	@ManyToOne
