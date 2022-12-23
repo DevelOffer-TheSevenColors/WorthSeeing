@@ -40,8 +40,44 @@
 					<td th:text="${leftOverList.couponSerialNum}"></td>
 				</tr>
 			</table>
+		<form th:action="@{/leftOverCoupon}" method="get">
+					<div>
+						<nav class="customNav">
+							<ul class="customPagination"
+								th:with="start=${(1-(leftOverCouponList.number%1))%1 + 1},
+	                    	last=(${start + 9 < leftOverCouponList.totalPages ? start + 9 : leftOverCouponList.totalPages})">
+
+								<li th:class="${leftOverCouponList.first} ? 'disabled'">
+									<button name="page" value="1">First</button>
+								</li>
+
+								<li th:class="${leftOverCouponList.first} ? 'disabled'">
+									<button name="page" th:value="${leftOverCouponList.number}">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == leftOverCouponList.number + 1} ? 'active'">
+									<button name="page" th:value="${page}" th:text="${page}"></button>
+								</li>
+
+								<li th:class="${leftOverCouponList.last} ? 'disabled'">
+									<button name="page" th:value="${leftOverCouponList.number + 2}">&gt;</button>
+								</li>
+
+								<li th:class="${leftOverCouponList.last} ? 'disabled'">
+									<button name="page" th:value="${leftOverCouponList.totalPages}">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</form>
+		
 			</div>
 		</div>
+		
+		
+		
+		
 	</div>
 </div>
 <th:block th:replace="/fragments/footer :: footerFragment"></th:block>

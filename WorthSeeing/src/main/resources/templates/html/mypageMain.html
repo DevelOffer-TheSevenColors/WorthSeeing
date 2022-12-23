@@ -161,28 +161,31 @@
 
 		<!-- 	MyPage 우측화면 동적변환 -->
 		<script>
-			function movePage(domain) {
-				var ajaxOption = {
-					url : "/" + domain,
-					async : true,
-					type : "GET",
-					dataType : "html",
-					cache : false,
-				};
+					var idDomain;
+					
+					function movePage(domain, page) {
+						var ajaxOption = {
+							url : "/" + domain + "?page=" + page,
+							async : true,
+							type : "GET",
+							dataType : "html",
+							cache : false,
+						};
 
-				$.ajax(ajaxOption).done(function(data) {
-					// rightcolumn 영역 삭제
-					$('.menuItem').children().remove();
-					// rightcolumn 영역 교체
-					$('.menuItem').html(data);
-				});
-			}
+						$.ajax(ajaxOption).done(function(data) {
+							// rightcolumn 영역 삭제
+							$('.menuItem').children().remove();
+							// rightcolumn 영역 교체
+							$('.menuItem').html(data);
+						});
 
-			$(".domainBtn").click(function() {
-				idDomain = $(this).attr('id');
-				movePage(idDomain);
-			})
-		</script>
+					}
+
+					$(".domainBtn").click(function() {
+						idDomain = $(this).attr('id');
+						movePage(idDomain);
+					})
+				</script>
 	</div>
 </body>
 </html>

@@ -34,4 +34,7 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	
 	@Query("select b from BlockGroup b where status_seq = ?1")
 	Page<BlockGroup> alwaysBuyList(Pageable pageable, int keywoard);
+	
+	@Query("select b from BlockGroup b where b.users.userId like %?1%")
+	Page<BlockGroup> findByUserList(String userId,Pageable pageable);
 }

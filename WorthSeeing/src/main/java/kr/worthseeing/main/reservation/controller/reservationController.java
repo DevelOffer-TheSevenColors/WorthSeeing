@@ -63,7 +63,6 @@ public class reservationController {
 		model.addAttribute("block",blockStr.substring(0, blockStr.length()-1));
 		return "/reservation/reservationCredit";
 	}
-
 	// 10프로 결제하기 버튼 클릭 시 
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {

@@ -5,6 +5,12 @@
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
 </head>
 <body>
+<script>
+$(".pageBtn").click(function() {
+	movePage(idDomain, $(this).val());
+})
+</script>
+
 <div class="row">
   <div class="menuItem">
       <h2>구매 내역</h2>
@@ -26,6 +32,37 @@
 <!--       <td>15일</td> -->
     </tr>
     </table>
+<!--     <form th:action="@{/mypagePurchaseHistory}" method="get"> -->
+					<div>
+						<nav class="customNav">
+							<ul class="customPagination"
+								th:with="start=${(1-(blockGroupUserId.number%1))%1 + 1},
+	                    	last=(${start + 9 < blockGroupUserId.totalPages ? start + 9 : blockGroupUserId.totalPages})">
+
+								<li th:class="${blockGroupUserId.first} ? 'disabled'">
+									<button name="page" value="1" class="pageBtn">First</button>
+								</li>
+
+								<li th:class="${blockGroupUserId.first} ? 'disabled'">
+									<button name="page" th:value="${blockGroupUserId.number}" class="pageBtn">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == blockGroupUserId.number + 1} ? 'active'">
+									<button name="page" th:value="${page}" th:text="${page}" class="pageBtn"></button>
+								</li>
+
+								<li th:class="${blockGroupUserId.last} ? 'disabled'">
+									<button name="page" th:value="${blockGroupUserId.number + 2}" class="pageBtn">&gt;</button>
+								</li>
+
+								<li th:class="${blockGroupUserId.last} ? 'disabled'">
+									<button name="page" th:value="${blockGroupUserId.totalPages}" class="pageBtn">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+<!-- 				</form> -->
         <h3>결제정보</h3>
 <!--     <table th:each="auction, state : ${auctionList}"> -->
 <!--         <tr> -->

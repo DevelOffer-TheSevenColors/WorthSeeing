@@ -8,6 +8,10 @@ import java.util.Map;
 
 import org.apache.tomcat.util.buf.CharChunk.CharOutputChannel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -77,11 +81,27 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<BlockGroup> getBlockGroupUserId(String userId) {
 		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
 	}
+	
+	@Override
+	public Page<BlockGroup> getBlockGroupPage(String userId, Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.ASC, "blockGroup_seq");
+		
+		return blockGroupRepo.findByUserList(userId,pageable);
+	}
+	
 
 	@Override
 	public List<Coupon> getCouponUserId(String userId) {
-
 		return (List<Coupon>) couponRepo.findByUserId(userId);
+	}
+	
+	@Override
+	public Page<Coupon> getCouponUserPage(String userId,Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "couponUsedDate");
+		
+		return couponRepo.findByUserPage(userId,pageable);
 	}
 	
 	@Transactional
@@ -105,10 +125,18 @@ public class MyPageServiceImpl implements MyPageService {
 		couponRepo.save(findCoupon);
 		System.out.println("-==-=--==-=-=-=-=---[][][][][][][]" + findUsers);
 	}
+//	@Override
+//	public List<Coupon> getleftOverCoupon() {
+//	List<Coupon> leftOverCoupon = couponRepo.findLeftOverCoupon();
+//		return leftOverCoupon;
+//	}
 	@Override
-	public List<Coupon> getleftOverCoupon() {
-	List<Coupon> leftOverCoupon = couponRepo.findLeftOverCoupon();
-		return leftOverCoupon;
+	public Page<Coupon> leftOverCouponPage(Coupon coupon,Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 10, Sort.Direction.ASC, "couponPrice");
+		
+		return couponRepo.findCouponList(pageable);
+		
 	}
 	
 	@Override
@@ -146,11 +174,12 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq) {
+	public Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq,Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "endDate");
 		
-		List<BlockGroupWaiting> findBlockWaiting =   blockGroupWaitingRepo.selectBlockGroupWaiting(userId);
+		return blockGroupWaitingRepo.selectBlockGroupWaiting(userId,pageable);
 		
-		return findBlockWaiting;
 	}
 
 	
@@ -160,6 +189,8 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
+	
+	//잔여쿠폰 페이징
 	
 	
 }

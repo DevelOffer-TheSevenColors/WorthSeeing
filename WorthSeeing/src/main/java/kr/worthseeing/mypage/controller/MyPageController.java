@@ -3,6 +3,9 @@ package kr.worthseeing.mypage.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.service.CouponService;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
+import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.message.dto.MessageDTO;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
@@ -72,8 +76,8 @@ public class MyPageController {
 	}
 
 	@GetMapping("/mypagePointHistory")
-	public String getlistcoupon(Model model, @AuthenticationPrincipal SecurityUser principal) {
-		List<Coupon> couponUserId = myPageService.getCouponUserId(principal.getUsers().getUserId());
+	public String getlistcoupon(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
+		Page<Coupon> couponUserId = myPageService.getCouponUserPage(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("couponUserId", couponUserId);
 		model.addAttribute("users", principal.getUsers());
 
@@ -81,16 +85,14 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/leftOverCoupon")
-	public String getcouponcount(Model model,Coupon coupon) {
-		List<Coupon> leftOverCouponList = myPageService.getleftOverCoupon();
+	public String getcouponcount(Model model,Coupon coupon,@PageableDefault Pageable pageable) {
+		Page<Coupon> leftOverCouponList = myPageService.leftOverCouponPage(coupon,pageable);
 		List<Integer> leftOverCouponCount = myPageService.getCouponCount();
 		model.addAttribute("leftOverCouponList",leftOverCouponList);
 		model.addAttribute("leftOverCouponCount",leftOverCouponCount);
 		return "/adminCoupon";
 	}
 
-	
-	
 	
 	
 
@@ -106,19 +108,19 @@ public class MyPageController {
 //	}
 
 	@GetMapping("/mypageAuctionHistory")
-	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status) {
+	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
 
-		myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq());
+		myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable);
 
 		model.addAttribute("waiting",
-				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq()));
+				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable));
 
 		return "/mypageAuctionHistory";
 	}
 
 	@GetMapping("/mypagePurchaseHistory")
-	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal) {
-		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
+		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("userId", principal.getUsers().getUserId());
 		model.addAttribute("blockGroupUserId", blockGroupUserId);
 

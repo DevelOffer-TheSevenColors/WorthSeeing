@@ -6,10 +6,15 @@
 </head>
 <body>
 
+<script>
+$(".pageBtn").click(function() {
+	movePage(idDomain, $(this).val());
+})
+</script>
+
 	<div class="row">
 		<div class="menuItem">
 				<h2>포인트 사용내역</h2>
-
 			<table class="customBoard" th:each="coupon, state : ${couponUserId}">
 				<tr>
 					<th>포인트 사용금액</th>
@@ -23,8 +28,38 @@
 <!-- 					본인이 구매한 쿠폰의 값으로 가져올 예정 (쿠폰구매 이후 가져올 예정)  -->
 				</tr>
 			</table>
-		</div>
+<!-- 				<form th:action="@{/mypagePdointHistory}" method="get"> -->
+					<div>
+						<nav class="customNav">
+							<ul class="customPagination"
+								th:with="start=${(1-(couponUserId.number%1))%1 + 1},
+	                    	last=(${start + 9 < couponUserId.totalPages ? start + 9 : couponUserId.totalPages})">
 
+								<li th:class="${couponUserId.first} ? 'disabled'">
+									<button name="page" value="1" class="pageBtn">First</button>
+								</li>
+
+								<li th:class="${couponUserId.first} ? 'disabled'">
+									<button name="page" th:value="${couponUserId.number}" class="pageBtn">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == couponUserId.number + 1} ? 'active'">
+									<button name="page" th:value="${page}" th:text="${page}" class="pageBtn"></button>
+								</li>
+
+								<li th:class="${couponUserId.last} ? 'disabled'">
+									<button name="page" th:value="${couponUserId.number + 2}" class="pageBtn">&gt;</button>
+								</li>
+
+								<li th:class="${couponUserId.last} ? 'disabled'">
+									<button name="page" th:value="${couponUserId.totalPages}" class="pageBtn">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+<!-- 				</form> -->
+		</div>
 	</div>
 
 
