@@ -1,85 +1,104 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Price History</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-
-
 </head>
 <body>
+<script
+	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+	<div class="container-fluid py-5">
+		<div class="container pt-5 pb-3">
+			<div class="main">
+				<div class="chart-container"
+					style="position: relative; height: 500px; width: 1000px;">
+					<canvas id="priceChart"></canvas>
+				</div>
+				<script>
+					var ctx = document.getElementById('priceChart').getContext(
+							'2d');
+					var list1 = [[${blockPriceList[0]}]];
+					var list2 = [[${blockPriceList[1]}]];
+					var list3 = [[${blockPriceList[2]}]];
+					var list4 = [[${blockPriceList[3]}]];
+					var list5 = [[${blockPriceList[4]}]];
+					var list6 = [[${blockPriceList[5]}]];
+					var list7 = [[${blockPriceList[6]}]];
+					var list8 = [[${blockPriceList[7]}]];
+					var list9 = [[${blockPriceList[8]}]];
+					var list10 = [[${blockPriceList[9]}]];
+					var list11 = [[${blockPriceList[10]}]];
+					var list12 = [[${blockPriceList[11]}]];
+					
+					console.log(list1);
+					
+					var chart = new Chart(ctx, {
+						// The type of chart we want to create
+						type : 'line',
 
-<div class="main">
-    <div class="chart-container" style="position: relative; height:20vh; width:60vw">
-        <canvas id="priceChart"></canvas>
-    </div>
-        <script>
-            var ctx = document.getElementById('priceChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'line',
+						// The data for our dataset
+						data : {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월',
+									'7월', '8월', '9월', '10월', '11월', '12월' ],
+							datasets : [ {
+								label : '이전 낙찰 가격',
+								backgroundColor : [ 'rgba(255, 99, 132, 0.5)',
+										'rgba(54, 162, 235, 0.5)',
+										'rgba(255, 206, 86, 0.5)',
+										'rgba(75, 192, 192, 0.5)',
+										'rgba(153, 102, 255, 0.5)',
+										'rgba(255, 159, 64, 0.5)' ],
+								borderColor : [ 'rgb(255, 99, 132,1.5)',
+										'rgba(54, 162, 235, 1.5)',
+										'rgba(255, 206, 86, 1.5)',
+										'rgba(75, 192, 192, 1.5)',
+										'rgba(153, 102, 255, 1.5)',
+										'rgba(255, 159, 64, 1.5)' ],
+								data : [ list1, list2, list3, list4, list5, list6,
+										list7, list8, list9, list10, list11, list12 ]
+							} ]
+						},
 
-                // The data for our dataset
-                data: {
-                    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                    datasets: [{
-                        label: '이전 낙찰 가격',
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 192, 0.5)',
-                            'rgba(153, 102, 255, 0.5)',
-                            'rgba(255, 159, 64, 0.5)'],
-                        borderColor: ['rgb(255, 99, 132,1.5)',
-                            'rgba(54, 162, 235, 1.5)',
-                            'rgba(255, 206, 86, 1.5)',
-                            'rgba(75, 192, 192, 1.5)',
-                            'rgba(153, 102, 255, 1.5)',
-                            'rgba(255, 159, 64, 1.5)'],
-                        data: [6000, 1000, 1600, 2700, 500, 4900, 3400, 4200, 5500, 7200, 2500, 1300]
-                    }]
-                },
+						// Configuration options go here
+						options : {
+							title : {
+								display : true,
+								fontSize : 30,
+								fontColor : 'rgba(46, 49, 49, 1)'
+							},
+							legend : {
+								labels : {
+									fontColor : 'rgba(83, 51, 237, 1)',
+									fontSize : 15
+								}
+							},
 
-                // Configuration options go here
-                options: {
-                    title: {
-                        display: true,
-                        fontSize: 30,
-                        fontColor: 'rgba(46, 49, 49, 1)'
-                    },
-                    legend: {
-                        labels: {
-                            fontColor: 'rgba(83, 51, 237, 1)',
-                            fontSize: 15
-                        }
-                    },
-                    
-                    scales: {
-                        xAxes: [{
-                            ticks: {
-                                fontColor: 'rgba(27, 163, 156, 1)',
-                                fontSize: '15'
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                fontColor: 'rgba(246, 36, 89, 1)',
-                                fontSize: '15'
-                            }
-                        }]
-                    }
-                }
-            });
-          
-            
-        </script>
-    </div>  
- 
-    
-</div>
+							scales : {
+								xAxes : [ {
+									ticks : {
+										fontColor : 'rgba(27, 163, 156, 1)',
+										fontSize : '15'
+									}
+								} ],
+								yAxes : [ {
+									ticks : {
+										beginAtZero : true,
+										fontColor : 'rgba(246, 36, 89, 1)',
+										fontSize : '15'
+									}
+								} ]
+							}
+						}
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 
 </body>
 </html>

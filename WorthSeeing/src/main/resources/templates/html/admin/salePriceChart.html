@@ -18,22 +18,21 @@
 
 <body>
 	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-	<div class="container">
-		<div class="row my-3">
-			<div class="col">
-				<h3>분기별 매출 추이</h3>
-			</div>
-		</div>
-		<div class="row my-2" style="">
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-body">
-						<canvas class="myChart"></canvas>
+	<div class="container-fluid py-5">
+		<div class="container pt-5 pb-3">
+			<div class="container">
+				<div class="row my-2" style="">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<canvas style="width: 1000px; height: 500px;" class="myChart"></canvas>
+							</div>
+						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
-
 	</div>
 	<!-- 부트스트랩 -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -90,6 +89,6 @@
 	    });  
 	</script>
 
-		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

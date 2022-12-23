@@ -28,7 +28,13 @@ public class QBlockLog extends EntityPathBase<BlockLog> {
 
     public final NumberPath<Integer> blockLog_seq = createNumber("blockLog_seq", Integer.class);
 
+    public final NumberPath<Integer> blockPrice = createNumber("blockPrice", Integer.class);
+
+    public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
+
     public final NumberPath<Integer> soldOutCnt = createNumber("soldOutCnt", Integer.class);
+
+    public final DateTimePath<java.util.Date> startDate = createDateTime("startDate", java.util.Date.class);
 
     public QBlockLog(String variable) {
         this(BlockLog.class, forVariable(variable), INITS);

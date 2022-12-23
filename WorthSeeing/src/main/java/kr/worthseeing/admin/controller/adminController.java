@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.worthseeing.admin.service.AdminService;
+import kr.worthseeing.log.service.LogService;
 import kr.worthseeing.users.entity.Users;
 
 @Controller
@@ -22,6 +23,9 @@ public class adminController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	LogService logService;
 	
 	@RequestMapping("/adminUserList")
 	public String selectUsersList(Model model ,  @PageableDefault Pageable pageable) {
@@ -55,9 +59,21 @@ public class adminController {
 			startYear = "2022";
 		}
 		
-		model.addAttribute("salePriceList", adminService.blockChart(startYear));
+		model.addAttribute("salePriceList", logService.saleChart(startYear));
 		
 		return "/admin/salePriceChart";
+	}
+	
+	@GetMapping("/blockPriceChart")
+	public String salePriceChart(Model model,String startYear,String block_seq) {
+		
+		if(startYear==null) {
+			startYear = "2022";
+			block_seq = "1";
+		}
+		
+		model.addAttribute("blockPriceList", logService.blockChart(block_seq,startYear));
+		return "/admin/blockPriceChart";
 	}
 	
 }

@@ -1,7 +1,5 @@
 package kr.worthseeing.admin.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kr.worthseeing.admin.service.AdminService;
-import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.repository.BlockLogRepository;
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
@@ -25,6 +23,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	BlockRepository blockRepo;
+	
+	@Autowired
+	BlockLogRepository blockLogRepo;
 	
 	@Override
 	public Page<Users> selectUsers(Pageable pageable) {
@@ -46,29 +47,5 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 	}
-	@Override
-	   public List<Integer> blockChart(String startYear) {
-	      int [] monthPrice = new int[12];
-	      List<Integer> chartPrice = new ArrayList<Integer>();
-	      for (Block block : blockRepo.findAll()) {
-	         for (int i = 1; i <= 12; i++) {
-	            String i_str = String.valueOf(i);
-	            if (block.getEndDate() != null) {
-	               SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
-	               if (format.format(block.getEndDate()) != null) {
-	                  if(i<=9)  i_str = "0"+i;
-	                  if (format.format(block.getEndDate()).equals(startYear + i_str)) {
-	                     monthPrice[i - 1] += block.getBlockPrice();
-	                  }
-	               }
-	            }
-	         }
-	      }
-	      for(int i=0;i<=3;i++) {
-	         chartPrice.add(monthPrice[0+3*i]+monthPrice[1+3*i]+monthPrice[2+3*i]);
-	      }
-	      return chartPrice;
-	   }
-
 
 }
