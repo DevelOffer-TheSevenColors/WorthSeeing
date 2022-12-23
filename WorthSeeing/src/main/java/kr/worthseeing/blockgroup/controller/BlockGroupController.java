@@ -29,7 +29,7 @@ public class BlockGroupController {
 	@Autowired
 	private MyPageService myPageService;
 	
-	@PostMapping("/writeURLThumb")
+	@GetMapping("/writeURLThumb")
 	public String writeURLThumb(BlockGroup blockGroup, Model model) {
 		BlockGroup myBlockGroup = blockGroupService.findBlockGroup(blockGroup);
 		model.addAttribute("blockGroup", myBlockGroup);

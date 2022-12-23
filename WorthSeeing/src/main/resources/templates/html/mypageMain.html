@@ -123,21 +123,31 @@
 							<form th:action="@{/writeURLThumb}" method="post">
 								<table border="1"
 									th:each="userBlockGroup, state : ${BlockGroupUserId}">
+									<colgroup>
+										<col width=150px>
+										<col width=120px>
+										<col width=120px>
+										<col width=120px>
+										<col width=120px>
+										<col width=120px>
+									</colgroup>
 									<tr align="center">
-										<th scope="col">보유한 블럭그룹</th>
-										<th scope="col">블록 번호 :</th>
-										<th scope="col">전체 방문자 수 :</th>
-										<th scope="col">종료 일자 :</th>
-										<th scope="col">블록 수정</th>
+										<th>보유한 블럭그룹</th>
+										<th>블록 번호</th>
+										<th>전체 방문자 수</th>
+										<th>종료 일자</th>
+										<th>블록 수정</th>
+										<th>환불</th>
 									</tr>
 									<tr align="center">
 										<td class="imgbox"><img th:src="${userBlockGroup.cImg}" /></td>
-										<td th:text="${userBlockGroup.blockGroup_seq}">
-										<input type="hidden" name="blockGroup_seq"
+										<td th:text="${userBlockGroup.blockGroup_seq}"><input
+											type="hidden" name="blockGroup_seq"
 											th:value="${userBlockGroup.blockGroup_seq}"></td>
 										<td th:text="${userBlockGroup.clickCnt}"></td>
 										<td th:text="${userBlockGroup.endDate}"></td>
-										<td><input type="submit" value="수정하기"></td>
+										<td><a th:href="@{/writeURLThumb(blockGroup_seq=${userBlockGroup.blockGroup_seq}, action='update')}">수정하기</a></td>
+										<td><a th:href="@{/refund(blockGroup_seq=${userBlockGroup.blockGroup_seq})}">환불하기</a></td>
 									</tr>
 								</table>
 							</form>
