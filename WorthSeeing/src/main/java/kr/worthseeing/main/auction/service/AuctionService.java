@@ -1,5 +1,6 @@
 package kr.worthseeing.main.auction.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -50,5 +51,6 @@ public interface AuctionService {
 	//상시판매 목록 리스트
 	public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup,Pageable pageable);
 	
-	
+	//상시판매  결제 페이지 정보 select 
+	public  BlockGroup alwaysBuyCreditView(BlockGroup blockGroup);
 }

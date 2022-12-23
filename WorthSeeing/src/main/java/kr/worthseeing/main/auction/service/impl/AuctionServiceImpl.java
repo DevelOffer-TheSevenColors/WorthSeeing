@@ -1,6 +1,9 @@
 package kr.worthseeing.main.auction.service.impl;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -205,7 +209,28 @@ public class AuctionServiceImpl implements AuctionService {
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
 		
 		
+		
 		return blockGroupRepo.alwaysBuyList(pageable,11);
 		
 	}
+
+	@Override
+	public BlockGroup alwaysBuyCreditView(BlockGroup blockGroup ) {
+		
+
+        
+		return 	  blockGroupRepo.save(blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get());
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+

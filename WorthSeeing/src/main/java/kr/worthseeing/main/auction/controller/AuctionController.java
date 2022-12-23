@@ -40,6 +40,7 @@ public class AuctionController {
 	@Autowired
 	private BlockService blockService;
 	
+	
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/selectAuction", method = RequestMethod.POST)
@@ -152,9 +153,11 @@ public class AuctionController {
 		return "/auction/alwaysBuyList";
 	}
 	@GetMapping("/alwaysBuyCreditView")
-	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable) {
+	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable,@AuthenticationPrincipal SecurityUser principal) {
 		
 		
+		model.addAttribute("blockGroup",auctionService.alwaysBuyCreditView(blockGroup));
+		model.addAttribute("users",principal.getUsers());
 		
 		return "/auction/alwaysCredit";
 	}
