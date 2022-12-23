@@ -38,15 +38,15 @@ public class Notify {
 	private int viewCnt;
 	
 	private Date notifyTime = new Date();
-	 
-	@ManyToOne
+	
+	@ManyToOne 
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
 	
 	public void setStatus(Status status) {
 		this.status = status;
 		status.getNotifyList().add(this);
-	} 
+	}
 	
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)
@@ -67,8 +67,3 @@ public class Notify {
 		this.viewCnt = viewCnt;
 	}
 }
-
-
-
-
-

@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString(exclude = "notify")
 @NoArgsConstructor 
 public class Reply {
-
+ 
 	@Id
 	@GeneratedValue
 	private int replySeq;

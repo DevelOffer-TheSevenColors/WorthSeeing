@@ -53,7 +53,7 @@
 				</form>
 
 				<div class="aLink">
-					<a th:if="${notify.users.userId eq principal.users.userId}"
+					<a th:if="${notify.users.name eq principal.users.name}"
 						th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">게시글
 						삭제</a>
 				</div>
@@ -79,7 +79,7 @@
 										<div class="form-row"></div>
 										<div class="control-group">
 											<p class="form-control p-4" id="name"
-												th:text="${principal.users.userId}"></p>
+												th:text="${principal.users.name}"></p>
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="control-group">
@@ -115,6 +115,11 @@
 								<span th:text="${reply.replyContent}"></span>
 							</div>
 						</div>
+					<div class="aLink">
+						<a th:if="${reply.replyer == principal.users.name}"
+							th:href="@{/reply/deleteReplyProc(replySeq=${reply.replySeq}, status_seq=${notify.status.status_seq}, notifySeq=${notify.notifySeq})}">댓글
+							삭제</a>
+					</div>
 					</div>
 				</div>
 
@@ -142,7 +147,7 @@
 										th:class="${page == replyList.number + 1} ? 'active'">
 										<button name="page" th:value="${page}" th:text="${page}"></button>
 									</li>
- 
+
 									<li th:class="${replyList.last} ? 'disabled'">
 										<button name="page" th:value="${replyList.number + 2}">&gt;</button>
 									</li>
@@ -151,19 +156,20 @@
 										<button name="page" th:value="${replyList.totalPages}">Last</button>
 									</li>
 								</ul>
-							</nav>  
+							</nav>
 						</div>
 
-					</div> 
-<!-- 					<p th:text="${notify.users.userId}" ></p> -->
-<!-- 					<p th:text="${principal.users.userId}" ></p> -->
-					
+					</div>
+					<!-- 					<p th:text="${notify.users.userId}" ></p> -->
+					<!-- 					<p th:text="${principal.users.userId}" ></p> -->
+
 					<div class="aLink">
-					 <a th:if="${notify.users.userId == principal.users.userId}"
-					 		 th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">문의글 삭제</a>
-			</div>
-					
-					
+						<a th:if="${notify.users.name == principal.users.userId}"
+							th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">문의글
+							삭제</a>
+					</div>
+
+
 				</form>
 			</div>
 		</div>
