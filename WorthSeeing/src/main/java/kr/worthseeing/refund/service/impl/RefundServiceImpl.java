@@ -31,7 +31,7 @@ public class RefundServiceImpl implements RefundService{
 		
 		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 		findBlockGroup.setCImg("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/buypagetest.jpg");
-		findBlockGroup.toString();
+		findBlockGroup.setEndDate(null);
 		findBlockGroup.setLinkUrl("/buyBlock");
 		findBlockGroup.setSImg("C:/Users/User/git/WorthSeeing/WorthSeeing/src/main/resources/static/img/buypageimg.jpg");
 		findBlockGroup.setStartDate(null);

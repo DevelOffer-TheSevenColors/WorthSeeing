@@ -33,7 +33,7 @@ public class refundController {
 	public String successRefund(Refund refund, BlockGroup blockGroup, Model model) {
 		refundService.insertRefund(refund, blockGroup);
 		
-		MessageDTO message = new MessageDTO("환불이 완료되었습니다", "redirect:/mypageMain",
+		MessageDTO message = new MessageDTO("환불이 완료되었습니다", "/mypageMain",
 	            RequestMethod.GET, null);
 
 		return showMessageAndRedirect(message, model);

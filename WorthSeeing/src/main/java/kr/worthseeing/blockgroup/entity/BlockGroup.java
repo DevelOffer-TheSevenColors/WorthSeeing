@@ -51,11 +51,9 @@ public class BlockGroup {
 	private Date purchaseDay;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false)
 	private Date startDate = new Date();
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date endDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
