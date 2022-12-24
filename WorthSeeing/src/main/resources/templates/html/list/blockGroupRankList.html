@@ -4,38 +4,100 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
+<link href="../css/style.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
 <body>
+	<script>
+		$(document)
+				.ready(
+						function() {
+
+							var urlGroupRankList = encodeURI("[[${urlGroupRankList}]]");
+							var urlGroupRankArr = urlGroupRankList.split(",");
+
+							for (var i = 1; i <= 9; i++) {
+								$("#groupRankImg" + i).attr("src",
+										urlGroupRankArr[i].slice(3));
+								if (i == 9) {
+									$("#groupRankImg" + i).attr(
+											"src",
+											urlGroupRankArr[i].slice(3).slice(
+													0, -3));
+								}
+							}
+
+						});
+	</script>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
-				<table class="customBoard">
-					<thead>
-						<tr>
-							<th>순위</th>
-							<th>블록 번호</th>
-							<th>조회수</th>
-							<th>가격</th>
-							<th>링크 이동하기</th>
-							<th>사용자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="blockGroup, state : ${blockGroupList}">
-							<td th:text="${(blockGroupList.number * 10) + state.count}"></td>
-							<td th:text="${blockGroup.blockGroup_seq}"></td>
-							<td th:text="${blockGroup.clickCnt}"></td>
-							<td th:text="${blockGroup.price}"></td>
-							<td><a th:href="@{${blockGroup.linkUrl}}" th:text="${blockGroup.linkUrl}"></a></td>
-							<td th:text="${blockGroup.users.userId}"></td>
-						</tr>
-					</tbody>
-				</table>
+						<div class="text-center mb-3 pb-3">
+							<h6 class="text-primary text-uppercase"
+								style="letter-spacing: 5px;">Rank</h6>
+							<h1>Popular Block List</h1>
+						</div>
+						<div class="row">
+							<div th:each="blockGroup, state : ${blockGroupList}"
+								class="col-lg-4 col-md-6 mb-4">
+								<div
+									class="destination-item position-relative overflow-hidden mb-2">
+									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"
+										src="../img/destination-1.jpg" alt=""> <a
+										class="destination-overlay text-white text-decoration-none"
+										href="">
+										<h5 class="text-white" th:text="블록번호"></h5> <span
+										th:text="${blockGroup.blockGroup_seq}"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+		
+				<!-- Destination Start -->
+
+
+				<!-- 				<table class="customBoard"> -->
+				<!-- 					<thead> -->
+				<!-- 						<tr> -->
+				<!-- 							<th>순위</th> -->
+				<!-- 							<th>블록 번호</th> -->
+				<!-- 							<th>조회수</th> -->
+				<!-- 							<th>가격</th> -->
+				<!-- 							<th>링크 이동하기</th> -->
+				<!-- 							<th>사용자</th> -->
+				<!-- 						</tr> -->
+				<!-- 					</thead> -->
+				<!-- 					<tbody> -->
+				<!-- 						<tr th:each="blockGroup, state : ${blockGroupList}"> -->
+				<!-- 							<td th:text="${(blockGroupList.number * 10) + state.count}"></td> -->
+				<!-- 							<td th:text="${blockGroup.blockGroup_seq}"></td> -->
+				<!-- 							<td th:text="${blockGroup.clickCnt}"></td> -->
+				<!-- 							<td th:text="${blockGroup.price}"></td> -->
+				<!-- 							<td><a th:href="@{${blockGroup.linkUrl}}" -->
+				<!-- 								th:text="${blockGroup.linkUrl}"></a></td> -->
+				<!-- 							<td th:text="${blockGroup.users.userId}"></td> -->
+				<!-- 						</tr> -->
+				<!-- 					</tbody> -->
+				<!-- 				</table> -->
 
 				<!-- Paging -->
 				<form th:action="@{/list/blockGroupRankList}" method="post">

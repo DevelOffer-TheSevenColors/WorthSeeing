@@ -1,5 +1,8 @@
 package kr.worthseeing.blockgroup.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +71,19 @@ public class BlockGroupController {
 	@RequestMapping("/list/blockGroupRankList")
 	public String listBlockGroupRank(Model model, @PageableDefault Pageable pageable) {
 		Page<BlockGroup> blockGroupList = blockGroupService.listBlockGroupOrderByClickCnt(pageable);
+		List<String> urlGroupRankList = new ArrayList<String>();
+		urlGroupRankList.add(0, null);
+		
+		for(BlockGroup blockgroup : blockGroupList) {
+			try {
+				String encodeResult = URLEncoder.encode(blockgroup.getCImg(), "utf-8");
+				urlGroupRankList.add(blockgroup.getCImg());
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		model.addAttribute("urlGroupRankList",urlGroupRankList);
 		model.addAttribute("blockGroupList", blockGroupList);
 		return "/list/blockGroupRankList";
 	}
