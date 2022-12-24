@@ -41,7 +41,7 @@
 					</tbody>
 				</table>
 
-				<form th:action="@{/reservation/reservationList}" method="post">
+				<form th:if="${auctionFlag == 'yes'}" th:action="@{/reservation/reservationList}" method="post">
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
