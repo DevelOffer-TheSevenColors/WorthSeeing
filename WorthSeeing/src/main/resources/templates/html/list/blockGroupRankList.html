@@ -64,7 +64,7 @@
 									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"
 										src="../img/destination-1.jpg" alt=""> <a
 										class="destination-overlay text-white text-decoration-none"
-										href="">
+										th:href="@{${blockGroup.linkUrl}}">
 										<h5 class="text-white" th:text="블록번호"></h5> <span
 										th:text="${blockGroup.blockGroup_seq}"></span>
 									</a>

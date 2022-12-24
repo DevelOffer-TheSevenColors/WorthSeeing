@@ -16,10 +16,10 @@
             $('#currentMaxPrice1').val(data.maxPrice);
             $('#userAutoId').val(data.userAutoId);
              if($('#userAutoId').val() == $('#sessionUserId').text()){
-		      	$("#bidbutton").hide();
 		       	$("#autoBiddingStop").show();
+		      	$("#bidbutton").hide();
 		     }else{
-		      	$("#bidbutton").show();
+		      	
 		        $("#autoBiddingStop").hide();
 		   	}
         },
@@ -59,7 +59,7 @@
   	});
   	
     var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),18,00,00);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,00,00);
   
   
@@ -132,6 +132,7 @@
  }
  
  $(window).on("load",function(){
+ $("#bidbutton").show();
  	remaindTime();
  	$(".autoPrice").hide();
  	$("#autoCheck").on('click', function() {

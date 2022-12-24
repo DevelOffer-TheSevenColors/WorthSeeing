@@ -67,12 +67,15 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public void endAuction(Reservation reservation, BlockGroup blockGroup) {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
+		findAuction.setUserAutoId("");
+		findAuction.setMaxPrice(0);
 		BlockGroupWaiting bgwr = new BlockGroupWaiting();
 		bgwr.setPrice(findAuction.getSuggestPrice());
 		bgwr.setUserId(findAuction.getUserId());
 		bgwr.setStatus(statusRepo.findById(12).get());
 		bgwr.setBlockGroup(blockGroup);
 		bgwr.setAuctionDate(findAuction.getSuggestDate());
+		auctionRepo.save(findAuction);
 		blockGroupWaitingRepo.save(bgwr);
 	}
 
