@@ -28,7 +28,7 @@
 
 						</tr>
 					</thead>
-					<tbody>
+					<tbody th:if="${auctionFlag == 'yes'}">
 						<tr th:each="reservation, state : ${reservationList}">
 							<td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>

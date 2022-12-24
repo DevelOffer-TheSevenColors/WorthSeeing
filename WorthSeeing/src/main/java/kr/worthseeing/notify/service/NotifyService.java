@@ -23,7 +23,7 @@ public interface NotifyService {
 	
 	
 	Notify getContact(Notify notify);
-	
+	public void insertNotifyCnt(Notify notify);
 	
 	//Page<Notify> listNotify(Pageable pageable, Status status);
 

@@ -13,6 +13,8 @@
             $('#startPrice').val(data.auctionPrice);
             $('#currentMaxPrice').val(data.maxPrice);
             $('#currentMaxPrice1').val(data.maxPrice);
+            $('#userAutoId').val(data.userAutoId);
+            
         },
         error: function(){
         }

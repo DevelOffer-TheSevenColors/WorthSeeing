@@ -19,7 +19,6 @@ import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
-import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;

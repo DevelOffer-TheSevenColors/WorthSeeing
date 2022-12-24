@@ -25,7 +25,7 @@
 					</tr>
 					<tr>
 						<td th:text="작성자"></td>
-						<td><span sec:authentication="principal.users.name"></span></td>
+						<td><span th:text="${notify.users.userId}"></span></td>
 					</tr>
 					<tr>
 						<td th:text="내용">
@@ -56,10 +56,6 @@
 			<div>
 				<a th:href="@{/notify}">게시글 목록</a>
 			</div>
-			
-			
-						
-			
 		</div>
 
 	</div>

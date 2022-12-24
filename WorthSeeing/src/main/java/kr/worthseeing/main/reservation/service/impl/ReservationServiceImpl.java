@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.querydsl.core.BooleanBuilder;
 
+import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
@@ -31,18 +32,21 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private UsersRepository UsersRepo;
+	
+	@Autowired
+	private AuctionRepository auctionRepo;
 
 	@Override
 	public List<Integer> listReservationBlockGroupSeq() {
 		return reservationRepo.listReservationBlockGroupSeq();
 	}
-	
+
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
 	public void insertReservationUsers(Reservation reservation, String userId) {
-		
+
 		Reservation reservation_db = reservationRepo.findById(reservation.getReservation_seq()).get();
-		
+
 		Users users2 = UsersRepo.findById(userId).get();
 
 		users2.setUserId(userId);
@@ -56,8 +60,8 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationUsers.setReservation(reservation);
 			reservationUsers.setUsers(users2);
 
-			reservation_db.setUserCnt(reservation_db.getUserCnt()+1);
-			
+			reservation_db.setUserCnt(reservation_db.getUserCnt() + 1);
+
 			reservationRepo.save(reservation_db);
 			reservationUsersRepo.save(reservationUsers);
 		}
@@ -72,10 +76,10 @@ public class ReservationServiceImpl implements ReservationService {
 	// 예약 가능 목록
 	@Override
 	public Page<Reservation> selectReservation(Pageable pageable) {
-		
+
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "reservation_seq");
-		
+
 		return reservationRepo.listReservation(pageable);
 
 	}
@@ -118,6 +122,17 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationUsersRepo.delete(reservationUsers2);
 		}
 
+	}
+
+	@Override
+	public String auctionStartYes() {
+		String flag = "yes";
+		System.out.println(auctionRepo.findAll());
+		if (auctionRepo.findAll().iterator().hasNext()) {
+			flag = "no";
+		}
+
+		return flag;
 	}
 
 }

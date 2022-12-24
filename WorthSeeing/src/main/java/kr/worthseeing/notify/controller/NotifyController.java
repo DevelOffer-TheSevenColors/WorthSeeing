@@ -87,11 +87,12 @@ public class NotifyController {
 	@RequestMapping("/notify/getDetail")
 	public String getDetail(Notify notify, Status status, Model model,
 			@AuthenticationPrincipal SecurityUser principal) {
+		
+		notifyService.insertNotifyCnt(notify);
+		
 		model.addAttribute("notify", notifyService.getContact(notify));
 		model.addAttribute("principal", principal);
-
-		notify.setViewCnt(notify.getViewCnt() + 1);
-
+		
 		if (status.getStatus_seq() == 4) {
 
 			return "forward:/notify/getContact";

@@ -30,4 +30,6 @@ public interface ReservationService {
 	
 	public List<ReservationUsers> findOneReservation(Reservation reservation, Users user);
 	
+	public String auctionStartYes();
+	
 }

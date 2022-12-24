@@ -7,15 +7,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; 
- 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.querydsl.core.BooleanBuilder;
 
 import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.notify.entity.QNotify;
 import kr.worthseeing.notify.repository.NotifyRepository;
 import kr.worthseeing.notify.service.NotifyService;
-import kr.worthseeing.reply.entity.Reply;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 
@@ -39,6 +38,13 @@ public class NotifyServiceImpl implements NotifyService {
 //		Reply reply = new Reply();
 //		notify.setReplyList(null);
 		notifyRepo.save(notify);
+	}
+	
+	@Override
+	public void insertNotifyCnt(Notify notify) {
+		Notify notify_db = notifyRepo.findById(notify.getNotifySeq()).get();
+		notify_db.setViewCnt(notify_db.getViewCnt()+1);
+		notifyRepo.save(notify_db);
 	}
 	
 	//문의 글 등록
@@ -73,9 +79,6 @@ public class NotifyServiceImpl implements NotifyService {
 	@Override
 	public Notify getContact(Notify notify) {
 		Notify findNotify = notifyRepo.findById(notify.getNotifySeq()).get();
-		findNotify.setViewCnt(findNotify.getViewCnt() + 1);
-		
-		System.out.println("impl status====>" + notify.getStatus());
 		return findNotify;
 	}
 	

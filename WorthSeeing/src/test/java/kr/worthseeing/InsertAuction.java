@@ -21,6 +21,8 @@ import kr.worthseeing.blockgroup.entity.BlockGroupLog;
 import kr.worthseeing.blockgroup.repository.BlockGroupLogRepository;
 import kr.worthseeing.log.service.LogService;
 import kr.worthseeing.log.service.impl.BlockLogServiceImpl;
+import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 
 @SpringBootTest
@@ -36,6 +38,9 @@ public class InsertAuction {
 	@Autowired
 	private BlockGroupLogRepository blockGroupLogRepo;
 
+	@Autowired
+	private AuctionRepository auctionRepo;
+	
 	/*
 	 * @Test public void insertReservation() { Reservation reservation = new
 	 * Reservation(); reservation.setStartPrice(1500);
@@ -118,7 +123,7 @@ public class InsertAuction {
 			}
 		}
 	}
-	@Test
+//	@Test
 	public void blockChart1() {
 		String block_seq = "1";
 		String startYear = "2022";
@@ -149,6 +154,11 @@ public class InsertAuction {
 		}
 		
 //		return monthPriceList;
+	}
+	
+	@Test
+	public void asd() {
+		System.out.println(auctionRepo.findAll().iterator().hasNext());
 	}
 	
 }
