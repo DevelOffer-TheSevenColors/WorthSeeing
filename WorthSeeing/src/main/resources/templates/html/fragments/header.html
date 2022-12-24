@@ -67,12 +67,13 @@
 									class="dropdown-menu border-0 rounded-0 m-0"> 
 									<a th:href="@{/mypageMain}" class="dropdown-item">마이페이지</a>
 									<a th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의예약목록</a>
-										 <a href="/logout" class="dropdown-item">로그아웃</a> <a
+									 <a
 									href="/admin/adminUserList" class="dropdown-item">관리자 페이지 </a>
 									<a
 									href="/admin/salePriceChart" class="dropdown-item">분기별 이익차트 </a>
 									<a
 									href="/admin/blockPriceChart" class="dropdown-item">블록별 가격차트 </a>
+									<a href="/logout" class="dropdown-item">로그아웃</a>
 								</span>
 							</div>
 						</div>
@@ -91,7 +92,7 @@
 					class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
 					<a th:href="@{/main}" class="navbar-brand">
 						<h1 class="m-0 text-primary">
-							<span class="text-dark">WORTH</span> SEEING 
+							<span class="text-dark">WORTH</span> <span style="color: #7FA998">SEEING</span> 
 						</h1>
 					</a>
 					<button type="button" class="navbar-toggler" data-toggle="collapse"
@@ -104,12 +105,12 @@
 					<div class="collapse navbar-collapse justify-content-between px-3"
 						id="navbarCollapse">
 						<div class="navbar-nav ml-auto py-0">
-							<a href="/main" class="nav-item nav-link active">Home</a> <a
-								href="/list/blockGroupRankList" class="nav-item nav-link">인기블록</a>
-							<a href="/notify" class="nav-item nav-link">공지사항</a>
+							<a href="/main" class="nav-item nav-link active" style="color: #7FA998; font-size: 18px;">Home</a> <a
+								href="/list/blockGroupRankList" class="nav-item nav-link" style="font-size: 18px;">인기블록</a>
+							<a href="/notify" class="nav-item nav-link" style="font-size: 18px;">공지사항</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle"
-									data-toggle="dropdown">경매공지</a>
+									data-toggle="dropdown" style="font-size: 18px;">경매공지</a>
 								<div class="dropdown-menu border-0 rounded-0 m-0">
 									<a href="service.html" class="dropdown-item">1:1문의</a><a
 										href="single.html" class="dropdown-item">입찰가능목록</a><a
