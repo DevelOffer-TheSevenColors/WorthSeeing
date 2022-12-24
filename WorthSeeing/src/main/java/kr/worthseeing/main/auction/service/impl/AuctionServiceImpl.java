@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -218,7 +219,35 @@ public class AuctionServiceImpl implements AuctionService {
 	public List<BlockGroup> selectAlwaysBuyListNoPage() {
 		
 		
+		List<BlockGroup> findBlockGroup=  blockGroupRepo.alwaysBuyListNoPage(11);
+		
+		for(BlockGroup findBlockGroup2 : findBlockGroup) {
+			
+			LocalDate now= LocalDate.now();  //현재시간
+		      
+		      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
+		      
+		      LocalDate date = LocalDate.parse(String.valueOf(now));  //현재 시간  스트링으로 변환
+		      
+		        LocalDate startDate = LocalDate.now();  //지금시간
+		        
+		        LocalDate endDate = date.withDayOfMonth(date.lengthOfMonth());  //현재 월의 일 수
+		        
+		        LocalDateTime date1 = startDate.atStartOfDay(); //현재시간 계산할수있도록 변환 -시작
+		        LocalDateTime date2 = endDate.atStartOfDay();   //현재월일수를 계산할수있도록 변환 -끝
+		        int betweenDays = (int) Duration.between(date1, date2).toDays();    //시작과 끝을 빼서 계산한 값
+		        
+		        endDate.getDayOfMonth();// 이번달 마지막날을 int로 가져오는것
+		        
+		        
+		        findBlockGroup2.setPrice( findBlockGroup2.getPrice() / endDate.getDayOfMonth() * betweenDays);         
+		        
+		       System.out.println( "제발"+findBlockGroup2);
+		}
+		
+		
 		return blockGroupRepo.alwaysBuyListNoPage(11);
+		
 	}
 
 	@Override
@@ -226,7 +255,7 @@ public class AuctionServiceImpl implements AuctionService {
 		
 
         
-		return 	  blockGroupRepo.save(blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get());
+		return 	  blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 	}
 	
 	@Override

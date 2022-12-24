@@ -9,44 +9,8 @@
 
 
 <body>
-<script>
-$(document).ready(function() {
-	
-	var date = new Date();
 
-	y = date.getFullYear();
 
-	m = date.getMonth();
-
-	var firstDay = new Date(y, m, 1);
-
-	var lastDay = new Date(y, m + 1, 0);
-	
-// 	 document.write(date.getDate()+"<br/>");
-	
-// 	document.write(lastDay.getDate()+"<br/>");
-	
-	var calc =  lastDay.getDate()-date.getDate() ;
-	
-// 		document.write(calc+"<br/>");
-	var alwaysListNoPage = [[${alwaysListNoPage}]];
-	
-	alwaysListNoPage.forEach(x=>(always) {
-		var calcPrice=   Math.round(   ( always.price  / lastDay.getDate()  ) * calc );
-	
-		alwaysListNoPage.forEach()
-		
-// 		console.log(calPrice);
-		
-	})
-	$("#monthPrice").text(calcPrice);
-	$("#result_pnt").text(calcPrice);
-// 		document.write(calcPrice+"<br/>");
-		
-	
-	var totalPrice = calcPrice  ;
-
-</script>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
