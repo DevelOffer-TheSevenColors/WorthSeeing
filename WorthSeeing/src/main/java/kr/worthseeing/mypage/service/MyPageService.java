@@ -20,7 +20,7 @@ public interface MyPageService {
 
 	String getClick(BlockGroup blockGroup);
 
-	Page<BlockGroup> getBlockGroupPage(String userId,Pageable pageable);
+	Page<BlockGroupWaiting> getBlockGroupPage(String userId,Pageable pageable);
 
 	List<Coupon> getCouponUserId(String userId);
 	

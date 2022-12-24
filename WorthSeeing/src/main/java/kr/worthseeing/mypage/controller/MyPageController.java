@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.event.coupon.entity.Coupon;
@@ -136,7 +137,7 @@ public class MyPageController {
 
 	@GetMapping("/mypagePurchaseHistory")
 	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
-		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
+		Page<BlockGroupWaiting> blockGroupUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("userId", principal.getUsers().getUserId());
 		model.addAttribute("blockGroupUserId", blockGroupUserId);
 

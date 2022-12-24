@@ -15,20 +15,20 @@ $(".pageBtn").click(function() {
   <div class="menuItem">
       <h2>구매 내역</h2>
       
-    <table  class="customBoard" th:each="blockGroup, state : ${blockGroupUserId}">
+    <table  class="customBoard" th:each="blockGroupWaiting, state : ${blockGroupWaitingUserId}">
     <tr align="center">
-      <th colspan="4" th:text="${blockGroup.blockGroup_seq}"></th>
+      <th colspan="4" th:text="${blockGroupWaiting.blockGroupWaiting_seq}"></th>
     </tr>
     <tr align="center">
-      <td>구매일수(월)</td>
       <td>결제금액</td>
-      <td>종료일자</td>
+      <td>종료일시</td>
+      <td>결제일</td>
 <!--       <td>잔여일수</td> -->
     </tr>
      <tr align="center">
-      <td th:text="${blockGroup.purchaseDay}"></td>
-      <td th:text="${blockGroup.price}"></td>
-      <td th:text="${blockGroup.endDate}"></td>
+      <td th:text="${blockGroupWaiting.price}"></td>
+      <td th:text="${blockGroupWaiting.endDate}"></td>
+      <td th:text="${blockGroupWaiting.purchaseDay}"></td>
 <!--       <td>15일</td> -->
     </tr>
     </table>
@@ -36,28 +36,28 @@ $(".pageBtn").click(function() {
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
-								th:with="start=${(1-(blockGroupUserId.number%1))%1 + 1},
-	                    	last=(${start + 9 < blockGroupUserId.totalPages ? start + 9 : blockGroupUserId.totalPages})">
+								th:with="start=${(1-(blockGroupWaitingUserId.number%1))%1 + 1},
+	                    	last=(${start + 9 < blockGroupWaitingUserId.totalPages ? start + 9 : blockGroupWaitingUserId.totalPages})">
 
-								<li th:class="${blockGroupUserId.first} ? 'disabled'">
+								<li th:class="${blockGroupWaitingUserId.first} ? 'disabled'">
 									<button name="page" value="1" class="pageBtn">First</button>
 								</li>
 
-								<li th:class="${blockGroupUserId.first} ? 'disabled'">
-									<button name="page" th:value="${blockGroupUserId.number}" class="pageBtn">&lt;</button>
+								<li th:class="${blockGroupWaitingUserId.first} ? 'disabled'">
+									<button name="page" th:value="${blockGroupWaitingUserId.number}" class="pageBtn">&lt;</button>
 								</li>
 
 								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == blockGroupUserId.number + 1} ? 'active'">
+									th:class="${page == blockGroupWaitingUserId.number + 1} ? 'active'">
 									<button name="page" th:value="${page}" th:text="${page}" class="pageBtn"></button>
 								</li>
 
-								<li th:class="${blockGroupUserId.last} ? 'disabled'">
-									<button name="page" th:value="${blockGroupUserId.number + 2}" class="pageBtn">&gt;</button>
+								<li th:class="${blockGroupWaitingUserId.last} ? 'disabled'">
+									<button name="page" th:value="${blockGroupWaitingUserId.number + 2}" class="pageBtn">&gt;</button>
 								</li>
 
-								<li th:class="${blockGroupUserId.last} ? 'disabled'">
-									<button name="page" th:value="${blockGroupUserId.totalPages}" class="pageBtn">Last</button>
+								<li th:class="${blockGroupWaitingUserId.last} ? 'disabled'">
+									<button name="page" th:value="${blockGroupWaitingUserId.totalPages}" class="pageBtn">Last</button>
 								</li>
 							</ul>
 						</nav>

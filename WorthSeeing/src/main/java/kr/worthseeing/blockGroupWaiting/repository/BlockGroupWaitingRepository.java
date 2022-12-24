@@ -7,6 +7,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 
 public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupWaiting, Integer>,QuerydslPredicateExecutor<AuctionLog>{
@@ -17,4 +18,7 @@ public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupW
 	
 	@Query("SELECT a FROM BlockGroupWaiting a where user_id =?1 ")
 	Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId,Pageable pageable);
+	
+	@Query("select b from BlockGroupWaiting b where b.userId like %?1%")
+	Page<BlockGroupWaiting> findByUserList(String userId,Pageable pageable);
 }
