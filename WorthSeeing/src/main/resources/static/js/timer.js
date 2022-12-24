@@ -2,6 +2,7 @@
 
  function remaindTime() {
 	console.log($("#reservation_seq").val());
+	$("#stop_seq").val($("#reservation_seq").val())
 	 $.ajax({
         url: "/auction/selectAuction",
         type: "POST",
@@ -14,7 +15,13 @@
             $('#currentMaxPrice').val(data.maxPrice);
             $('#currentMaxPrice1').val(data.maxPrice);
             $('#userAutoId').val(data.userAutoId);
-            
+             if($('#userAutoId').val() == $('#sessionUserId').text()){
+		      	$("#bidbutton").hide();
+		       	$("#autoBiddingStop").show();
+		     }else{
+		      	$("#bidbutton").show();
+		        $("#autoBiddingStop").hide();
+		   	}
         },
         error: function(){
         }

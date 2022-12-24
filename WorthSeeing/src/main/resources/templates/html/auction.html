@@ -17,7 +17,7 @@
 <body>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-		
+
 		<script th:inline="javascript">
 			var reservation_seq = [[${reservation_seq}]];
 		 	$(function(){
@@ -25,7 +25,7 @@
 		 	});
 		 	
 		</script>
-		
+
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
@@ -37,7 +37,8 @@
 							<th id="stringTitle" colspan="2">경매 입찰</th>
 						</tr>
 						<tr>
-							<th style="background-color: black;" id="ending" colspan="2">금일 마감</th>
+							<th style="background-color: black;" id="ending" colspan="2">금일
+								마감</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,9 +56,8 @@
 						</tr>
 						<tr id="opening">
 							<td>오픈시간</td>
-							<td>
-								<span class="time font40"> <span class="hours"></span> <span
-									class="col">:</span> <span class="minutes"></span> <span
+							<td><span class="time font40"> <span class="hours"></span>
+									<span class="col">:</span> <span class="minutes"></span> <span
 									class="col">:</span> <span class="seconds"></span>
 							</span></td>
 						</tr>
@@ -79,8 +79,15 @@
 						<tr id=bidbutton>
 							<td colspan="2"><div class="center">
 									<button type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#exampleModal">
-										입찰하기</button>
+										data-toggle="modal" data-target="#exampleModal">입찰하기</button>
+								</div></td>
+						</tr>
+						<tr id=autoBiddingStop>
+							<td colspan="2"><div class="center">
+								<form th:action="@{/autoBiddingStop}">
+									<input type="hidden" id="stop_seq" name="reservation_seq"/>
+									<button th:href="@{/autoBiddingStop}" type="submit" class="btn btn-primary" >입찰중단</button>
+								</form>
 								</div></td>
 						</tr>
 					</tbody>
@@ -105,16 +112,20 @@
 					<form id="fmField" name="fmField" th:action="@{/bidding}"
 						method="post" onsubmit="return checkForm();">
 						<input type="hidden" name="auction_seq" id="auction_seq" value="1" />
-						<input type="hidden" name="reservation_seq" id="reservation_seq"
-							 /></input> <input type="hidden" name="cPrice"
-							id="currentPriceSend"></input> <input type="hidden"
-							name="currentMaxPrice" id="currentMaxPrice"></input> 
-							
-							<br />
+						<input type="hidden" name="reservation_seq" id="reservation_seq" /></input>
+						<input type="hidden" name="cPrice" id="currentPriceSend"></input>
+						<input type="hidden" name="currentMaxPrice" id="currentMaxPrice"></input>
+						<input type="hidden" name="userAutoId" id="userAutoId"></input>
+
+						<br />
 
 						<table
 							style="font-size: 20px; text-align: center; margin-left: 70px;">
 							<tbody>
+								<tr>
+									<td>입찰자</td>
+									<td id="sessionUserId" sec:authentication="name"></td>
+								<tr>
 								<tr>
 									<td>자동입찰</td>
 									<td><input style="width: 16px; height: 16px;"

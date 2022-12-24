@@ -91,6 +91,12 @@ public class AuctionController {
 		return "/credit";
 	}
 
+	@GetMapping("/autoBiddingStop")
+	public String autoBiddingStop(Reservation reservation) {
+		auctionService.autoBiddingStop(reservation);
+		return "redirect:/auction?reservation_seq="+reservation.getReservation_seq();
+	}
+	
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
 	public String bidding(Model model,Reservation reservation, String suggestPrice, String cPrice,

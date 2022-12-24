@@ -42,6 +42,8 @@ public interface AuctionService {
 	
 	void autoAuction(Reservation reservation);
 	
+	public void autoBiddingStop(Reservation reservation);
+	
 	//결제하기 회원 블록 가격 정보 띄우기 
 	BlockGroupWaiting auctionCreditView(BlockGroupWaiting blockGroupWaiting);
 	

@@ -117,6 +117,15 @@ public class AuctionServiceImpl implements AuctionService {
 		findAuction.setMaxPrice(Integer.parseInt(maxPrice));
 		auctionRepo.save(findAuction);
 	}
+	
+	
+	@Override
+	public void autoBiddingStop(Reservation reservation) {
+		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
+		findAuction.setUserAutoId("");
+		findAuction.setMaxPrice(0);
+		auctionRepo.save(findAuction);
+	}
 
 	@Override
 	public void autoAuction(Reservation reservation) {
