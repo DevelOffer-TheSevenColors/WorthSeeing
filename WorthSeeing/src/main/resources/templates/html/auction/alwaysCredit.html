@@ -35,8 +35,12 @@ $(document).ready(function() {
 
 		var calcPrice=   Math.round(   ( [[${blockGroup.price}]]  / lastDay.getDate()  ) * calc );
 	
-	$("#monthPrice").text(calcPrice);
-	$("#result_pnt").text(calcPrice);
+		var covert = calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		
+		
+		
+	$("#monthPrice").text(covert);
+	$("#result_pnt").text(covert);
 	$("#inputprice").val(calcPrice);
 		
 	
@@ -129,12 +133,12 @@ function changePoint(amt,pnt,min,unit){
 	}
 	
 	$("#result_pnt").html(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
-	$("#result_pnt").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
+// 	$("#result_pnt").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
+// 	$("#result_pnt").attr("value",amt - v_point);
 	$("#inputprice").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
-	$("#point2").val(pnt - v_point); 
 	$("#inputPoint").val(pnt - v_point); 
-	$("#result_pnt").attr("value",amt - v_point);
-	$("#point2").text(pnt - v_point);
+	$("#point2").val(pnt - v_point); 
+	$("#point2").text(pnt - v_point).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	
 }
 

@@ -39,7 +39,7 @@ $(document).ready(function() {
 	
 	$("#month").change(function(){
 		$("#monthPrice").text([[${blockGroupWaiting.price}]] -   ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]) + " * " + $("#month option:selected").val());
-		totalPrice = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
+		totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
 		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
