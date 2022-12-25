@@ -78,7 +78,7 @@ public class reservationController {
 	}
 
 	// 10프로 결제하기 버튼 클릭 시
-	@GetMapping("/delectReservation")
+	@GetMapping("/deleteReservation")
 	private String deleteReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal,
 			ReservationUsers reservationUsers) {
 

@@ -38,8 +38,6 @@ public class AuctionController {
 
 	@Autowired
 	private BlockService blockService;
-	
-	
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/selectAuction", method = RequestMethod.POST)
@@ -64,46 +62,48 @@ public class AuctionController {
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/endAuction", method = RequestMethod.POST)
 	public String endAuction(Reservation reservation) throws Throwable {
-		auctionService.endAuction(reservation, 
+		auctionService.endAuction(reservation,
 				reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
 		return "end";
 	}
 
 	// 경매 페이지로 이동
 	@GetMapping("/auction")
-	public String Auction(Model model, Auction auction,Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
+	public String Auction(Model model, Auction auction, Reservation reservation,
+			@AuthenticationPrincipal SecurityUser principal) {
 		model.addAttribute("user", principal.getUsers());
-		model.addAttribute("reservation_seq",reservation.getReservation_seq());
+		model.addAttribute("reservation_seq", reservation.getReservation_seq());
 		return "/auction";
 	}
 
 	// 낙찰해서 결제하러 갈때
 	@PostMapping("/credit")
-	public String AuctionCredit(Model model, BlockGroupWaiting blockGroupWaiting,@AuthenticationPrincipal SecurityUser principal) {
-		
-		System.out.println("====>1"+blockGroupWaiting);
+	public String AuctionCredit(Model model, BlockGroupWaiting blockGroupWaiting,
+			@AuthenticationPrincipal SecurityUser principal) {
+
+		System.out.println("====>1" + blockGroupWaiting);
 		auctionService.auctionCreditView(blockGroupWaiting);
-		
-		model.addAttribute("blockGroupWaiting",auctionService.auctionCreditView(blockGroupWaiting));
-		
-		model.addAttribute("users",principal.getUsers());
-		
+
+		model.addAttribute("blockGroupWaiting", auctionService.auctionCreditView(blockGroupWaiting));
+
+		model.addAttribute("users", principal.getUsers());
+
 		return "/credit";
 	}
 
 	@GetMapping("/autoBiddingStop")
 	public String autoBiddingStop(Reservation reservation) {
 		auctionService.autoBiddingStop(reservation);
-		return "redirect:/auction?reservation_seq="+reservation.getReservation_seq();
+		return "redirect:/auction?reservation_seq=" + reservation.getReservation_seq();
 	}
-	
+
 	// 입찰 버튼 클릭 시 경매 업데이트
 	@PostMapping("/bidding")
-	public String bidding(Model model,Reservation reservation, String suggestPrice, String cPrice,
+	public String bidding(Model model, Reservation reservation, String suggestPrice, String cPrice,
 			@AuthenticationPrincipal SecurityUser principal, String autoPrice) {
 		System.out.println("@@aa@@");
 		Auction auction = null;
-		System.out.println("@@Reser@@==>"+reservation.getReservation_seq());
+		System.out.println("@@Reser@@==>" + reservation.getReservation_seq());
 		if (autoPrice.equals("")) {
 			auction = new Auction();
 			auction.setSuggestPrice(Integer.parseInt(suggestPrice));
@@ -111,11 +111,10 @@ public class AuctionController {
 				auction.setUserId(principal.getUsers().getUserId());
 				auctionService.updateAuction(auction, reservation);
 			}
+		} else {
+			auctionService.updateMaxPrice(reservation, autoPrice, principal.getUsers());
 		}
-		else {
-			auctionService.updateMaxPrice(reservation, autoPrice,principal.getUsers());
-		}
-		model.addAttribute("reservation_seq",reservation.getReservation_seq());
+		model.addAttribute("reservation_seq", reservation.getReservation_seq());
 		return "/auction";
 	}
 
@@ -136,51 +135,46 @@ public class AuctionController {
 
 //  최종결제 할 때 값 넣기
 	@PostMapping("/updateCredit")
-	public String updateCredit(BlockGroupWaiting blockGroupWaiting ,Status status,Users users, int month) {
+	public String updateCredit(BlockGroupWaiting blockGroupWaiting, Status status, Users users, int month) {
 
-		System.out.println("===>>"+month);
-		
-		auctionService.updateCreditInfo(blockGroupWaiting, status, users,month);
+		System.out.println("===>>" + month);
+
+		auctionService.updateCreditInfo(blockGroupWaiting, status, users, month);
 		return "/main";
 	}
-	
+
 	@GetMapping("/alwaysBuyList")
-	public String selectAlwaysBuyList(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable) {
-		
+	public String selectAlwaysBuyList(Model model, BlockGroup blockGroup, @PageableDefault Pageable pageable) {
+
 		Page<BlockGroup> alwaysList = auctionService.selectAlwaysBuyList(blockGroup, pageable);
-		
+
 //		List<BlockGroup>  awlaysListNoPage  = auctionService.selectAlwaysBuyListNoPage();
-		
-		
-		int nowPage = alwaysList.getPageable().getPageNumber()+1;
-		model.addAttribute("alwaysList",alwaysList);
-			model.addAttribute("nowPage",nowPage);
+
+		int nowPage = alwaysList.getPageable().getPageNumber();
+
+		model.addAttribute("alwaysList", alwaysList);
+		model.addAttribute("alwaysPriceList", auctionService.selectAlwaysBuyListPrice());
+
+		model.addAttribute("nowPage", nowPage);
 //			model.addAttribute("alwaysListNoPage",awlaysListNoPage);
-			
-		 
-		
+
 		return "/auction/alwaysBuyList";
 	}
+
 	@PostMapping("/alwaysBuyCreditView")
-	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable,@AuthenticationPrincipal SecurityUser principal) {
-		
-		
-		model.addAttribute("blockGroup",auctionService.alwaysBuyCreditView(blockGroup));
-		model.addAttribute("users",principal.getUsers());
-		
+	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup, @PageableDefault Pageable pageable,
+			@AuthenticationPrincipal SecurityUser principal) {
+
+		model.addAttribute("blockGroup", auctionService.alwaysBuyCreditView(blockGroup));
+		model.addAttribute("users", principal.getUsers());
+
 		return "/auction/alwaysCredit";
 	}
+
 	@PostMapping("/updateAlwaysCredit")
-	public String updateAlwaysCredit(BlockGroup blockGroup, Status status,Users users) {
-		
-		
+	public String updateAlwaysCredit(BlockGroup blockGroup, Status status, Users users) {
+
 		auctionService.updateAlwaysCreditInfo(blockGroup, status, users);
 		return "redirect:/alwaysBuyList";
 	}
 }
-
-
-
-
-
-

@@ -9,6 +9,39 @@
 
 
 <body>
+
+<script>
+
+
+$(document).ready(function() {
+	
+	var date = new Date();
+
+	y = date.getFullYear();
+
+	m = date.getMonth();
+
+	var firstDay = new Date(y, m, 1);
+
+	var lastDay = new Date(y, m + 1, 0);
+	
+	var calc =  lastDay.getDate()-date.getDate() ;
+
+		var alwaysList = [[${alwaysPriceList}]]
+		
+		alwaysList.forEach(function(always, index) {
+			
+			var calcPrice=   Math.round(   ( Number($("#calcprice"+(index+1)).text()) / lastDay.getDate()  ) * calc );
+			console.log(calcPrice);
+			$("#calcprice"+(index+1)).text(calcPrice);
+		})
+		
+		
+})
+
+
+</script>
+
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
@@ -20,6 +53,7 @@
 
 					<thead>
 						<tr>
+							<th>No.</th>
 							<th>블록 번호</th>
 							<th>구매 가격</th>
 							<th>평균 가격</th>
@@ -27,25 +61,30 @@
 
 						</tr>
 					</thead>
+					
 					<tbody th:each="blockGroup, state : ${alwaysList}">
+					
 						<form th:action="@{/alwaysBuyCreditView}" method="post">
 							<tr>
+								<td th:text="${(nowPage*10) + state.count}"></td>
 								<td th:text="${blockGroup.blockList[0].Block_seq}"></td>
-								<td  th:name="price" th:text="${blockGroup.price}" th:value="${blockGroup.price}"></td>
+								<td  th:id="calcprice + ${(nowPage * 10) + state.count}" th:name="price" th:text="${blockGroup.price}" th:value="${blockGroup.price}"></td>
 								<td  th:text="${blockGroup.avgPrice}"></td>
 								<td><input type="hidden" th:name="blockGroup_seq" th:value="${blockGroup.blockGroup_seq}" /> 
 								<input type="submit" value="구매하러가기" /></td>
 							</tr>
 						</form>
+						
 					</tbody>
+					
 				</table>
 				
 				
-				<form th:action="@{/admin/adminalwaysList}" method="post">
+				<form th:action="@{/alwaysBuyList}" method="get">
 					<div>
-						<nav class="customNav">
+						<nav class="customNav"> 
 							<ul class="customPagination"
-								th:with="start=${(1-(alwaysList.number%1))%1 + 1},
+								th:with="start=${(alwaysList.number/10)*10 + 1},
 	                    	last=(${start + 9 < alwaysList.totalPages ? start + 9 : alwaysList.totalPages})">
 
 								<li th:class="${alwaysList.first} ? 'disabled'">
@@ -55,14 +94,12 @@
 								<li th:class="${alwaysList.first} ? 'disabled'">
 									<button name="page" th:value="${alwaysList.number}">&lt;</button>
 								</li>
-
+ 
 								<li th:each="page : ${#numbers.sequence(start, last)}"
 									th:class="${page == alwaysList.number + 1} ? 'active'">
-									<button th:if="${page==nowPage}" style="background: gray"
-										name="page" th:value="${page}" th:text="${page}"></button>
-									<button th:if="${page!=nowPage}" name="page" th:value="${page}"
-										th:text="${page}"></button>
-
+									<button th:if="${page==(nowPage+1)}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
+									<button th:if="${page!=(nowPage+1)}" name="page" th:value="${page}" th:text="${page}"></button>
+									
 								</li>
 
 								<li th:class="${alwaysList.last} ? 'disabled'">
@@ -76,6 +113,44 @@
 						</nav>
 					</div>
 				</form>
+				
+<!-- 				<form th:action="@{/alwaysBuyList}" method="get"> -->
+<!-- 					<div> -->
+<!-- 						<nav style="text-align: center;"> -->
+<!-- 							    <ul  class="customPagination" -->
+<!-- 							        th:with="start=${(alwaysList.number/10)*10 + 1}, -->
+<!-- 							                    last=(${start + 9 < alwaysList.totalPages ? start + 9 : alwaysList.totalPages})"> -->
+<!-- 							        <li> -->
+<!-- 							            <a th:href="@{/alwaysBuyList(page=1)}" aria-label="First"> -->
+<!-- 							                <span aria-hidden="true">First</span> -->
+<!-- 							            </a> -->
+<!-- 							        </li> -->
+							
+<!-- 							        <li th:class="${alwaysList.first} ? 'disabled'"> -->
+<!-- 							            <a th:href="${alwaysList.first} ? '#' :@{/alwaysBuyList(page=${alwaysList.number})}" aria-label="Previous"> -->
+<!-- 							                <span aria-hidden="true">&lt;</span> -->
+<!-- 							            </a> -->
+<!-- 							        </li> -->
+							
+<!-- 							        <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == alwaysList.number + 1} ? 'active'"> -->
+<!-- 							            <a th:text="${page}" th:href="@{/alwaysBuyList(page=${page})}"></a> -->
+<!-- 							        </li> -->
+							
+<!-- 							        <li th:class="${alwaysList.last} ? 'disabled'"> -->
+<!-- 							            <a th:href="${alwaysList.last} ? '#' : @{/alwaysBuyList(page=${alwaysList.number + 2})}" aria-label="Next"> -->
+<!-- 							                <span aria-hidden="true">&gt;</span> -->
+<!-- 							            </a> -->
+<!-- 							        </li> -->
+							
+<!-- 							        <li> -->
+<!-- 							            <a th:href="@{/alwaysBuyList(page=${alwaysList.totalPages})}" aria-label="Last"> -->
+<!-- 							                <span aria-hidden="true">Last</span> -->
+<!-- 							            </a> -->
+<!-- 							        </li> -->
+<!-- 							    </ul> -->
+<!-- 							</nav> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
 			</div>
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>

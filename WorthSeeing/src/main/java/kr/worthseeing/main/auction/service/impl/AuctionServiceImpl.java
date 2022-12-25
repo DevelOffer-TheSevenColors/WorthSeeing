@@ -10,10 +10,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.querydsl.core.BooleanBuilder;
 
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
@@ -48,10 +51,10 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private UsersRepository usersRepo;
-	
+
 	@Autowired
-	private BlockGroupRepository  blockGroupRepo;
-	
+	private BlockGroupRepository blockGroupRepo;
+
 	// 경매 기록 저장
 	@Override
 	public void insertAuctionLog(AuctionLog auctionLog) {
@@ -120,8 +123,7 @@ public class AuctionServiceImpl implements AuctionService {
 		findAuction.setMaxPrice(Integer.parseInt(maxPrice));
 		auctionRepo.save(findAuction);
 	}
-	
-	
+
 	@Override
 	public void autoBiddingStop(Reservation reservation) {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
@@ -133,7 +135,7 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public void autoAuction(Reservation reservation) {
 		System.out.println("@@1@@");
-		System.out.println("@@re"+reservation.getReservation_seq());
+		System.out.println("@@re" + reservation.getReservation_seq());
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
 		if (findAuction.getSuggestPrice() * 1.1 <= findAuction.getMaxPrice()
 				&& !findAuction.getUserId().equals(findAuction.getUserAutoId())) {
@@ -163,135 +165,121 @@ public class AuctionServiceImpl implements AuctionService {
 		return (Auction) auctionRepo.findAll();
 	}
 
-
-	//낙찰받은 블록 결제하기 
-			@Override
-			public void updateCreditInfo(BlockGroupWaiting blockGroupWaiting ,Status status, Users user, int month) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
-
-				
-				Users findUser=usersRepo.findById(user.getUserId()).get();
-				findUser.setPoint(user.getPoint());
-				
-				BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
-				
-				LocalDate now= LocalDate.now();
-				
-				
-					if(month == 1) {
-						LocalDate result1= now.plusMonths(1);
-						Date enddate1 = java.sql.Date.valueOf(result1);
-						findBlockGroupWaiting.setEndDate(enddate1);
-				
-					}else if(month == 2){
-						LocalDate result1= now.plusMonths(2);
-						Date enddate1 = java.sql.Date.valueOf(result1);
-						findBlockGroupWaiting.setEndDate(enddate1);
-					
-					}else if(month ==3) {
-						LocalDate result1= now.plusMonths(3);
-						Date enddate1 = java.sql.Date.valueOf(result1);
-						findBlockGroupWaiting.setEndDate(enddate1);
-					}
-				
-					
-					
-				findBlockGroupWaiting.setPrice(blockGroupWaiting.getPrice());
-				findBlockGroupWaiting.setPurchaseDay(new Date());
-				findBlockGroupWaiting.setStatus(status);
-				
-				
-				 
-				blockGroupWaitingRepo.save(findBlockGroupWaiting);
-				usersRepo.save(findUser);
-			}
-
-	  @Override
-      public BlockGroupWaiting auctionCreditView(BlockGroupWaiting blockGroupWaiting) {
-
-         
-         BlockGroupWaiting findblockGroupWaiting=   
-                  blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
-         
-            return findblockGroupWaiting;
-      }
-
+	// 낙찰받은 블록 결제하기
 	@Override
-	public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup, Pageable pageable) {
+	public void updateCreditInfo(BlockGroupWaiting blockGroupWaiting, Status status, Users user, int month) { // users :
+																												// 낙찰받은사용자,
+																												// auction
+																												// : 낙찰된
+																												// 블럭 +
+																												// 가격 정보
 
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
-		
-		List<BlockGroup> findBlockGroup=blockGroupRepo.alwaysBuyListNoPage( 11);
-		
-	for(BlockGroup findBlockGroup2 : findBlockGroup) {
-			
-			LocalDate now= LocalDate.now();  //현재시간
-		      
-		      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
-		      
-		      LocalDate date = LocalDate.parse(String.valueOf(now));  //현재 시간  스트링으로 변환
-		      
-		        LocalDate startDate = LocalDate.now();  //지금시간
-		        
-		        LocalDate endDate = date.withDayOfMonth(date.lengthOfMonth());  //현재 월의 일 수
-		        
-		        LocalDateTime date1 = startDate.atStartOfDay(); //현재시간 계산할수있도록 변환 -시작
-		        LocalDateTime date2 = endDate.atStartOfDay();   //현재월일수를 계산할수있도록 변환 -끝
-		        int betweenDays = (int) Duration.between(date1, date2).toDays();    //시작과 끝을 빼서 계산한 값
-		        
-		        endDate.getDayOfMonth();// 이번달 마지막날을 int로 가져오는것
-		        
-		        
-		        findBlockGroup2.setPrice( findBlockGroup2.getPrice() / endDate.getDayOfMonth() * betweenDays);         
-		        
-		}
-		
-		return blockGroupRepo.alwaysBuyList(pageable ,11);
-		
-	}
-
-
-	@Override
-	public BlockGroup alwaysBuyCreditView(BlockGroup blockGroup ) {
-		
-
-        
-		return 	  blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-	}
-	
-	@Override
-	public void updateAlwaysCreditInfo(BlockGroup blockGroup,Status status, Users user) { // users : 낙찰받은사용자, auction : 낙찰된 블럭 + 가격 정보
-
-		
-		Users findUser=usersRepo.findById(user.getUserId()).get();
+		Users findUser = usersRepo.findById(user.getUserId()).get();
 		findUser.setPoint(user.getPoint());
-		
-		BlockGroup findBlockGroup= blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-		
-		LocalDate now= LocalDate.now();
-		
-		
-			
-			
+
+		BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo
+				.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+
+		LocalDate now = LocalDate.now();
+
+		if (month == 1) {
+			LocalDate result1 = now.plusMonths(1);
+			Date enddate1 = java.sql.Date.valueOf(result1);
+			findBlockGroupWaiting.setEndDate(enddate1);
+
+		} else if (month == 2) {
+			LocalDate result1 = now.plusMonths(2);
+			Date enddate1 = java.sql.Date.valueOf(result1);
+			findBlockGroupWaiting.setEndDate(enddate1);
+
+		} else if (month == 3) {
+			LocalDate result1 = now.plusMonths(3);
+			Date enddate1 = java.sql.Date.valueOf(result1);
+			findBlockGroupWaiting.setEndDate(enddate1);
+		}
+
+		findBlockGroupWaiting.setPrice(blockGroupWaiting.getPrice());
+		findBlockGroupWaiting.setPurchaseDay(new Date());
+		findBlockGroupWaiting.setStatus(status);
+
+		blockGroupWaitingRepo.save(findBlockGroupWaiting);
+		usersRepo.save(findUser);
+	}
+
+	@Override
+	public BlockGroupWaiting auctionCreditView(BlockGroupWaiting blockGroupWaiting) {
+
+		BlockGroupWaiting findblockGroupWaiting = blockGroupWaitingRepo
+				.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+
+		return findblockGroupWaiting;
+	}
+
+
+	   @Override
+	   public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup, Pageable pageable) {
+
+	      int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+	      pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
+	      
+//	      List<BlockGroup> findBlockGroup=blockGroupRepo.alwaysBuyListNoPage( 11);
+	      
+//	   for(BlockGroup findBlockGroup2 : findBlockGroup) {
+//	         
+//	         LocalDate now= LocalDate.now();  //현재시간
+//	            
+//	            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
+//	            
+//	            LocalDate date = LocalDate.parse(String.valueOf(now));  //현재 시간  스트링으로 변환
+//	            
+//	              LocalDate startDate = LocalDate.now();  //지금시간
+//	              
+//	              LocalDate endDate = date.withDayOfMonth(date.lengthOfMonth());  //현재 월의 일 수
+//	              
+//	              LocalDateTime date1 = startDate.atStartOfDay(); //현재시간 계산할수있도록 변환 -시작
+//	              LocalDateTime date2 = endDate.atStartOfDay();   //현재월일수를 계산할수있도록 변환 -끝
+//	              int betweenDays = (int) Duration.between(date1, date2).toDays();    //시작과 끝을 빼서 계산한 값
+//	              
+//	              endDate.getDayOfMonth();// 이번달 마지막날을 int로 가져오는것
+//	              
+//	              
+//	              findBlockGroup2.setPrice( findBlockGroup2.getPrice() / endDate.getDayOfMonth() * betweenDays);         
+//	              
+//	      }
+	      
+	      return blockGroupRepo.alwaysBuyList(pageable);
+	      
+	   }
+	   
+	   @Override
+	public List<Integer> selectAlwaysBuyListPrice() {
+		   System.out.println("jlsdafjlka0000>" + blockGroupRepo.alwaysBuyListGetPrice().toString());
+		return blockGroupRepo.alwaysBuyListGetPrice();
+	}
+
+	@Override
+	public BlockGroup alwaysBuyCreditView(BlockGroup blockGroup) {
+
+		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+	}
+
+	@Override
+	public void updateAlwaysCreditInfo(BlockGroup blockGroup, Status status, Users user) { // users : 낙찰받은사용자, auction :
+																							// 낙찰된 블럭 + 가격 정보
+
+		Users findUser = usersRepo.findById(user.getUserId()).get();
+		findUser.setPoint(user.getPoint());
+
+		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+
+		LocalDate now = LocalDate.now();
+
 		findBlockGroup.setPrice(blockGroup.getPrice());
 		findBlockGroup.setPurchaseDay(new Date());
 		findBlockGroup.setStatus(status);
-		
-		
-		 
+
 		blockGroupRepo.save(findBlockGroup);
 		usersRepo.save(findUser);
 	}
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-

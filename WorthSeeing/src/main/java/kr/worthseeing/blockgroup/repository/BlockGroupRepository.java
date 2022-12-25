@@ -32,8 +32,11 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	@Query("select b from BlockGroup b order by b.blockGroup_seq")
 	List<BlockGroup> orderByBlockGroupSeq();
 	
-	@Query("select b from BlockGroup b where status_seq = ?1")
-	Page<BlockGroup> alwaysBuyList(Pageable pageable, int keywoard);
+	@Query("select b from BlockGroup b where status_seq = 11")
+	Page<BlockGroup> alwaysBuyList(Pageable pageable);
+	
+	@Query("select b.price from BlockGroup b where status_seq = 11")
+	List<Integer> alwaysBuyListGetPrice();
 	
 	@Query("select b from BlockGroup b where status_seq = ?1")
 	List<BlockGroup> alwaysBuyListNoPage( int keywoard);

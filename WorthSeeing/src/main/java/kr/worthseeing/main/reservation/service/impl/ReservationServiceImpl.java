@@ -129,14 +129,18 @@ public class ReservationServiceImpl implements ReservationService {
 		Users users2 = UsersRepo.findById(userId).get();
 		users2.setUserId(userId);
 
-		ReservationUsers reservationUsers2 = reservationUsersRepo.findById(reservationUsers.getReservationUsers_seq())
-				.get();
+		ReservationUsers reservationUsers2 = reservationUsersRepo.findById(reservationUsers.getReservationUsers_seq()).get();
 
+		Reservation findReservation = reservationRepo.findById(reservation.getReservation_seq()).get();
+		
+		
 		if (!reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), userId).isEmpty()) {
 
 			reservationUsers2.setReservation(reservation);
 			reservationUsers2.setUsers(users2);
-
+			
+			  findReservation.setUserCnt(findReservation.getUserCnt()-1); 
+			
 			reservationUsersRepo.delete(reservationUsers2);
 		}
 
