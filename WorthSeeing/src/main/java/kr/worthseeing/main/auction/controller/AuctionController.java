@@ -161,7 +161,7 @@ public class AuctionController {
 		
 		return "/auction/alwaysBuyList";
 	}
-	@GetMapping("/alwaysBuyCreditView")
+	@PostMapping("/alwaysBuyCreditView")
 	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup,@PageableDefault Pageable pageable,@AuthenticationPrincipal SecurityUser principal) {
 		
 		
