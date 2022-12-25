@@ -149,13 +149,13 @@ public class AuctionController {
 		
 		Page<BlockGroup> alwaysList = auctionService.selectAlwaysBuyList(blockGroup, pageable);
 		
-		List<BlockGroup>  awlaysListNoPage  = auctionService.selectAlwaysBuyListNoPage();
+//		List<BlockGroup>  awlaysListNoPage  = auctionService.selectAlwaysBuyListNoPage();
 		
 		
 		int nowPage = alwaysList.getPageable().getPageNumber()+1;
 		model.addAttribute("alwaysList",alwaysList);
 			model.addAttribute("nowPage",nowPage);
-			model.addAttribute("alwaysListNoPage",awlaysListNoPage);
+//			model.addAttribute("alwaysListNoPage",awlaysListNoPage);
 			
 		 
 		

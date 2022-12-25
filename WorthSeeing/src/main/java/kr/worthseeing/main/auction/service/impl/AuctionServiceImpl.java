@@ -221,19 +221,9 @@ public class AuctionServiceImpl implements AuctionService {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
 		
+		List<BlockGroup> findBlockGroup=blockGroupRepo.alwaysBuyListNoPage( 11);
 		
-		blockGroupRepo.alwaysBuyListNoPage( 11);
-		
-		return blockGroupRepo.alwaysBuyList(pageable ,11);
-		
-	}
-	@Override
-	public List<BlockGroup> selectAlwaysBuyListNoPage() {
-		
-		
-		List<BlockGroup> findBlockGroup=  blockGroupRepo.alwaysBuyListNoPage(11);
-		
-		for(BlockGroup findBlockGroup2 : findBlockGroup) {
+	for(BlockGroup findBlockGroup2 : findBlockGroup) {
 			
 			LocalDate now= LocalDate.now();  //현재시간
 		      
@@ -254,13 +244,12 @@ public class AuctionServiceImpl implements AuctionService {
 		        
 		        findBlockGroup2.setPrice( findBlockGroup2.getPrice() / endDate.getDayOfMonth() * betweenDays);         
 		        
-		       System.out.println( "제발"+findBlockGroup2);
 		}
 		
-		
-		return blockGroupRepo.alwaysBuyListNoPage(11);
+		return blockGroupRepo.alwaysBuyList(pageable ,11);
 		
 	}
+
 
 	@Override
 	public BlockGroup alwaysBuyCreditView(BlockGroup blockGroup ) {
