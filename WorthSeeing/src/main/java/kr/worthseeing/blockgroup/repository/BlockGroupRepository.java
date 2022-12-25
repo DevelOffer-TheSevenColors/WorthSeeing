@@ -15,7 +15,7 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	QuerydslPredicateExecutor<BlockGroup>  {
 	
 	@Query("select b from BlockGroup b")
-	Page<BlockGroup> listBoard(Pageable pageable);
+	Page<BlockGroup> listBlockGroup(Pageable pageable);
 	
 	@Query("select b from BlockGroup b where b.users.userId like %?1%")
 	List<BlockGroup> findByUserId(String userId);

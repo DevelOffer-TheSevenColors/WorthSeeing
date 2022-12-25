@@ -17,6 +17,7 @@
 			<div class="container pt-5 pb-3">
 
 
+			<div th:if="${auctionFlag == 'yes'}" >
 				<table class="customBoard">
 
 					<thead>
@@ -29,7 +30,8 @@
 
 						</tr>
 					</thead>
-					<tbody th:if="${auctionFlag == 'yes'}">
+					
+					<tbody>
 						<tr th:each="reservation, state : ${reservationList}">
 							<td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>
@@ -42,7 +44,7 @@
 					</tbody>
 				</table>
 
-				<form th:if="${auctionFlag == 'yes'}" th:action="@{/reservation/reservationList}" method="post">
+				<form th:action="@{/reservation/reservationList}" method="post">
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
@@ -73,6 +75,14 @@
 						</nav>
 					</div>
 				</form>
+			
+			</div>
+			
+			<div th:if="${auctionFlag == 'no'}" >
+				<p>요소 없음</p>
+			</div>
+			
+
 
 			</div>
 		</div>

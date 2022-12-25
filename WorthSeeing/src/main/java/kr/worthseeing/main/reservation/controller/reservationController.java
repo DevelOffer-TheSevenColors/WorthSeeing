@@ -32,8 +32,11 @@ public class reservationController {
 	// 예약가능 목록 띄우기
 	@RequestMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation, @PageableDefault Pageable pageable) {
-		model.addAttribute("reservationList", reservationservice.selectReservation(pageable));
-		model.addAttribute("auctionFlag", reservationservice.auctionStartYes());
+		
+		model.addAttribute("reservationList", reservationservice.selectReservation(pageable).get("reservationList"));
+		
+		model.addAttribute("auctionFlag", reservationservice.selectReservation(pageable).get("flag"));
+		
 		return "/reservation/reservationList";
 	}
 
@@ -54,12 +57,15 @@ public class reservationController {
 	@GetMapping("/reservationCreditView")
 	private String reservationCredit(Model model, Reservation reservation) {
 		Reservation reservation_ = reservationservice.selectReservationCreditInfo(reservation);
+		
 		String blockStr = "";
 		for (Block block : blockService.findAuctionBlock(reservation_.getBlockGroup())) {
 			blockStr += block.getBlock_seq() + ",";
 		}
+		
 		model.addAttribute("reservationCreditInfo", reservation_);
 		model.addAttribute("block", blockStr.substring(0, blockStr.length() - 1));
+		
 		return "/reservation/reservationCreditView";
 	}
 

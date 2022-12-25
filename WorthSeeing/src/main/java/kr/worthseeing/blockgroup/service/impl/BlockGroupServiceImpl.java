@@ -145,13 +145,13 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 9, Sort.Direction.DESC, "clickCnt");
 
-		return blockGroupRepo.listBoard(pageable);
+		return blockGroupRepo.listBlockGroup(pageable);
 	}
 
 	@Override
 	public Page<BlockGroup> topBlock(int page) {
 		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "clickCnt");
-		return blockGroupRepo.listBoard(pageable);
+		return blockGroupRepo.listBlockGroup(pageable);
 	}
 
 	@Override

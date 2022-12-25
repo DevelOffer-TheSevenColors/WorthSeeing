@@ -1,7 +1,9 @@
 package kr.worthseeing.main.reservation.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -75,12 +77,23 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 예약 가능 목록
 	@Override
-	public Page<Reservation> selectReservation(Pageable pageable) {
+	public Map<String, Object> selectReservation(Pageable pageable) {
 
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "reservation_seq");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		Page<Reservation> reservationPaging = reservationRepo.listReservation(pageable);
+		
+		if (reservationPaging.getTotalElements() == 0) {
+			map.put("flag", "no");
+			
+		} else {
+			map.put("flag", "yes");
+			map.put("reservationList", reservationRepo.listReservation(pageable));
+		}
 
-		return reservationRepo.listReservation(pageable);
+		return map;
 
 	}
 

@@ -1,6 +1,7 @@
 package kr.worthseeing.main.reservation.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ public interface ReservationService {
 	
 	void deleteReservation(Reservation reservation);
 	
-	public Page<Reservation> selectReservation(Pageable pageable);
+	public Map<String, Object> selectReservation(Pageable pageable);
 	
 	public List<ReservationUsers> selectMyReservation(String userid);
 	

@@ -124,15 +124,17 @@
 	
 	
 	// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
-	function resetLocalStorage() {
-		var today = new Date();
+	function resetLocalStorage(today) {
 		
-		for (var i=0; i<sessionStorage.length; i++) {
-			  var searchKey = sessionStorage.key(i);
-			  const expireDate = JSON.parse(sessionStorage.getItem(searchKey)).expire;
+		for (var i=0; i<localStorage.length; i++) {
+			  var searchKey = localStorage.key(i);
+			  const expireDate = JSON.parse(localStorage.getItem(searchKey)).expire;
+			  console.log(Number(today))
+			  console.log(Number(expireDate))
+			  
 			  
 			  if (Number(today) > Number(expireDate)) {
-				  window.sessionStorage.clear();
+				  window.localStorage.clear();
 			}
 		}
 	}
@@ -141,13 +143,13 @@
 	// localStorage에 클릭한 블록 저장하기
 	function setLocalStorage(key, number, today, expireDate) {
 		var random = Math.random();
-		sessionStorage.setItem(key + random, JSON.stringify({ number: number, expire : expireDate })); // localStorage에 저장
+		localStorage.setItem(key + random, JSON.stringify({ number: number, expire : expireDate })); // localStorage에 저장
 		
 		var setList = new Set();
-		for (var i=0; i<sessionStorage.length; i++) {
-			var searchKey = sessionStorage.key(i);
+		for (var i=0; i<localStorage.length; i++) {
+			var searchKey = localStorage.key(i);
 			  if (searchKey.slice(0, 3) == key) {
-					setList.add(JSON.parse(sessionStorage.getItem(searchKey)).number.toString());
+					setList.add(JSON.parse(localStorage.getItem(searchKey)).number.toString());
 				}
 			}
 		console.log(setList.size)
@@ -160,38 +162,6 @@
 		}
 	}
 	
-	
-	/*
-	function setLocalStorage(key, number, today, expireDate) {
-		var random = Math.random();
-		localStorage.setItem(key + random, JSON.stringify({ number: number, expire : expireDate })); // localStorage에 저장
-		
-		var setList = new Set();
-		for (var i=0; i<localStorage.length; i++) {
-			  var searchKey = localStorage.key(i);
-			  const obj = JSON.parse(localStorage.getItem(searchKey)).expire;
-			  
-			  if(today > expireDate) {
-				  window.localStorage.removeItem(searchKey);
-				}
-			  
-			  if (searchKey.slice(0, 3) == key) {
-						setList.add(JSON.parse(localStorage.getItem(searchKey)).number.toString());
-				}
-			  
-			}
-		
-		if (setList.size == 10) { // 클릭한 블록 개수가 중복 없이 10개가 되면 사용자 포인트 + 500
-			// db에 사용자 포인트 + 500 저장, 포인트 지급 alert 창 띄움, 걸려있는 링크로 이동
-			location.href="/updatePoint?blockGroup_seq=" + number;
-		}
-		else {
-			 // 걸려있는 링크로 이동
-// 			location.href="/click?blockGroup_seq=" + number; 
-		}
-		
-	}*/
-	
 
 	$(document).ready(function() {
 		
@@ -201,79 +171,45 @@
 		// 블록 289개 생성
 		createBlock([[${blockGroupSeqList}]]);
        
-		// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
-		resetLocalStorage();
-		
-		// 각 블록 클릭 시 localStorage에 저장 후 click 수 계산하여 처리
 		var today = new Date();
 		var expireDate = today.getFullYear() + (today.getMonth() + 1) + today.getDate() + 1;
 		today = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
 		
-		// 체크박스 이벤트
-		$("#displayBlock").change(function() {
-			if ($(this).is(':checked')) {
-				$(".tt").click(function() {
-					setLocalStorage($("#userName").text(), $(this).attr("id"), today, expireDate);
-				});
-				$(".numberDisplay").css("display", "none");
-				$(".imgDisplay").css("display", "block");
-				$(".reservationBtn").css("display", "none");
-				$(".betweenDay").css("display", "none");
-			} 
-		})
+		// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
+		resetLocalStorage(today);
 		
-		$("#displayBlockNum").change(function() {
-			if ($(this).is(':checked')) {
-				$(".numberDisplay").css("display", "block");
-				$(".imgDisplay").css("display", "none");
-				$(".reservationBtn").css("display", "none");
-				$(".betweenDay").css("display", "none");
-			} else {
-				$(".numberDisplay").css("display", "none");
-				$(".imgDisplay").css("display", "block");
-				$(".reservationBtn").css("display", "none");
-				$(".betweenDay").css("display", "none");
-			}
-		});
-		
-		// 남은 날짜 표시
-		
-		$("#displayBetweenDay").change(function() {
-			if ($(this).is(':checked')) {
-				$(".numberDisplay").css("display", "none");
-				$(".imgDisplay").css("display", "none");
-				$(".reservationBtn").css("display", "none");
-				$(".betweenDay").css("display", "block");
-			} else {
-				$(".numberDisplay").css("display", "none");
-				$(".imgDisplay").css("display", "block");
-				$(".reservationBtn").css("display", "none");
-				$(".betweenDay").css("display", "none");
-			}
-		});
-       
-		// 예약 가능 블록
 		var reservationBlockGroupSeqList = [[${reservationBlockGroupSeqList}]]
 		
-		$("#availableReserv").change(function() {
-			if ($(this).is(':checked')) {
+		// 각 블록 클릭 시 localStorage에 저장 후 click 수 계산하여 처리
+		$(".imgDisplay").click(function() {
+				setLocalStorage($("#userName").text(), $(this).parents(".tt").attr("id"), today, expireDate);
+		});
+		
+		$("input[name='checkbox']:radio").change(function() {
+	        
+	        var checkBoxID = $('input[name="checkbox"]:checked').attr('id');
+	        
+	        $(".numberDisplay").css("display", "none");
+			$(".imgDisplay").css("display", "none");
+			$(".reservationBtn").css("display", "none");
+			$(".betweenDay").css("display", "none");
+			
+			
+	        if (checkBoxID == "displayBlockNum") { // 블록 번호
+				$(".numberDisplay").css("display", "block");
+				
+			} else if (checkBoxID == "displayBetweenDay") { // 남은 날짜 표시
+				$(".betweenDay").css("display", "block");
+			} else if (checkBoxID == "availableReserv") { // 예약 가능 블록
 				reservationBlockGroupSeqList.forEach(function(BlockGroupSeq) {
 					$("#" + BlockGroupSeq).find("button").css("display", "block");
 				})
-				
-				
-// 				/reservation/reservationCredit?reservation_seq=
-				
-				$(".imgDisplay").css("display", "none");
-				$(".betweenDay").css("display", "none");
-				$(".numberDisplay").css("display", "none");
-			} else {
-				$(".reservationBtn").css("display", "none");
+			} else { // 기존 이미지 표시
 				$(".imgDisplay").css("display", "block");
-				$(".numberDisplay").css("display", "none");
-				$(".betweenDay").css("display", "none");
 			}
+	        
 		});
+
 		
 		
 		
@@ -326,7 +262,8 @@
 						<div class="p-3" style="max-width: 900px;">
 							<h1 class="display-3 text-white mb-md-4">Let's Discover The
 								World Together</h1>
-							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2" style="background-color: #7FA998; font-size: 18px;">L I N K</a>
+							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2"
+								style="background-color: #7FA998; font-size: 18px;">L I N K</a>
 						</div>
 					</div>
 				</div>
@@ -338,7 +275,8 @@
 						<div class="p-3" style="max-width: 900px;">
 							<h1 class="display-3 text-white mb-md-4">Discover Amazing
 								Places With Us</h1>
-							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2"style="font-size: 18px; background-color: #7FA998">L I N K</a>
+							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2"
+								style="font-size: 18px; background-color: #7FA998">L I N K</a>
 						</div>
 					</div>
 				</div>
@@ -350,7 +288,8 @@
 						<div class="p-3" style="max-width: 900px;">
 							<h1 class="display-3 text-white mb-md-4">Discover Amazing
 								Places With Us</h1>
-							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2" style="font-size: 18px; background-color: #7FA998">L I N K</a>
+							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2"
+								style="font-size: 18px; background-color: #7FA998">L I N K</a>
 						</div>
 					</div>
 				</div>
@@ -362,7 +301,8 @@
 						<div class="p-3" style="max-width: 900px;">
 							<h1 class="display-3 text-white mb-md-4">Discover Amazing
 								Places With Us</h1>
-							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2" style=" font-size: 18px; background-color: #7FA998">L I N K</a>
+							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2"
+								style="font-size: 18px; background-color: #7FA998">L I N K</a>
 						</div>
 					</div>
 				</div>
@@ -374,7 +314,8 @@
 						<div class="p-3" style="max-width: 900px;">
 							<h1 class="display-3 text-white mb-md-4">Discover Amazing
 								Places With Us</h1>
-							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2" style="font-size: 18px; background-color: #7FA998">L I N K</a>
+							<a href="" class="btn btn-primary py-md-3 px-md-5 mt-2"
+								style="font-size: 18px; background-color: #7FA998">L I N K</a>
 						</div>
 					</div>
 				</div>
@@ -397,8 +338,8 @@
 	<div>
 		<div class="topnav">
 			<div>
-				<label> <input type="radio" name="checkbox" checked="checked"
-					id="displayBlock" /> 기존 이미지 표시
+				<label> <input type="radio" name="checkbox"
+					checked="checked" id="displayBlock" /> 기존 이미지 표시
 				</label>
 			</div>
 			<div>
