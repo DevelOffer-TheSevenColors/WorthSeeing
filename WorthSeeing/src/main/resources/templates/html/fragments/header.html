@@ -36,6 +36,13 @@
 <link href="/css/customBoard.css" rel="stylesheet">
 <!-- <link rel="stylesheet" href="/css/auction/reservationCreaditTest.css"> -->
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+
+
+
 	</head>
 </th:block>
 <th:block th:fragment="TopbarFragment">
@@ -70,7 +77,8 @@
 									<a href="/admin/adminUserList" class="dropdown-item">관리자
 										페이지 </a> <a href="/admin/salePriceChart" class="dropdown-item">분기별
 										이익차트 </a> <a href="/admin/blockPriceChart" class="dropdown-item">블록별
-										가격차트 </a> <a href="/logout" class="dropdown-item">로그아웃</a>
+										가격차트 </a><a href="/leftOverCoupon" class="dropdown-item">쿠폰관리</a>
+									<a href="/logout" class="dropdown-item">로그아웃</a>
 								</span>
 							</div>
 						</div>

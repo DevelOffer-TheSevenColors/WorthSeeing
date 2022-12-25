@@ -2,60 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<!-- 차트 링크 -->
-<script
-	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
 <head th:replace="/fragments/header :: head">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>worth-seeing profit</title>
+<!-- 부트스트랩 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
 </head>
 
 <body>
-	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-	<div class="container-fluid py-5">
-		<div class="container pt-5 pb-3">
-			<form th:action="@{/admin/salePriceChart}">
-				<span> 년도 : </span> <select name="startYear">
-					<option th:value="2022">2022</option>
-					<option th:value="2023">2023</option>
-					<option th:value="2024">2024</option>
-				</select>
-				<button type="submit">보기</button>
-			</form>
-			<div class="container">
-				<div class="row my-2" style="">
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-body">
-								<canvas style="width: 1000px; height: 500px;" class="myChart"></canvas>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+
+		<div class="row justify-content-center" style="margin-top: 80px;">
+			<div class="col-lg-8">
+
+				<h2>분기별 이익차트</h2>
+				<form th:action="@{/admin/salePriceChart}">
+					<span> 년도 : </span> <select name="startYear">
+						<option th:value="2022">2022</option>
+						<option th:value="2023">2023</option>
+						<option th:value="2024">2024</option>
+					</select>
+					<button type="submit">보기</button>
+				</form>
+				<div class="container">
+					<div class="row my-2" style="">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<canvas style="width: 1000px; height: 500px;" class="myChart"></canvas>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- 부트스트랩 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
-	<!-- 차트 -->
-	<script>
+				
+				<!-- 차트 -->
+				<script>
 	var list1 = [[${salePriceList[0]}]];
 	var list2 = [[${salePriceList[1]}]];
 	var list3 = [[${salePriceList[2]}]];
@@ -96,7 +89,11 @@
 	      }
 	    });  
 	</script>
-
+			</div>
+		</div>
+	</div>
+	<a href="/admin/blockPriceChart" class="dropdown-item"><strong>👉블록별
+			가격차트</strong></a>
 	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

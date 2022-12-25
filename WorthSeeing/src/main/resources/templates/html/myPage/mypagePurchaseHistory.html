@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+	<script>
+		$(".pageBtn").click(function() {
+			movePage(idDomain, $(this).val());
+		})
+	</script>
+
+	<div class="row">
+		<div class="menuItem">
+			<br />
+			<h2>구매 내역</h2>
+			<table class="customBoard">
+				<thead>
+				<tr>
+						<th scope="col">No.</th>
+						<th scope="col">블록번호</th>
+						<th scope="col">결제금액</th>
+						<th scope="col">종료일시 시리얼번호</th>
+						<th scope="col">결제일</th>
+				</tr>
+				</thead>
+				<tbody th:each="blockGroupWaiting, state : ${blockGroupWaitingUserId}">
+				<tr>
+					<td th:text="${state.count}"></td>
+					<td th:text="${blockGroupWaiting.blockGroup.blockGroup_seq}"></td>
+					<td th:text="${blockGroupWaiting.price}"></td>
+					<td th:text="${blockGroupWaiting.endDate}"></td>
+					<td th:text="${blockGroupWaiting.purchaseDay}"></td>
+				</tr>
+				</tbody>
+			</table>
+			<div>
+				<nav class="customNav">
+					<ul class="customPagination"
+						th:with="start=${(1-(blockGroupWaitingUserId.number%1))%1 + 1},
+	                    	last=(${start + 9 < blockGroupWaitingUserId.totalPages ? start + 9 : blockGroupWaitingUserId.totalPages})">
+
+						<li th:class="${blockGroupWaitingUserId.first} ? 'disabled'">
+							<button name="page" value="1" class="pageBtn">First</button>
+						</li>
+
+						<li th:class="${blockGroupWaitingUserId.first} ? 'disabled'">
+							<button name="page" th:value="${blockGroupWaitingUserId.number}"
+								class="pageBtn">&lt;</button>
+						</li>
+
+						<li th:each="page : ${#numbers.sequence(start, last)}"
+							th:class="${page == blockGroupWaitingUserId.number + 1} ? 'active'">
+							<button name="page" th:value="${page}" th:text="${page}"
+								class="pageBtn"></button>
+						</li>
+
+						<li th:class="${blockGroupWaitingUserId.last} ? 'disabled'">
+							<button name="page"
+								th:value="${blockGroupWaitingUserId.number + 2}" class="pageBtn">&gt;</button>
+						</li>
+
+						<li th:class="${blockGroupWaitingUserId.last} ? 'disabled'">
+							<button name="page"
+								th:value="${blockGroupWaitingUserId.totalPages}" class="pageBtn">Last</button>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

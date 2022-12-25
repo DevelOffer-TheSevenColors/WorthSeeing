@@ -6,31 +6,33 @@
 <head th:replace="/fragments/header :: head">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
+
 <body>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-	<div class="container-fluid py-5">
-		<div class="container pt-5 pb-3">
-			<form th:action="@{/admin/blockPriceChart}">
-				<span>블록번호 : </span>
-				<select name="block_seq">
-					<option th:each="num : ${#numbers.sequence(1,289)}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
-				</select>
-				<span> 년도 : </span>
-				<select name="startYear">
-					<option th:value="2022">2022</option>
-					<option th:value="2023">2023</option>
-					<option th:value="2024">2024</option>
-				</select>
-				<button type="submit">보기</button>
-			</form>
-			<div class="main">
-				<div class="chart-container"
-					style="position: relative; height: 500px; width: 1000px;">
-					<canvas id="priceChart"></canvas>
-				</div>
-				<script>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="row justify-content-center" style="margin-top: 80px;">
+			<div class="col-lg-8">
+
+
+				<h2>블록별 가격차트</h2>
+				<form th:action="@{/admin/blockPriceChart}">
+					<span>블록번호 : </span> <select name="block_seq">
+						<option th:each="num : ${#numbers.sequence(1,289)}"
+							th:value="${numStat.count}" th:text="${numStat.count}"></option>
+					</select> <span> 년도 : </span> <select name="startYear">
+						<option th:value="2022">2022</option>
+						<option th:value="2023">2023</option>
+						<option th:value="2024">2024</option>
+					</select>
+					<button type="submit">보기</button>
+				</form>
+				<div class="main">
+					<div class="chart-container"
+						style="position: relative; height: 500px; width: 1000px;">
+						<canvas id="priceChart"></canvas>
+					</div>
+					<script>
 					var ctx = document.getElementById('priceChart').getContext(
 							'2d');
 					var list1 = [[${blockPriceList[0]}]];
@@ -107,11 +109,12 @@
 						}
 					});
 				</script>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
-
+		<a href="/admin/salePriceChart" class="dropdown-item"><strong>👉분기별
+				이익차트</strong></a>
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

@@ -44,7 +44,7 @@ public class MyPageController {
 		
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
 		System.out.println("controller Users" + myPageService.getUsers(principal.getUsers()));
-		return "/mypageMain";
+		return "/mypage/mypageMain";
 	}
 	
 	@GetMapping("/buyCouponProc")
@@ -53,7 +53,7 @@ public class MyPageController {
 			myPageService.getUserPoint(principal.getUsers(), price, coupon);
 		}
 		
-		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypageMain",
+		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypage/mypageMain",
 	            RequestMethod.GET, null);
 
 	      return showMessageAndRedirect(message, model);
@@ -65,7 +65,7 @@ public class MyPageController {
 		List<Coupon> couponList = myPageService.getCouponUserId(principal.getUsers().getUserId());
 		model.addAttribute("couponList", couponList);
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
-		return "/mypageCouponMall";
+		return "/mypage/mypageCouponMall";
 	}
 
 	@GetMapping("/mypagePointHistory")
@@ -74,7 +74,7 @@ public class MyPageController {
 		model.addAttribute("couponUserId", couponUserId);
 		model.addAttribute("users", principal.getUsers());
 
-		return "/mypagePointHistory";
+		return "/mypage/mypagePointHistory";
 	}
 	
 	@GetMapping("/leftOverCoupon")
@@ -97,7 +97,7 @@ public class MyPageController {
 	@PostMapping("/system/mypageUpdateProc")
 	public String mypageUpdateProc(Users users, Model model) {
 		myPageService.userUpdateProc(users);
-		return "redirect:/mypageMain";
+		return "redirect:/mypage/mypageMain";
 	}
 	
 	@GetMapping("/mypageAuctionHistory")
@@ -108,7 +108,7 @@ public class MyPageController {
 		model.addAttribute("waiting",
 				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable));
 
-		return "/mypageAuctionHistory";
+		return "/mypage/mypageAuctionHistory";
 	}
 
 	@GetMapping("/mypagePurchaseHistory")
@@ -117,7 +117,7 @@ public class MyPageController {
 		model.addAttribute("userId", principal.getUsers().getUserId());
 		model.addAttribute("blockGroupWaitingUserId", blockGroupWaitingUserId);
 
-		return "/mypagePurchaseHistory";
+		return "/mypage/mypagePurchaseHistory";
 	}
 
 	// 클릭 시 db에 저장된 url로 이동 추가
