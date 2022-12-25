@@ -24,6 +24,7 @@
 </head>
 
 <body>
+<div class="back">
 	<script>
 		$(document)
 				.ready(
@@ -63,79 +64,18 @@
 									class="destination-item position-relative overflow-hidden mb-2">
 									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"> 
 									<a class="destination-overlay text-white text-decoration-none" th:href="@{${blockGroup.linkUrl}}">
-										<h5 class="text-white" th:text="블록번호"></h5> 
-										<span th:text="${blockGroup.blockGroup_seq}"></span>
+										<span>총 방문횟수</span>
+										<span th:text="${blockGroup.clickCnt}"></span>
 									</a>
 								</div>
 							</div>
 						</div>
-		
-				<!-- Destination Start -->
-
-
-				<!-- 				<table class="customBoard"> -->
-				<!-- 					<thead> -->
-				<!-- 						<tr> -->
-				<!-- 							<th>순위</th> -->
-				<!-- 							<th>블록 번호</th> -->
-				<!-- 							<th>조회수</th> -->
-				<!-- 							<th>가격</th> -->
-				<!-- 							<th>링크 이동하기</th> -->
-				<!-- 							<th>사용자</th> -->
-				<!-- 						</tr> -->
-				<!-- 					</thead> -->
-				<!-- 					<tbody> -->
-				<!-- 						<tr th:each="blockGroup, state : ${blockGroupList}"> -->
-				<!-- 							<td th:text="${(blockGroupList.number * 10) + state.count}"></td> -->
-				<!-- 							<td th:text="${blockGroup.blockGroup_seq}"></td> -->
-				<!-- 							<td th:text="${blockGroup.clickCnt}"></td> -->
-				<!-- 							<td th:text="${blockGroup.price}"></td> -->
-				<!-- 							<td><a th:href="@{${blockGroup.linkUrl}}" -->
-				<!-- 								th:text="${blockGroup.linkUrl}"></a></td> -->
-				<!-- 							<td th:text="${blockGroup.users.userId}"></td> -->
-				<!-- 						</tr> -->
-				<!-- 					</tbody> -->
-				<!-- 				</table> -->
-
-				<!-- Paging -->
-				<form th:action="@{/list/blockGroupRankList}" method="post">
-					<div>
-						<nav class="customNav">
-							<ul class="customPagination"
-								th:with="start=${(1-(blockGroupList.number%1))%1 + 1},
-	                    	last=(${start + 9 < blockGroupList.totalPages ? start + 9 : blockGroupList.totalPages})">
-
-								<li th:class="${blockGroupList.first} ? 'disabled'">
-									<button name="page" value="1">First</button>
-								</li>
-
-								<li th:class="${blockGroupList.first} ? 'disabled'">
-									<button name="page" th:value="${blockGroupList.number}">&lt;</button>
-								</li>
-
-								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == blockGroupList.number + 1} ? 'active'">
-									<button name="page" th:value="${page}" th:text="${page}"></button>
-								</li>
-
-								<li th:class="${blockGroupList.last} ? 'disabled'">
-									<button name="page" th:value="${blockGroupList.number + 2}">&gt;</button>
-								</li>
-
-								<li th:class="${blockGroupList.last} ? 'disabled'">
-									<button name="page" th:value="${blockGroupList.totalPages}">Last</button>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</form>
-
+				</div>
 			</div>
-		</div>
 
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
-
+</div>
 </body>
 
 </html>
