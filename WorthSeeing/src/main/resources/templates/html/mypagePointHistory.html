@@ -10,6 +10,7 @@ $(".pageBtn").click(function() {
 	movePage(idDomain, $(this).val());
 })
 </script>
+<div class="row">
 		<div class="menuItem"><br />
 				<h2>포인트 사용내역</h2>
 			<table class="customBoard" th:each="coupon, state : ${couponUserId}">
@@ -56,6 +57,7 @@ $(".pageBtn").click(function() {
 							</ul>
 						</nav>
 					</div>
+		</div>
 		</div>
 
 
