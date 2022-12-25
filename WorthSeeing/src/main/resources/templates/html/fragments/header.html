@@ -71,10 +71,12 @@
 									class="nav-link dropdown-toggle,text-primary pl-3" data-toggle="dropdown">
 									<i style="color: gray;" class="fa-solid fa-circle-user"></i></a> 
 								<span class="dropdown-menu border-0 rounded-0 m-0"> 
-								<a th:href="@{/mypageMain}" class="dropdown-item">마이페이지</a> 
-								<a th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의예약목록</a>
+								<a sec:authorize="hasRole('ROLE_USER')" 
+									th:href="@{/mypageMain}" class="dropdown-item">마이페이지</a> 
+								<a sec:authorize="hasRole('ROLE_USER')"
+									th:href="@{/reservation/myAuctionList}" class="dropdown-item">나의예약목록</a>
 								<a sec:authorize="hasRole('ROLE_ADMIN')" 
-									href="/admin/adminUserList" class="dropdown-item">관리자 페이지 </a> 
+									href="/admin/adminUserList" class="dropdown-item">블랙리스트 관리</a> 
 								<a sec:authorize="hasRole('ROLE_ADMIN')" 
 									href="/admin/salePriceChart" class="dropdown-item">분기별 이익차트 </a> 
 								<a sec:authorize="hasRole('ROLE_ADMIN')" 

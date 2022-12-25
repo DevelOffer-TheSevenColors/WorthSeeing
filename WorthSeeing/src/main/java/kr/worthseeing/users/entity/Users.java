@@ -45,10 +45,9 @@ public class Users {
 	private String adminYn = "no";
 	private String blackYn = "no";
 	
-	private String dailyClickCheck = "no";
+	private String dailyClickCheck = "미완료";
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "date default sysdate")
 	private Date joindate;
 
 	@Column(columnDefinition = "number default 0")

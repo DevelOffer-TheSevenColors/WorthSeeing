@@ -1,5 +1,6 @@
 package kr.worthseeing.users.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class UsersServiceImpl implements UsersService {
 	@Transactional
 	public void insertUsers(Users users) {
 		users.setUserPw(encoder.encode(users.getUserPw()));
+		users.setJoindate(new Date());
 		userRepo.save(users);
 	}
 

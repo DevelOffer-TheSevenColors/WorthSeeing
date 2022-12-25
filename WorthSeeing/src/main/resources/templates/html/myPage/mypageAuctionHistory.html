@@ -37,7 +37,7 @@
 									<td th:text="${waiting.blockGroup.blockGroup_seq}"></td>
 									<td th:text="${waiting.price}"></td>
 									<td th:text="${waiting.userId}"></td>
-									<td th:text="${waiting.auctionDate}"></td>
+									<td th:text="${#dates.format(waiting.auctionDate, 'yyyy-MM-dd')}"></td>
 									<td>
 										</td>
 										

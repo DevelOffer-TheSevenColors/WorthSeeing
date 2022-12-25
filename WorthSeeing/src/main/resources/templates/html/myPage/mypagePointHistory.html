@@ -28,7 +28,7 @@
 					<tr>
 						<td th:text="${state.count}"></td>
 						<td th:text="${coupon.couponPrice}"></td>
-						<td th:text="${coupon.couponUsedDate}"></td>
+						<td th:text="${#dates.format(coupon.couponUsedDate, 'yyyy-MM-dd')}"></td>
 						<td th:text="${coupon.couponSerialNum}"></td>
 					</tr>
 				</tbody>
