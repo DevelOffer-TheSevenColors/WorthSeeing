@@ -51,7 +51,7 @@ public class reservationController {
 	}
 
 	// 예약하기 눌리면 10프로 만 결제하는 창으로 이동
-	@GetMapping("/reservationCredit")
+	@GetMapping("/reservationCreditView")
 	private String reservationCredit(Model model, Reservation reservation) {
 		Reservation reservation_ = reservationservice.selectReservationCreditInfo(reservation);
 		String blockStr = "";
@@ -60,7 +60,7 @@ public class reservationController {
 		}
 		model.addAttribute("reservationCreditInfo", reservation_);
 		model.addAttribute("block", blockStr.substring(0, blockStr.length() - 1));
-		return "/reservation/reservationCredit";
+		return "/reservation/reservationCreditView";
 	}
 
 	// 10프로 결제하기 버튼 클릭 시

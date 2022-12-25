@@ -29,22 +29,20 @@
 
 						</tr>
 					</thead>
-<!-- 					<tbody th:if="${auctionFlag == 'yes'}"> -->
-					<tbody >
+					<tbody th:if="${auctionFlag == 'yes'}">
 						<tr th:each="reservation, state : ${reservationList}">
 							<td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>
 							<td th:text="${reservation.userCnt}"></td>
 							<td>여기 뭐가들어가면 좋을지 다들 생각해보세용 ㅎㅎ</td>
 							<td><a
-								th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
+								th:href="@{/reservation/reservationCreditView(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
 						</tr>
 						<!-- @{/board/getBoard(seq=${board.seq})} -->
 					</tbody>
 				</table>
 
-<!-- 				<form th:if="${auctionFlag == 'yes'}" th:action="@{/reservation/reservationList}" method="post"> -->
-				<form th:if= th:action="@{/reservation/reservationList}" method="post">
+				<form th:if="${auctionFlag == 'yes'}" th:action="@{/reservation/reservationList}" method="post">
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
