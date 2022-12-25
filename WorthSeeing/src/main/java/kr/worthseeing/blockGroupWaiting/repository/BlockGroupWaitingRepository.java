@@ -19,6 +19,6 @@ public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupW
 	@Query("SELECT a FROM BlockGroupWaiting a where user_id =?1 ")
 	Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId,Pageable pageable);
 	
-	@Query("select b from BlockGroupWaiting b where b.userId like %?1%")
+	@Query("select b from BlockGroupWaiting b where user_id like %?1%")
 	Page<BlockGroupWaiting> findByUserList(String userId,Pageable pageable);
 }

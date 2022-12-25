@@ -11,6 +11,8 @@
 
 .blackColor {
 	color: black;
+	font-style: italic;
+	
 }
 
 .displayTable {
@@ -122,8 +124,16 @@ body {
 }
 
 .listLeftSort {
+	padding-top :20px;
+	padding-left: 0;
 	float: left;
+	background-color: white;
+	
 }
+.listLeftSort img {
+	width: 250px;
+}
+
 
 .purchasetable {
 	border-collapse: collapse;

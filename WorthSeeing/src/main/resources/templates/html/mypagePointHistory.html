@@ -2,7 +2,13 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+<!-- <link rel="stylesheet" type="text/css" href="/css/mypage.css"> -->
+<style type="text/css">
+.customBoard11{
+	width: 100%;
+}
+
+</style>
 </head>
 <body>
 
@@ -11,24 +17,23 @@ $(".pageBtn").click(function() {
 	movePage(idDomain, $(this).val());
 })
 </script>
-
-	<div class="row">
-		<div class="menuItem">
+		<div class="menuItem"><br />
 				<h2>포인트 사용내역</h2>
 			<table class="customBoard" th:each="coupon, state : ${couponUserId}">
 				<tr>
+					<th>No</th>
 					<th>포인트 사용금액</th>
 					<th>구매일시</th>
 					<th>기프티콘 시리얼번호</th>
 				</tr>
 				<tr>
+					<td th:text="${state.count}"></td>
 					<td th:text="${coupon.couponPrice}"></td>
 					<td th:text="${coupon.couponUsedDate}"></td>
 					<td th:text="${coupon.couponSerialNum}"></td>
 <!-- 					본인이 구매한 쿠폰의 값으로 가져올 예정 (쿠폰구매 이후 가져올 예정)  -->
 				</tr>
 			</table>
-<!-- 				<form th:action="@{/mypagePdointHistory}" method="get"> -->
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
@@ -58,9 +63,7 @@ $(".pageBtn").click(function() {
 							</ul>
 						</nav>
 					</div>
-<!-- 				</form> -->
 		</div>
-	</div>
 
 
 </body>

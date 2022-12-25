@@ -72,7 +72,7 @@ public class MyPageServiceImpl implements MyPageService {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
 
 		findUsers.setPoint(findUsers.getPoint() + 500);
-		findUsers.setDailyClickCheck("yes");
+		findUsers.setDailyClickCheck("완료");
 		
 		usersRepo.save(findUsers);
 	}

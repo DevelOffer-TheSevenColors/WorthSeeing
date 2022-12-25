@@ -12,7 +12,7 @@ $(".pageBtn").click(function() {
 </script>
 
 	<div class="displayTable">
-		<div class="menuItem">
+		<div class="menuItem"><br />
 			<div>
 				<h2>입찰/낙찰 내역</h2>
 			</div>
@@ -34,12 +34,14 @@ $(".pageBtn").click(function() {
 							<td th:text="${waiting.price}"></td>
 							<td th:text="${waiting.userId}"></td>
 							<td th:text="${waiting.auctionDate}"></td>
-							<td th:if="${waiting.userId}"><input th:name="blockGroupWaiting_seq" type="hidden" th:value="${waiting.blockGroupWaiting_seq}"></input></td>
+							<td th:if="${waiting.userId}">
+							<input th:name="blockGroupWaiting_seq" type="hidden" th:value="${waiting.blockGroupWaiting_seq}"></input></td>
 							<td><th:block th:if="${waiting.status.status_seq==12}">
-									<button type="submit" onclick="this.from.submit();">결제하기로 이동</button>
-								</th:block> <th:block th:if="${waiting.status.status_seq!=12}">
-									<span>결제 완료</span>
-								</th:block></td>
+						    <button type="submit" onclick="this.from.submit();">결제하기로 이동</button>
+							</th:block> 
+							<th:block th:if="${waiting.status.status_seq!=12}">
+							<span>결제 완료</span>
+							</th:block></td>
 						</tr>
 
 					</table>

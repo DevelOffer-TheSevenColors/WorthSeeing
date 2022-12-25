@@ -47,7 +47,6 @@ public class MyPageController {
 	@Autowired
 	private UsersService usersService;
 	
-	
 
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal) {
@@ -66,7 +65,13 @@ public class MyPageController {
 		if (price != null) {
 			myPageService.getUserPoint(principal.getUsers(), price, coupon);
 		}
-		return "redirect:/mypageMain";
+		
+		MessageDTO message = new MessageDTO("500Pt 지급 완료!!!", "/mypageMain",
+	            RequestMethod.GET, null);
+
+	      return showMessageAndRedirect(message, model);
+		
+//		return "redirect:/mypageMain";
 	}
 	
 
@@ -137,9 +142,9 @@ public class MyPageController {
 
 	@GetMapping("/mypagePurchaseHistory")
 	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
-		Page<BlockGroupWaiting> blockGroupUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
+		Page<BlockGroupWaiting> blockGroupWaitingUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("userId", principal.getUsers().getUserId());
-		model.addAttribute("blockGroupUserId", blockGroupUserId);
+		model.addAttribute("blockGroupWaitingUserId", blockGroupWaitingUserId);
 
 		return "/mypagePurchaseHistory";
 	}
