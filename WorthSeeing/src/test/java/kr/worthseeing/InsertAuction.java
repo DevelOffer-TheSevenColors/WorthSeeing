@@ -102,8 +102,8 @@ public class InsertAuction {
 		String block_seq = "1";
 		String startYear = "2022";
 		int[] monthPrice = new int[12];
-		if (!logService.blockChart(block_seq).isEmpty()) {
-			for (BlockLog blockLog : logService.blockChart(block_seq)) {
+		if (!logService.blockChartList(block_seq).isEmpty()) {
+			for (BlockLog blockLog : logService.blockChartList(block_seq)) {
 				for (int i = 1; i <= 12; i++) {
 					String i_str = String.valueOf(i);
 					if (blockLog.getEndDate() != null) {
@@ -128,8 +128,8 @@ public class InsertAuction {
 		String block_seq = "1";
 		String startYear = "2022";
 		int[] monthPrice = new int[12];
-		if (!logService.blockChart(block_seq).isEmpty()) {
-			for (BlockLog blockLog : logService.blockChart(block_seq)) {
+		if (!logService.blockChartList(block_seq).isEmpty()) {
+			for (BlockLog blockLog : logService.blockChartList(block_seq)) {
 				for (int i = 1; i <= 12; i++) {
 					String i_str = String.valueOf(i);
 					if (blockLog.getEndDate() != null) {

@@ -6,7 +6,7 @@ import kr.worthseeing.block.entity.BlockLog;
 
 public interface LogService {
 
-	public List<BlockLog> blockChart(String block_seq);
+	public List<BlockLog> blockChartList(String block_seq);
 	
 	public List<Integer> saleChart(String startYear);
 	
