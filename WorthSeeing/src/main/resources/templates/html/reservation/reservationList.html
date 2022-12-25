@@ -9,6 +9,7 @@
 
 
 <body>
+
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
@@ -28,7 +29,8 @@
 
 						</tr>
 					</thead>
-					<tbody th:if="${auctionFlag == 'yes'}">
+<!-- 					<tbody th:if="${auctionFlag == 'yes'}"> -->
+					<tbody >
 						<tr th:each="reservation, state : ${reservationList}">
 							<td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>
@@ -41,7 +43,8 @@
 					</tbody>
 				</table>
 
-				<form th:if="${auctionFlag == 'yes'}" th:action="@{/reservation/reservationList}" method="post">
+<!-- 				<form th:if="${auctionFlag == 'yes'}" th:action="@{/reservation/reservationList}" method="post"> -->
+				<form th:if= th:action="@{/reservation/reservationList}" method="post">
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"

@@ -175,7 +175,7 @@ public class AuctionController {
 		
 		
 		auctionService.updateAlwaysCreditInfo(blockGroup, status, users);
-		return "/main";
+		return "redirect:/alwaysBuyList";
 	}
 }
 

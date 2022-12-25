@@ -8,6 +8,17 @@
 </head>
 
 <body>
+<script>
+
+$(document).ready(function() {
+	
+
+		var calcPrice=   Math.round(   [[${reservationCreditInfo.startPrice}]]  *0.1 );
+	
+	$("#calcPrice").text(calcPrice);
+	$("#calcPrice").val(calcPrice);
+})
+</script>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
@@ -32,7 +43,7 @@
 							</tr>
 							<tr>
 								<td>보증금</td>
-								<td th:name="startPrice"
+								<td th:name="startPrice" id="calcPrice" 
 									th:text="${reservationCreditInfo.startPrice}"></td>
 							</tr>
 							<tr>

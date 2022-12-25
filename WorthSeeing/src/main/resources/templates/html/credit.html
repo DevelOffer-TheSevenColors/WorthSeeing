@@ -29,14 +29,17 @@ $(document).ready(function() {
 
 	var lastDay = new Date(y, m + 1, 0);
 	
-	document.write(lastDay);
+// 	document.write(lastDay);
 	
 	
-	var totalPrice = [[${blockGroupWaiting.price}]]  * $("#month option:selected").val();
+	var totalPrice =( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
+	
+	$("#monthPrice").text(totalPrice);
+	$("#monthPrice").val(totalPrice);
 	
 	$("#month").change(function(){
-		$("#monthPrice").text([[${blockGroupWaiting.price}]] + " * " + $("#month option:selected").val());
-		totalPrice = [[${blockGroupWaiting.price}]]  * $("#month option:selected").val();
+		$("#monthPrice").text([[${blockGroupWaiting.price}]] -   ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]) + " * " + $("#month option:selected").val());
+		totalPrice = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
 		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
@@ -143,7 +146,7 @@ function changePoint(amt,pnt,min,unit){
 			<div class="container pt-5 pb-3">
 
 
-				<form th:action="@{/updateCredit}" method="post">
+			
 					<table class="customBoard">
 						<thead >
 							<tr>
@@ -166,7 +169,7 @@ function changePoint(amt,pnt,min,unit){
 
 							<tr>
 								<td> 지불 예정 금액</td>
-								<td id="monthPrice" th:text="${waiting.price}"></td>
+								<td id="monthPrice" th:text="${waiting.price}" th:value="${waiting.price}"></td>
 							</tr>
 							
 							<tr>
