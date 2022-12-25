@@ -88,7 +88,7 @@ public class AuctionController {
 		
 		model.addAttribute("users",principal.getUsers());
 		
-		return "/auction/credit";
+		return "/credit";
 	}
 
 	@GetMapping("/autoBiddingStop")
