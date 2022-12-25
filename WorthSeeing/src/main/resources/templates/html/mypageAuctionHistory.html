@@ -5,78 +5,91 @@
 <link rel="stylesheet" type="text/css" href="/css/mypage.css">
 </head>
 <body>
-<script>
-$(".pageBtn").click(function() {
-	movePage(idDomain, $(this).val());
-})
-</script>
+	<script>
+		$(".pageBtn").click(function() {
+			movePage(idDomain, $(this).val());
+		})
+	</script>
 
 	<div class="displayTable">
-		<div class="menuItem"><br />
+		<div class="menuItem">
+			<br />
 			<div>
 				<h2>입찰/낙찰 내역</h2>
 			</div>
 			<div>
-				<form th:action="@{/credit}" method="get">
-					<table class="customBoard">
-						<tr align="center">
-							<th scope="col">No.</th>
-							<th scope="col">블록 번호</th>
-							<th scope="col">낙찰가</th>
-							<th scope="col">낙찰자</th>
-							<th scope="col">경매일시</th>
-							<th scope="col">낙찰유무</th>
-							<th scope="col">결제하기</th>
-						</tr>
-						<tr align="center" th:each="waiting, state : ${waiting}">
-							<td th:text="${state.count}"></td>
-							<td  th:text="${waiting.blockGroup.blockGroup_seq}"></td>
-							<td th:text="${waiting.price}"></td>
-							<td th:text="${waiting.userId}"></td>
-							<td th:text="${waiting.auctionDate}"></td>
-							<td th:if="${waiting.userId}">
-							<input th:name="blockGroupWaiting_seq" type="hidden" th:value="${waiting.blockGroupWaiting_seq}"></input></td>
-							<td><th:block th:if="${waiting.status.status_seq==12}">
-						    <button type="submit" onclick="this.from.submit();">결제하기로 이동</button>
-							</th:block> 
-							<th:block th:if="${waiting.status.status_seq!=12}">
-							<span>결제 완료</span>
-							</th:block></td>
-						</tr>
-
-					</table>
-				</form>
+				<table class="customBoard">
+				<thead>
+					<tr align="center">
+						<th scope="col">No.</th>
+						<th scope="col">블록 번호</th>
+						<th scope="col">낙찰가</th>
+						<th scope="col">낙찰자</th>
+						<th scope="col">경매일시</th>
+						<th scope="col">낙찰유무</th>
+						<th scope="col">결제하기</th>
+					</tr>
+				</thead>	
+					<tbody align="center" th:each="waiting, state : ${waiting}">
+						
+								<tr >
+									<td th:text="${state.count}"></td>
+									<td th:text="${waiting.blockGroup.blockGroup_seq}"></td>
+									<td th:text="${waiting.price}"></td>
+									<td th:text="${waiting.userId}"></td>
+									<td th:text="${waiting.auctionDate}"></td>
+									<td>
+										</td>
+										
+									<td>
+										<form th:action="@{/credit}" method="post">
+											<input th:name="blockGroupWaiting_seq"  type="hidden" th:value="${waiting.blockGroupWaiting_seq}">
+											<div th:if="${waiting.status.status_seq==12}">
+												<input type="submit" value="결제하기로 이동">
+											</div> 
+											<div th:if="${waiting.status.status_seq!=12}">
+												<span>결제 완료</span>
+											</div>
+									</form>
+										
+									</td>
+								</tr>
+						</tbody>	
+				</table>
 				<!-- 				<form th:action="@{/mypagePdointHistory}" method="get"> -->
-					<div>
-						<nav class="customNav">
-							<ul class="customPagination"
-								th:with="start=${(1-(waiting.number%1))%1 + 1},
+				<div>
+					<nav class="customNav">
+						<ul class="customPagination"
+							th:with="start=${(1-(waiting.number%1))%1 + 1},
 	                    	last=(${start + 9 < waiting.totalPages ? start + 9 : waiting.totalPages})">
 
-								<li th:class="${waiting.first} ? 'disabled'">
-									<button name="page" value="1" class="pageBtn">First</button>
-								</li>
+							<li th:class="${waiting.first} ? 'disabled'">
+								<button name="page" value="1" class="pageBtn">First</button>
+							</li>
 
-								<li th:class="${waiting.first} ? 'disabled'">
-									<button name="page" th:value="${waiting.number}" class="pageBtn">&lt;</button>
-								</li>
+							<li th:class="${waiting.first} ? 'disabled'">
+								<button name="page" th:value="${waiting.number}" class="pageBtn">&lt;</button>
+							</li>
 
-								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == waiting.number + 1} ? 'active'">
-									<button name="page" th:value="${page}" th:text="${page}" class="pageBtn"></button>
-								</li>
+							<li th:each="page : ${#numbers.sequence(start, last)}"
+								th:class="${page == waiting.number + 1} ? 'active'">
+								<button name="page" th:value="${page}" th:text="${page}"
+									class="pageBtn"></button>
+							</li>
 
-								<li th:class="${waiting.last} ? 'disabled'">
-									<button name="page" th:value="${waiting.number + 2}" class="pageBtn">&gt;</button>
-								</li>
+							<li th:class="${waiting.last} ? 'disabled'">
+								<button name="page" th:value="${waiting.number + 2}"
+									class="pageBtn">&gt;</button>
+							</li>
 
-								<li th:class="${waiting.last} ? 'disabled'">
-									<button name="page" th:value="${waiting.totalPages}" class="pageBtn">Last</button>
-								</li>
-							</ul>
-						</nav>
-					</div>
-<!-- 				</form> -->
+							<li th:class="${waiting.last} ? 'disabled'">
+								<button name="page" th:value="${waiting.totalPages}"
+									class="pageBtn">Last</button>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<!-- 				</form> -->
 			</div>
 
 		</div>

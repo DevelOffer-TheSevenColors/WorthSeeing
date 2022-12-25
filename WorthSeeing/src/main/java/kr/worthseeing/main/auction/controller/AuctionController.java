@@ -78,7 +78,7 @@ public class AuctionController {
 	}
 
 	// 낙찰해서 결제하러 갈때
-	@GetMapping("/credit")
+	@PostMapping("/credit")
 	public String AuctionCredit(Model model, BlockGroupWaiting blockGroupWaiting,@AuthenticationPrincipal SecurityUser principal) {
 		
 		System.out.println("====>1"+blockGroupWaiting);
@@ -134,7 +134,7 @@ public class AuctionController {
 		return "/mypageMain";
 	}
 
-//  최종결제 할 때 페이지 넘기는 값들 ㅎㅎ
+//  최종결제 할 때 값 넣기
 	@PostMapping("/updateCredit")
 	public String updateCredit(BlockGroupWaiting blockGroupWaiting ,Status status,Users users, int month) {
 
