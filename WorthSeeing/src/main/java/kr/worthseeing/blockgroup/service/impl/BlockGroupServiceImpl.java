@@ -163,7 +163,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-//		int i=1;
 		for (String endDateItem : listBlockGroupEndDate) {
 			if (endDateItem == null){
 				betweenDaysList.add((int) Duration
