@@ -21,7 +21,7 @@
 							<div th:if="${users.point<30000}">
 							<strong>포인트가 부족합니다.</strong></div>
 
-						<li><img src="coupon50000.jpg">
+						<li><img src="coupon50000.jpg">&nbsp;
 							<p class="blackColor"><strong>50,000Point</strong></p>
 							<div th:if="${users.point>=50000}">
 							<a th:href="@{/buyCouponProc?price=50000}"><strong>구매하기</strong></a> 
@@ -29,7 +29,7 @@
 							<div th:if="${users.point<50000}">
 							<strong>포인트가 부족합니다.</strong></div>
 
-						<li><img src="coupon100000.jpg">
+						<li><img src="coupon100000.jpg">&nbsp;
 							<p class="blackColor"><strong>100,000Point</strong></p>
 							<div th:if="${users.point>=100000}">
 							<a th:href="@{/buyCouponProc?price=100000}"><strong>구매하기</strong></a>

@@ -33,20 +33,7 @@ import kr.worthseeing.users.service.UsersService;
 public class MyPageController {
 
 	@Autowired
-	private CouponService couponService;
-
-	@Autowired
-	private AuctionService auctionService;
-
-	@Autowired
-	private BlockGroupService blockGroupService;
-
-	@Autowired
 	private MyPageService myPageService;
-
-	@Autowired
-	private UsersService usersService;
-	
 
 	@GetMapping("/mypageMain")
 	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal) {
@@ -66,12 +53,10 @@ public class MyPageController {
 			myPageService.getUserPoint(principal.getUsers(), price, coupon);
 		}
 		
-		MessageDTO message = new MessageDTO("500Pt 지급 완료!!!", "/mypageMain",
+		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypageMain",
 	            RequestMethod.GET, null);
 
 	      return showMessageAndRedirect(message, model);
-		
-//		return "redirect:/mypageMain";
 	}
 	
 
@@ -115,20 +100,6 @@ public class MyPageController {
 		return "redirect:/mypageMain";
 	}
 	
-	
-	
-
-//	@GetMapping("/mypageAuctionHistory")
-//	public String getmypageAuctionHistory(Model model,@AuthenticationPrincipal SecurityUser principal) {
-//		
-//		Map<Integer, List<AuctionLog>> auctionLogUserIdMap = myPageService
-//				.getAuctionLogUserId(principal.getUsers().getUserId());
-//		model.addAttribute("successedAuctionList", auctionLogUserIdMap.get(1)); // 낙찰
-//		model.addAttribute("failedAuctionList", auctionLogUserIdMap.get(2)); // 입찰
-//		
-//		return "/mypageAuctionHistory";
-//	}
-
 	@GetMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
 

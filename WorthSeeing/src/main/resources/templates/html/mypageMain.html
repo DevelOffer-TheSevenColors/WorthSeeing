@@ -87,8 +87,7 @@
 
 				<div class="topnav">
 					<button class="abtn" onClick="location.href='/main'">HOME</button>
-					<button class="abtn" onclick="location.href='/mypageMain'">My
-						Page</button>
+					<button class="abtn" onclick="location.href='/mypageMain'">My Page</button>
 					<button class="abtn" onclick="location.href='/leftOverCoupon'">잔여쿠폰(관리자Page)</button>
 					<button class="domainBtn abtn" id="mypageCouponMall">포인트몰</button>
 					<button class="domainBtn abtn" id="mypagePointHistory">포인트사용내역</button>
@@ -116,12 +115,11 @@
 							<tr>
 								<th>보유포인트 :</th>
 								<td th:text="${users.point}"></td>
-								<td>🅿 💰</td>
+								<td>🅿</td>
 							</tr>
 							<tr>
 								<th>오늘 출석체크 :</th>
 								<td th:text="${users.dailyClickCheck}"></td>
-								<td></td>
 							</tr>
 						</table>
 					</div>
@@ -133,21 +131,22 @@
 				</div>
 
 
+				<h2>보유 내역</h2>
+				
 				<div class="row">
-					<div class="menuItem"><br />
-						<h2>My Page</h2>
-						<div th:each="blockGroupWaiting, state : ${BlockGroupUserId}"
+					<div class="menuItem" th:each="userBlockGroup, state : ${BlockGroupUserId}"><br />
+						<div
 							class="col-lg-4 col-md-6 mb-4 floatLeft">
 							<div
 								class="destination-item position-relative overflow-hidden mb-2">
 
-								<img th:src="${blockGroupWaiting.cImg}" class="img-fluid"
+								<img th:src="${userBlockGroup.cImg}" class="img-fluid"
 									src="../img/destination-1.jpg" alt=""> <a
 									class="destination-overlay text-white text-decoration-none"
-									th:href="@{${blockGroupWaiting.linkUrl}}">
+									th:href="@{${userBlockGroup.linkUrl}}">
 
-									<h5 class="text-white" th:text="블록번호"></h5> <span
-									th:text="${blockGroupWaiting.blockGroup_seq}"></span>
+									<strong class="text-white" th:text="블록번호"></strong> <span
+									th:text="${userBlockGroup.blockGroup_seq}"></span>
 								</a>
 
 							</div>
@@ -155,7 +154,7 @@
 						<div class="floatLeft">
 							<form th:action="@{/writeURLThumb}" method="post">
 								<table class="customBoard tablewidth100"
-									th:each="userBlockGroup, state : ${BlockGroupUserId}">
+									>
 									<thead>
 										<tr align="center">
 											<th>전체 방문자 수</th>
