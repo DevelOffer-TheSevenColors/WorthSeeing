@@ -11,25 +11,27 @@
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
-		<div class="row justify-content-center" style="margin-top: 80px;">
+		<div class="row justify-content-center margintop80">
 			<div class="col-lg-8">
 
-
-				<h2>블록별 가격차트</h2>
-				<form th:action="@{/admin/blockPriceChart}">
-					<span>블록번호 : </span> <select name="block_seq">
-						<option th:each="num : ${#numbers.sequence(1,289)}"
-							th:value="${numStat.count}" th:text="${numStat.count}"></option>
-					</select> <span> 년도 : </span> <select name="startYear">
-						<option th:value="2022">2022</option>
-						<option th:value="2023">2023</option>
-						<option th:value="2024">2024</option>
-					</select>
-					<button type="submit">보기</button>
-				</form>
+				<a href="/admin/salePriceChart" class="dropdown-item"><strong>👉분기별
+						이익차트</strong></a>
+				<h2 class="textcenter">블록별 가격차트</h2>
+				<div class="textcenter">
+					<form th:action="@{/admin/blockPriceChart}">
+						<span>블록번호 : </span> <select name="block_seq">
+							<option th:each="num : ${#numbers.sequence(1,289)}"
+								th:value="${numStat.count}" th:text="${numStat.count}"></option>
+						</select> <span> 년도 : </span> <select name="startYear">
+							<option th:value="2022">2022</option>
+							<option th:value="2023">2023</option>
+							<option th:value="2024">2024</option>
+						</select>
+						<button type="submit">보기</button>
+					</form>
+				</div>
 				<div class="main">
-					<div class="chart-container"
-						style="position: relative; height: 500px; width: 1000px;">
+					<div class="chart-container  width1000height500 marginleft55">
 						<canvas id="priceChart"></canvas>
 					</div>
 					<script>
@@ -113,8 +115,7 @@
 			</div>
 		</div>
 	</div>
-		<a href="/admin/salePriceChart" class="dropdown-item"><strong>👉분기별
-				이익차트</strong></a>
-		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

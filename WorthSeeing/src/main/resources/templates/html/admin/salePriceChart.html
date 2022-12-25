@@ -23,30 +23,36 @@
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
 
-		<div class="row justify-content-center" style="margin-top: 80px;">
+		<div class="row justify-content-center margintop80">
 			<div class="col-lg-8">
+				<a href="/admin/blockPriceChart" class="dropdown-item"><strong>👉블록별
+						가격차트</strong></a>
+				<h2 class="textcenter">분기별 이익차트</h2>
+				<div class="textcenter">
+					<form th:action="@{/admin/salePriceChart}">
+						<div>
+							<span> 년도 : </span> <select name="startYear">
+								<option th:value="2022">2022</option>
+								<option th:value="2023">2023</option>
+								<option th:value="2024">2024</option>
+							</select>
+							<button type="submit">보기</button>
+						</div>
+					</form>
+				</div>
 
-				<h2>분기별 이익차트</h2>
-				<form th:action="@{/admin/salePriceChart}">
-					<span> 년도 : </span> <select name="startYear">
-						<option th:value="2022">2022</option>
-						<option th:value="2023">2023</option>
-						<option th:value="2024">2024</option>
-					</select>
-					<button type="submit">보기</button>
-				</form>
 				<div class="container">
-					<div class="row my-2" style="">
+					<div class="row my-2">
 						<div class="col-md-6">
-							<div class="card">
-								<div class="card-body">
-									<canvas style="width: 1000px; height: 500px;" class="myChart"></canvas>
+							<div class="card width1000height500 marginleft55">
+								<div class="card-body width1000height500">
+									<canvas class="myChart"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- 차트 -->
 				<script>
 	var list1 = [[${salePriceList[0]}]];
@@ -92,8 +98,6 @@
 			</div>
 		</div>
 	</div>
-	<a href="/admin/blockPriceChart" class="dropdown-item"><strong>👉블록별
-			가격차트</strong></a>
 	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 </body>
 </html>
