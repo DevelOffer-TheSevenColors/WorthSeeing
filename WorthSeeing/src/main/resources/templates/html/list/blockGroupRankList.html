@@ -61,12 +61,10 @@
 								class="col-lg-4 col-md-6 mb-4">
 								<div
 									class="destination-item position-relative overflow-hidden mb-2">
-									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"
-										src="../img/destination-1.jpg" alt=""> <a
-										class="destination-overlay text-white text-decoration-none"
-										th:href="@{${blockGroup.linkUrl}}">
-										<h5 class="text-white" th:text="블록번호"></h5> <span
-										th:text="${blockGroup.blockGroup_seq}"></span>
+									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"> 
+									<a class="destination-overlay text-white text-decoration-none" th:href="@{${blockGroup.linkUrl}}">
+										<h5 class="text-white" th:text="블록번호"></h5> 
+										<span th:text="${blockGroup.blockGroup_seq}"></span>
 									</a>
 								</div>
 							</div>
