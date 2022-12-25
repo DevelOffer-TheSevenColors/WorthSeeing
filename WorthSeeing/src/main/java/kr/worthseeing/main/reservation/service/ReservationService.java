@@ -33,4 +33,6 @@ public interface ReservationService {
 	
 	public String auctionStartYes();
 	
+	public int getReservationSeq(int blockGroup_seq);
+	
 }

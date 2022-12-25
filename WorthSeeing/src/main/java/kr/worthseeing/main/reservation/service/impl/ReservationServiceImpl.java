@@ -42,6 +42,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<Integer> listReservationBlockGroupSeq() {
 		return reservationRepo.listReservationBlockGroupSeq();
 	}
+	
+	@Override
+	public int getReservationSeq(int blockGroup_seq) {
+		return reservationRepo.getReservationSeqFromBlockGroupSeq(blockGroup_seq);
+	}
 
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override

@@ -163,13 +163,18 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+//		int i=1;
 		for (String endDateItem : listBlockGroupEndDate) {
-			betweenDaysList.add(
-					(int) Duration.between(
-							LocalDate.now().atStartOfDay(), 
-							LocalDate.parse(endDateItem, formatter).atStartOfDay()
-					).toDays()
-			);
+			if (endDateItem == null){
+				betweenDaysList.add((int) Duration
+						.between(LocalDate.now().atStartOfDay(), LocalDate.now().atStartOfDay())
+						.toDays());
+			} else {
+				betweenDaysList.add((int) Duration
+						.between(LocalDate.now().atStartOfDay(), LocalDate.parse(endDateItem, formatter).atStartOfDay())
+						.toDays());
+			}
+			
 		}
 
 		return betweenDaysList;

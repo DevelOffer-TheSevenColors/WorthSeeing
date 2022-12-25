@@ -50,7 +50,6 @@ public class Reservation {
 	@JoinColumn(name = "blockGroup_seq")
 	private BlockGroup blockGroup;
 
-	
 	public Reservation(int startPrice, int userCnt) {
 		this.startPrice = startPrice;
 		this.userCnt = userCnt;

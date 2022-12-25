@@ -86,4 +86,11 @@ public class reservationController {
 
 		return "redirect:/reservation/myAuctionList";
 	}
+	
+	// 메인 페이지에서 예약 버튼 클릭 시 보증금 결제 페이지로 이동
+	@GetMapping("/mainReservationCreaditView")
+	private String mainReservation(int blockGroup_seq) {
+		return "redirect:/reservation/reservationCreditView?reservation_seq=" + reservationservice.getReservationSeq(blockGroup_seq);
+	}
+	
 }

@@ -102,7 +102,13 @@
 	    var betweenDaysArr = Array.from(betweenDaysList);
 	    
 		for (var i = 1; i <= 289; i++) {
-			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'>" + betweenDaysArr[i] + " 일 남음</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgArr[i].slice(3) + "'/></li>";
+			if(betweenDaysArr[i-1] == 0) {
+				betweenDaysArr[i-1] = "만료됨";
+			} else {
+				betweenDaysArr[i-1] = betweenDaysArr[i-1] + " 일 남음";
+			}
+			
+			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'>" + betweenDaysArr[i-1] + "</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgArr[i].slice(3) + "'/></li>";
 	          
 			$(".blockTest").append(child);
 
@@ -129,11 +135,8 @@
 		for (var i=0; i<localStorage.length; i++) {
 			  var searchKey = localStorage.key(i);
 			  const expireDate = JSON.parse(localStorage.getItem(searchKey)).expire;
-			  console.log(Number(today))
-			  console.log(Number(expireDate))
 			  
-			  
-			  if (Number(today) > Number(expireDate)) {
+			  if (Number(today) >= Number(expireDate)) {
 				  window.localStorage.clear();
 			}
 		}
@@ -152,7 +155,6 @@
 					setList.add(JSON.parse(localStorage.getItem(searchKey)).number.toString());
 				}
 			}
-		console.log(setList.size)
 		if (setList.size == 10) { // 클릭한 블록 개수가 중복 없이 10개가 되면 사용자 포인트 + 500
 			// db에 사용자 포인트 + 500 저장, 포인트 지급 alert 창 띄움, 걸려있는 링크로 이동
 			location.href="/updatePoint?blockGroup_seq=" + number;
@@ -197,7 +199,6 @@
 			
 	        if (checkBoxID == "displayBlockNum") { // 블록 번호
 				$(".numberDisplay").css("display", "block");
-				
 			} else if (checkBoxID == "displayBetweenDay") { // 남은 날짜 표시
 				$(".betweenDay").css("display", "block");
 			} else if (checkBoxID == "availableReserv") { // 예약 가능 블록
@@ -209,6 +210,11 @@
 			}
 	        
 		});
+		
+		 // 예약 가능 블록 클릭 시 보증금 결제 페이지로 이동
+		 $(".reservationBtn").click(function() {
+			location.href="/reservation/mainReservationCreaditView?blockGroup_seq=" + $(this).parents(".tt").attr("id");
+		 })
 
 		
 		
