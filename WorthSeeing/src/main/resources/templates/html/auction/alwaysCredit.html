@@ -37,7 +37,7 @@ $(document).ready(function() {
 	
 	$("#monthPrice").text(calcPrice);
 	$("#result_pnt").text(calcPrice);
-	$("#result_pnt").val(calcPrice);
+	$("#inputprice").val(calcPrice);
 		
 	
 	var totalPrice = calcPrice  ;
@@ -204,7 +204,7 @@ function changePoint(amt,pnt,min,unit){
 <!-- 								</select> -->
 								</td>
 								<td>
-									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${blockGroup.price}" th:value="${blockGroup.price}" ></span> 원</p>
+									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${blockGroup.price}"  ></span> 원</p>
 								</td>
 							
 							</tr>
