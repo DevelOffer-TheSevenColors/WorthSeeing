@@ -9,15 +9,11 @@
 
 <body>
 
-<script>
-function ChangeValue(){
-var month=document.getElementById('month');
-
-}
-
+	<script>
 
 $(document).ready(function() {
-	var totalPrice =( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
+	
+	var totalPrice =( [[${blockGroupWaiting.price}]] * $("#month option:selected").val() ) - ( [[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]] );
 	var itotalPrice=totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	
 	$("#monthPrice").text(itotalPrice);
@@ -37,103 +33,12 @@ $(document).ready(function() {
 	
 	
 	$("#chk_use").change(function() {
-		
 		chkPoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
 })
 
-
-
-
-function chkPoint(amt,pnt,min,unit) {
-	//input값을 전체 마일리지로 설정 > minusPoint 
-// 	amt : 최초 결제 금액 / pnt : 사용가능,남은 포인트 / min : 사용 가능 최소 포인트 / unit : 사용단위
-	var v_point = 0; //사용할 포인트 (input 입력값)
-// 	var pnt=$("#userPoint").val(); // 사용 가능한 포인트
-      
-
-	if (document.getElementById("chk_use").checked)  
-	{
-		if (pnt < min)  //최소 사용 단위보다 작을 때
-		{
-			
-			v_point = 0; 
-			
-		}else {
-			
-			v_point = pnt - pnt%unit; //사용할 포인트 = 전체 마일리지 중 최소단위 이하 마일리지를 뺀 포인트
-		}
-
-		
-		if(pnt > amt ){ //결제금액보다 포인트가 더 클 때
-			v_point = amt; //사용할 포인트는 결제금액과 동일하게 설정
-		}
-		
-	}
-	
-	
-	$("#use_pnt").val(v_point); //input 값 설정
-	changePoint(amt,pnt,min,unit);
-	
-}
-
-
-
-function changePoint(amt,pnt,min,unit){
-	//input값을 불러옴 > point 변경 > 최종결제 변경
-	//amt : 최초 결제 금액 / pnt : 사용가능,남은 포인트 / min : 사용 가능 최소 포인트 / unit : 사용단위
-	
-	var v_point = $("#use_pnt").val(); //사용할 포인트 (input 입력값)
-	if (v_point > pnt) { //입력값이 사용가능 포인트보다 클때
-
-		v_point = pnt;
-		$("#use_pnt").val(v_point); //최대 사용 가능한 포인트로 변경됨
-	}
-
-	if(v_point > amt ){ //결제금액보다 포인트가 더 클 때
-		v_point = amt; //사용할 포인트는 결제금액과 동일하게 설정
-		$("#use_pnt").val(v_point);  //input 값 재설정
-	}
-
-	if (v_point < min) {   //최소 사용 단위보다 작을 때
-		v_point = 0; 
-		$("#use_pnt").val(v_point);  //input 값 재설정
-	}
-	
-	else {
-		v_point -= v_point%unit; //사용할 포인트 = 사용할 마일리지 중 최소단위 이하 마일리지를 뺀 포인트
-	}
-
-	var v_left = document.getElementsByName("point"); //사용가능 마일리지, 남은 포인트 값 설정
-	
-	for (var i = 0; i < v_left.length; i++) {
-		v_left[i].innerHTML = pnt - v_point; //= 전체 포인트 중에 사용할 포인트빼고 남은 포인트
-		
-	}
-
-	var noFormatPrice=amt - v_point;
-	
-	var finallyPrice = noFormatPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	
-	$("#result_pnt").html(finallyPrice); //최종 결제금액 = 결제금액 - 사용할 포인트
-	
-	$("#result_pnt").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
-	$("#inputprice").val(amt - v_point); 
-	$("#point2").val(pnt - v_point); 
-	$("#inputPoint").val(pnt - v_point); 
-	$("#result_pnt").attr("value",amt - v_point);
-	$("#point2").text(pnt - v_point);
-	
-	
-	
-	
-}
-
-
 </script>
-
-
 
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
@@ -141,69 +46,65 @@ function changePoint(amt,pnt,min,unit){
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
+				<div>
+					<a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a>
+				</div>
 
-			<div><a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a></div><br />
-			 	<form th:action="@{/updateCredit}" method="post">
+				<form th:action="@{/updateCredit}" method="post">
 					<table class="customBoard">
-						<thead >
+						<thead>
 							<tr>
-								<th colspan="2" >결제 예정 금액</th>
+								<th colspan="2">결제 예정 금액</th>
 							</tr>
-							
 						</thead>
 
-						<tbody  th:each="waiting, state : ${blockGroupWaiting}">
-						
-							
-							
+						<tbody th:each="waiting, state : ${blockGroupWaiting}">
 							<tr>
 								<td>구매 할 블록</td>
 								<td th:text="${waiting.blockGroup.blockList[0].Block_seq}"></td>
 							</tr>
-
 							<tr>
-								<td> 지불 예정 금액</td>
-								<td id="monthPrice" th:text="${waiting.price}" th:value="${waiting.price}"></td>
+								<td>지불 예정 금액</td>
+								<td id="monthPrice" th:text="${waiting.price}"
+									th:value="${waiting.price}"></td>
 							</tr>
-							
 							<tr>
 								<td>사용가능 포인트</td>
-								<td><span  id="point2" th:text="${users.point}" ></span><span>p</span> 
-									<span>
-									<input type="checkbox" id="chk_use" 
-											onclick="chkPoint()">포인트전체사용</span>
-									 
-									 
-								</td>
-							</tr>
-							
-							<tr>
-								<td> 100p단위로 사용 가능합니다.</td>
-								<td>
-									 <span> <input type="number" name="use_pnt" id="use_pnt" min="0" step="500" th:max="${users.point}"   ></span> p 
-       								 <span> ( 남은포인트 : </span><span th:name="point" id="point" th:text="${users.point}" ></span>p )
-       								 <input type="hidden" th:name="status_seq" th:value="14">
-       								 <input type="hidden" th:name="blockGroupWaiting_seq" th:value="${waiting.blockGroupWaiting_seq}">
-       								 <input type="hidden" th:name="point"  id="inputPoint" th:value="${users.point}">
-       								 <input type="hidden" th:name="userId" th:value="${users.userId}">
-       								 <input type="hidden" th:name="price" id="inputprice"   th:value="${waiting.price}">
-       								 
-       								 
-								</td>
-							
+								<td><span id="point2" th:text="${users.point}"></span><span>p</span>
+									<span> <input type="checkbox" id="chk_use"
+										onclick="chkPoint()">포인트전체사용
+								</span></td>
 							</tr>
 							<tr>
-								<td><select  id="month" name="month" class="month" >
-											<option  id="month1" th:name="month" value="1">1개월</option>
-											<option   id="month2" th:name="month" value="2">2개월</option>
-											<option   id = "month3" th:name="month" value="3">3개월</option>
+								<td>100p단위로 사용 가능합니다.</td>
+								<td><span> <input type="number" name="use_pnt"
+										id="use_pnt" min="0" step="500" th:max="${users.point}"></span>
+									p <span> ( 남은포인트 : </span><span th:name="point" id="point"
+									th:text="${users.point}"></span>p ) <input type="hidden"
+									th:name="status_seq" th:value="14"> <input
+									type="hidden" th:name="blockGroupWaiting_seq"
+									th:value="${waiting.blockGroupWaiting_seq}"> <input
+									type="hidden" th:name="point" id="inputPoint"
+									th:value="${users.point}"> <input type="hidden"
+									th:name="userId" th:value="${users.userId}"> <input
+									type="hidden" th:name="price" id="inputprice"
+									th:value="${waiting.price}"></td>
+							</tr>
+							<tr>
+								<td><select id="month" name="month" class="month">
+										<option id="month1" th:name="month" value="1">1개월</option>
+										<option id="month2" th:name="month" value="2">2개월</option>
+										<option id="month3" th:name="month" value="3">3개월</option>
 								</select></td>
 								<td>
-									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${waiting.price}" ></span> 원</p>
+									<p class="bold txt_red">
+										최종 결제 금액 : <span class="bold txt_red" th:name="price"
+											id="result_pnt" th:text="${waiting.price}"></span> 원
+									</p>
 								</td>
-							
+
 							</tr>
-							
+
 							<tr>
 								<td>결제수단</td>
 								<td><div>
@@ -213,16 +114,17 @@ function changePoint(amt,pnt,min,unit){
 											value="애플페이"> 애플페이</label>
 									</div></td>
 							</tr>
-							
+
 							<tr>
-								<td colspan="2"><input type="submit" value="결제하기" class="btpay2"></td>
+								<td colspan="2"><input type="submit" value="결제하기"
+									class="btpay2"></td>
 							</tr>
-							
+
 						</tbody>
 
 					</table>
+
 				</form>
-				​ <br> <br> <br> ​
 
 			</div>
 		</div>
