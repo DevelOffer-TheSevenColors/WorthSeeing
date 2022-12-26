@@ -55,7 +55,7 @@ public class reservationController {
 	}
 
 	// 예약하기 눌리면 10프로 만 결제하는 창으로 이동
-	@GetMapping("/reservationCreditView")
+	@GetMapping("/reservationCredit")
 	private String reservationCredit(Model model, Reservation reservation) {
 		Reservation reservation_ = reservationservice.selectReservationCreditInfo(reservation);
 		
