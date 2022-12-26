@@ -1,9 +1,6 @@
 package kr.worthseeing.main.reservation.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import com.querydsl.core.BooleanBuilder;
 
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
@@ -50,8 +45,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 보증금 10퍼 결제하기 버튼 클릭 시 예약자 수 + 1 / ReservationUserId 테이블에 데이터 insert
 	@Override
-	public void insertReservationUsers(Reservation reservation, String userId) {
+	public String insertReservationUsers(Reservation reservation, String userId) {
 
+		String message = "이미 예약된 블록입니다.";
 		Reservation reservation_db = reservationRepo.findById(reservation.getReservation_seq()).get();
 
 		Users users2 = UsersRepo.findById(userId).get();
@@ -71,7 +67,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 			reservationRepo.save(reservation_db);
 			reservationUsersRepo.save(reservationUsers);
+			message = "예약이 되었습니다.";
 		}
+		
+		return message;
 	}
 
 	// 예약 취소
@@ -82,23 +81,13 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 예약 가능 목록
 	@Override
-	public Map<String, Object> selectReservation(Pageable pageable) {
+	public Page<Reservation>selectReservation(Pageable pageable) {
 
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "reservation_seq");
-		
-		Map<String, Object> map = new HashMap<String, Object>();
 		Page<Reservation> reservationPaging = reservationRepo.listReservation(pageable);
-		
-		if (reservationPaging.getTotalElements() == 0) {
-			map.put("flag", "no");
-			
-		} else {
-			map.put("flag", "yes");
-			map.put("reservationList", reservationRepo.listReservation(pageable));
-		}
 
-		return map;
+		return reservationPaging;
 
 	}
 
@@ -149,7 +138,6 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public String auctionStartYes() {
 		String flag = "yes";
-		System.out.println(auctionRepo.findAll());
 		if (auctionRepo.findAll().iterator().hasNext()) {
 			flag = "no";
 		}

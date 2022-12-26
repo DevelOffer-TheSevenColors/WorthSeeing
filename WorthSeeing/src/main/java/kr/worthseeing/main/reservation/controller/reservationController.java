@@ -34,10 +34,8 @@ public class reservationController {
 	// 예약가능 목록 띄우기
 	@RequestMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation, @PageableDefault Pageable pageable) {
-		model.addAttribute("reservationList", reservationservice.selectReservation(pageable).get("reservationList"));
-		
-		model.addAttribute("auctionFlag", reservationservice.selectReservation(pageable).get("flag"));
-		
+		model.addAttribute("reservationList", reservationservice.selectReservation(pageable));
+		model.addAttribute("auctionFlag",reservationservice.auctionStartYes());
 		return "/reservation/reservationList";
 	}
 
@@ -73,9 +71,9 @@ public class reservationController {
 	// 10프로 결제하기 버튼 클릭 시
 	@PostMapping("/insertReservation")
 	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal,Model model) {
-		reservationservice.insertReservationUsers(reservation, principal.getUsers().getUserId());
+		String reservation_message = reservationservice.insertReservationUsers(reservation, principal.getUsers().getUserId());
 
-		MessageDTO message = new MessageDTO("예약 결제 되었습니다..", "/reservation/reservationList?reservation_seq="+reservation.getReservation_seq(), RequestMethod.GET, null);
+		MessageDTO message = new MessageDTO(reservation_message, "/reservation/reservationList?reservation_seq="+reservation.getReservation_seq(), RequestMethod.GET, null);
 
 	      return showMessageAndRedirect(message, model);
 //		return "redirect:/reservation/reservationList";

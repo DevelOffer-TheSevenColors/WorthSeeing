@@ -16,14 +16,14 @@ public interface ReservationService {
 	List<Integer> listReservationBlockGroupSeq();
 	
 	//결제후 예약목록에 추가
-	void insertReservationUsers(Reservation reservation, String userId);
+	String insertReservationUsers(Reservation reservation, String userId);
 
 	//마이예약목록에서 삭제
 	void deleteReservationUsers(Reservation reservation, String userId, ReservationUsers reservationUsers);
 	
 	void deleteReservation(Reservation reservation);
 	
-	public Map<String, Object> selectReservation(Pageable pageable);
+	public Page<Reservation> selectReservation(Pageable pageable);
 	
 	public List<ReservationUsers> selectMyReservation(String userid);
 	
