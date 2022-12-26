@@ -4,7 +4,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="UTF-8">
 </head>
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
@@ -28,7 +27,7 @@
 							<th>경매 시작가격</th>
 							<th>예약 인원</th>
 							<th>예약 취소</th>
-							<th>예약 하러 가기</th>
+							<th>입찰 하러 가기</th>
 
 						</tr>
 					</thead>
@@ -39,7 +38,7 @@
 					        <td th:text="${reservationUsers.reservation.userCnt}"></td>
 					        <td><a th:href="@{/reservation/deleteReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
 					        ReservationUsers_seq=${reservationUsers.ReservationUsers_seq})}">예약 취소</a></td>
-					        <td ><a th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매 참여하기</a></td>
+					        <td ><a th:if="${attendBtn==yes}" th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매 참여하기</a></td>
 						</tr>
 					</tbody>
 				</table>

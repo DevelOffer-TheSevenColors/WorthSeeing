@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
+import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.service.ReservationService;
@@ -31,6 +32,9 @@ public class reservationController {
 	@Autowired
 	private BlockService blockService;
 
+	@Autowired
+	private AuctionService auctionService;
+	
 	// 예약가능 목록 띄우기
 	@RequestMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation, @PageableDefault Pageable pageable) {
@@ -48,7 +52,8 @@ public class reservationController {
 				.selectMyReservation(principal.getUsers().getUserId());
 		model.addAttribute("principal", principal);
 		model.addAttribute("reservationUsersList", reservationUsersList);
-
+		model.addAttribute("attendBtn",auctionService.auctionAttendBtnYes());
+		
 		return "/reservation/myReservationList";
 	}
 

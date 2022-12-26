@@ -61,4 +61,6 @@ public interface AuctionService {
 	
 	//상시판매 결제하기
 	public void updateAlwaysCreditInfo(BlockGroup blockGroup,Status status, Users user) ;
+	
+	public String auctionAttendBtnYes();
 }

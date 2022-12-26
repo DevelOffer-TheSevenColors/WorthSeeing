@@ -197,4 +197,5 @@ public class AuctionController {
 	      model.addAttribute("params", params);
 	      return "/common/messageRedirect";
 	   }
+	
 }

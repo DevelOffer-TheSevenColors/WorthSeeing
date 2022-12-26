@@ -284,4 +284,13 @@ public class AuctionServiceImpl implements AuctionService {
 		usersRepo.save(findUser);
 	}
 
+	@Override
+	public String auctionAttendBtnYes() {
+		String flag = "yes";
+		if (blockGroupWaitingRepo.findAll().iterator().hasNext()) {
+			flag = "no";
+		}
+		return flag;
+	}
+	
 }

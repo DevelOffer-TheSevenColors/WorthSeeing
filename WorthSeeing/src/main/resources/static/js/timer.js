@@ -2,7 +2,60 @@
 
  function remaindTime() {
 	console.log($("#reservation_seq").val());
-	$("#stop_seq").val($("#reservation_seq").val())
+  	
+    var now = new Date();
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),17,38,10);
+    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),17,26,00);
+  
+  
+    var nt = now.getTime();
+    var ot = open.getTime();
+    var et = end.getTime();
+  
+   if(nt<ot){
+   	 $("#ending").hide();
+   	 $("#starting").hide();
+   	 $("#bidbutton").hide();
+   	 $("#opening").show();
+     $(".time").fadeIn();
+    // $("p.time-title").html("금일 오픈까지 남은 시간");
+     sec =parseInt(ot - nt) / 1000;
+     day  = parseInt(sec/60/60/24);
+     sec = (sec - (day * 60 * 60 * 24));
+     hour = parseInt(sec/60/60);
+     sec = (sec - (hour*60*60));
+     min = parseInt(sec/60);
+     sec = parseInt(sec-(min*60));
+     if(hour<10){hour="0"+hour;}
+     if(min<10){min="0"+min;}
+     if(sec<10){sec="0"+sec;}
+      $(".hours").html(hour);
+      $(".minutes").html(min);
+      $(".seconds").html(sec);
+   }else if(parseInt(nt-et)>0&&parseInt(nt-et)<1000){
+	   	$.ajax({
+		        url: "/auction/endAuction",
+		        type: "POST",
+		        data: {reservation_seq : $("#reservation_seq").val()},
+		        success: function(data){
+		           console.log(data);
+		        },
+		        error: function(){
+		        	console.log("err");
+		        }
+	  	});
+   
+   }else if(nt>et){
+   	$("#starting").hide();
+   	$("#opening").hide();
+   	$("#bidbutton").hide();
+   	$("#ending").show();
+   	$("#stringTitle").hide();
+  //  $("span.time-title").html("금일 마감");
+    $(".time").fadeOut();
+   }else {
+   
+ 	$("#stop_seq").val($("#reservation_seq").val())
 	 $.ajax({
         url: "/auction/selectAuction",
         type: "POST",
@@ -62,58 +115,7 @@
 	       	console.log("err");
 	       }
   	});
-  	
-    var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),17,29,00);
-    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),17,26,00);
-  
-  
-    var nt = now.getTime();
-    var ot = open.getTime();
-    var et = end.getTime();
-  
-   if(nt<ot){
-   	 $("#ending").hide();
-   	 $("#starting").hide();
-   	 $("#bidbutton").hide();
-   	 $("#opening").show();
-     $(".time").fadeIn();
-    // $("p.time-title").html("금일 오픈까지 남은 시간");
-     sec =parseInt(ot - nt) / 1000;
-     day  = parseInt(sec/60/60/24);
-     sec = (sec - (day * 60 * 60 * 24));
-     hour = parseInt(sec/60/60);
-     sec = (sec - (hour*60*60));
-     min = parseInt(sec/60);
-     sec = parseInt(sec-(min*60));
-     if(hour<10){hour="0"+hour;}
-     if(min<10){min="0"+min;}
-     if(sec<10){sec="0"+sec;}
-      $(".hours").html(hour);
-      $(".minutes").html(min);
-      $(".seconds").html(sec);
-   }else if(parseInt(nt-et)>0&&parseInt(nt-et)<1000){
-	   	$.ajax({
-		        url: "/auction/endAuction",
-		        type: "POST",
-		        data: {reservation_seq : $("#reservation_seq").val()},
-		        success: function(data){
-		           console.log(data);
-		        },
-		        error: function(){
-		        	console.log("err");
-		        }
-	  	});
    
-   }else if(nt>et){
-   	$("#starting").hide();
-   	$("#opening").hide();
-   	$("#bidbutton").hide();
-   	$("#ending").show();
-   	$("#stringTitle").hide();
-  //  $("span.time-title").html("금일 마감");
-    $(".time").fadeOut();
-   }else {
    $("#ending").hide();
    	$("#opening").hide();
    	$("#starting").show();
