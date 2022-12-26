@@ -43,5 +43,7 @@ public interface MyPageService {
 	void userUpdateProc(Users users);
 	
 	BlockGroupWaiting findBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting);
+	
+	void getCouponAdd(Coupon coupon);
 
 }

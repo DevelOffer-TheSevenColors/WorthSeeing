@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -207,4 +208,39 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		usersRepo.save(findUser);
 	}
+	//쿠폰 등록
+		@Override
+		public void getCouponAdd(Coupon coupon) {
+			Status status = new Status();
+			status.setStatus_seq(5);
+			for (int i = 0; i < 20; i++) {
+				int couponSize = 3;
+				final char[] possibleCharacters = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D',
+						'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+						'Y', 'Z' };
+				final int possibleCharacterCount = possibleCharacters.length;
+				Random rnd = new Random();
+				int currentIndex = 0;
+				int j = 0;
+				String couponnum = "";
+				
+				while (currentIndex < couponSize) {
+					StringBuffer buf = new StringBuffer(16);
+					for (j = 8; j > 0; j--) {
+						buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
+					}
+					couponnum += buf.toString() + "-";
+					currentIndex++;
+				}
+				couponnum = couponnum.substring(0, couponnum.length() - 1);
+				System.out.println("=====asdf==>" + couponnum);
+				
+				coupon.setStatus(status);
+				coupon.setCouponSerialNum(couponnum);
+				coupon.setCouponPrice(3000000);
+				couponRepo.save(coupon);
+			}
+		}
+	
+	
 }

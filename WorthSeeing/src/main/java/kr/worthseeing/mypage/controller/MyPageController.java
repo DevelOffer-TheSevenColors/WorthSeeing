@@ -140,5 +140,11 @@ public class MyPageController {
 		model.addAttribute("params", params);
 		return "/common/messageRedirect";
 	}
+	
+	@GetMapping("/addCoupon")
+	public String getCouponAdd(Coupon coupon) {
+		myPageService.getCouponAdd(coupon);
+		return "/main";
+	}
 
 }

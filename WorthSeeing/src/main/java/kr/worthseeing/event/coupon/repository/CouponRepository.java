@@ -29,4 +29,5 @@ public interface CouponRepository  extends CrudRepository<Coupon, Integer>,
 	@Query("select c from Coupon c where c.status.status_seq = 5")
 	Page<Coupon> findCouponList(Pageable pageable);
 	
+	
 }
