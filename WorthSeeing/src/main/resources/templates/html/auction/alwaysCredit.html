@@ -46,11 +46,7 @@ $(document).ready(function() {
 	
 	var totalPrice = calcPrice  ;
 	
-	$("#month").change(function(){
-		$("#monthPrice").text(calcPrice + " * " + $("#month option:selected").val());
-		changePoint(totalPrice, [[${users.point}]], 500, 100);
-	})
-	
+		
 	$("#use_pnt").change(function() {
 		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
@@ -132,13 +128,17 @@ function changePoint(amt,pnt,min,unit){
 		
 	}
 	
-	$("#result_pnt").html(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
-// 	$("#result_pnt").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
-// 	$("#result_pnt").attr("value",amt - v_point);
+	var noFormatPrice=amt - v_point;
+	
+	var finallyPrice = noFormatPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	
+	$("#result_pnt").html(finallyPrice); //최종 결제금액 = 결제금액 - 사용할 포인트
+	$("#result_pnt").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
+	$("#result_pnt").attr("value",amt - v_point);
 	$("#inputprice").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
 	$("#inputPoint").val(pnt - v_point); 
 	$("#point2").val(pnt - v_point); 
-	$("#point2").text(pnt - v_point).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$("#point2").text(pnt - v_point);
 	
 }
 
@@ -176,7 +176,7 @@ function changePoint(amt,pnt,min,unit){
 							
 							<tr>
 								<td>사용가능 포인트</td>
-								<td><span  id="point2" th:text="${users.point}" ></span><span>원</span> 
+								<td><span  id="point2" th:text="${users.point}" ></span><span>p</span> 
 									<span>
 									<input type="checkbox" id="chk_use" 
 											onclick="chkPoint()">포인트전체사용</span>

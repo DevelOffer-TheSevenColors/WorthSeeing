@@ -19,27 +19,17 @@ var month=document.getElementById('month');
 $(document).ready(function() {
 	
 	
-	var date = new Date();
-
-	y = date.getFullYear();
-
-	m = date.getMonth();
-
-	var firstDay = new Date(y, m, 1);
-
-	var lastDay = new Date(y, m + 1, 0);
-	
-// 	document.write(lastDay);
-	
-	
 	var totalPrice =( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
 	
-	$("#monthPrice").text(totalPrice);
+	
+	var itotalPrice=totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	
+	$("#monthPrice").text(itotalPrice);
 	$("#monthPrice").val(totalPrice);
 	
 	$("#month").change(function(){
 		$("#monthPrice").text([[${blockGroupWaiting.price}]] -   ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]) + " * " + $("#month option:selected").val());
-		totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
+		totalPrice = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
 		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
@@ -123,14 +113,22 @@ function changePoint(amt,pnt,min,unit){
 		v_left[i].innerHTML = pnt - v_point; //= 전체 포인트 중에 사용할 포인트빼고 남은 포인트
 		
 	}
+
+	var noFormatPrice=amt - v_point;
 	
-	$("#result_pnt").html(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
+	var finallyPrice = noFormatPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	
+	$("#result_pnt").html(finallyPrice); //최종 결제금액 = 결제금액 - 사용할 포인트
+	
 	$("#result_pnt").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
-	$("#inputprice").val(amt - v_point); //최종 결제금액 = 결제금액 - 사용할 포인트
+	$("#inputprice").val(amt - v_point); 
 	$("#point2").val(pnt - v_point); 
 	$("#inputPoint").val(pnt - v_point); 
 	$("#result_pnt").attr("value",amt - v_point);
 	$("#point2").text(pnt - v_point);
+	
+	
+	
 	
 }
 
@@ -147,6 +145,7 @@ function changePoint(amt,pnt,min,unit){
 
 
 			<div><a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a></div><br />
+			 	<form>
 					<table class="customBoard">
 						<thead >
 							<tr>
@@ -156,10 +155,7 @@ function changePoint(amt,pnt,min,unit){
 						</thead>
 
 						<tbody  th:each="waiting, state : ${blockGroupWaiting}">
-							<tr>
-								<td >1개월 결제금액</td>
-								<td class="bold txt_blue" th:text="${waiting.price}+'원'"></td>
-							</tr>
+						
 							
 							
 							<tr>
@@ -174,7 +170,7 @@ function changePoint(amt,pnt,min,unit){
 							
 							<tr>
 								<td>사용가능 포인트</td>
-								<td><span  id="point2" th:text="${users.point}" ></span><span>원</span> 
+								<td><span  id="point2" th:text="${users.point}" ></span><span>p</span> 
 									<span>
 									<input type="checkbox" id="chk_use" 
 											onclick="chkPoint()">포인트전체사용</span>
@@ -224,8 +220,7 @@ function changePoint(amt,pnt,min,unit){
 							</tr>
 							
 							<tr>
-								<td colspan="2"><input type="submit" value="결제하기"
-									class="btpay2"></td>
+								<td colspan="2"><input type="submit" value="결제하기" class="btpay2"></td>
 							</tr>
 							
 						</tbody>
