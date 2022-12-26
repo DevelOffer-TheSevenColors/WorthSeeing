@@ -1,6 +1,6 @@
 // 인기순위 Top 5 이미지 띄우기
 	function top5Img(cImgTopList) {
-		var cImgTopArr = cImgTopList.split(",");
+	 	var cImgTopArr = cImgTopList.split(",");
 	       
 		for (var i = 1; i <= 5; i++) {
 			$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
