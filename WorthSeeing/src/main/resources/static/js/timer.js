@@ -7,7 +7,6 @@
     var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),18,06,10);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),18,01,00);
   
-  
     var nt = now.getTime();
     var ot = open.getTime();
     var et = end.getTime();
