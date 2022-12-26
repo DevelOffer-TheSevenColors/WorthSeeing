@@ -11,24 +11,23 @@
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
-		<div class="row justify-content-center" style="margin-top: 80px;">
+		<div class="row justify-content-center margintop80">
 			<div class="col-lg-8" >
 				<div class="contact-form bg-white">
 
 					<br />
 					<form th:action="@{/refundProc}" method="post"
-						enctype="multipart/form-data" style="margin-left: 39%; width: 45%;">
+						enctype="multipart/form-data" class="refundform" >
 						<input type="hidden" name="blockGroup_seq"
 							th:value="${blockGroup.blockGroup_seq}">
 						<p>정말로 환불하시겠습니까?</p>
 						
-						<div class="image-container"
-							style="margin-bottom: 5%; margin-left: 7%;">
+						<div class="image-container refundImg">
 							<img id="preview-image" th:src="${blockGroup.cImg}" />
 						</div>
 						
-						<div style="margin-left: -14%;">
-							환불 가격은 :&nbsp;&nbsp;<span name="refundPrice" id="refundPrice" style="color: red;"> </span> 입니다.
+						<div>
+							환불 가격은 :&nbsp;&nbsp;<span name="refundPrice" class="refuntredtext" id="refundPrice"> </span> 입니다.
 							<p>※ 포인트를 제외한 (가격x남은 날짜)의 70% ※</p>
 						</div>
 						

@@ -9442,3 +9442,18 @@ h5, h6, .font-weight-medium {
 	font-size: 100px;
 	font-weight: bold;
 }
+
+.refundform {
+	margin-left: 39%; 
+	width: 45%;
+}
+.refundImg {
+	margin-bottom: 5%; 
+	margin-left: 7%;
+}
+.refunttext {
+	margin-left: -14%;
+}
+.refuntredtext {
+	color: red;
+}
