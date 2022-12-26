@@ -78,18 +78,18 @@
 										id="contactForm" novalidate="novalidate" method="post">
 										<div class="form-row"></div>
 										<div class="control-group">
-											<p id="name"
+											<p id="name" style="font-size:18px";
 												th:text="${principal.users.name}"></p>
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="control-group">
-											<textarea class="form-control py-3 px-4" rows="1"
+											<textarea class="form-control py-2 px-3" rows="1"
 												name="replyContent" id="message" placeholder="Message"
 												required="required"
 												data-validation-required-message="Please enter your message"></textarea>
 											<p class="help-block text-danger"></p>
 										</div>
-										<div class="text-center">
+										<div align="right">
 											<input value="댓글 등록" class="btn btn-primary py-2 px-3"
 												type="submit" id="sendMessageButton" />
 										</div>

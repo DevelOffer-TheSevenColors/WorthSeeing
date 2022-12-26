@@ -19,20 +19,18 @@
 				<!-- 				<div class="form-group"> -->
 				<!-- 					<input type="submit" value="수정하기" -->
 				<!-- 						class="btn btn-primary rounded submit p-3" /> -->
-				<!-- 				</div> -->
+				<!-- 				</div> -->   
 
 				<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
 					<input type="button" value="공지글쓰기"
 						onclick="location.href='/notify/insertNotify'"
 						class="btn btn-primary rounded submit p-2" />
 				</div>
-				<br>
 				<div sec:authorize="hasRole('ROLE_USER')">
 					<input type="button" value="1:1문의글 쓰기"
 						onclick="location.href='/notify/insertContact'"
 						class="btn btn-primary rounded submit p-2" />
 				</div>
-				</br>
 
 				<div id="content">
 					<form th:action="@{/notify}" method="post">
