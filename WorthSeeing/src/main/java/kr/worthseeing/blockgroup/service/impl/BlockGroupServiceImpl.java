@@ -155,15 +155,18 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	}
 
 	@Override
-	public List<Integer> getBlockGroupDate() {
-
-		List<String> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
+	public Map<String, List<Integer>> getBlockGroupDate() {
+		
+		List<BlockGroup> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
 
 		List<Integer> betweenDaysList = new ArrayList<Integer>();
+		List<Integer> usingBlockGroupList = new ArrayList<Integer>();
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		for (String endDateItem : listBlockGroupEndDate) {
+		for (BlockGroup blockGroupItem : listBlockGroupEndDate) {
+			String endDateItem = blockGroupItem.getEndDate();
+			
 			if (endDateItem == null){
 				betweenDaysList.add((int) Duration
 						.between(LocalDate.now().atStartOfDay(), LocalDate.now().atStartOfDay())
@@ -172,11 +175,16 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 				betweenDaysList.add((int) Duration
 						.between(LocalDate.now().atStartOfDay(), LocalDate.parse(endDateItem, formatter).atStartOfDay())
 						.toDays());
+				usingBlockGroupList.add(blockGroupItem.getBlockGroup_seq());
 			}
 			
 		}
 
-		return betweenDaysList;
+		Map<String, List<Integer>> resultMap = new HashMap<String, List<Integer>>();
+		resultMap.put("betweenDaysList", betweenDaysList);
+		resultMap.put("usingBlockGroupList", usingBlockGroupList);
+		
+		return resultMap;
 	}
 
 	@Override

@@ -37,9 +37,9 @@ public class BlockController {
 //		model.addAttribute("blockGroupMap", blockGroupMap);
 		
 		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq());
-		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate());
+		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate().get("betweenDaysList"));
+		model.addAttribute("usingBlockGroupList", blockGroupService.getBlockGroupDate().get("usingBlockGroupList"));
 		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
-		
 		
 //		JSONObject jsonObject = new JSONObject(blockGroupMap);
 //		System.out.println("jsonObject--->" + jsonObject.get(3).toString());

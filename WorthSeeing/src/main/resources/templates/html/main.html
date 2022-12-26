@@ -101,17 +101,8 @@
 		var cImgList = encodeURI("[[${listcImg}]]");
 	    var cImgArr = cImgList.split(",");
 	    var topSize = 0;
-	    var betweenDaysList = [[${betweenDaysList}]]
-	    var betweenDaysArr = Array.from(betweenDaysList);
 	    
 		for (var i = 1; i <= 289; i++) {
-			if(betweenDaysArr[i-1] == 0) {
-				betweenDaysArr[i-1] = "만료됨";
-			} else if (betweenDaysArr[i-1] == null) {
-				betweenDaysArr[i-1] = "";
-			} else {
-				betweenDaysArr[i-1] = betweenDaysArr[i-1] + " 일 남음";
-			}
 			
 			// 마지막 사진 처리
 			if (i == 289) {
@@ -120,7 +111,7 @@
 				var cImgURL = cImgArr[i].slice(3);
 			}
 		
-			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'>" + betweenDaysArr[i-1] + "</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgURL + "'/></li>";
+			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'></p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgURL + "'/></li>";
 	        
 			$(".blockTest").append(child);
 
@@ -194,6 +185,12 @@
 		
 		var reservationBlockGroupSeqList = [[${reservationBlockGroupSeqList}]]
 		
+		var betweenDaysList = [[${betweenDaysList}]]
+	    var betweenDaysArr = Array.from(betweenDaysList);
+		
+	    var usingBlockGroupList = [[${usingBlockGroupList}]]
+	    var usingBlockGroupArr = Array.from(usingBlockGroupList);
+		
 		// 각 블록 클릭 시 localStorage에 저장 후 click 수 계산하여 처리
 		$(".imgDisplay").click(function() {
 				setLocalStorage($("#userName").text(), $(this).parents(".tt").attr("id"), today, expireDate);
@@ -211,7 +208,10 @@
 	        if (checkBoxID == "displayBlockNum") { // 블록 번호
 				$(".numberDisplay").css("display", "block");
 			} else if (checkBoxID == "displayBetweenDay") { // 남은 날짜 표시
-				$(".betweenDay").css("display", "block");
+				usingBlockGroupArr.forEach(function(blockGroupSeq, index) {
+					$("#" + blockGroupSeq).find(".betweenDay").css("display", "block");
+					$("#" + blockGroupSeq).find(".betweenDay").text(betweenDaysArr[index] + " 일 남음");
+				});
 			} else if (checkBoxID == "availableReserv") { // 예약 가능 블록
 				reservationBlockGroupSeqList.forEach(function(BlockGroupSeq) {
 					$("#" + BlockGroupSeq).find("button").css("display", "block");
