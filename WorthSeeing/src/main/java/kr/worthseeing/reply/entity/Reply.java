@@ -31,7 +31,7 @@ public class Reply {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false, columnDefinition = "date default sysdate")
-	private Date replyDate;
+	private Date replyDate = new Date();
 	
 	@ManyToOne
 	@JoinColumn(name="notifySeq")
