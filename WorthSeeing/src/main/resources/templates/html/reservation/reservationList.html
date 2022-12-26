@@ -41,7 +41,7 @@
 							<td th:text="${reservation.userCnt}"></td>
 							<td  th:text="${reservation.blockGroup.clickCnt}"></td>
 							<td><a
-								th:href="@{/reservation/reservationCreditView(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
+								th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
 						</tr>
 						<!-- @{/board/getBoard(seq=${board.seq})} -->
 					</tbody>
