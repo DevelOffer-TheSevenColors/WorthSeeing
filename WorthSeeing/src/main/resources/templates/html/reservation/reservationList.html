@@ -82,7 +82,26 @@
 			</div>
 			
 			<div th:if="${auctionFlag == 'no'}" >
-				<p>요소 없음</p>
+				<table class="customBoard">
+
+					<thead>
+						<tr>
+							<th>블록 번호</th>
+							<th>경매 시작가격</th>
+							<th>예약 인원</th>
+							<th>블록 클릭 수</th>
+							<th>예약 하러 가기</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td colspan="5">
+								<p class="textcenter2" >가능한 예약 없음</p>
+						</td>
+						
+					</tr>
+					</tbody>
+				</table>
 			</div>
 			
 
