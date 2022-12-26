@@ -96,7 +96,7 @@ $(document).ready(function() {
 								<li th:each="page : ${#numbers.sequence(start, last)}"
 									th:class="${page == alwaysList.number + 1} ? 'active'">
 									<button th:if="${page==(nowPage+1)}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
-									<button th:if="${page!=(nowPage+1)}" name="page" th:value="${page}" th:text="${page}"></button>
+<!-- 									<button th:if="${page!=(nowPage+1)}" name="page" th:value="${page}" th:text="${page}"></button> -->
 									
 								</li>
 

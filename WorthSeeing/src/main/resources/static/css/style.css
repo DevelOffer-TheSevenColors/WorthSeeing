@@ -9515,8 +9515,9 @@ h5, h6, .font-weight-medium {
 
 .reservationBtn, .betweenDay {
 	border: 1px solid #7AB730;
-	background-color: rgba(0, 0, 0, 0);
-	color: #7AB730;
+	background-color: #7AB730;
+	color: white;
+	font-weight: bold;
 	padding: 5px;
 	font-size: 30px;
 	display: none;
@@ -9524,8 +9525,8 @@ h5, h6, .font-weight-medium {
 }
 
 .reservationBtn:hover {
-	color: white;
-	background-color: #7AB730;
+	color: #7AB730;
+	background-color: white;
 }
 
 .height700 {

@@ -313,17 +313,17 @@ public class reservationTest {
 		}
 	}
 
-//	@Test
+	@Test
 	public void zzzz() {
 		for (int i = 0; i < 289; i++) {
 			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
 			Status status = new Status();
 			status.setStatus_seq(9); // 미사용 예약 가능 상태
 			
+			findBlockGroup.setLinkUrl("/alwaysBuyList");
+//			findBlockGroup.setCImg("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
 			
-			findBlockGroup.setCImg("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
-			
-			findBlockGroup.setStatus(status);
+//			findBlockGroup.setStatus(status);
 
 			
 			blockGroupRepo.save(findBlockGroup);

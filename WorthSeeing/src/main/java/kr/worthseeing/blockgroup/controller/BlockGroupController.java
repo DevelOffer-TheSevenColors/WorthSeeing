@@ -39,7 +39,7 @@ public class BlockGroupController {
 		BlockGroupWaiting BlockGroupWaiting = myPageService.findBlockGroupWaiting(blockGroupWaiting);
 		model.addAttribute("blockGroupWaiting", BlockGroupWaiting);
 		return "/writeURLThumb";
-	}
+	} 
 
 	// 이용중인 블록 수정
 	@GetMapping("/updateURLThumb")
