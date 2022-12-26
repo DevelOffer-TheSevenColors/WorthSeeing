@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.block_return;
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.service.ReservationService;
@@ -61,7 +63,10 @@ public class BlockController {
 		List<String> urlTopList = new ArrayList<String>();
 		urlTopList.add(0, null);
 		
+		List<String> blockGroupLink = new ArrayList<String>();
+		
 		for(BlockGroup blockgroup : blockGroupService.topBlock(0).getContent()) {
+			blockGroupLink.add(blockgroup.getLinkUrl());
 			try {
 				String encodeResult = URLEncoder.encode(blockgroup.getCImg(), "utf-8");
 				urlTopList.add(blockgroup.getCImg());
@@ -74,6 +79,7 @@ public class BlockController {
 //		blockGroupList.get(0).getLinkUrl();
 		model.addAttribute("listcImg", urlList);
 		model.addAttribute("listTopcImg", urlTopList);
+		model.addAttribute("blockGroupLink", blockGroupLink);
 		
 //		model.addAttribute("blockGroupMap", jsonObject.get(3)); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
 

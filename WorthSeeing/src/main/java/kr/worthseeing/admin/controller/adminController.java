@@ -59,6 +59,7 @@ public class adminController {
 			startYear = "2022";
 		}
 		
+		model.addAttribute("startYear",startYear);
 		model.addAttribute("salePriceList", logService.saleChart(startYear));
 		
 		return "/admin/salePriceChart";
@@ -72,6 +73,8 @@ public class adminController {
 			block_seq = "1";
 		}
 		
+		model.addAttribute("startYear",startYear);
+		model.addAttribute("block_seq",block_seq);		
 		model.addAttribute("blockPriceList", logService.blockChart(block_seq,startYear));
 		return "/admin/blockPriceChart";
 	}

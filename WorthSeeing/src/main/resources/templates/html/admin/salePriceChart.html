@@ -4,7 +4,8 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
-<!-- 부트스트랩 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- 遺��듃�뒪�듃�옪 -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
@@ -26,15 +27,15 @@
 		<div class="row justify-content-center margintop80">
 			<div class="col-lg-8">
 				<a href="/admin/blockPriceChart" class="dropdown-item"><strong>👉블록별
-						가격차트</strong></a>
+                  가격차트</strong></a>
 				<h2 class="textcenter">분기별 이익차트</h2>
 				<div class="textcenter">
 					<form th:action="@{/admin/salePriceChart}">
 						<div>
 							<span> 년도 : </span> <select name="startYear">
-								<option th:value="2022">2022</option>
-								<option th:value="2023">2023</option>
-								<option th:value="2024">2024</option>
+								<option th:value="2022" th:selected="${startYear=='2022'}">2022</option>
+								<option th:value="2023" th:selected="${startYear=='2023'}">2023</option>
+								<option th:value="2024" th:selected="${startYear=='2024'}">2024</option>
 							</select>
 							<button type="submit">보기</button>
 						</div>
@@ -53,7 +54,7 @@
 					</div>
 				</div>
 
-				<!-- 차트 -->
+				<!-- 李⑦듃 -->
 				<script>
 	var list1 = [[${salePriceList[0]}]];
 	var list2 = [[${salePriceList[1]}]];
@@ -69,7 +70,7 @@
 
 	  var mixedChart = {
 	    type: 'bar',
-	    labels: ['1분기', '2분기', '3분기', '4분기'],
+	    labels: ['1분기', '분기', '3분기', '4분기'],
 	    datasets : [
 	      {
 	        label: '매출액',
