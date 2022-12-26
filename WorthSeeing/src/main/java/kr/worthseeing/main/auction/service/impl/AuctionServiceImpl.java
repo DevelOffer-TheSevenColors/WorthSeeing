@@ -1,24 +1,16 @@
 package kr.worthseeing.main.auction.service.impl;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.querydsl.core.BooleanBuilder;
-
-import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
