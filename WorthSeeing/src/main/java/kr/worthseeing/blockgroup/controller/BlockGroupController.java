@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.message.dto.MessageDTO;
@@ -34,22 +35,40 @@ public class BlockGroupController {
 	@Autowired
 	private MyPageService myPageService;
 	
+	// 경매 낙찰 후 미리 등록
 	@GetMapping("/writeURLThumb")
-	public String writeURLThumb(BlockGroup blockGroup, Model model) {
+	public String writeURLThumb(BlockGroupWaiting blockGroupWaiting, Model model) {
+		BlockGroupWaiting BlockGroupWaiting = myPageService.findBlockGroupWaiting(blockGroupWaiting);
+		model.addAttribute("blockGroupWaiting", BlockGroupWaiting);
+		return "/writeURLThumb";
+	}
+	
+	// 이용중인 블록 수정
+	@GetMapping("/updateURLThumb")
+	public String updateURLThumb(BlockGroup blockGroup, Model model) {
 		BlockGroup myBlockGroup = blockGroupService.findBlockGroup(blockGroup);
 		model.addAttribute("blockGroup", myBlockGroup);
 		System.out.println("Controller blockGroup-->" + myBlockGroup);
 		
-		return "/writeURLThumb";
+		return "/updateURLThumb";
 	}
 	
-//	@PostMapping("/writeURLThumb")
-	public String writeURLThumbProc(BlockGroup blockGroup, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
-		blockGroupService.insertBlockGroup(blockGroup, files, principal.getUsers());
+	// 이용 전 작성 처리
+		@PostMapping("/writeURLThumb")
+		public String writeURLThumbProc(Model model, BlockGroupWaiting blockGroupWaiting, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
+			blockGroupService.updateBlockGroupWaiting(blockGroupWaiting, files, principal.getUsers());
+			List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+			model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
+			model.addAttribute("BlockGroupUserId", blockGroupUserId);
+			
+			MessageDTO message = new MessageDTO("등록되었습니다.", "/mypageMain",
+		            RequestMethod.GET, null);
+
+			return showMessageAndRedirect(message, model);
+		}
 		
-		return "redirect:/main";
-	}
 	
+	// 수정 처리
 	@PostMapping("/updateURLThumb")
 	public String updateURLThumbProc(Model model, BlockGroup blockGroup, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
 		blockGroupService.updateBlockGroup(blockGroup, files, principal.getUsers());
@@ -57,7 +76,7 @@ public class BlockGroupController {
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
 		
-		MessageDTO message = new MessageDTO("수정되었습니다", "/mypageMain",
+		MessageDTO message = new MessageDTO("수정되었습니다.", "/mypageMain",
 	            RequestMethod.GET, null);
 
 		return showMessageAndRedirect(message, model);

@@ -2,11 +2,9 @@ package kr.worthseeing.blockgroup.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -29,6 +26,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
@@ -45,6 +44,9 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
 
+	@Autowired
+	private BlockGroupWaitingRepository blockGroupWaitingRepo;
+	
 	@Autowired
 	private UsersRepository usersRepo;
 
@@ -90,6 +92,26 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		findBlockGroup.setLinkUrl(blockGroup.getLinkUrl());
 
 		blockGroupRepo.save(findBlockGroup);
+	}
+	
+	@Override
+	public void updateBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting, MultipartFile files, Users users) {
+		BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+		
+		if (!files.isEmpty()) {
+			String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
+			findBlockGroupWaiting.setCImg(imagePath);
+			findBlockGroupWaiting.setSImg(files.getOriginalFilename());
+			try {
+				saveFile(files);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		findBlockGroupWaiting.setLinkUrl(blockGroupWaiting.getLinkUrl());
+		
+		blockGroupWaitingRepo.save(findBlockGroupWaiting);
 	}
 
 	private void saveFile(MultipartFile files) throws IOException {

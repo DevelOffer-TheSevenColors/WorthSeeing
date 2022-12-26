@@ -18,19 +18,20 @@
 				<div class="contact-form bg-white">
 
 					<br />
-					<form th:action="@{/writeURLThumb}" method="post"
+					<form th:action="@{/updateURLThumb}" method="post"
 						enctype="multipart/form-data" style="margin-left: 39%; width: 45%;">
 						<input type="hidden" name="blockGroup_seq"
-							th:value="${blockGroupWaiting_seq.blockGroup_seq}">
+							th:value="${blockGroup.blockGroup_seq}">
 						<h3 class="padding auto" style="margin-left: 3%;">썸네일 미리보기</h3>
 						<div class="image-container"
 							style="margin-bottom: 5%; margin-left: 10%;">
-							<img id="preview-image" th:src="${blockGroupWaiting.cImg}" />
+							<img id="preview-image" th:src="${blockGroup.cImg}" />
 						</div>
 						<table class="insertBoard">
 							<tr>
 								<td>URL:</td>
-								<td><input type="text" name="linkUrl" th:value="${blockGroupWaiting.linkUrl}" /></td>
+								<td><input type="text" name="linkUrl"
+									th:value="${blockGroup.linkUrl}" /></td>
 							</tr>
 							<tr>
 								<td th:text="썸네일"></td>

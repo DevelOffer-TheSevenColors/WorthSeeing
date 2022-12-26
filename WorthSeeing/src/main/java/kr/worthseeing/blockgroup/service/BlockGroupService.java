@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.users.entity.Users;
 
@@ -29,4 +30,6 @@ public interface BlockGroupService {
 	Map<String, List<Integer>> getBlockGroupDate();
 	
 	void updateBlockGroup(BlockGroup blockGroup, MultipartFile files, Users users);
+	
+	void updateBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting, MultipartFile files, Users users);
 }
