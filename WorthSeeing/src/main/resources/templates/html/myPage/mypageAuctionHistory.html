@@ -9,13 +9,20 @@
 		$(".pageBtn").click(function() {
 			movePage(idDomain, $(this).val());
 		})
+		const numberWithCommas  = (x) => {
+ 	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	document.querySelector('#result').innerText = 
+	'천단위 콤마 : '+numberWithCommas( waiting.price );
+
+		
 	</script>
 
 	<div class="row">
 		<div class="menuItem">
 			<br />
 			<div>
-				<h2>나의 낙찰 내역</h2>
+				<h2 align="center">나의 낙찰 내역</h2>
 			</div>
 			<div>
 				<table class="customBoard">
@@ -23,7 +30,6 @@
 					<tr align="center">
 						<th scope="col">No.</th>
 						<th scope="col">블록 번호</th>
-						<th scope="col">낙찰가</th>
 						<th scope="col">결제금액</th>
 						<th scope="col">낙찰일시</th>
 						<th scope="col">종료일시</th>
@@ -35,8 +41,7 @@
 								<tr >
 									<td th:text="${state.count}"></td>
 									<td th:text="${waiting.blockGroup.blockGroup_seq}"></td>
-									<td th:text="${waiting.price}"></td>
-									<td th:text="${waiting.price}"></td>
+									<td th:text="${#numbers.formatInteger(waiting.price, 3,'COMMA')}"></td>
 									<td th:text="${#dates.format(waiting.auctionDate, 'yyyy-MM-dd')}"></td>
 									<td th:text="${#dates.format(waiting.endDate, 'yyyy-MM-dd')}"></td>
 									<td>
