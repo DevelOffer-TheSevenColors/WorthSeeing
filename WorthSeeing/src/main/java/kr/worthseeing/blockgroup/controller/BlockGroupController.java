@@ -1,7 +1,5 @@
 package kr.worthseeing.blockgroup.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,71 +29,59 @@ public class BlockGroupController {
 
 	@Autowired
 	private BlockGroupService blockGroupService;
-	
+
 	@Autowired
 	private MyPageService myPageService;
-	
+
 	// 경매 낙찰 후 미리 등록
 	@GetMapping("/writeURLThumb")
 	public String writeURLThumb(BlockGroupWaiting blockGroupWaiting, Model model) {
 		BlockGroupWaiting BlockGroupWaiting = myPageService.findBlockGroupWaiting(blockGroupWaiting);
 		model.addAttribute("blockGroupWaiting", BlockGroupWaiting);
-		return "/writeURLThumb"; 
+		return "/writeURLThumb";
 	}
-	
+
 	// 이용중인 블록 수정
 	@GetMapping("/updateURLThumb")
 	public String updateURLThumb(BlockGroup blockGroup, Model model) {
 		BlockGroup myBlockGroup = blockGroupService.findBlockGroup(blockGroup);
 		model.addAttribute("blockGroup", myBlockGroup);
-		System.out.println("Controller blockGroup-->" + myBlockGroup);
-		
+
 		return "/updateURLThumb";
 	}
-	
-	// 이용 전 작성 처리
-		@PostMapping("/writeURLThumb")
-		public String writeURLThumbProc(Model model, BlockGroupWaiting blockGroupWaiting, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
-			blockGroupService.updateBlockGroupWaiting(blockGroupWaiting, files, principal.getUsers());
-			List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
-			model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
-			model.addAttribute("BlockGroupUserId", blockGroupUserId);
-			
-			MessageDTO message = new MessageDTO("등록되었습니다.", "/mypageMain",
-		            RequestMethod.GET, null);
 
-			return showMessageAndRedirect(message, model);
-		}
-		
-	
+	// 이용 전 작성 처리
+	@PostMapping("/writeURLThumb")
+	public String writeURLThumbProc(Model model, BlockGroupWaiting blockGroupWaiting, MultipartFile files,
+			@AuthenticationPrincipal SecurityUser principal) {
+		blockGroupService.updateBlockGroupWaiting(blockGroupWaiting, files, principal.getUsers());
+		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
+		model.addAttribute("BlockGroupUserId", blockGroupUserId);
+
+		MessageDTO message = new MessageDTO("등록되었습니다.", "/mypageMain", RequestMethod.GET, null);
+
+		return showMessageAndRedirect(message, model);
+	}
+
 	// 수정 처리
 	@PostMapping("/updateURLThumb")
-	public String updateURLThumbProc(Model model, BlockGroup blockGroup, MultipartFile files, @AuthenticationPrincipal SecurityUser principal) {
+	public String updateURLThumbProc(Model model, BlockGroup blockGroup, MultipartFile files,
+			@AuthenticationPrincipal SecurityUser principal) {
 		blockGroupService.updateBlockGroup(blockGroup, files, principal.getUsers());
 		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
-		
-		MessageDTO message = new MessageDTO("수정되었습니다.", "/mypageMain",
-	            RequestMethod.GET, null);
+
+		MessageDTO message = new MessageDTO("수정되었습니다.", "/mypageMain", RequestMethod.GET, null);
 
 		return showMessageAndRedirect(message, model);
 	}
-	
-	
-	/*
-	@GetMapping("/main")
-	public String listBlockGroup(Model model) {
-		List<BlockGroup> blockGroupList = blockGroupService.listBlockGroup();
-		model.addAttribute("blockGroupList", blockGroupList);
-		return "redirect:/";
-	}
-	*/
-	
+
 	private String showMessageAndRedirect(final MessageDTO params, Model model) {
-	      model.addAttribute("params", params);
-	      return "/common/messageRedirect";
-	   }
+		model.addAttribute("params", params);
+		return "/common/messageRedirect";
+	}
 
 	// blockGroup 클릭수 많은 순으로 정렬한 리스트
 	@RequestMapping("/list/blockGroupRankList")
@@ -103,21 +89,15 @@ public class BlockGroupController {
 		Page<BlockGroup> blockGroupList = blockGroupService.listBlockGroupOrderByClickCnt(pageable);
 		List<String> urlGroupRankList = new ArrayList<String>();
 		urlGroupRankList.add(0, null);
-		
-		for(BlockGroup blockgroup : blockGroupList) {
-			try {
-				String encodeResult = URLEncoder.encode(blockgroup.getCImg(), "utf-8");
-				urlGroupRankList.add(blockgroup.getCImg());
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			
+
+		for (BlockGroup blockgroup : blockGroupList) {
+			urlGroupRankList.add(blockgroup.getCImg());
 		}
-		model.addAttribute("urlGroupRankList",urlGroupRankList);
+		model.addAttribute("urlGroupRankList", urlGroupRankList);
 		model.addAttribute("blockGroupList", blockGroupList);
 		return "/list/blockGroupRankList";
 	}
-	
+
 	@GetMapping("/test")
 	public String listBlockGroup(Model model) {
 		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
@@ -125,10 +105,10 @@ public class BlockGroupController {
 		model.addAttribute("blockGroupMap", blockGroupMap); // html ${blockGroupMap.get(2).get(0).getBlockGroup_seq()}
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/buyBlock")
 	public String buyBlock() {
 		return "/buyBlock";
 	}
-	
+
 }
