@@ -56,7 +56,7 @@ public class Test {
 		System.out.println("===========>");
 	}
 
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	public void insertNotify() {
 		for (int i = 1; i < 14; i++) {
 			Notify notify = new Notify(i, "공지공지" + i, "작성자" + i, 0);
@@ -83,7 +83,7 @@ public class Test {
 //		
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	public void insertContact() {
 		for (int i = 1; i < 14; i++) {
 			Notify notify = new Notify(i, "문의문의" + i, "작성자" + i, 0);

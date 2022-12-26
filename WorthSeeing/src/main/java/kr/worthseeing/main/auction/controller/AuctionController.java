@@ -82,6 +82,7 @@ public class AuctionController {
 	public String AuctionCredit(Model model, BlockGroupWaiting blockGroupWaiting,
 			@AuthenticationPrincipal SecurityUser principal) {
 
+		
 		System.out.println("====>1" + blockGroupWaiting);
 		auctionService.auctionCreditView(blockGroupWaiting);
 
