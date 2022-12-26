@@ -17,11 +17,7 @@ var month=document.getElementById('month');
 
 
 $(document).ready(function() {
-	
-	
 	var totalPrice =( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
-	
-	
 	var itotalPrice=totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	
 	$("#monthPrice").text(itotalPrice);

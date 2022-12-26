@@ -67,7 +67,7 @@ public class reservationController {
 		model.addAttribute("reservationCreditInfo", reservation_);
 		model.addAttribute("block", blockStr.substring(0, blockStr.length() - 1));
 		
-		return "/reservation/reservationCreditView";
+		return "/reservation/reservationCredit";
 	}
 
 	// 10프로 결제하기 버튼 클릭 시
@@ -78,7 +78,6 @@ public class reservationController {
 		MessageDTO message = new MessageDTO("예약 결제 되었습니다..", "/reservation/reservationList?reservation_seq="+reservation.getReservation_seq(), RequestMethod.GET, null);
 
 	      return showMessageAndRedirect(message, model);
-
 //		return "redirect:/reservation/reservationList";
 	}
 	
