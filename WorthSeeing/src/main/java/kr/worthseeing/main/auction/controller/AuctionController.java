@@ -136,12 +136,17 @@ public class AuctionController {
 
 //  최종결제 할 때 값 넣기
 	@PostMapping("/updateCredit")
-	public String updateCredit(BlockGroupWaiting blockGroupWaiting, Status status, Users users, int month) {
-
-		System.out.println("===>>" + month);
+	public String updateCredit(BlockGroupWaiting blockGroupWaiting, Status status, Users users, int month ,Model model) {
 
 		auctionService.updateCreditInfo(blockGroupWaiting, status, users, month);
-		return "/main";
+
+		MessageDTO message = new MessageDTO("결제 되었습니다.", "/mypageMain?principal="+users, RequestMethod.GET, null);
+
+	      return showMessageAndRedirect(message, model);
+
+		
+//		return "/main";
+		
 	}
 
 	@GetMapping("/alwaysBuyList")
