@@ -11,6 +11,8 @@
 			<div class="container pt-5 pb-3">
 		<div>
 		<div><a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a></div><br />
+		<form th:action="@{/leftOverCoupon}" method="get">
+		
 		<h2>잔여쿠폰 개수</h2>
 		<table class="customBoard">
 				<tr>
@@ -40,7 +42,7 @@
 					<td th:text="${leftOverList.couponSerialNum}"></td>
 				</tr>
 			</table>
-		<form th:action="@{/leftOverCoupon}" method="get">
+		<a th:href="@{/addCoupon}">쿠폰등록됨?</a>
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
