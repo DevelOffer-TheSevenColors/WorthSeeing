@@ -21,6 +21,7 @@
 		     }else{
 		      	
 		        $("#autoBiddingStop").hide();
+		        $("#bidbutton").show();
 		   	}
         },
         error: function(){
@@ -109,10 +110,8 @@
   //  $("span.time-title").html("금일 마감");
     $(".time").fadeOut();
    }else {
-   console.log("뭐고?");
    $("#ending").hide();
    	$("#opening").hide();
-   	$("#bidbutton").show();
    	$("#starting").show();
        $(".time").fadeIn();
      sec =parseInt(et - nt) / 1000;
@@ -132,7 +131,8 @@
  }
  
  $(window).on("load",function(){
- $("#bidbutton").show();
+ $("#autoBiddingStop").hide();
+ $("#bidbutton").hide();
  	remaindTime();
  	$(".autoPrice").hide();
  	$("#autoCheck").on('click', function() {
