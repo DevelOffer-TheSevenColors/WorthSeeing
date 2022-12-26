@@ -98,6 +98,7 @@ public class BlockGroupController {
 		return "/list/blockGroupRankList";
 	}
 
+
 	@GetMapping("/test")
 	public String listBlockGroup(Model model) {
 		Map<Integer, List<BlockGroup>> blockGroupMap = blockGroupService.listBlockGroup();
