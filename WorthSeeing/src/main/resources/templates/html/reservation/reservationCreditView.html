@@ -11,10 +11,7 @@
 <script>
 
 $(document).ready(function() {
-	
-
 		var calcPrice=   Math.round(   [[${reservationCreditInfo.startPrice}]]  *0.1 );
-	
 		var finallyPrice = calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")		
 	$("#calcPrice").text(finallyPrice);
 	$("#calcPrice").val(calcPrice);
