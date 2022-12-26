@@ -4,56 +4,69 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-</head>  
- 
-<body> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-				
-				<div sec:authorize="hasRole('ROLE_ADMIN')">
-				<button onclick="location.href='/notify/insertNotify'">글쓰기</button>
+
+
+
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<input type="submit" value="수정하기" -->
+				<!-- 						class="btn btn-primary rounded submit p-3" /> -->
+				<!-- 				</div> -->
+
+				<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
+					<input type="button" value="공지글쓰기"
+						onclick="location.href='/notify/insertNotify'"
+						class="btn btn-primary rounded submit p-2" />
 				</div>
+				<br>
 				<div sec:authorize="hasRole('ROLE_USER')">
-				<button onclick="location.href='/notify/insertContact'">1:1 문의글 쓰기</button>
+					<input type="button" value="1:1문의글 쓰기"
+						onclick="location.href='/notify/insertContact'"
+						class="btn btn-primary rounded submit p-2" />
 				</div>
-				
+				</br>
+
 				<div id="content">
 					<form th:action="@{/notify}" method="post">
 						<select name="status">
 							<option value="1">전체</option>
 							<option value="2">공지</option>
 							<option value="4">1:1 문의</option>
-						</select>
-							<input type="submit" value="검색"/>
-						</form>
+						</select> <input type="button" value="검색"
+							class="btn btn-primary rounded submit p-1" />
+					</form>
 
-						<table class="customBoard">
-							<thead>
-								<tr>
-									<th>NO.</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>조회수</th>
-									<th>등록일</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="notify, state : ${notifyList}">
-									<td th:text="${(notifyList.number * 10) + state.count}"></td>
-									<td><a
-										th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
-										th:text="${notify.title}"></a></td>
-									<td th:text="${notify.content}"></td>
-									<td th:text="${notify.viewCnt}"></td>
-									<td th:text="${notify.notifyTime}"></td>
-								</tr>
-							</tbody>
-						</table>
-					
+					<table class="customBoard">
+						<thead>
+							<tr>
+								<th>NO.</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>조회수</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="notify, state : ${notifyList}">
+								<td th:text="${(notifyList.number * 10) + state.count}"></td>
+								<td><a
+									th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
+									th:text="${notify.title}"></a></td>
+								<td th:text="${notify.content}"></td>
+								<td th:text="${notify.viewCnt}"></td>
+								<td th:text="${notify.notifyTime}"></td>
+							</tr>
+						</tbody>
+					</table>
+
 				</div>
 
 				<!-- Paging -->
@@ -74,7 +87,7 @@
 
 								<li th:each="page : ${#numbers.sequence(start, last)}"
 									th:class="${page == notifyList.number + 1} ? 'active'">
-									<button  name="page" th:value="${page}" th:text="${page}"></button>
+									<button name="page" th:value="${page}" th:text="${page}"></button>
 								</li>
 
 								<li th:class="${notifyList.last} ? 'disabled'">
@@ -94,7 +107,6 @@
 
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
-
 </body>
 
 </html>

@@ -21,8 +21,8 @@ public interface NotifyService {
 	//문의하기(contact)
 	void insertContact(Notify notify, Users users);
 	
-	
 	Notify getContact(Notify notify);
+	
 	public void insertNotifyCnt(Notify notify);
 	
 	//Page<Notify> listNotify(Pageable pageable, Status status);

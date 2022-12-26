@@ -63,34 +63,34 @@
 
 
 				<!-- 댓글 -->
-				<table class="container-fluid py-5">
-					<div class="container py-5">
-						<div class="text-center mb-3 pb-3">
+				<table class="container-fluid py-3">
+					<div class="container py-3">
+						<div class="text-center mb-2 pb-2">
 							<h6 class="text-primary text-uppercase"
-								style="letter-spacing: 5px;">Reply</h6>
+								style="letter-spacing: 3px;">Reply</h6>
 							<h3>댓글</h3>
 						</div>
 						<div class="row justify-content-center">
-							<div class="col-lg-8">
-								<div class="contact-form bg-white" style="padding: 30px;">
+							<div class="col-lg-10">
+								<div class="contact-form bg-white" style="padding: 10px;">
 									<div id="success"></div>
 									<form action="/reply/insertReplyProc" name="sentMessage"
 										id="contactForm" novalidate="novalidate" method="post">
 										<div class="form-row"></div>
 										<div class="control-group">
-											<p class="form-control p-4" id="name"
+											<p id="name"
 												th:text="${principal.users.name}"></p>
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="control-group">
-											<textarea class="form-control py-3 px-4" rows="5"
+											<textarea class="form-control py-3 px-4" rows="1"
 												name="replyContent" id="message" placeholder="Message"
 												required="required"
 												data-validation-required-message="Please enter your message"></textarea>
 											<p class="help-block text-danger"></p>
 										</div>
 										<div class="text-center">
-											<input value="댓글 등록" class="btn btn-primary py-3 px-4"
+											<input value="댓글 등록" class="btn btn-primary py-2 px-3"
 												type="submit" id="sendMessageButton" />
 										</div>
 										<input type="hidden" name="notifySeq"
