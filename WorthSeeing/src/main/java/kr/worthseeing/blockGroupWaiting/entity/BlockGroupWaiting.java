@@ -23,18 +23,17 @@ import lombok.ToString;
 @Data
 @ToString(exclude = { "blockGroup","status" })
 @NoArgsConstructor
-@AllArgsConstructor
 public class BlockGroupWaiting {
 
 	@Id
 	@GeneratedValue
 	private int blockGroupWaiting_seq;
 	
+	private String cImg = "https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png";
+	
 	private String linkUrl;
-	private String cImg;
 	private String sImg;
 
-	
 
 	@Column(columnDefinition = "number default 0")
 	private int price;

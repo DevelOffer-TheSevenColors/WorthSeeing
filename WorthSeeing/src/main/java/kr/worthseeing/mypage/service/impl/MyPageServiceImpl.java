@@ -181,7 +181,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public BlockGroupWaiting findBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting) {
-		return blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroup().getBlockGroup_seq()).get();
+		return blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
 	}
 	
 	
