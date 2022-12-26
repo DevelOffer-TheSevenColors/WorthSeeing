@@ -64,8 +64,8 @@
   	});
   	
     var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,59,00);
-    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,58,00);
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),16,41,00);
+    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),16,40,00);
   
   
     var nt = now.getTime();
