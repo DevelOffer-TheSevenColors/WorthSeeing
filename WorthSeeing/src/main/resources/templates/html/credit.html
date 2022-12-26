@@ -25,6 +25,7 @@ $(document).ready(function() {
 	var itotalPrice=totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	
 	$("#monthPrice").text(itotalPrice);
+	$("#result_pnt").text(itotalPrice);
 	$("#monthPrice").val(totalPrice);
 	
 	$("#month").change(function(){

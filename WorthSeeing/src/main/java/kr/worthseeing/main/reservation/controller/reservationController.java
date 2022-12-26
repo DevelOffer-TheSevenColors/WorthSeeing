@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.service.ReservationService;
+import kr.worthseeing.message.dto.MessageDTO;
 import kr.worthseeing.security.config.SecurityUser;
 
 @Controller
@@ -32,7 +34,6 @@ public class reservationController {
 	// 예약가능 목록 띄우기
 	@RequestMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation, @PageableDefault Pageable pageable) {
-		
 		model.addAttribute("reservationList", reservationservice.selectReservation(pageable).get("reservationList"));
 		
 		model.addAttribute("auctionFlag", reservationservice.selectReservation(pageable).get("flag"));
@@ -71,12 +72,21 @@ public class reservationController {
 
 	// 10프로 결제하기 버튼 클릭 시
 	@PostMapping("/insertReservation")
-	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal) {
+	private String insertReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal,Model model) {
 		reservationservice.insertReservationUsers(reservation, principal.getUsers().getUserId());
 
-		return "redirect:/reservation/reservationList";
-	}
+		MessageDTO message = new MessageDTO("예약 결제 되었습니다..", "/reservation/reservationList?reservation_seq="+reservation.getReservation_seq(), RequestMethod.GET, null);
 
+	      return showMessageAndRedirect(message, model);
+
+//		return "redirect:/reservation/reservationList";
+	}
+	
+	private String showMessageAndRedirect(final MessageDTO params, Model model) {
+	      model.addAttribute("params", params);
+	      return "/common/messageRedirect";
+	   }
+	
 	// 10프로 결제하기 버튼 클릭 시
 	@GetMapping("/deleteReservation")
 	private String deleteReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal,
