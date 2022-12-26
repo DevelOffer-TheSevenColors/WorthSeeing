@@ -133,7 +133,6 @@ public class MyPageController {
 
 	@GetMapping("/click")
 	public String getClick(BlockGroup blockGroup) {
-		System.out.println("controller--->" + blockGroup.getBlockGroup_seq());
 		return "redirect:" + myPageService.getClick(blockGroup);
 	}
 

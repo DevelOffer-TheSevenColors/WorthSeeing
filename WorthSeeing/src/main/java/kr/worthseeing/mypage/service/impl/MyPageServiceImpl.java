@@ -64,6 +64,8 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public String getClick(BlockGroup blockGroup) {
 		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt()+1);
+		blockGroupRepo.save(findBlockGroup);
 		return findBlockGroup.getLinkUrl();
 	}
 

@@ -9437,3 +9437,8 @@ h5, h6, .font-weight-medium {
 .fontsize20 {
 	font-size: 40px;
 }
+
+.textsize100 {
+	font-size: 100px;
+	font-weight: bold;
+}
