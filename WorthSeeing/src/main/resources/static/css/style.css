@@ -9457,3 +9457,86 @@ h5, h6, .font-weight-medium {
 .refuntredtext {
 	color: red;
 }
+.height1700 {
+	height: 1700px;
+}
+.blockTest {
+	position: relative;
+	z-index: 1;
+}
+
+.tt {
+	border: 1px solid gray;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: #F3F3F3;
+}
+
+.tt img {
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: #333;
+}
+
+.topnav div {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	margin-left: 13%;
+	text-decoration: none;
+}
+
+.numberDisplay {
+	display: none;
+	border-radius: 50%;
+	background: #7AB730;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
+	margin-left: 25px;
+	margin-top: 20px;
+	padding: 8px 0;
+}
+
+.numberDisplay {
+	border-radius: 50%;
+}
+
+.reservationBtn, .betweenDay {
+	border: 1px solid #7AB730;
+	background-color: rgba(0, 0, 0, 0);
+	color: #7AB730;
+	padding: 5px;
+	font-size: 30px;
+	display: none;
+	text-align: center;
+}
+
+.reservationBtn:hover {
+	color: white;
+	background-color: #7AB730;
+}
+
+.height700 {
+	height: 700px;
+}
+
+.maxwidth900 {
+	max-width: 900px;
+}
+
+.width45height45 {
+	width: 45px; 
+	height: 45px;
+}
