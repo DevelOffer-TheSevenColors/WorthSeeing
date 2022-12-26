@@ -108,7 +108,13 @@
 				betweenDaysArr[i-1] = betweenDaysArr[i-1] + " 일 남음";
 			}
 			
-			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'>" + betweenDaysArr[i-1] + "</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgArr[i].slice(3) + "'/></li>";
+			if (i == 289) {
+				var cImgURL = cImgArr[i].slice(3).slice(0, -3);
+			} else {
+				var cImgURL = cImgArr[i].slice(3);
+			}
+		
+			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'>" + betweenDaysArr[i-1] + "</p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgURL + "'/></li>";
 	          
 			$(".blockTest").append(child);
 
