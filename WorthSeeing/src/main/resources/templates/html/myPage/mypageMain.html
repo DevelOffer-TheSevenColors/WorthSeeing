@@ -175,7 +175,6 @@
 							</div>
 							
 							<div class="floatLeft">
-								<form th:action="@{/writeURLThumb}" method="post">
 									<table class="customBoard" id="myList">
 										<thead>
 											<tr align="center">
@@ -190,13 +189,12 @@
 												<td th:text="${userBlockGroup.clickCnt}"></td>
 												<td th:text="${userBlockGroup.endDate}"></td>
 												<td><a
-													th:href="@{/writeURLThumb(blockGroup_seq=${userBlockGroup.blockGroup_seq}, action='update')}">수정하기</a></td>
+													th:href="@{/updateURLThumb(blockGroup_seq=${userBlockGroup.blockGroup_seq}, action='update')}">수정하기</a></td>
 												<td><a
 													th:href="@{/refund(blockGroup_seq=${userBlockGroup.blockGroup_seq})}">환불하기</a></td>
 											</tr>
 										</tbody>
 									</table>
-								</form>
 							</div>
 							
 						</div>

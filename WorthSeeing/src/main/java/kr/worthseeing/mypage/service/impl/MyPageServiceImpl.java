@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tomcat.util.buf.CharChunk.CharOutputChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +21,9 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.event.coupon.repository.CouponRepository;
-import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
-import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
@@ -183,6 +179,10 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 
+	@Override
+	public BlockGroupWaiting findBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting) {
+		return blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroup().getBlockGroup_seq()).get();
+	}
 	
 	
 	@Override
