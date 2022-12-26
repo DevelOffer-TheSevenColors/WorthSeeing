@@ -15,6 +15,8 @@ import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
+import kr.worthseeing.event.pointlog.entity.PointLog;
+import kr.worthseeing.event.pointlog.repository.PointLogRepository;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
@@ -46,12 +48,19 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
+	
+	@Autowired
+	private AuctionLogRepository auctionLogRepo;
+
+	@Autowired
+	private PointLogRepository pointLogRepo;
 
 	// 경매 기록 저장
 	@Override
 	public void insertAuctionLog(AuctionLog auctionLog) {
 		auctLogRepo.save(auctionLog);
 	}
+	
 
 	// 경매 기록 삭제
 	@Override
@@ -108,6 +117,20 @@ public class AuctionServiceImpl implements AuctionService {
 		findAuction.setSuggestPrice(auction.getSuggestPrice());
 		findAuction.setSuggestDate(auction.getSuggestDate());
 		auctionRepo.save(findAuction);
+		
+		
+		//auction로그 저장
+		AuctionLog auctionLog=new AuctionLog();
+		auctionLog.setAuctionPrice(findAuction.getAuctionPrice());
+		auctionLog.setAuction_seq(findAuction.getAuction_seq());
+		auctionLog.setSuggestPrice(findAuction.getSuggestPrice());
+		auctionLog.setSuggestDate(findAuction.getSuggestDate());
+		auctionLog.setUserId(findAuction.getUserId());
+
+		auctionLogRepo.save(auctionLog);
+		
+		
+		
 	}
 
 	@Override
@@ -146,6 +169,21 @@ public class AuctionServiceImpl implements AuctionService {
 			findAuction.setUserAutoId(null);
 		}
 		auctionRepo.save(findAuction);
+		
+		
+		//auction로그 저장
+		AuctionLog auctionLog=new AuctionLog();
+		auctionLog.setAuctionPrice(findAuction.getAuctionPrice());
+		auctionLog.setAuction_seq(findAuction.getAuction_seq());
+		auctionLog.setSuggestPrice(findAuction.getSuggestPrice());
+		auctionLog.setSuggestDate(findAuction.getSuggestDate());
+		auctionLog.setUserId(findAuction.getUserId());
+		auctionLog.setUserId(findAuction.getUserId());
+
+		auctionLogRepo.save(auctionLog);
+		
+		
+		
 	}
 
 	@Override
@@ -167,7 +205,6 @@ public class AuctionServiceImpl implements AuctionService {
 																												// : 낙찰된
 																												// 블럭 +
 																												// 가격 정보
-
 		Users findUser = usersRepo.findById(user.getUserId()).get();
 		findUser.setPoint(user.getPoint());
 
@@ -198,6 +235,15 @@ public class AuctionServiceImpl implements AuctionService {
 
 		blockGroupWaitingRepo.save(findBlockGroupWaiting);
 		usersRepo.save(findUser);
+		
+		
+		PointLog pointLog = new PointLog();
+		
+		pointLog.setPoint(findUser.getPoint());
+		pointLog.setPointDate(new Date());
+		pointLog.setUserid(user.getUserId());
+		
+		pointLogRepo.save(pointLog);
 	}
 
 	@Override
@@ -216,30 +262,6 @@ public class AuctionServiceImpl implements AuctionService {
 	      int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 	      pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
 	      
-//	      List<BlockGroup> findBlockGroup=blockGroupRepo.alwaysBuyListNoPage( 11);
-	      
-//	   for(BlockGroup findBlockGroup2 : findBlockGroup) {
-//	         
-//	         LocalDate now= LocalDate.now();  //현재시간
-//	            
-//	            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
-//	            
-//	            LocalDate date = LocalDate.parse(String.valueOf(now));  //현재 시간  스트링으로 변환
-//	            
-//	              LocalDate startDate = LocalDate.now();  //지금시간
-//	              
-//	              LocalDate endDate = date.withDayOfMonth(date.lengthOfMonth());  //현재 월의 일 수
-//	              
-//	              LocalDateTime date1 = startDate.atStartOfDay(); //현재시간 계산할수있도록 변환 -시작
-//	              LocalDateTime date2 = endDate.atStartOfDay();   //현재월일수를 계산할수있도록 변환 -끝
-//	              int betweenDays = (int) Duration.between(date1, date2).toDays();    //시작과 끝을 빼서 계산한 값
-//	              
-//	              endDate.getDayOfMonth();// 이번달 마지막날을 int로 가져오는것
-//	              
-//	              
-//	              findBlockGroup2.setPrice( findBlockGroup2.getPrice() / endDate.getDayOfMonth() * betweenDays);         
-//	              
-//	      }
 	      
 	      return blockGroupRepo.alwaysBuyList(pageable);
 	      
@@ -247,7 +269,6 @@ public class AuctionServiceImpl implements AuctionService {
 	   
 	   @Override
 	public List<Integer> selectAlwaysBuyListPrice() {
-		   System.out.println("jlsdafjlka0000>" + blockGroupRepo.alwaysBuyListGetPrice().toString());
 		return blockGroupRepo.alwaysBuyListGetPrice();
 	}
 
@@ -274,6 +295,14 @@ public class AuctionServiceImpl implements AuctionService {
 
 		blockGroupRepo.save(findBlockGroup);
 		usersRepo.save(findUser);
+		
+		PointLog pointLog = new PointLog();
+		
+		pointLog.setPoint(findUser.getPoint());
+		pointLog.setPointDate(new Date());
+		pointLog.setUserid(user.getUserId());
+		
+		pointLogRepo.save(pointLog);
 	}
 
 	@Override

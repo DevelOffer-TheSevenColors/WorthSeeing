@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.event.pointlog.entity.PointLog;
+import kr.worthseeing.event.pointlog.repository.PointLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
@@ -33,11 +35,12 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private AuctionRepository auctionRepo;
 
+	
 	@Override
 	public List<Integer> listReservationBlockGroupSeq() {
 		return reservationRepo.listReservationBlockGroupSeq();
 	}
-	
+
 	@Override
 	public int getReservationSeq(int blockGroup_seq) {
 		return reservationRepo.getReservationSeqFromBlockGroupSeq(blockGroup_seq);
@@ -54,8 +57,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 		users2.setUserId(userId);
 
-		System.out.println("=====>1" + reservation);
-		System.out.println("=====>2" + userId);
 		ReservationUsers reservationUsers = null;
 
 		if (reservationUsersRepo.findOneReservationUsers(reservation.getReservation_seq(), userId).isEmpty()) {
@@ -69,6 +70,7 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationUsersRepo.save(reservationUsers);
 			message = "예약이 되었습니다.";
 		}
+		
 		
 		return message;
 	}
@@ -110,7 +112,12 @@ public class ReservationServiceImpl implements ReservationService {
 	public Reservation selectReservationCreditInfo(Reservation reservation) {
 
 		return reservationRepo.findById(reservation.getReservation_seq()).get();
+		
+		
+		
 	}
+	
+	
 
 	@Override
 	public void deleteReservationUsers(Reservation reservation, String userId, ReservationUsers reservationUsers) {
@@ -132,6 +139,8 @@ public class ReservationServiceImpl implements ReservationService {
 			
 			reservationUsersRepo.delete(reservationUsers2);
 		}
+		
+		
 
 	}
 

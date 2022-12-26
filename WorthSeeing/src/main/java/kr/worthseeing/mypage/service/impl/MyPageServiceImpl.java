@@ -21,7 +21,11 @@ import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.event.coupon.entity.Coupon;
+import kr.worthseeing.event.coupon.entity.CouponLog;
+import kr.worthseeing.event.coupon.repository.CouponLogRepository;
 import kr.worthseeing.event.coupon.repository.CouponRepository;
+import kr.worthseeing.event.pointlog.entity.PointLog;
+import kr.worthseeing.event.pointlog.repository.PointLogRepository;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
@@ -52,6 +56,11 @@ public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 	
+	@Autowired
+	private CouponLogRepository couponLogRepo;
+	
+	@Autowired
+	private PointLogRepository pointLogRepo;
 
 	@Override
 	public Users getUsers(Users users) {
@@ -106,11 +115,10 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void getUserPoint(Users users, String price, Coupon coupon) {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
-		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
+        findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
 		usersRepo.save(findUsers);
 
 		Coupon findCoupon = couponRepo.findByCoupon(5, Integer.parseInt(price)).get(0); // status가 2인 쿠폰 리스트의 index 0번째 데이터 가져오기
-		System.out.println("finidCoupon impol====>" + findCoupon);
 		
 		Status status = new Status();
 		status.setStatus_seq(6);
@@ -121,7 +129,22 @@ public class MyPageServiceImpl implements MyPageService {
 		findCoupon.setCouponUsedDate(new Date());
 		
 		couponRepo.save(findCoupon);
-		System.out.println("-==-=--==-=-=-=-=---[][][][][][][]" + findUsers);
+		
+		CouponLog couponLog= new CouponLog();
+		
+		couponLog.setCouponPrice(findCoupon.getCouponPrice());
+		couponLog.setCouponSerialNum(findCoupon.getCouponSerialNum());
+		couponLog.setCouponUsedDate(findCoupon.getCouponUsedDate());
+		couponLog.setUserid(users.getUserId());
+		
+		couponLogRepo.save(couponLog);
+		
+		PointLog pointLog = new PointLog();
+		
+		pointLog.setPoint(findUsers.getPoint());
+		pointLog.setPointDate(new Date());
+		pointLog.setUserid(users.getUserId());
+		
 	}
 //	@Override
 //	public List<Coupon> getleftOverCoupon() {
