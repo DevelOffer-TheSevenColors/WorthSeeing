@@ -24,9 +24,9 @@
 						<th scope="col">No.</th>
 						<th scope="col">블록 번호</th>
 						<th scope="col">낙찰가</th>
-						<th scope="col">낙찰자</th>
-						<th scope="col">경매일시</th>
-						<th scope="col">낙찰유무</th>
+						<th scope="col">결제금액</th>
+						<th scope="col">낙찰일시</th>
+						<th scope="col">종료일시</th>
 						<th scope="col">결제하기</th>
 					</tr>
 				</thead>	
@@ -36,11 +36,9 @@
 									<td th:text="${state.count}"></td>
 									<td th:text="${waiting.blockGroup.blockGroup_seq}"></td>
 									<td th:text="${waiting.price}"></td>
-									<td th:text="${waiting.userId}"></td>
+									<td th:text="${waiting.price}"></td>
 									<td th:text="${#dates.format(waiting.auctionDate, 'yyyy-MM-dd')}"></td>
-									<td>
-										</td>
-										
+									<td th:text="${#dates.format(waiting.endDate, 'yyyy-MM-dd')}"></td>
 									<td>
 										<form th:action="@{/credit}" method="post">
 											<input th:name="blockGroupWaiting_seq"  type="hidden" th:value="${waiting.blockGroupWaiting_seq}">
@@ -51,12 +49,10 @@
 												<span>결제 완료</span>
 											</div>
 									</form>
-										
 									</td>
 								</tr>
 						</tbody>	
 				</table>
-				<!-- 				<form th:action="@{/mypagePdointHistory}" method="get"> -->
 				<div>
 					<nav class="customNav">
 						<ul class="customPagination"
@@ -89,7 +85,6 @@
 						</ul>
 					</nav>
 				</div>
-				<!-- 				</form> -->
 			</div>
 
 		</div>

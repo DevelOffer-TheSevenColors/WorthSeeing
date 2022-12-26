@@ -53,7 +53,7 @@ public class MyPageController {
 			myPageService.getUserPoint(principal.getUsers(), price, coupon);
 		}
 		
-		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypage/mypageMain",
+		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypageMain",
 	            RequestMethod.GET, null);
 
 	      return showMessageAndRedirect(message, model);
@@ -111,14 +111,14 @@ public class MyPageController {
 		return "/mypage/mypageAuctionHistory";
 	}
 
-	@GetMapping("/mypagePurchaseHistory")
-	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
-		Page<BlockGroupWaiting> blockGroupWaitingUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
-		model.addAttribute("userId", principal.getUsers().getUserId());
-		model.addAttribute("blockGroupWaitingUserId", blockGroupWaitingUserId);
-
-		return "/mypage/mypagePurchaseHistory";
-	}
+//	@GetMapping("/mypagePurchaseHistory")
+//	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
+//		Page<BlockGroupWaiting> blockGroupWaitingUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
+//		model.addAttribute("userId", principal.getUsers().getUserId());
+//		model.addAttribute("blockGroupWaitingUserId", blockGroupWaitingUserId);
+//
+//		return "/mypage/mypagePurchaseHistory";
+//	}
 
 	// 클릭 시 db에 저장된 url로 이동 추가
 	@GetMapping("/updatePoint")
