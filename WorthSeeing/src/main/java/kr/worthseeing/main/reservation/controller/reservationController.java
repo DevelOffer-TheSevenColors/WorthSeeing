@@ -42,7 +42,7 @@ public class reservationController {
 	}
 
 	// 나의 예약가능 목록 띄우기
-	@GetMapping("/myAuctionList")
+	@GetMapping("/myReservationList")
 	private String selectMyAuctionList(Model model, Reservation reservation,
 			@AuthenticationPrincipal SecurityUser principal) {
 
@@ -51,7 +51,7 @@ public class reservationController {
 		model.addAttribute("principal", principal);
 		model.addAttribute("reservationUsersList", reservationUsersList);
 
-		return "/reservation/myAuctionList";
+		return "/reservation/myReservationList";
 	}
 
 	// 예약하기 눌리면 10프로 만 결제하는 창으로 이동
