@@ -18,6 +18,9 @@
 
 
 			<div th:if="${auctionFlag == 'yes'}" >
+			
+				<p class="textcenter2"  >예약 가능 목록</p>
+				
 				<table class="customBoard">
 
 					<thead>
@@ -25,7 +28,7 @@
 							<th>블록 번호</th>
 							<th>경매 시작가격</th>
 							<th>예약 인원</th>
-							<th>일단 빈칸</th>
+							<th>블록 클릭 수</th>
 							<th>예약 하러 가기</th>
 
 						</tr>
@@ -36,7 +39,7 @@
 							<td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>
 							<td th:text="${reservation.userCnt}"></td>
-							<td>여기 뭐가들어가면 좋을지 다들 생각해보세용 ㅎㅎ</td>
+							<td  th:text="${reservation.blockGroup.clickCnt}"></td>
 							<td><a
 								th:href="@{/reservation/reservationCreditView(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
 						</tr>

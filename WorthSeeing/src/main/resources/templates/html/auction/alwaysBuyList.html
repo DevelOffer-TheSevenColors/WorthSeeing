@@ -47,7 +47,7 @@ $(document).ready(function() {
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-				<h3>상시판매</h3>
+				<p class="textcenter2">블록 상시판매</p>
 
 				<table class="customBoard">
 
@@ -55,8 +55,7 @@ $(document).ready(function() {
 						<tr>
 							<th>No.</th>
 							<th>블록 번호</th>
-							<th>구매 가격</th>
-							<th>평균 가격</th>
+							<th>현재 가격</th>
 							<th>구매하러 가기</th>
 
 						</tr>
@@ -69,7 +68,6 @@ $(document).ready(function() {
 								<td th:text="${(nowPage*10) + state.count}"></td>
 								<td th:text="${blockGroup.blockList[0].Block_seq}"></td>
 								<td  th:id="calcprice + ${(nowPage * 10) + state.count}" th:name="price" th:text="${blockGroup.price}" th:value="${blockGroup.price}"></td>
-								<td  th:text="${blockGroup.avgPrice}"></td>
 								<td><input type="hidden" th:name="blockGroup_seq" th:value="${blockGroup.blockGroup_seq}" /> 
 								<input type="submit" value="구매하러가기" /></td>
 							</tr>

@@ -32,6 +32,7 @@ $(document).ready(function() {
 	
 	var calc =  lastDay.getDate()-date.getDate() ;
 	
+// 	document.write(calc);
 
 		var calcPrice=   Math.round(   ( [[${blockGroup.price}]]  / lastDay.getDate()  ) * calc );
 	
@@ -39,6 +40,7 @@ $(document).ready(function() {
 		
 		
 		
+	$("#dayDate").text(calc+"일");
 	$("#monthPrice").text(covert);
 	$("#result_pnt").text(covert);
 	$("#inputprice").val(calcPrice);
@@ -139,7 +141,7 @@ function changePoint(amt,pnt,min,unit){
 	$("#inputPoint").val(pnt - v_point); 
 	$("#point2").val(pnt - v_point); 
 	$("#point2").text(pnt - v_point);
-	
+
 }
 
 
@@ -152,7 +154,8 @@ function changePoint(amt,pnt,min,unit){
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-<h3>상시판매 결제하기</h3>
+<p class="textcenter2"  >상시판매 결제하기</p>
+	<div><a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a></div><br />
 <form th:action="@{/updateAlwaysCredit}" method="post">
 					<table class="customBoard">
 						<thead >
@@ -167,6 +170,10 @@ function changePoint(amt,pnt,min,unit){
 							<tr>
 								<td>구매 할 블록</td>
 								<td th:text="${blockGroup.blockList[0].Block_seq}"></td>
+							</tr>
+							<tr>
+								<td>사용가능 일 수 </td>
+								<td id="dayDate" text=""></td>
 							</tr>
 
 							<tr>

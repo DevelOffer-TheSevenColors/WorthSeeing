@@ -23,6 +23,7 @@ import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.service.ReservationService;
+import kr.worthseeing.message.dto.MessageDTO;
 import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
@@ -172,9 +173,22 @@ public class AuctionController {
 	}
 
 	@PostMapping("/updateAlwaysCredit")
-	public String updateAlwaysCredit(BlockGroup blockGroup, Status status, Users users) {
+	public String updateAlwaysCredit(BlockGroup blockGroup, Status status, Users users,Model model) {
 
 		auctionService.updateAlwaysCreditInfo(blockGroup, status, users);
-		return "redirect:/alwaysBuyList";
+		
+		MessageDTO message = new MessageDTO("결제 되었습니다.", "/alwaysBuyList?blockGroup_seq="+blockGroup.getBlockGroup_seq(),
+	            RequestMethod.GET, null);
+
+	      return showMessageAndRedirect(message, model);
+
+
+	
+		
+//		return "redirect:/alwaysBuyList";
 	}
+	private String showMessageAndRedirect(final MessageDTO params, Model model) {
+	      model.addAttribute("params", params);
+	      return "/common/messageRedirect";
+	   }
 }
