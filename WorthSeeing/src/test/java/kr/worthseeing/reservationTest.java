@@ -246,7 +246,7 @@ public class reservationTest {
 	}
 	// 아래 #1, #2, #3를 하나씩 해서 3번 테스트 실행하시오!
 
-	// @Test
+//	 @Test
 	public void CouponStatus() {
 		// 쿠폰
 		Status status = new Status();
@@ -313,4 +313,23 @@ public class reservationTest {
 		}
 	}
 
+//	@Test
+	public void zzzz() {
+		for (int i = 0; i < 289; i++) {
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
+			Status status = new Status();
+			status.setStatus_seq(9); // 미사용 예약 가능 상태
+			
+			
+			findBlockGroup.setCImg("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
+			
+			findBlockGroup.setStatus(status);
+
+			
+			blockGroupRepo.save(findBlockGroup);
+
+		}
+		
+	}
+	
 }

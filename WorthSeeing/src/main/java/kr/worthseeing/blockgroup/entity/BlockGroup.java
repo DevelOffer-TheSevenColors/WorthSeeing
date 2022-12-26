@@ -34,7 +34,6 @@ import lombok.ToString;
 public class BlockGroup {
 	
 	@Id
-//	@GeneratedValue
 	private int blockGroup_seq;
 	private String linkUrl;
 	private String cImg;
