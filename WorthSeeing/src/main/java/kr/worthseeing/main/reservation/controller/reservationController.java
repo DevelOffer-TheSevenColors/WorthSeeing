@@ -96,7 +96,7 @@ public class reservationController {
 
 		reservationservice.deleteReservationUsers(reservation, principal.getUsers().getUserId(), reservationUsers);
 
-		return "redirect:/reservation/myAuctionList";
+		return "redirect:/reservation/myReservationList";
 	}
 	
 	// 메인 페이지에서 예약 버튼 클릭 시 보증금 결제 페이지로 이동
