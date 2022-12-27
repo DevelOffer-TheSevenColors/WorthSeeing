@@ -85,7 +85,7 @@ public class AuctionServiceImpl implements AuctionService {
 		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroupWaiting.getBlockGroupWaiting_seq())==null) {
 			BlockGroupWaiting bgwr = new BlockGroupWaiting();
 			bgwr.setPrice(findAuction.getSuggestPrice());
-			bgwr.setUserId(findAuction.getUserId());
+			bgwr.setUsers(usersRepo.findById(findAuction.getUserId()).get());
 			bgwr.setStatus(statusRepo.findById(12).get());
 			bgwr.setBlockGroupWaiting_seq(0);
 			bgwr.setAuctionDate(findAuction.getSuggestDate());

@@ -52,8 +52,6 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final kr.worthseeing.status.entity.QStatus status;
 
-    public final StringPath userId = createString("userId");
-
     public final kr.worthseeing.users.entity.QUsers users;
 
     public final NumberPath<Integer> width = createNumber("width", Integer.class);

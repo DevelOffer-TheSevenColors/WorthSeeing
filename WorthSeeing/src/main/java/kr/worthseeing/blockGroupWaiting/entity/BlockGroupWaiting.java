@@ -62,8 +62,6 @@ public class BlockGroupWaiting {
 	@Column
 	private Date groupDate = new Date();
 
-	private String userId;
-
 	@OneToOne(mappedBy = "blockGroupWaiting" )
 	private Reservation reservation;
 	
