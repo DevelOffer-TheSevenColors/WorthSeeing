@@ -147,6 +147,9 @@ public class BlockServiceImpl implements BlockService {
 		Status status = new Status();
 		status.setStatus_seq(14);
 		blockGroupWaiting.setStatus(status);
+		
+		blockGroupWaiting.setUsers(users);
+		
 		blockGroupWaitingRepo.save(blockGroupWaiting);
 		
 		System.out.println("SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
