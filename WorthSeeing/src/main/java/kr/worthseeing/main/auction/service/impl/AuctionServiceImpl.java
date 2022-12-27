@@ -23,6 +23,7 @@ import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.repository.ReservationLogRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.status.repository.StatusRepository;
 import kr.worthseeing.users.entity.Users;
@@ -54,6 +55,9 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private PointLogRepository pointLogRepo;
+	
+	@Autowired
+	private ReservationLogRepository reservationLogRepo;
 
 	// 경매 기록 저장
 	@Override
@@ -160,7 +164,8 @@ public class AuctionServiceImpl implements AuctionService {
 			findAuction.setSuggestPrice((int) (findAuction.getSuggestPrice() * 1.1));
 			findAuction.setSuggestDate(new Date());
 		} else if ((findAuction.getSuggestPrice() * 1.1 >= findAuction.getMaxPrice())
-				&& (findAuction.getSuggestPrice() < findAuction.getMaxPrice())) {
+				&& (findAuction.getSuggestPrice() < findAuction.getMaxPrice())
+				&&!findAuction.getUserId().equals(findAuction.getUserAutoId())) {
 			findAuction.setUserId(findAuction.getUserAutoId());
 			findAuction.setSuggestPrice((int) (findAuction.getMaxPrice()));
 			findAuction.setSuggestDate(new Date());
@@ -178,7 +183,7 @@ public class AuctionServiceImpl implements AuctionService {
 		auctionLog.setSuggestPrice(findAuction.getSuggestPrice());
 		auctionLog.setSuggestDate(findAuction.getSuggestDate());
 		auctionLog.setUserId(findAuction.getUserId());
-		auctionLog.setUserId(findAuction.getUserId());
+		auctionLog.setReservationLog(reservationLogRepo.findById(reservation.getReservation_seq()).get());
 
 		auctionLogRepo.save(auctionLog);
 		
