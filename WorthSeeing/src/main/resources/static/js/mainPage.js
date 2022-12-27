@@ -13,39 +13,6 @@
 		}*/
 	}
 	
-	// 289개 블록 띄우기
-	function createBlock(listBGSeq, cImgList) {
-	    var cImgArr = cImgList.split(",");
-	    var topSize = 0;
-	    var cImgURL="";
-		for (var i = 1; i <= 289; i++) {
-			
-			// 마지막 사진 처리
-			if (i == 289) {
-				//var cImgURL = cImgArr[i].slice(3).slice(0, -3);
-			} else {
-				//var cImgURL = cImgArr[i].slice(3);
-			}
-		
-			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'></p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgURL + "'/></li>";
-	        
-			$(".blockTest").append(child);
-
-			if (i % 17 == 0) {
-				// 	$("#" + i).css('margin-left', 100 * i + 'px');
-				$("#" + i).css('margin-top', topSize + 'px');
-				topSize += 100;
-			} else {
-				$("#" + i).css('margin-top', topSize + 'px');
-			}
-			
-			if (i % 17 == 0) {
-				$("#" + i).css('margin-left', 1700 + 'px');
-			} else {
-				$("#" + i).css('margin-left', 100 * (i % 17) + 'px');
-			}
-		}
-	}
 	
 	
 	// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋

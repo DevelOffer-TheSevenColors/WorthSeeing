@@ -21,7 +21,7 @@ public interface BlockGroupService {
 	
 	public BlockGroup findBlockGroup(BlockGroup blockGroup);
 	
-	List<Integer> listBoardGroupSeq();
+	Map<String, Object> listBoardGroupSeq();
 	
 	List<String> listcImg();
 	 

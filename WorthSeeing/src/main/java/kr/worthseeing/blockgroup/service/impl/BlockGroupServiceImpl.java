@@ -45,19 +45,19 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
-	
+
 	@Autowired
 	private BlockRepository blockRepo;
 
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
-	
+
 	@Autowired
 	private UsersRepository usersRepo;
 
 	private String S3Bucket = "kwangan2-worthseeing-burket"; // Bucket 이름
 
-	@Override 
+	@Override
 	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files, Users users) {
 		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString(); // 접근가능한 URL 가져오기
 
@@ -98,11 +98,12 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 		blockGroupRepo.save(findBlockGroup);
 	}
-	
+
 	@Override
 	public void updateBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting, MultipartFile files, Users users) {
-		BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
-		
+		BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo
+				.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+
 		if (!files.isEmpty()) {
 			String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
 			findBlockGroupWaiting.setCImg(imagePath);
@@ -113,9 +114,9 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		findBlockGroupWaiting.setLinkUrl(blockGroupWaiting.getLinkUrl());
-		
+
 		blockGroupWaitingRepo.save(findBlockGroupWaiting);
 	}
 
@@ -183,11 +184,11 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 	@Override
 	public Map<String, List<Integer>> getBlockGroupDate() {
-		
-		if(blockGroupRepo.listBlockGroupEndDate()==null) {
+
+		if (blockGroupRepo.listBlockGroupEndDate() == null) {
 			return null;
 		}
-		
+
 		List<BlockGroup> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
 
 		List<Integer> betweenDaysList = new ArrayList<Integer>();
@@ -197,24 +198,23 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 		for (BlockGroup blockGroupItem : listBlockGroupEndDate) {
 			String endDateItem = blockGroupItem.getEndDate();
-			
-			if (endDateItem == null){
+
+			if (endDateItem == null) {
 				betweenDaysList.add((int) Duration
-						.between(LocalDate.now().atStartOfDay(), LocalDate.now().atStartOfDay())
-						.toDays());
+						.between(LocalDate.now().atStartOfDay(), LocalDate.now().atStartOfDay()).toDays());
 			} else {
 				betweenDaysList.add((int) Duration
 						.between(LocalDate.now().atStartOfDay(), LocalDate.parse(endDateItem, formatter).atStartOfDay())
 						.toDays());
 				usingBlockGroupList.add(blockGroupItem.getBlockGroup_seq());
 			}
-			
+
 		}
 
 		Map<String, List<Integer>> resultMap = new HashMap<String, List<Integer>>();
 		resultMap.put("betweenDaysList", betweenDaysList);
 		resultMap.put("usingBlockGroupList", usingBlockGroupList);
-		
+
 		return resultMap;
 	}
 
@@ -241,23 +241,33 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 	// 메인화면 기존 이미지 표시
 	@Override
-	public List<Integer> listBoardGroupSeq() {
+	public Map<String, Object> listBoardGroupSeq() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		List<Integer> listBlockGroupSeq = blockGroupRepo.listBlockGroupSeq();
-		
+
 		List<Integer> listXLocation = new ArrayList<Integer>();
 		List<Integer> listYLocation = new ArrayList<Integer>();
-		
-		for(int blockGroupSeq : listBlockGroupSeq) {
-			
-//			Block findBlock = blockRepo.findBlockGroupSeqFromBlock(blockGroupSeq);
-//			listXLocation.add(findBlock.getXLocation());
-//			listYLocation.add(findBlock.getYLocation());
-			
+
+		List<Block> findBlock = (List<Block>) blockRepo.listblock();
+
+		for (int blockGroupSeq : listBlockGroupSeq) {
+
+			for (Block blockItem : findBlock) {
+				if (blockGroupSeq == blockItem.getBlock_seq()) {
+					listXLocation.add(blockItem.getXLocation());
+					listYLocation.add(blockItem.getYLocation());
+				}
+			}
 		}
-//				 blockGroupRepo.listBlockGroupSeq()
-		return blockGroupRepo.listBlockGroupSeq();
+
+		map.put("XLocationList", listXLocation);
+		map.put("YLocationList", listYLocation);
+		map.put("listBlockGroupSeq", listBlockGroupSeq);
+		
+		System.out.println("map-00>" + map.toString());
+//		return blockGroupRepo.listBlockGroupSeq();
+		return map;
 	}
 
 	@Override

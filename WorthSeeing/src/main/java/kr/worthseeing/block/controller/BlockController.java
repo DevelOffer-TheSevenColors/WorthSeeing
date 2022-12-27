@@ -32,7 +32,11 @@ public class BlockController {
 //		그룹핑 테스트
 //		blockService.getBlockXY(1, 37);
 		
-		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq());
+		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq().get("listBlockGroupSeq"));
+		
+		model.addAttribute("XLocationList", blockGroupService.listBoardGroupSeq().get("XLocationList"));
+		model.addAttribute("YLocationList", blockGroupService.listBoardGroupSeq().get("YLocationList"));
+		
 		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate().get("betweenDaysList"));
 		model.addAttribute("usingBlockGroupList", blockGroupService.getBlockGroupDate().get("usingBlockGroupList"));
 		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());

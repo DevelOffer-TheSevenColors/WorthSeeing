@@ -18,6 +18,7 @@
 //import kr.worthseeing.block.entity.Block;
 //import kr.worthseeing.block.repository.BlockRepository;
 //import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+//import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 //import kr.worthseeing.blockgroup.entity.BlockGroup;
 //import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 //import kr.worthseeing.event.coupon.entity.Coupon;
@@ -71,6 +72,9 @@
 //
 //	@Autowired
 //	private AuctionRepository auctionRepo;
+//	
+//	@Autowired
+//	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 //
 ////	@Test
 //	public void StatusInsert() {
@@ -335,8 +339,14 @@
 //		}
 //
 //	}
-//
-//	@Test
+//	
+////	@Test
+//	public void insertBlockTest222() {
+//		System.out.println(blockGroupWaitingRepo.findById(1));
+//		
+//	}
+//	
+////	@Test
 //	public void insertBlockTest() {
 //		for (int i = 1; i <= 289; i++) {
 //			Block block = new Block();
