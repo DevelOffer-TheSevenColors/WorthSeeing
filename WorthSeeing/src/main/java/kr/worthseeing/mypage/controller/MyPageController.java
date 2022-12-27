@@ -103,7 +103,6 @@ public class MyPageController {
 	@GetMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
 
-		myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable);
 
 		model.addAttribute("waiting",
 				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable));

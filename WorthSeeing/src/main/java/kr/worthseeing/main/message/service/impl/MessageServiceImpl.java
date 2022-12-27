@@ -32,9 +32,9 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public void SendSMS(String phoneNumber){
 		 
-		String api_key = "NCSUITE0YBDKUPYA";      //사이트에서 발급 받은 API KEY
+		String api_key = "NCSXC7EOXNVZTEV4";      //사이트에서 발급 받은 API KEY
 		  
-		 String api_secret = "PUYKDBJR9NKPZOWIPUUFLSRUK03WZGER";        //사이트에서 발급 받은 API SECRET KEY
+		 String api_secret = "IHNXT8XH4GVTFA5W27YXHOVUL1SEL0WL";        //사이트에서 발급 받은 API SECRET KEY
 		    
 		    Message coolsms = new Message(api_key, api_secret);
 		    
@@ -42,8 +42,8 @@ public class MessageServiceImpl implements MessageService{
 		    
 		    
 		    HashMap<String, String> params = new HashMap<String, String>();
-		    params.put("to", phoneNumber); //받는사람
-		    params.put("from", "01026751123");  //보내는사람
+		    params.put("to", "01039300472"); //받는사람
+		    params.put("from", "01080285978");  //보내는사람
 		    //사전에 사이트에서 번호를 인증하고 등록하여야 함
 		    params.put("type", "SMS");
 		    params.put("text", "공지를 확인해주세요");     //메시지 내용
@@ -60,7 +60,6 @@ public class MessageServiceImpl implements MessageService{
 	
 
 	@Scheduled(cron = "0 0 12 20 * *")
-//	@Scheduled(cron = "0 32 11 * * * ")
 	public void setSendreservationMsg( ) {
 		for(ReservationUsers reservationUser : reservationUsersRepo.findAll()) {
 			
@@ -71,6 +70,7 @@ public class MessageServiceImpl implements MessageService{
 			message.setToUser(reservationUser.getUsers().getUserId());
 			message.setMsg("공지를 확인해주세요");
 			messageRepo.save(message);
+			System.out.println("에약문자 전송완료");
 		}
 		
 		
@@ -87,6 +87,7 @@ public class MessageServiceImpl implements MessageService{
 			message.setToUser(reservationUser.getUsers().getUserId());
 			message.setMsg("공지를 확인해주세요");
 			messageRepo.save(message);
+			System.out.println("경매문자 전송완료");
 		}
 		
 		

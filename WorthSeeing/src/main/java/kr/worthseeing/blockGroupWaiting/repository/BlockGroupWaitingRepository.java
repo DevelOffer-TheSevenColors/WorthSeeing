@@ -13,7 +13,7 @@ import kr.worthseeing.main.auction.entity.AuctionLog;
 
 public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupWaiting, Integer>,QuerydslPredicateExecutor<AuctionLog>{
 	
-	@Query("SELECT a FROM BlockGroupWaiting a ")
+	@Query("SELECT a FROM BlockGroupWaiting a where user_Id=?1")
 	Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId,Pageable pageable);
 	
 	@Query("select b from BlockGroupWaiting b ")

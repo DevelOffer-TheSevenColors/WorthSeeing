@@ -90,6 +90,7 @@ public class MyPageServiceImpl implements MyPageService {
 		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
 	}
 	
+	
 	public Page<BlockGroupWaiting> getBlockGroupPage(String userId, Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.ASC, "blockGroupWaiting_seq");
