@@ -53,6 +53,7 @@ public class reservationController {
 		model.addAttribute("principal", principal);
 		model.addAttribute("reservationUsersList", reservationUsersList);
 		model.addAttribute("attendBtn",auctionService.auctionAttendBtnYes());
+		System.out.println(model.getAttribute("attendBtn"));
 		
 		return "/reservation/myReservationList";
 	}

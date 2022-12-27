@@ -321,7 +321,7 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public String auctionAttendBtnYes() {
 		String flag = "yes";
-		if (blockGroupWaitingRepo.findAll().iterator().hasNext()) {
+		if (auctionRepo.findAll().iterator().hasNext()) {
 			flag = "no";
 		}
 		return flag;
