@@ -22,15 +22,17 @@ public class QBlock extends EntityPathBase<Block> {
 
     public static final QBlock block = new QBlock("block");
 
-    public final NumberPath<Integer> Block_seq = createNumber("Block_seq", Integer.class);
+    public final NumberPath<Integer> block_seq = createNumber("block_seq", Integer.class);
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
     public final NumberPath<Integer> blockPrice = createNumber("blockPrice", Integer.class);
 
-    public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
+    public final kr.worthseeing.status.entity.QStatus status;
 
-    public final DateTimePath<java.util.Date> startDate = createDateTime("startDate", java.util.Date.class);
+    public final NumberPath<Integer> xLocation = createNumber("xLocation", Integer.class);
+
+    public final NumberPath<Integer> yLocation = createNumber("yLocation", Integer.class);
 
     public QBlock(String variable) {
         this(Block.class, forVariable(variable), INITS);
@@ -51,6 +53,7 @@ public class QBlock extends EntityPathBase<Block> {
     public QBlock(Class<? extends Block> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
+        this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
     }
 
 }

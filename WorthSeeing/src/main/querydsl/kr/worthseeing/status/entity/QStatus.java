@@ -24,6 +24,8 @@ public class QStatus extends EntityPathBase<Status> {
 
     public final ListPath<kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting, kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting> blockGroupWaitingList = this.<kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting, kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting>createList("blockGroupWaitingList", kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting.class, kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting.class, PathInits.DIRECT2);
 
+    public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
+
     public final ListPath<kr.worthseeing.event.coupon.entity.Coupon, kr.worthseeing.event.coupon.entity.QCoupon> couponList = this.<kr.worthseeing.event.coupon.entity.Coupon, kr.worthseeing.event.coupon.entity.QCoupon>createList("couponList", kr.worthseeing.event.coupon.entity.Coupon.class, kr.worthseeing.event.coupon.entity.QCoupon.class, PathInits.DIRECT2);
 
     public final StringPath firstCode = createString("firstCode");

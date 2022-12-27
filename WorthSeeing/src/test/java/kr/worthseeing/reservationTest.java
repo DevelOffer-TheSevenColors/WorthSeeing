@@ -322,6 +322,13 @@ public class reservationTest {
 			Status status = new Status();
 			status.setStatus_seq(9); // 미사용 예약 가능 상태
 
+			
+			//userId 너무 많아서 바꾸려고 한거 
+//			Users user=new Users();
+//			user.setUserId("admin");
+//			findBlockGroup.setUsers(user);
+			
+			
 			findBlockGroup.setLinkUrl("/alwaysBuyList");
 //			findBlockGroup.setCImg("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
 
@@ -344,6 +351,7 @@ public class reservationTest {
 //			blockGroup.setBlockGroup_seq(i);
 //			block.setBlockGroup(blockGroup);
 
+			
 			if (i % 17 == 0) {
 				block.setXLocation(17);
 				block.setYLocation((i / 17));
