@@ -69,8 +69,7 @@ public class NotifyController {
 			Pageable pageable) {
 		Users users = new Users();
 		users.setUserId(principal.getUsers().getUserId());
-		notify.setUsers(users);
-		
+		notify.setUsers(users);	
 		model.addAttribute("users", principal.getUsers());
 		model.addAttribute("notify", notifyService.getContact(notify));
 		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());

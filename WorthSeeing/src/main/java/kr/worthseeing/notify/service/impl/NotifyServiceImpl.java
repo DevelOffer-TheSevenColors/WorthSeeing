@@ -23,8 +23,7 @@ public class NotifyServiceImpl implements NotifyService {
 
 	@Autowired
 	private NotifyRepository notifyRepo;
-	 
- 
+	  
 	//공지 글 등록
 	@Override
 	@Transactional

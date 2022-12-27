@@ -39,7 +39,6 @@ public class ReplyController {
 		return "redirect:/notify/getDetail?notifySeq=" + notify.getNotifySeq() + "&status_seq="
 				+ status.getStatus_seq();
 	}
-
 	@GetMapping("/deleteReplyProc")
 	public String deleteReplyProc(Reply reply, Status status, Notify notify,@AuthenticationPrincipal SecurityUser principal) {
 		replyService.deleteReply(reply);
