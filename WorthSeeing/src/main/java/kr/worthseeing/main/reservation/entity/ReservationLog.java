@@ -32,7 +32,9 @@ public class ReservationLog {
 	private int reservationLog_seq;
 	private int reservation_seq;
 	private int startPrice;
-	private int userCnt;
+	
+	
+	private String useId;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)
 	private Date reservationTime;

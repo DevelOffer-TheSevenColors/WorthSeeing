@@ -34,7 +34,7 @@ public class QReservationLog extends EntityPathBase<ReservationLog> {
 
     public final NumberPath<Integer> startPrice = createNumber("startPrice", Integer.class);
 
-    public final NumberPath<Integer> userCnt = createNumber("userCnt", Integer.class);
+    public final StringPath useId = createString("useId");
 
     public QReservationLog(String variable) {
         this(ReservationLog.class, forVariable(variable), INITS);
