@@ -21,11 +21,11 @@ import kr.worthseeing.users.entity.Users;
 public class BlockServiceImpl implements BlockService {
 
 	@Autowired
-	private BlockRepository blockRepo; 
+	private BlockRepository blockRepo;
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
-	
+
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 
@@ -55,15 +55,18 @@ public class BlockServiceImpl implements BlockService {
 			lastNum = temp;
 		}
 
-		int x1 = blockRepo.findById(firstNum).get().getXLocation();
-		int y1 = blockRepo.findById(firstNum).get().getYLocation();
+		Block blockFirstNum = blockRepo.findById(firstNum).get();
+		Block blockLastNum = blockRepo.findById(lastNum).get();
 
-		int x2 = blockRepo.findById(lastNum).get().getXLocation();
-		int y2 = blockRepo.findById(lastNum).get().getYLocation();
+		int x1 = blockFirstNum.getXLocation();
+		int y1 = blockFirstNum.getYLocation();
+
+		int x2 = blockLastNum.getXLocation();
+		int y2 = blockLastNum.getYLocation();
 
 		int width = Math.abs(x2 - x1) + 1;
 		int height = Math.abs(y2 - y1) + 1;
-		
+
 		List<Integer> intList = new ArrayList<Integer>();
 		List<Block> blockList = (List<Block>) blockRepo.findAll();
 
@@ -75,88 +78,81 @@ public class BlockServiceImpl implements BlockService {
 
 					Block findBlock = blockRepo.findById(block.getBlock_seq()).get();
 
+					int blockStatus = block.getStatus().getStatus_seq();
+
 					Status status = new Status();
-					
+
 					// 범위 내의 블록이 전부 그룹핑 가능할 때
-					if (block.getStatus().getStatus_seq() == 8) { // 사용중/그룹핑가능
-						
-						// 사용중/그룹핑불가능
-						status.setStatus_seq(9);
-						findBlock.setStatus(status);
-						
-						// 블록 리스트 추가
-						intList.add(block.getBlock_seq());
-						
-						blockRepo.save(findBlock);
-					}
-
-					else if (block.getStatus().getStatus_seq() == 10) { // 미사용중/그룹핑가능
-						
-						// 미사용중/그룹핑불가능
-						status.setStatus_seq(11);
-						findBlock.setStatus(status);
-						
-						// 블록 리스트 추가
-						intList.add(block.getBlock_seq());
-						
-						blockRepo.save(findBlock);
-						
-//						BlockGroup blockGroup = new BlockGroup();
-//						Status status = new Status();
-//						status.setStatus_seq(11);
-//						blockGroup.setStatus(status);
-
-//						findBlock.setBlockGroup(null);
-
-						// 리스트에 있는 애들을 블록그룹으로 새로 추가 => block 테이블의 blockGroup_seq를 새로 만든 blockGroup_seq로
-						// 변경
-						// status를 11(그룹핑된 상태)로 변경
-
-					} else {
+					if (blockStatus != 8 && blockStatus != 10) {
 						System.out.println("그룹핑 불가능한 블록을 선택함");
 						return null;
 					}
-					
-				} // x, y 좌표가 firstNum과 lastNum 사이일 때
-				
-			} // for 반복문
 
+					else if (blockStatus == 8) { // 사용중/그룹핑가능
+
+						// 사용중/그룹핑불가능
+						status.setStatus_seq(9);
+						findBlock.setStatus(status);
+
+						// 블록 리스트 추가
+						intList.add(block.getBlock_seq());
+
+						blockRepo.save(findBlock);
+					}
+
+					else if (blockStatus == 10) { // 미사용중/그룹핑가능
+
+						// 미사용중/그룹핑불가능
+						status.setStatus_seq(11);
+						findBlock.setStatus(status);
+
+						// 블록 리스트 추가
+						intList.add(block.getBlock_seq());
+
+						blockRepo.save(findBlock);
+
+					}
+
+					else {
+						System.out.println("그룹핑 불가능");
+						return null;
+					}
+
+				} // x, y 좌표가 firstNum과 lastNum 사이일 때
+
+			} // for 반복문
 
 		} else {
 			System.out.println("10개 초과함");
 			return null;
 		}
-		
+
 		// ------- 그룹핑 가능인 상태 -------------------
-		
-		BlockGroup blockGroup = new BlockGroup();
-		blockGroup.setWidth(width * 100);
-		blockGroup.setHeight(height * 100);
-		
+
 		Users users = new Users();
 		users.setUserId("testid");
-		blockGroup.setUsers(users);
-		
-		blockGroupRepo.save(blockGroup);
-		
+
 		BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
-		
+
 		blockGroupWaiting.setWidth(width * 100);
 		blockGroupWaiting.setHeight(height * 100);
-		
+
 		Status status = new Status();
 		status.setStatus_seq(14);
 		blockGroupWaiting.setStatus(status);
-		
+
 		blockGroupWaiting.setUsers(users);
-		
+
 		blockGroupWaitingRepo.save(blockGroupWaiting);
-		
-		System.out.println("SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println("blockLIst---->" + intList.toString());
-		
+
+		for (int item : intList) {
+			System.out.println(blockRepo.findById(item).get());
+			Block findBlockWaitingSeq = blockRepo.findById(item).get();
+			findBlockWaitingSeq.setBlockGroupWaiting(blockGroupWaiting);
+			blockRepo.save(findBlockWaitingSeq);
+		}
+
 		return intList;
-		
 	}
 
 }
