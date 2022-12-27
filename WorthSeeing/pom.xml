@@ -12,6 +12,7 @@
 	<groupId>kr.worthseeing</groupId>
 	<artifactId>WorthSeeing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>WorthSeeing</name>
 	<description>The Seven Colors&apos;s WorthSeeing Project</description>
 	<properties>
@@ -83,6 +84,14 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
 		</dependency>
+		
+<!-- 외장톰캣 -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-tomcat</artifactId>
+	<scope>provided</scope> <!-- 안되어 있는 경우 변경! -->
+</dependency>
+
 
 		<!-- poi -->
 		<dependency>
@@ -114,8 +123,7 @@
 			<artifactId>javaSDK</artifactId>
 			<version>2.2</version>
 		</dependency>
-
-
+		
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
