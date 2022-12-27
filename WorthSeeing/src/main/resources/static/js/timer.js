@@ -4,7 +4,7 @@
 	console.log($("#reservation_seq").val());
   	
     var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),22,08,00);
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),22,20,00);
     var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),22,06,00);
   
     var nt = now.getTime();
