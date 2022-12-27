@@ -2,6 +2,8 @@ package kr.worthseeing.block.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,48 +30,47 @@ public class BlockController {
 
 	@GetMapping("/main")
 	public String mainPage(Model model) {
-
-//		그룹핑 테스트
-//		blockService.getBlockXY(1, 37);
-
-		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq().get("listBlockGroupSeq"));
-
-		model.addAttribute("XLocationList", blockGroupService.listBoardGroupSeq().get("XLocationList"));
-		model.addAttribute("YLocationList", blockGroupService.listBoardGroupSeq().get("YLocationList"));
-
-		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate().get("betweenDaysList"));
-		model.addAttribute("usingBlockGroupList", blockGroupService.getBlockGroupDate().get("usingBlockGroupList"));
-		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
-
-		List<String> cImgList = new ArrayList<String>();
-
-		for (String cImg : blockGroupService.listcImg()) {
-			cImgList.add(cImg);
-		}
-//		cImgList.add(0, null);
 		
-		List<String> urlTopList = new ArrayList<String>();
-		urlTopList.add(0, null);
+		Map<String, Object> maplistBoardGroupSeq = blockGroupService.listBoardGroupSeq();
+		Map<String, List<Integer>> mapgetBlockGroupDate = blockGroupService.getBlockGroupDate();
+		Map<String, Object> mapgetTopBlock = blockGroupService.topBlock();
+		
+		model.addAttribute("blockGroupSeqList", maplistBoardGroupSeq.get("listBlockGroupSeq"));
 
-		List<String> blockGroupLink = new ArrayList<String>();
+		model.addAttribute("listXLocation", maplistBoardGroupSeq.get("listXLocation"));
+		model.addAttribute("listYLocation", maplistBoardGroupSeq.get("listYLocation"));
 
-		if (!blockGroupService.topBlock(0).getContent().isEmpty()) {
-			for (BlockGroup blockgroup : blockGroupService.topBlock(0).getContent()) {
-				blockGroupLink.add(blockgroup.getLinkUrl());
-				urlTopList.add(blockgroup.getCImg());
-			}
-		} else {
-			for (int i = 0; i < 5; i++) {
-				blockGroupLink.add("#");
-				urlTopList.add("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
-			}
-		}
-		System.out.println(blockGroupLink);
+		model.addAttribute("listWidth", maplistBoardGroupSeq.get("listWidth"));
+		model.addAttribute("listHeight", maplistBoardGroupSeq.get("listHeight"));
+		
+		model.addAttribute("listcImg", blockGroupService.listcImg());
 
-		model.addAttribute("listcImg", cImgList);
-		model.addAttribute("listTopcImg", urlTopList);
-		model.addAttribute("blockGroupLink", blockGroupLink);
+		model.addAttribute("betweenDaysList", mapgetBlockGroupDate.get("betweenDaysList"));
+		model.addAttribute("usingBlockGroupList", mapgetBlockGroupDate.get("usingBlockGroupList"));
+		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
+		
+//		List<String> urlTopList = new ArrayList<String>();
+//		urlTopList.add(0, null);
+//
+//		List<String> blockGroupLink = new ArrayList<String>();
+//
+//		if (!blockGroupService.topBlock(0).getContent().isEmpty()) {
+//			for (BlockGroup blockgroup : blockGroupService.topBlock(0).getContent()) {
+//				blockGroupLink.add(blockgroup.getLinkUrl());
+//				urlTopList.add(blockgroup.getCImg());
+//			}
+//		} else {
+//			for (int i = 0; i < 5; i++) {
+//				blockGroupLink.add("#");
+//				urlTopList.add("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
+//			}
+//		}
+
+		model.addAttribute("listTopcImg", mapgetTopBlock.get("imgTopList"));
+		model.addAttribute("blockGroupLink", mapgetTopBlock.get("blockGroupLink"));
+		
 		return "/main";
+		
 	}
 
 	@GetMapping("/reservation/chooseBlockGroup")

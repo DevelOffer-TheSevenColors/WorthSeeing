@@ -58,11 +58,53 @@
 	       
 		// 블록 289개 생성
 		var cImgList = encodeURI("[[${listcImg}]]");
+		var cImgArr = cImgList.split(",");
 		
-		var XLocationList = [[${XLocationList}]]
-		var YLocationList = [[${YLocationList}]]
+		var listXLocation = [[${listXLocation}]]
+		var listYLocation = [[${listYLocation}]]
 		
-		createBlock([[${blockGroupSeqList}]], cImgList);
+		var listWidth = [[${listWidth}]]
+		var listHeight = [[${listHeight}]]
+		
+		var cImgURL="";
+		var zIndex = 300;
+		var listLength = listYLocation.length;
+		
+		for (var i = 1; i <= listLength; i++) {
+			
+			if (cImgArr[i-1] == null) {
+			}
+			else if (i == cImgArr.length) {
+				var cImgURL = cImgArr[i-1].slice(3).slice(0, -3);
+			} else {
+				var cImgURL = cImgArr[i-1].slice(3);
+			}
+			
+			var child = "<div class='tt' id=" + i + ">"
+			+ "<p class='numberDisplay'>" + i + "</p>"
+			+ "<p class='betweenDay'></p>"
+			+ "<button class='reservationBtn'>예약 하기</button>"
+			+ "<img class='imgDisplay' src='"+ cImgURL + "'/></div>";
+			
+			var child2 = "<div class='tt22' id=second" + i + ">"
+				+ "<p class='numberDisplay'>" + i + "</p>"
+			+ "<p class='betweenDay'></p>"
+			+ "<button class='reservationBtn'>예약 하기</button></div>";
+			
+			$(".blockTest").append(child);
+			$(".blockTest22").append(child);
+
+			$("#" + i).css('margin-left', listXLocation[i-1] * 100 + 'px');
+			$("#" + i).css('margin-top', (listYLocation[i-1]-1) * 100 + 'px');
+			
+			$("#" + i).css('width', listWidth[i-1] + 'px');
+			$("#" + i).css('height', listHeight[i-1] + 'px');
+			
+			$("#" + i).css('z-index', zIndex--);
+			
+		}
+
+		
        	
 		// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
 		resetLocalStorage();
@@ -196,7 +238,7 @@
 	<div class="col-lg-4 col-md-6 mb-4 pb-2 margintop80">
 
 		<div class="blockTest height1700"></div>
-
+		<div class="blockTest22 height1700"></div>
 	</div>
 
 	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>

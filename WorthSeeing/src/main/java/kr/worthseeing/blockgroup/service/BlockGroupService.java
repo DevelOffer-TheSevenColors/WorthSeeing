@@ -25,7 +25,7 @@ public interface BlockGroupService {
 	
 	List<String> listcImg();
 	 
-	public Page<BlockGroup> topBlock(int page);
+	public Map<String, Object> topBlock();
 	
 	Map<String, List<Integer>> getBlockGroupDate();
 	

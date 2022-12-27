@@ -4,10 +4,10 @@
 	    
 		for (var i = 1; i <= 5; i++) {
 			if (i == 5) {
-				$("#topImg" + i).attr("src", cImgTopArr[i].slice(3).slice(0, -3));
+				$("#topImg" + i).attr("src", cImgTopArr[i-1].slice(3).slice(0, -3));
 			}
 			else {
-				$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
+				$("#topImg" + i).attr("src", cImgTopArr[i-1].slice(3));
 			}
 			
 			$("#rank" + i).text("TOP  " + i);

@@ -177,9 +177,33 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	}
 
 	@Override
-	public Page<BlockGroup> topBlock(int page) {
-		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "clickCnt");
-		return blockGroupRepo.listBlockGroup(pageable);
+	public Map<String, Object> topBlock() {
+		Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "clickCnt");
+		
+		List<BlockGroup> blockGroupList = blockGroupRepo.listBlockGroup(pageable).getContent();
+
+		List<String> blockGroupLink = new ArrayList<String>();
+		List<String> imgTopList = new ArrayList<String>();
+		
+		Map<String, Object> getTopBlock = new HashMap<String, Object>();
+		
+		if (!blockGroupList.isEmpty()) {
+			for (BlockGroup blockgroup : blockGroupList) {
+				blockGroupLink.add(blockgroup.getLinkUrl());
+				imgTopList.add(blockgroup.getCImg());
+			}
+		} else {
+			for (int i = 0; i < 5; i++) {
+				blockGroupLink.add("#");
+				imgTopList.add("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
+			}
+		}
+		
+		getTopBlock.put("blockGroupLink", blockGroupLink);
+		getTopBlock.put("imgTopList", imgTopList);
+		
+		return getTopBlock;
+	
 	}
 
 	@Override
@@ -245,31 +269,35 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		List<Integer> listBlockGroupSeq = blockGroupRepo.listBlockGroupSeq();
-		
+		List<BlockGroup> listBlockGroup = blockGroupRepo.orderByBlockGroupSeq();
+
 		List<Integer> listXLocation = new ArrayList<Integer>();
 		List<Integer> listYLocation = new ArrayList<Integer>();
-
-		List<Block> findBlock = (List<Block>) blockRepo.listblock();
-
-		for (Block blockItem : findBlock) {
-			for (int blockGroupSeq : listBlockGroupSeq) {
-
-				if (blockGroupSeq == blockItem.getBlockGroup().getBlockGroup_seq()) {
-					System.out.println("blockGroupSEq--->" + blockGroupSeq);
-					System.out.println("blockItem.getBlock_seq()--->" + blockItem.getBlockGroup().getBlockGroup_seq());
-					
-					listXLocation.add(blockItem.getXLocation());
-					listYLocation.add(blockItem.getYLocation());
-				}
-			}
+		
+		List<Integer> listWidth = new ArrayList<Integer>();
+		List<Integer> listHeight = new ArrayList<Integer>();
+		
+		// 블록 그룹에 해당하는 블록의 X, Y 좌표 가져옴
+		for (BlockGroup blockGroupItem : listBlockGroup) {
+			// 해당 블록 그룹의 최소 블록 번호의 X, Y를 가져옴
+			Block minBlock = blockRepo.findById(blockGroupItem.getMinBlockSeq()).get();
+			
+			listXLocation.add(minBlock.getXLocation());
+			listYLocation.add(minBlock.getYLocation());
+			
+			// 해당 블록 그룹의 width, height를 가져옴
+			listWidth.add(blockGroupItem.getWidth());
+			listHeight.add(blockGroupItem.getHeight());
+			
 		}
 
-		map.put("XLocationList", listXLocation);
-		map.put("YLocationList", listYLocation);
 		map.put("listBlockGroupSeq", listBlockGroupSeq);
-
-		System.out.println("map-00>" + map.toString());
-//		return blockGroupRepo.listBlockGroupSeq();
+		map.put("listXLocation", listXLocation);
+		map.put("listYLocation", listYLocation);
+		
+		map.put("listWidth", listWidth);
+		map.put("listHeight", listHeight);
+		
 		return map;
 	}
 
