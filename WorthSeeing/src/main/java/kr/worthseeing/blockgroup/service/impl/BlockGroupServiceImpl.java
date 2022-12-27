@@ -246,12 +246,14 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		
 		List<Integer> listBlockGroupSeq = blockGroupRepo.listBlockGroupSeq();
 		
+		List<Integer> listXLocation = new ArrayList<Integer>();
+		List<Integer> listYLocation = new ArrayList<Integer>();
+		
 		for(int blockGroupSeq : listBlockGroupSeq) {
 			
 			Block findBlock = blockRepo.findBlockGroupSeqFromBlock(blockGroupSeq);
-			findBlock.getXLocation();
-			findBlock.getYLocation();
-			
+			listXLocation.add(findBlock.getXLocation());
+			listYLocation.add(findBlock.getYLocation());
 			
 		}
 //				 blockGroupRepo.listBlockGroupSeq()
