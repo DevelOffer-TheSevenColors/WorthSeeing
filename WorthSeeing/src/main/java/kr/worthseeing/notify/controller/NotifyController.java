@@ -67,12 +67,11 @@ public class NotifyController {
 	@RequestMapping("/notify/getContact")
 	public String getContact(Notify notify, Status status, Model model, @AuthenticationPrincipal SecurityUser principal,
 			Pageable pageable) {
-		System.out.println("controller principal.getUsers().getUserId()--->" + principal.getUsers().getUserId());
 		Users users = new Users();
 		users.setUserId(principal.getUsers().getUserId());
 		notify.setUsers(users);
 		
-		model.addAttribute("principal", principal);
+		model.addAttribute("users", principal.getUsers());
 		model.addAttribute("notify", notifyService.getContact(notify));
 		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());
 		model.addAttribute("replyList", replyService.listReply(notify, pageable));
@@ -88,10 +87,11 @@ public class NotifyController {
 	public String getDetail(Notify notify, Status status, Model model,
 			@AuthenticationPrincipal SecurityUser principal) {
 		
+		System.out.println("@@@-->>" + principal.getUsers().getRole());
 		notifyService.insertNotifyCnt(notify);
 		
 		model.addAttribute("notify", notifyService.getContact(notify));
-		model.addAttribute("principal", principal);
+		model.addAttribute("users", principal.getUsers());
 		
 		if (status.getStatus_seq() == 4) {
 

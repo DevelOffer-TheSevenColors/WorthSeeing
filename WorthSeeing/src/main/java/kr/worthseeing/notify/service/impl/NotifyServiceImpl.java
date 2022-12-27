@@ -30,7 +30,7 @@ public class NotifyServiceImpl implements NotifyService {
 	@Transactional
 	public void insertNotify(Notify notify, Users users) {
 		Status status = new Status();
-		status.setStatus_seq(1);
+		status.setStatus_seq(2);
 		System.out.println("impl users---->" + users);
 		notify.setStatus(status);
 		notify.setUsers(users);
@@ -72,6 +72,7 @@ public class NotifyServiceImpl implements NotifyService {
 	public Notify getNotify(Notify notify) {
 		Notify findNotify = notifyRepo.findById(notify.getNotifySeq()).get();
 		findNotify.setViewCnt(findNotify.getViewCnt() + 1);
+		System.out.println(">>>>>>>>>>"+findNotify);
 		return findNotify; 
 	}
 	

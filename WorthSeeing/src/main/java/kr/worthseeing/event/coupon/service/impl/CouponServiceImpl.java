@@ -20,10 +20,8 @@ public class CouponServiceImpl implements CouponService{
 		couponRepo.save(coupon);
 	}
 	
-	
-@Override
-public List<Coupon> listCoupon() {
-	
-	return (List<Coupon>) couponRepo.findAll();
+	@Override
+	public List<Coupon> listCoupon() {
+		return (List<Coupon>) couponRepo.findAll();
 	}
 }

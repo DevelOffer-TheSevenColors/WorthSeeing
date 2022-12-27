@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -62,7 +63,7 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
  
-	@OneToMany(mappedBy = "users" )
+	@OneToMany(mappedBy = "users" ,fetch = FetchType.EAGER)
 	private List<Notify> notifyList = new ArrayList<Notify>();
 
 	@OneToMany(mappedBy = "users")

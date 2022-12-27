@@ -40,9 +40,10 @@ public class ReplyController {
 				+ status.getStatus_seq();
 	}
 
-	@GetMapping("/reply/deleteReplyProc")
-	public String deleteReplyProc(Reply reply, Status status, Notify notify) {
+	@GetMapping("/deleteReplyProc")
+	public String deleteReplyProc(Reply reply, Status status, Notify notify,@AuthenticationPrincipal SecurityUser principal) {
 		replyService.deleteReply(reply);
+		
 		return "redirect:/notify/getContact?notifySeq=" + notify.getNotifySeq() + "&status_seq=" + status.getStatus_seq();
 	}
 }
