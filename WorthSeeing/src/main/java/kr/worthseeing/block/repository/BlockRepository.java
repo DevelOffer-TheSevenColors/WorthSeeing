@@ -25,7 +25,7 @@ public interface BlockRepository  extends CrudRepository<Block, Integer>,Queryds
 	@Query("select b from Block b where status_seq = ?1")
 	List<Block> alwaysBuyListNoPage( int keywoard);
 	
-	@Query("select b from Block b where blockGroup_seq = ?1")
+	@Query("select b from Block b where b.blockGroup.blockGroup_seq = ?1")
 	Block findBlockGroupSeqFromBlock(int blockGroup_seq);
 	
 }
