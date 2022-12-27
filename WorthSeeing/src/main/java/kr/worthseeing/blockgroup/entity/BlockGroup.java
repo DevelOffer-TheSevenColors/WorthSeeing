@@ -53,6 +53,9 @@ public class BlockGroup {
 	private String endDate;
 
 	private Date groupDate = new Date();
+	
+	private int width = 0;
+	private int height = 0;
  
 	@OneToMany(mappedBy = "blockGroup")
 	private List<Block> blockList = new ArrayList<Block>();
@@ -67,10 +70,6 @@ public class BlockGroup {
 	private Reservation reservation;
 //	private List<Reservation> reservationList = new ArrayList<Reservation>();
 	
-	@OneToOne(mappedBy ="blockGroup")
-	private BlockGroupWaiting blockGroupWaiting;
-	
-
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)
 	private Users users;

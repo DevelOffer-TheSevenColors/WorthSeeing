@@ -82,7 +82,7 @@ public class AuctionServiceImpl implements AuctionService {
 			bgwr.setPrice(findAuction.getSuggestPrice());
 			bgwr.setUserId(findAuction.getUserId());
 			bgwr.setStatus(statusRepo.findById(12).get());
-			bgwr.setBlockGroup(blockGroup);
+//			bgwr.setBlockGroup(blockGroup);
 			bgwr.setAuctionDate(findAuction.getSuggestDate());
 			auctionRepo.save(findAuction);
 			blockGroupWaitingRepo.save(bgwr);

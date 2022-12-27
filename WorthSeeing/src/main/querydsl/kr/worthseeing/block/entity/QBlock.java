@@ -26,6 +26,8 @@ public class QBlock extends EntityPathBase<Block> {
 
     public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
 
+    public final kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting blockGroupWaiting;
+
     public final NumberPath<Integer> blockPrice = createNumber("blockPrice", Integer.class);
 
     public final kr.worthseeing.status.entity.QStatus status;
@@ -53,6 +55,7 @@ public class QBlock extends EntityPathBase<Block> {
     public QBlock(Class<? extends Block> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
+        this.blockGroupWaiting = inits.isInitialized("blockGroupWaiting") ? new kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting(forProperty("blockGroupWaiting"), inits.get("blockGroupWaiting")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
     }
 

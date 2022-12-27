@@ -26,8 +26,6 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
 
-    public final kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting blockGroupWaiting;
-
     public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
 
     public final StringPath cImg = createString("cImg");
@@ -37,6 +35,8 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
     public final StringPath endDate = createString("endDate");
 
     public final DateTimePath<java.util.Date> groupDate = createDateTime("groupDate", java.util.Date.class);
+
+    public final NumberPath<Integer> height = createNumber("height", Integer.class);
 
     public final StringPath linkUrl = createString("linkUrl");
 
@@ -56,6 +56,8 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final kr.worthseeing.users.entity.QUsers users;
 
+    public final NumberPath<Integer> width = createNumber("width", Integer.class);
+
     public QBlockGroup(String variable) {
         this(BlockGroup.class, forVariable(variable), INITS);
     }
@@ -74,7 +76,6 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public QBlockGroup(Class<? extends BlockGroup> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroupWaiting = inits.isInitialized("blockGroupWaiting") ? new kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting(forProperty("blockGroupWaiting"), inits.get("blockGroupWaiting")) : null;
         this.reservation = inits.isInitialized("reservation") ? new kr.worthseeing.main.reservation.entity.QReservation(forProperty("reservation"), inits.get("reservation")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
         this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;

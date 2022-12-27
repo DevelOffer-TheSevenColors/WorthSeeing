@@ -10,18 +10,24 @@ import org.springframework.stereotype.Service;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.block.service.BlockService;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.status.entity.Status;
+import kr.worthseeing.users.entity.Users;
 
 @Service
 public class BlockServiceImpl implements BlockService {
 
 	@Autowired
-	private BlockRepository blockRepo;
+	private BlockRepository blockRepo; 
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
+	
+	@Autowired
+	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 
 	@Override
 	public Block getBlock(Block block) {
@@ -55,10 +61,13 @@ public class BlockServiceImpl implements BlockService {
 		int x2 = blockRepo.findById(lastNum).get().getXLocation();
 		int y2 = blockRepo.findById(lastNum).get().getYLocation();
 
-		if ((x2 - x1 + 1) * (y2 - y1 + 1) <= 10) { // 총 개수가 10개 이하일 때
+		int width = Math.abs(x2 - x1) + 1;
+		int height = Math.abs(y2 - y1) + 1;
+		
+		List<Integer> intList = new ArrayList<Integer>();
+		List<Block> blockList = (List<Block>) blockRepo.findAll();
 
-			List<Integer> intList = new ArrayList<Integer>();
-			List<Block> blockList = (List<Block>) blockRepo.findAll();
+		if (width * height <= 10) { // 총 개수가 10개 이하일 때
 
 			for (Block block : blockList) {
 				if (x1 <= block.getXLocation() && block.getXLocation() <= x2 && y1 <= block.getYLocation()
@@ -107,19 +116,46 @@ public class BlockServiceImpl implements BlockService {
 						System.out.println("그룹핑 불가능한 블록을 선택함");
 						return null;
 					}
-
+					
 				} // x, y 좌표가 firstNum과 lastNum 사이일 때
 				
 			} // for 반복문
 
-			System.out.println("blockLIst---->" + intList.toString());
-			return intList;
 
 		} else {
 			System.out.println("10개 초과함");
 			return null;
 		}
-
+		
+		// ------- 그룹핑 가능인 상태 -------------------
+		
+		BlockGroup blockGroup = new BlockGroup();
+		blockGroup.setWidth(width * 100);
+		blockGroup.setHeight(height * 100);
+		
+		Users users = new Users();
+		users.setUserId("testid");
+		blockGroup.setUsers(users);
+		
+		Status status = new Status();
+		status.setStatus_seq(5);
+		blockGroup.setStatus(status);
+		
+		blockGroupRepo.save(blockGroup);
+		
+		BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
+		
+		blockGroupWaiting.setWidth(width * 100);
+		blockGroupWaiting.setHeight(height * 100);
+		blockGroupWaiting.setStatus(status);
+		
+		blockGroupWaitingRepo.save(blockGroupWaiting);
+		
+		System.out.println("SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println("blockLIst---->" + intList.toString());
+		
+		return intList;
+		
 	}
 
 }

@@ -101,7 +101,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		if (!files.isEmpty()) {
 			String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
 			findBlockGroupWaiting.setCImg(imagePath);
-			findBlockGroupWaiting.setSImg(files.getOriginalFilename());
+//			findBlockGroupWaiting.setSImg(files.getOriginalFilename());
 			try {
 				saveFile(files);
 			} catch (IOException e) {

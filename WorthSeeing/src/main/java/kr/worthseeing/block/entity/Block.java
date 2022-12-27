@@ -23,7 +23,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockGroup", "status"})
+@ToString(exclude = {"blockGroup", "status", "blockGroupWaiting"})
 @NoArgsConstructor
 public class Block {
 
@@ -54,6 +54,15 @@ public class Block {
 	public void setBlockGroup(BlockGroup blockGroup) {
 		this.blockGroup = blockGroup;
 		blockGroup.getBlockList().add(this);
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "blockGroupWaiting_seq", nullable = false)
+	private BlockGroupWaiting blockGroupWaiting;
+
+	public void setBlockGroup(BlockGroupWaiting blockGroupWaiting) {
+		this.blockGroupWaiting = blockGroupWaiting;
+		blockGroupWaiting.getBlockList().add(this);
 	}
 	
 }

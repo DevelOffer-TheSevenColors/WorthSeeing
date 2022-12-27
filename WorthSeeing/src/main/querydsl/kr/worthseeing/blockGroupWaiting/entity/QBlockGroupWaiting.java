@@ -24,15 +24,17 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final DateTimePath<java.util.Date> auctionDate = createDateTime("auctionDate", java.util.Date.class);
 
-    public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
-
     public final NumberPath<Integer> blockGroupWaiting_seq = createNumber("blockGroupWaiting_seq", Integer.class);
+
+    public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
 
     public final StringPath cImg = createString("cImg");
 
     public final DateTimePath<java.util.Date> endDate = createDateTime("endDate", java.util.Date.class);
 
     public final DateTimePath<java.util.Date> groupDate = createDateTime("groupDate", java.util.Date.class);
+
+    public final NumberPath<Integer> height = createNumber("height", Integer.class);
 
     public final StringPath linkUrl = createString("linkUrl");
 
@@ -47,6 +49,8 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
     public final kr.worthseeing.status.entity.QStatus status;
 
     public final StringPath userId = createString("userId");
+
+    public final NumberPath<Integer> width = createNumber("width", Integer.class);
 
     public QBlockGroupWaiting(String variable) {
         this(BlockGroupWaiting.class, forVariable(variable), INITS);
@@ -66,7 +70,6 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public QBlockGroupWaiting(Class<? extends BlockGroupWaiting> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
     }
 

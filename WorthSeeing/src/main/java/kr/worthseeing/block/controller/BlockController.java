@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.service.ReservationService;
+import kr.worthseeing.message.dto.MessageDTO;
 
 @Controller
 public class BlockController {
@@ -27,7 +29,8 @@ public class BlockController {
 	@GetMapping("/main")
 	public String mainPage(Model model) {
 		
-		blockService.getBlockXY(1, 37);
+//		그룹핑 테스트
+//		blockService.getBlockXY(1, 37);
 		
 		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq());
 		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate().get("betweenDaysList"));
@@ -68,9 +71,23 @@ public class BlockController {
 	
 	@GetMapping("/reservation/chooseBlockGroup")
 	public String chooseBlockGroup() {
-		
-		
 		return "/reservation/chooseBlockGroup";
+	}
+	
+	@GetMapping("/block/grouping")
+	public String blockGrouping(String firstNum, String lastNum, Model model) {
+		if(blockService.getBlockXY(Integer.parseInt(firstNum), Integer.parseInt(lastNum)) == null) {
+			MessageDTO message = new MessageDTO("그룹핑 불가능합니다. (10개 초과 or 불가능한 블록 선택)", "/reservation/chooseBlockGroup", RequestMethod.GET, null);
+			return showMessageAndRedirect(message, model);
+		} else {
+			MessageDTO message = new MessageDTO("예약되었습니다.", "/reservation/reservationList", RequestMethod.GET, null);
+			return showMessageAndRedirect(message, model);
+		}
+	}
+	
+	private String showMessageAndRedirect(final MessageDTO params, Model model) {
+		model.addAttribute("params", params);
+		return "/common/messageRedirect";
 	}
 	
 }
