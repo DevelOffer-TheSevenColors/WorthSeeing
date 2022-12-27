@@ -18,6 +18,6 @@ public interface ReservationRepository  extends CrudRepository<Reservation, Inte
 	List<Integer> listReservationBlockGroupSeq();
 	
 	@Query("select r.reservation_seq from Reservation r where r.blockGroupWaiting.blockGroupWaiting_seq = ?1")
-	int getReservationSeqFromBlockGroupSeq(int blockGroup_seq);
+	int getReservationSeqFromBlockGroupSeq(int blockGroupWaiting_seq);
 	
 }

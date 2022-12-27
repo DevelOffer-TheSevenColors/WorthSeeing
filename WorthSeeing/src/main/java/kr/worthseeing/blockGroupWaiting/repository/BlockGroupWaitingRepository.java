@@ -19,8 +19,8 @@ public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupW
 	@Query("select b from BlockGroupWaiting b ")
 	Page<BlockGroupWaiting> findByUserList(String userId,Pageable pageable);
 
-	@Query("select b from BlockGroupWaiting b where blockGroupWaiting_seq = ?1")
-	BlockGroupWaiting endAuctionConfirm(int blockgroup_seq);
+	@Query("select b from BlockGroupWaiting b where block_Group_Waiting_seq = ?1")
+	BlockGroupWaiting endAuctionConfirm(int blockgroupWaiting_seq);
 	
 	@Query("select b from BlockGroupWaiting b where status_seq = 8")
 	Page<BlockGroupWaiting> listBlockGroupWaiting(Pageable pageable);
