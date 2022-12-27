@@ -17,8 +17,8 @@
 			<div class="container pt-5 pb-3">
 
 
-			<div th:if="${auctionFlag == 'yes'}" >
-			
+	<!-- 		<div th:if="${auctionFlag == 'yes'}" >
+		 -->	
 				<p class="textcenter2"  >예약 가능 목록</p>
 				
 				<table class="customBoard">
@@ -39,7 +39,7 @@
 							<td th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>
 							<td th:text="${reservation.userCnt}"></td>
-							<td  th:text="${reservation.blockGroupWaiting.clickCnt}"></td>
+							<td th:text="${reservation.blockGroupWaiting.clickCnt}"></td>
 							<td><a
 								th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
 						</tr>
@@ -81,6 +81,7 @@
 			
 			</div>
 			
+			<!-- 
 			<div th:if="${auctionFlag == 'no'}" >
 				<table class="customBoard">
 
@@ -107,6 +108,7 @@
 
 
 			</div>
+ -->
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>

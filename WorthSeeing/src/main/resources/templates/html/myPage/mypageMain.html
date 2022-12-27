@@ -97,6 +97,13 @@
 	margin-top: 45px;
 	margin-left: 50px;
 }
+
+#myList img {
+	width: 100px;
+	height: 100px;
+	background-size: cover;
+}
+
 </style>
 <body>
 	<div>
@@ -107,13 +114,11 @@
 
 				<div class="topnav">
 					<button class="abtn" onClick="location.href='/main'">HOME</button>
-					<button class="abtn" onclick="location.href='/mypageMain'">My
-						Page</button>
+					<button class="abtn" onclick="location.href='/mypageMain'">My Page</button>
 					<button class="domainBtn abtn" id="mypageCouponMall">포인트몰</button>
 					<button class="domainBtn abtn" id="mypagePointHistory">포인트사용내역</button>
 					<button class="domainBtn abtn" id="mypageAuctionHistory">경매내역</button>
 				</div>
-
 
 
 				<div class="leftcolumn">
@@ -121,14 +126,13 @@
 					<h2>내 정보</h2>
 
 					<div>
-						<span><img src="bb.gif" width="120px" height="120px"></span>
+						<span><img src="nonprofile.jpg" width="120px" height="120px"></span>
 					</div>
 
 					<div>
 						<table>
 							<tr>
-								<th colspan="2"><span
-									sec:authentication="principal.users.name"></span></th>
+								<th colspan="2"><span sec:authentication="principal.users.name"></span></th>
 								<td>님</td>
 							</tr>
 							<tr>
@@ -155,37 +159,21 @@
 					<div class="menuItem">
 						<br />
 						<h2>현재 사용중인 블록</h2>
-
-						<div class="floatLeft"
-							th:each="userBlockGroup, state : ${BlockGroupUserId}">
-							<div class="col-lg-4 col-md-6 mb-4 floatLeft">
-								<div
-									class="destination-item position-relative overflow-hidden mb-2">
-
-									<img th:src="${userBlockGroup.cImg}"
-										class="img-fluid imgMargin" src="../img/destination-1.jpg"
-										alt=""> <a
-										class="destination-overlay text-white text-decoration-none"
-										th:href="@{${userBlockGroup.linkUrl}}"> <strong
-										class="text-white" th:text="블록번호"></strong> <span
-										th:text="${userBlockGroup.blockGroup_seq}"></span>
-									</a>
-
-								</div>
-							</div>
 							
-							<div class="floatLeft">
+							<div class="floatLeft" >
 									<table class="customBoard" id="myList">
 										<thead>
 											<tr align="center">
+												<th>블록 미리보기</th>
 												<th>전체 방문자 수</th>
 												<th>종료 일자</th>
 												<th>블록 수정</th>
 												<th>환불</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody th:each="userBlockGroup, state : ${BlockGroupUserId}">
 											<tr align="center">
+												<td><img th:src="${userBlockGroup.cImg}" /></td>
 												<td th:text="${userBlockGroup.clickCnt}"></td>
 												<td th:text="${userBlockGroup.endDate}"></td>
 												<td><a
@@ -196,6 +184,7 @@
 										</tbody>
 									</table>
 							</div>
+							
 							
 						</div>
 						
