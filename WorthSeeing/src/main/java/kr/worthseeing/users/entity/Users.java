@@ -26,7 +26,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockGroupList", "notifyList", "couponList", "reservationUsersList" })
+@ToString(exclude = {"blockGroupList", "notifyList", "couponList", "reservationUsersList","blockGroupWaitingList" })
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users {
