@@ -28,7 +28,7 @@
 						
 								<tr >
 									<td th:text="${state.count}"></td>
-									<td th:text="${waiting.blockGroup.blockGroup_seq}"></td>
+									<td th:text="${waiting.blockGroupWaiting_seq}"></td>
 									<td th:text="${#numbers.formatInteger(waiting.price, 3,'COMMA')}"></td>
 									<td th:text="${#dates.format(waiting.auctionDate, 'yyyy-MM-dd')}"></td>
 									<td th:text="${#dates.format(waiting.endDate, 'yyyy-MM-dd')}"></td>
