@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
@@ -20,7 +21,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockGroupList", "notifyList", "couponList","blockGroupWaitingList"})
+@ToString(exclude = {"blockGroupList", "blockList", "notifyList", "couponList","blockGroupWaitingList"})
 @NoArgsConstructor
 public class Status {
 
@@ -38,6 +39,9 @@ public class Status {
 
 	@OneToMany(mappedBy = "status")
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
+
+	@OneToMany(mappedBy = "status")
+	private List<Block> blockList = new ArrayList<Block>();
 
 	@OneToMany(mappedBy = "status")
 	private List<Notify> notifyList = new ArrayList<Notify>();

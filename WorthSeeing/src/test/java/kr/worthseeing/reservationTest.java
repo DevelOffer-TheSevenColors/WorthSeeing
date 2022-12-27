@@ -94,10 +94,9 @@ public class reservationTest {
 //	@Test
 	public void insertBlockGroup() {
 
-		Users users = new Users("user1", "user1", "사용자", "사용자1-닉네임", "부산", "센텀 광안대교", "email@gmail.com",
-				"010-1234-1234");
-
-		usersRepo.save(users);
+		Users users = new Users();
+		users.setUserId("testid");
+//		usersRepo.save(users);
 
 		Status status = new Status();
 		status.setStatus_seq(2);
@@ -125,30 +124,33 @@ public class reservationTest {
 
 			BlockGroup blockGroup = new BlockGroup();
 			blockGroup.setBlockGroup_seq(i + 1); // error 나면 seq 보고 변경하기
-
+			Status status = new Status();
+			status.setStatus_seq(10);
+			block.setStatus(status);
+			
 			block.setBlockGroup(blockGroup);
 
 			blockRepo.save(block);
 		}
 
 		// 예약
-		for (int i = 0; i < 15; i++) {
+//		for (int i = 0; i < 15; i++) {
+//
+//			Reservation reservation = new Reservation(1000, 14);
+//			BlockGroup blockGroup = new BlockGroup();
+//			blockGroup.setBlockGroup_seq(i + 1); // error 나면 seq 보고 변경하기
+//			reservation.setBlockGroup(blockGroup);
 
-			Reservation reservation = new Reservation(1000, 14);
-			BlockGroup blockGroup = new BlockGroup();
-			blockGroup.setBlockGroup_seq(i + 1); // error 나면 seq 보고 변경하기
-			reservation.setBlockGroup(blockGroup);
+//			reservationRepo.save(reservation);
 
-			reservationRepo.save(reservation);
-
-		}
+//		}
 
 		// 쿠폰
 		Status status = new Status();
 		status.setStatus_seq(2);
 
 		Users users = new Users();
-		users.setUserId("user1");
+		users.setUserId("testid");
 
 		for (int i = 0; i < 10; i++) {
 			Coupon coupon = new Coupon(30000, "1234-1234-1234");
@@ -174,7 +176,7 @@ public class reservationTest {
 //	@Test
 	public void insertReservationUserId() {
 		Users users = new Users();
-		users.setUserId("user1");
+		users.setUserId("testid");
 
 		Reservation reservation = new Reservation();
 		reservation.setReservation_seq(28); // error 나면 seq 보고 변경하기
@@ -296,13 +298,13 @@ public class reservationTest {
 //	@Test
 	public void updateBlockGroupEndDate() {
 		for (int i = 0; i < 289; i++) {
-			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
-			
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i + 1).get();
+
 			LocalDate now = LocalDate.now();
 			Random rand = new Random();
 
 			LocalDate result1 = now.plusDays(rand.nextInt(30));
-			
+
 			result1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			System.out.println("format--->" + result1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
@@ -313,23 +315,46 @@ public class reservationTest {
 		}
 	}
 
-	@Test
+//	@Test
 	public void zzzz() {
 		for (int i = 0; i < 289; i++) {
-			BlockGroup findBlockGroup = blockGroupRepo.findById(i+1).get();
+			BlockGroup findBlockGroup = blockGroupRepo.findById(i + 1).get();
 			Status status = new Status();
 			status.setStatus_seq(9); // 미사용 예약 가능 상태
-			
+
 			findBlockGroup.setLinkUrl("/alwaysBuyList");
 //			findBlockGroup.setCImg("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
-			
+
 //			findBlockGroup.setStatus(status);
 
-			
 			blockGroupRepo.save(findBlockGroup);
 
 		}
-		
+
 	}
-	
+
+//	@Test
+	public void insertBlockXY() {
+		for (int i = 1; i <= 289; i++) {
+			Block block = blockRepo.findById(i).get();
+//			Block block = new Block();
+//			block.setBlock_seq(i);
+
+//			BlockGroup blockGroup = new BlockGroup();
+//			blockGroup.setBlockGroup_seq(i);
+//			block.setBlockGroup(blockGroup);
+
+			if (i % 17 == 0) {
+				block.setXLocation(17);
+				block.setYLocation((i / 17));
+			} else {
+				block.setXLocation(i % 17);
+				block.setYLocation(i / 17 + 1);
+			}
+
+			blockRepo.save(block);
+
+		}
+	}
+
 }

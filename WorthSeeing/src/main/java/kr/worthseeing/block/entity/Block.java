@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.status.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,25 +23,28 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockGroup"})
+@ToString(exclude = {"blockGroup", "status"})
 @NoArgsConstructor
-@AllArgsConstructor
 public class Block {
 
 	@Id
-	@GeneratedValue
-	private int Block_seq;
+	private int block_seq;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false, columnDefinition = "date default sysdate")
-	private Date startDate;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false, columnDefinition = "date default sysdate")
-	private Date endDate;
-	
-	@Column(columnDefinition = "number(10,0) default 0")
+	@Column(columnDefinition = "number(10, 0) default 0")
 	private int blockPrice;
+	
+	private int xLocation;
+	
+	private int yLocation;
+	
+	@ManyToOne
+	@JoinColumn(name = "status_seq", nullable = false)
+	private Status status;
+
+	public void setStatus(Status status) {
+		this.status = status;
+		status.getBlockList().add(this);
+	}
 	
 	@ManyToOne
 	@JsonIgnore
@@ -51,7 +55,5 @@ public class Block {
 		this.blockGroup = blockGroup;
 		blockGroup.getBlockList().add(this);
 	}
-
 	
-
 }

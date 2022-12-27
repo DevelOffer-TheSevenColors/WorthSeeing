@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.service.ReservationService;
@@ -18,11 +19,16 @@ public class BlockController {
 	private BlockGroupService blockGroupService;
 
 	@Autowired
+	private BlockService blockService;
+	
+	@Autowired
 	private ReservationService reservationService;
 
 	@GetMapping("/main")
 	public String mainPage(Model model) {
-
+		
+		blockService.getBlockXY(1, 37);
+		
 		model.addAttribute("blockGroupSeqList", blockGroupService.listBoardGroupSeq());
 		model.addAttribute("betweenDaysList", blockGroupService.getBlockGroupDate().get("betweenDaysList"));
 		model.addAttribute("usingBlockGroupList", blockGroupService.getBlockGroupDate().get("usingBlockGroupList"));
@@ -59,5 +65,12 @@ public class BlockController {
 
 		return "/main";
 	}
-
+	
+	@GetMapping("/reservation/chooseBlockGroup")
+	public String chooseBlockGroup() {
+		
+		
+		return "/reservation/chooseBlockGroup";
+	}
+	
 }

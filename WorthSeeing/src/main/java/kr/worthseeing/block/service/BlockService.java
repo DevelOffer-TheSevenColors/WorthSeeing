@@ -12,4 +12,7 @@ public interface BlockService {
 	List<Block> listBlock();
 
 	public  List<Block> findAuctionBlock(BlockGroup blockGroup);
+	
+	List<Integer> getBlockXY(int firstNum, int lastNum);
+	
 }

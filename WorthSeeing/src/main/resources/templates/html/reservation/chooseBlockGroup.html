@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+.blockGrouping {
+	position: relative;
+	z-index: 1;
+}
+
+.checkblock {
+	border: 1px solid gray;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: #F3F3F3;
+}
+</style>
+</head>
+
+<body>
+<script>
+	console.log("testset");
+	$(document).ready(function() {
+		var topSize = 0;
+		
+		for (var i = 1; i <= 289; i++) {
+
+			var child = "<input type='checkbox' name='blockcheckbox' class='checkblock' id=" + i + " text=" + i + ">";
+			$(".blockGrouping").append(child);
+
+			if (i % 17 == 0) {
+				$("#" + i).css('margin-top', topSize + 'px');
+				topSize += 100;
+			} else {
+				$("#" + i).css('margin-top', topSize + 'px');
+			}
+
+			if (i % 17 == 0) {
+				$("#" + i).css('margin-left', 1700 + 'px');
+			} else {
+				$("#" + i).css('margin-left',
+					100 * (i % 17) + 'px');
+			}
+		}
+
+		var cnt = 0;
+		var arr = {}
+
+		$("#retryBtn").click(function() {
+			cnt = 0;
+			$('.checkblock').prop('disabled', false);
+			$('input[name="blockcheckbox"]').each(function() {
+				$(this).prop('checked', false);
+			});
+		})
+
+		$('input[name="blockcheckbox"]').change(function() {
+			if ($(this).prop('checked')) {
+				cnt++;
+			}
+			if (cnt == 2) {
+				$('.checkblock').prop('disabled', true);
+			}
+		})
+
+// 				for(var i=0;i<3; i++) {
+// 					for(var j=0; j<3; j++) {
+// 						console.log("arr --->" + arr[i][j]);
+// 					}
+// 				}
+
+// 		var firstNum = 1;
+// 		var lastNum = 37;
+
+// 		var x1 = 1;
+// 		var y1 = 1;
+
+// 		var x2 = 3;
+// 		var y2 = 3;
+
+// 				var arr = [[1,2,3,4,5,6,7,8,9,10], [11,12,13,14,15,16,17,18,19,20]];
+
+// 		if (x1 <= x && x <= x2) {
+// 			if (y1 <= y && y <= y2) {
+// 				list.add(seq);
+// 			}
+// 		}
+
+})
+</script>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="row justify-content-center" style="margin-top: 80px;">
+			<div class="col-lg-8">
+
+				<button id="retryBtn">다시 선택하기</button>
+				<button id="groupingBtn">그룹핑하기</button>
+
+				<div class="blockGrouping"></div>
+				<input type="checkbox" />
+				
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+	
+</body>
+
+</html>

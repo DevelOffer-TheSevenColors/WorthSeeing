@@ -52,7 +52,7 @@ public class BlockGroup {
 
 	private String endDate;
 
-	private Date groupDate;
+	private Date groupDate = new Date();
  
 	@OneToMany(mappedBy = "blockGroup")
 	private List<Block> blockList = new ArrayList<Block>();
