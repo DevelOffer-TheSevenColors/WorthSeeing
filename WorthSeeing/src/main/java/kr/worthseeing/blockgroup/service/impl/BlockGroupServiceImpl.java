@@ -26,6 +26,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -43,6 +45,9 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
+	
+	@Autowired
+	private BlockRepository blockRepo;
 
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
@@ -234,9 +239,22 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		return resultMap;
 	}
 
+	// 메인화면 기존 이미지 표시
 	@Override
 	public List<Integer> listBoardGroupSeq() {
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<Integer> listBlockGroupSeq = blockGroupRepo.listBlockGroupSeq();
+		
+		for(int blockGroupSeq : listBlockGroupSeq) {
+			
+			Block findBlock = blockRepo.findBlockGroupSeqFromBlock(blockGroupSeq);
+			findBlock.getXLocation();
+			findBlock.getYLocation();
+			
+			
+		}
+//				 blockGroupRepo.listBlockGroupSeq()
 		return blockGroupRepo.listBlockGroupSeq();
 	}
 

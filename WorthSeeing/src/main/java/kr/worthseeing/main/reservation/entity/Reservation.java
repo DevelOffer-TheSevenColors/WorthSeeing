@@ -38,8 +38,8 @@ public class Reservation {
 
 	@Column(columnDefinition = "number default 0")
 	private int startPrice;
-	@Column(columnDefinition = "number default 0")
-	private int userCnt;
+//	@Column(columnDefinition = "number default 0")
+//	private int userCnt;
 
 	@OneToMany(mappedBy = "reservation")
 	private List<Auction> auctionList = new ArrayList<Auction>();
@@ -53,7 +53,7 @@ public class Reservation {
 
 	public Reservation(int startPrice, int userCnt) {
 		this.startPrice = startPrice;
-		this.userCnt = userCnt;
+//		this.userCnt = userCnt;
 	}
 
 }

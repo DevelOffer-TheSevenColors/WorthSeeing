@@ -1,7 +1,7 @@
 // 인기순위 Top 5 이미지 띄우기
 	function top5Img(cImgTopList) {
 	 	var cImgTopArr = cImgTopList.split(",");
-	       
+	     /*  
 		for (var i = 1; i <= cImgTopArr.length; i++) {
 			$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
 			if (i == 5) {
@@ -10,21 +10,21 @@
 			
 			$("#rank" + i).text("TOP  " + i);
 			
-		}
+		}*/
 	}
 	
 	// 289개 블록 띄우기
 	function createBlock(listBGSeq, cImgList) {
 	    var cImgArr = cImgList.split(",");
 	    var topSize = 0;
-	    
-		for (var i = 1; i <= listBGSeq.length; i++) {
+	    var cImgURL="";
+		for (var i = 1; i <= 289; i++) {
 			
 			// 마지막 사진 처리
 			if (i == 289) {
-				var cImgURL = cImgArr[i].slice(3).slice(0, -3);
+				//var cImgURL = cImgArr[i].slice(3).slice(0, -3);
 			} else {
-				var cImgURL = cImgArr[i].slice(3);
+				//var cImgURL = cImgArr[i].slice(3);
 			}
 		
 			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'></p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgURL + "'/></li>";
