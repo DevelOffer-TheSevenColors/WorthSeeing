@@ -30,7 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users {
- 
+
 	@Id
 	private String userId;
 
