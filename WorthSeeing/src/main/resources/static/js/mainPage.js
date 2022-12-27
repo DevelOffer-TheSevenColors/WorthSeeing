@@ -2,7 +2,7 @@
 	function top5Img(cImgTopList) {
 	 	var cImgTopArr = cImgTopList.split(",");
 	       
-		for (var i = 1; i <= 5; i++) {
+		for (var i = 1; i <= cImgTopArr.length; i++) {
 			$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
 			if (i == 5) {
 				$("#topImg" + i).attr("src", cImgTopArr[i].slice(3).slice(0, -3));
@@ -18,7 +18,7 @@
 	    var cImgArr = cImgList.split(",");
 	    var topSize = 0;
 	    
-		for (var i = 1; i <= 289; i++) {
+		for (var i = 1; i <= listBGSeq.length; i++) {
 			
 			// 마지막 사진 처리
 			if (i == 289) {

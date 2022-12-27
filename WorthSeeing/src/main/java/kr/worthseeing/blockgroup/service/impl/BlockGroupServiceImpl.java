@@ -179,6 +179,10 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	@Override
 	public Map<String, List<Integer>> getBlockGroupDate() {
 		
+		if(blockGroupRepo.listBlockGroupEndDate()==null) {
+			return null;
+		}
+		
 		List<BlockGroup> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
 
 		List<Integer> betweenDaysList = new ArrayList<Integer>();

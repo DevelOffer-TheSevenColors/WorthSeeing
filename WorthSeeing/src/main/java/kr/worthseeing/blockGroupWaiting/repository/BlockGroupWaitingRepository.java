@@ -13,19 +13,19 @@ import kr.worthseeing.main.auction.entity.AuctionLog;
 
 public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupWaiting, Integer>,QuerydslPredicateExecutor<AuctionLog>{
 	
-	@Query("SELECT a FROM BlockGroupWaiting a where user_id =?1 ")
+	@Query("SELECT a FROM BlockGroupWaiting a ")
 	Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId,Pageable pageable);
 	
-	@Query("select b from BlockGroupWaiting b where user_id like %?1%")
+	@Query("select b from BlockGroupWaiting b ")
 	Page<BlockGroupWaiting> findByUserList(String userId,Pageable pageable);
 
-	@Query("select b from BlockGroupWaiting b where block_group_seq = ?1")
+	@Query("select b from BlockGroupWaiting b where blockGroupWaiting_seq = ?1")
 	BlockGroupWaiting endAuctionConfirm(int blockgroup_seq);
 	
 	@Query("select b from BlockGroupWaiting b where status_seq = 8")
 	Page<BlockGroupWaiting> listBlockGroupWaiting(Pageable pageable);
 	
-	@Query("select b from BlockGroupWaiting b where b.users.userId like %?1%")
+	@Query("select b from BlockGroupWaiting b")
 	List<BlockGroupWaiting> findByUserId(String userId);
 	
 	@Query("select max(b.blockGroupWaiting_seq) from BlockGroupWaiting b ")

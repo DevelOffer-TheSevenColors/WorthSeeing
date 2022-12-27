@@ -14,7 +14,7 @@ import kr.worthseeing.main.reservation.entity.Reservation;
 public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer>,
 	QuerydslPredicateExecutor<BlockGroup>  {
 	
-	@Query("select b from BlockGroup b where status_seq = 8")
+	@Query("select b from BlockGroup b")
 	Page<BlockGroup> listBlockGroup(Pageable pageable);
 	
 	@Query("select b from BlockGroup b where b.users.userId like %?1%")
@@ -44,7 +44,8 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	@Query("select b from BlockGroup b where b.users.userId like %?1%")
 	Page<BlockGroup> findByUserList(String userId,Pageable pageable);
 
-	@Query("select b from BlockGroup b where status_seq = 8 order by b.blockGroup_seq")
+//	@Query("select b from BlockGroup b where status_seq = 8 order by b.blockGroup_seq")
+	@Query("select b from BlockGroup b order by b.blockGroup_seq")
 	List<BlockGroup> listBlockGroupEndDate();
 	
 }
