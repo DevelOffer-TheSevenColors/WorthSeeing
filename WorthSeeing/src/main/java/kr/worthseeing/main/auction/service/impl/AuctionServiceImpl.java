@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -34,21 +36,24 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private AuctionRepository auctionRepo;
+	
+	@Autowired
+	private BlockRepository blockRepo;
 
 	@Autowired
 	private AuctionLogRepository auctLogRepo;
 
 	@Autowired
-	private BlockGroupWaitingRepository blockGroupWaitingRepo;
-
-	@Autowired
 	private StatusRepository statusRepo;
+	
+	@Autowired
+	private BlockGroupRepository blockGroupRepo;
 
 	@Autowired
 	private UsersRepository usersRepo;
 
 	@Autowired
-	private BlockGroupRepository blockGroupRepo;
+	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 	
 	@Autowired
 	private AuctionLogRepository auctionLogRepo;
@@ -73,16 +78,16 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public void endAuction(Reservation reservation, BlockGroup blockGroup) {
+	public void endAuction(Reservation reservation, BlockGroupWaiting blockGroupWaiting) {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
 		findAuction.setUserAutoId("");
 		findAuction.setMaxPrice(0);
-		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroup.getBlockGroup_seq())==null) {
+		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroupWaiting.getBlockGroupWaiting_seq())==null) {
 			BlockGroupWaiting bgwr = new BlockGroupWaiting();
 			bgwr.setPrice(findAuction.getSuggestPrice());
 			bgwr.setUserId(findAuction.getUserId());
 			bgwr.setStatus(statusRepo.findById(12).get());
-//			bgwr.setBlockGroup(blockGroup);
+			bgwr.setBlockGroupWaiting_seq(0);
 			bgwr.setAuctionDate(findAuction.getSuggestDate());
 			auctionRepo.save(findAuction);
 			blockGroupWaitingRepo.save(bgwr);
@@ -262,44 +267,47 @@ public class AuctionServiceImpl implements AuctionService {
 
 
 	   @Override
-	   public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup, Pageable pageable) {
+	   public Page<Block> selectAlwaysBuyList(Pageable pageable) {
 
 	      int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-	      pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroup_seq");
+	      pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroupWaiting_seq");
 	      
 	      
-	      return blockGroupRepo.alwaysBuyList(pageable);
-	      
+	      return blockRepo.alwaysBuyList(pageable);
 	   }
 	   
 	   @Override
 	public List<Integer> selectAlwaysBuyListPrice() {
-		return blockGroupRepo.alwaysBuyListGetPrice();
+		return blockRepo.alwaysBuyListGetPrice();
 	}
 
 	@Override
-	public BlockGroup alwaysBuyCreditView(BlockGroup blockGroup) {
+	public Block alwaysBuyCreditView(Block block) {
 
-		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+		return blockRepo.findById(block.getBlock_seq()).get();
 	}
 
 	@Override
-	public void updateAlwaysCreditInfo(BlockGroup blockGroup, Status status, Users user) { // users : 낙찰받은사용자, auction :
+	public void updateAlwaysCreditInfo(Block block, Status status, Users user) { // users : 낙찰받은사용자, auction :
 																							// 낙찰된 블럭 + 가격 정보
 
 		Users findUser = usersRepo.findById(user.getUserId()).get();
 		findUser.setPoint(user.getPoint());
 
-		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+		Block findBlock = blockRepo.findById(block.getBlock_seq()).get();
 
-		LocalDate now = LocalDate.now();
+//		LocalDate now = LocalDate.now();
 
-		findBlockGroup.setPrice(blockGroup.getPrice());
-		findBlockGroup.setPurchaseDay(new Date());
-		findBlockGroup.setStatus(status);
+		BlockGroup blockGroup = new BlockGroup();
+		
+		blockGroup.setPrice(findBlock.getBlockPrice());
+		blockGroup.setPurchaseDay(new Date());
+		blockGroup.setHeight(100);
+		blockGroup.setWidth(100);
+		blockGroup.setUsers(findUser);
+		
 
-		blockGroupRepo.save(findBlockGroup);
-		usersRepo.save(findUser);
+		blockGroupRepo.save(blockGroup);
 		
 		PointLog pointLog = new PointLog();
 		

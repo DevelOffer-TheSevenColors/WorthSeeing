@@ -63,7 +63,7 @@ public class reservationController {
 		Reservation reservation_ = reservationservice.selectReservationCreditInfo(reservation);
 		
 		String blockStr = "";
-		for (Block block : blockService.findAuctionBlock(reservation_.getBlockGroup())) {
+		for (Block block : blockService.findAuctionBlock(reservation_.getBlockGroupWaiting())) {
 			blockStr += block.getBlock_seq() + ",";
 		}
 		

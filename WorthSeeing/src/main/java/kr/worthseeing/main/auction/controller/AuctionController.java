@@ -50,7 +50,7 @@ public class AuctionController {
 	@RequestMapping(value = "/auction/selectBlock", method = RequestMethod.POST)
 	public List<Block> selectBlock(Reservation reservation) throws Throwable {
 		return blockService
-				.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
+				.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroupWaiting());
 	}
 
 	@ResponseBody // ajax를 불르기 위한 어노테이션
@@ -64,7 +64,7 @@ public class AuctionController {
 	@RequestMapping(value = "/auction/endAuction", method = RequestMethod.POST)
 	public String endAuction(Reservation reservation) throws Throwable {
 		auctionService.endAuction(reservation,
-				reservationService.selectReservationCreditInfo(reservation).getBlockGroup());
+				reservationService.selectReservationCreditInfo(reservation).getBlockGroupWaiting());
 		return "end";
 	}
 
@@ -151,9 +151,9 @@ public class AuctionController {
 	}
 
 	@GetMapping("/alwaysBuyList")
-	public String selectAlwaysBuyList(Model model, BlockGroup blockGroup, @PageableDefault Pageable pageable) {
+	public String selectAlwaysBuyList(Model model, @PageableDefault Pageable pageable) {
 
-		Page<BlockGroup> alwaysList = auctionService.selectAlwaysBuyList(blockGroup, pageable);
+		Page<Block> alwaysList = auctionService.selectAlwaysBuyList(pageable);
 
 //		List<BlockGroup>  awlaysListNoPage  = auctionService.selectAlwaysBuyListNoPage();
 
@@ -169,30 +169,26 @@ public class AuctionController {
 	}
 
 	@PostMapping("/alwaysBuyCreditView")
-	public String alwaysBuyCreditView(Model model, BlockGroup blockGroup, @PageableDefault Pageable pageable,
+	public String alwaysBuyCreditView(Model model, Block block, @PageableDefault Pageable pageable,
 			@AuthenticationPrincipal SecurityUser principal) {
 
-		model.addAttribute("blockGroup", auctionService.alwaysBuyCreditView(blockGroup));
+		model.addAttribute("blockGroup", auctionService.alwaysBuyCreditView(block));
 		model.addAttribute("users", principal.getUsers());
 
 		return "/auction/alwaysCredit";
 	}
 
 	@PostMapping("/updateAlwaysCredit")
-	public String updateAlwaysCredit(BlockGroup blockGroup, Status status, Users users,Model model) {
+	public String updateAlwaysCredit(Block block, Status status, Users users,Model model) {
 
-		auctionService.updateAlwaysCreditInfo(blockGroup, status, users);
+		auctionService.updateAlwaysCreditInfo(block, status, users);
 		
-		MessageDTO message = new MessageDTO("결제 되었습니다.", "/alwaysBuyList?blockGroup_seq="+blockGroup.getBlockGroup_seq(),
+		MessageDTO message = new MessageDTO("결제 되었습니다.", "/alwaysBuyList?block_seq="+block.getBlock_seq(),
 	            RequestMethod.GET, null);
 
 	      return showMessageAndRedirect(message, model);
-
-
-	
-		
-//		return "redirect:/alwaysBuyList";
 	}
+	
 	private String showMessageAndRedirect(final MessageDTO params, Model model) {
 	      model.addAttribute("params", params);
 	      return "/common/messageRedirect";

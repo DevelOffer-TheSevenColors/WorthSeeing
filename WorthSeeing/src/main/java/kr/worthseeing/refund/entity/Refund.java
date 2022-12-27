@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import lombok.Data;
 import lombok.Getter;
@@ -32,12 +33,12 @@ public class Refund {
 	private Date refundDate;
 
 	@ManyToOne
-	@JoinColumn(name = "blockGroup_seq", nullable = false)
-	private BlockGroup blockGroup;
+	@JoinColumn(name = "blockGroupWaiting_seq", nullable = false)
+	private BlockGroupWaiting blockGroupWaiting;
 
-	public void setBlockGroup(BlockGroup blockGroup) {
-		this.blockGroup = blockGroup;
-		blockGroup.getRefundList().add(this);
+	public void setBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting) {
+		this.blockGroupWaiting = blockGroupWaiting;
+		blockGroupWaiting.getRefundList().add(this);
 	}
 
 	

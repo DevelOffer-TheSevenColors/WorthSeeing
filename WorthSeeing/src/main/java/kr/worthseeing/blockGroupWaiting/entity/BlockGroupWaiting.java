@@ -17,7 +17,10 @@ import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
+import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
+import kr.worthseeing.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -61,16 +64,31 @@ public class BlockGroupWaiting {
 
 	private String userId;
 
-	@OneToMany(mappedBy = "blockGroup")
+	@OneToOne(mappedBy = "blockGroupWaiting" )
+	private Reservation reservation;
+	
+	@OneToMany(mappedBy = "blockGroupWaiting")
 	private List<Block> blockList = new ArrayList<Block>();
+	
+	@OneToMany(mappedBy = "blockGroupWaiting")
+	private List<Refund> refundList = new ArrayList<Refund>();
 
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
 
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false)
+	private Users users;
+	
 	public void setStatus(Status status) {
 		this.status = status;
 		status.getBlockGroupWaitingList().add(this);
+	}
+	
+	public void setUsers(Users users) {
+		this.users = users;
+		users.getBlockGroupWaitingList().add(this);
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

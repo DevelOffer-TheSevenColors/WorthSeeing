@@ -24,7 +24,7 @@ public class QReservation extends EntityPathBase<Reservation> {
 
     public final ListPath<kr.worthseeing.main.auction.entity.Auction, kr.worthseeing.main.auction.entity.QAuction> auctionList = this.<kr.worthseeing.main.auction.entity.Auction, kr.worthseeing.main.auction.entity.QAuction>createList("auctionList", kr.worthseeing.main.auction.entity.Auction.class, kr.worthseeing.main.auction.entity.QAuction.class, PathInits.DIRECT2);
 
-    public final kr.worthseeing.blockgroup.entity.QBlockGroup blockGroup;
+    public final kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting blockGroupWaiting;
 
     public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
 
@@ -52,7 +52,7 @@ public class QReservation extends EntityPathBase<Reservation> {
 
     public QReservation(Class<? extends Reservation> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroup = inits.isInitialized("blockGroup") ? new kr.worthseeing.blockgroup.entity.QBlockGroup(forProperty("blockGroup"), inits.get("blockGroup")) : null;
+        this.blockGroupWaiting = inits.isInitialized("blockGroupWaiting") ? new kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting(forProperty("blockGroupWaiting"), inits.get("blockGroupWaiting")) : null;
     }
 
 }

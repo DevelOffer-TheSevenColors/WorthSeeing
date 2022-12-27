@@ -14,10 +14,10 @@ public interface ReservationRepository  extends CrudRepository<Reservation, Inte
 	@Query("select r from Reservation r")
 	Page<Reservation> listReservation(Pageable pageable);
 	
-	@Query("select r.blockGroup.blockGroup_seq from Reservation r")
+	@Query("select r.blockGroupWaiting.blockGroupWaiting_seq from Reservation r")
 	List<Integer> listReservationBlockGroupSeq();
 	
-	@Query("select r.reservation_seq from Reservation r where r.blockGroup.blockGroup_seq = ?1")
+	@Query("select r.reservation_seq from Reservation r where r.blockGroupWaiting.blockGroupWaiting_seq = ?1")
 	int getReservationSeqFromBlockGroupSeq(int blockGroup_seq);
 	
 }

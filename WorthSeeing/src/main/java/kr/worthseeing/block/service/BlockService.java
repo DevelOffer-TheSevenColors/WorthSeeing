@@ -3,6 +3,7 @@ package kr.worthseeing.block.service;
 import java.util.List;
 
 import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 
 public interface BlockService {
@@ -11,7 +12,7 @@ public interface BlockService {
 	
 	List<Block> listBlock();
 
-	public  List<Block> findAuctionBlock(BlockGroup blockGroup);
+	public  List<Block> findAuctionBlock(BlockGroupWaiting blockGroupWaiting);
 	
 	List<Integer> getBlockXY(int firstNum, int lastNum);
 	

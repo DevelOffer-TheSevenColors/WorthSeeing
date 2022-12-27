@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.event.coupon.entity.Coupon;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
@@ -62,6 +63,9 @@ public class Users {
 
 	@OneToMany(mappedBy = "users")
 	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
+
+	@OneToMany(mappedBy = "users")
+	private List<BlockGroupWaiting> blockGroupWaitingList = new ArrayList<BlockGroupWaiting>();
  
 	@OneToMany(mappedBy = "users" ,fetch = FetchType.EAGER)
 	private List<Notify> notifyList = new ArrayList<Notify>();

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.message.dto.MessageDTO;
@@ -30,8 +31,8 @@ public class refundController {
 	}
 	
 	@PostMapping("/refundProc")
-	public String successRefund(Refund refund, BlockGroup blockGroup, Model model) {
-		refundService.insertRefund(refund, blockGroup);
+	public String successRefund(Refund refund, BlockGroupWaiting blockGroupWaiting, Model model) {
+		refundService.insertRefund(refund, blockGroupWaiting);
 		
 		MessageDTO message = new MessageDTO("환불이 완료되었습니다", "/mypageMain",
 	            RequestMethod.GET, null);

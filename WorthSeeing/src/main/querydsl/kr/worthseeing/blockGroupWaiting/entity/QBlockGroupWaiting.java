@@ -42,6 +42,10 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final DateTimePath<java.util.Date> purchaseDay = createDateTime("purchaseDay", java.util.Date.class);
 
+    public final ListPath<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund> refundList = this.<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund>createList("refundList", kr.worthseeing.refund.entity.Refund.class, kr.worthseeing.refund.entity.QRefund.class, PathInits.DIRECT2);
+
+    public final kr.worthseeing.main.reservation.entity.QReservation reservation;
+
     public final StringPath sImg = createString("sImg");
 
     public final DateTimePath<java.util.Date> startDate = createDateTime("startDate", java.util.Date.class);
@@ -49,6 +53,8 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
     public final kr.worthseeing.status.entity.QStatus status;
 
     public final StringPath userId = createString("userId");
+
+    public final kr.worthseeing.users.entity.QUsers users;
 
     public final NumberPath<Integer> width = createNumber("width", Integer.class);
 
@@ -70,7 +76,9 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public QBlockGroupWaiting(Class<? extends BlockGroupWaiting> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.reservation = inits.isInitialized("reservation") ? new kr.worthseeing.main.reservation.entity.QReservation(forProperty("reservation"), inits.get("reservation")) : null;
         this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
+        this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;
     }
 
 }

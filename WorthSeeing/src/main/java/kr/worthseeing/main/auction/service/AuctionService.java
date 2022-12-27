@@ -1,13 +1,12 @@
 package kr.worthseeing.main.auction.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
-import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.reservation.entity.Reservation;
@@ -48,19 +47,19 @@ public interface AuctionService {
 	BlockGroupWaiting auctionCreditView(BlockGroupWaiting blockGroupWaiting);
 	
 	
-	public void endAuction(Reservation reservation, BlockGroup blockGroup);
+	public void endAuction(Reservation reservation, BlockGroupWaiting blockGroupWaiting);
 	
 	//상시판매 목록 리스트
-	public Page<BlockGroup> selectAlwaysBuyList(BlockGroup blockGorup,Pageable pageable);
+	public Page<Block> selectAlwaysBuyList(Pageable pageable);
 	
 	// 상시 판매 목록 리스트 가격
 	List<Integer> selectAlwaysBuyListPrice();
 	
 	//상시판매  결제 페이지 정보 select 
-	public  BlockGroup alwaysBuyCreditView(BlockGroup blockGroup);
+	public  Block alwaysBuyCreditView(Block block);
 	
 	//상시판매 결제하기
-	public void updateAlwaysCreditInfo(BlockGroup blockGroup,Status status, Users user) ;
+	public void updateAlwaysCreditInfo(Block block,Status status, Users user) ;
 	
 	public String auctionAttendBtnYes();
 }

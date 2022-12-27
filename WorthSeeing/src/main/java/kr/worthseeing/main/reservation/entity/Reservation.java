@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.auction.entity.Auction;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"auctionList", "reservationUsersList", "blockGroup"})
+@ToString(exclude = {"auctionList", "reservationUsersList", "blockGroupWaiting"})
 public class Reservation {
 
 	@Id
@@ -47,8 +48,8 @@ public class Reservation {
 	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
 
 	@OneToOne
-	@JoinColumn(name = "blockGroup_seq")
-	private BlockGroup blockGroup;
+	@JoinColumn(name = "blockGroupWaiting_seq")
+	private BlockGroupWaiting blockGroupWaiting;
 
 	public Reservation(int startPrice, int userCnt) {
 		this.startPrice = startPrice;

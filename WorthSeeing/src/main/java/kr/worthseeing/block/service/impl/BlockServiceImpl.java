@@ -40,8 +40,8 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Override
-	public List<Block> findAuctionBlock(BlockGroup blockGroup) {
-		return blockRepo.findAuctionBlock(String.valueOf(blockGroup.getBlockGroup_seq()));
+	public List<Block> findAuctionBlock(BlockGroupWaiting blockGroupWaiting) {
+		return blockRepo.findAuctionBlock(String.valueOf(blockGroupWaiting.getBlockGroupWaiting_seq()));
 	}
 
 	@Override

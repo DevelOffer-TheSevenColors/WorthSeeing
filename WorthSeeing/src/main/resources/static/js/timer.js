@@ -92,7 +92,7 @@
             block = block.substring(0,block.length-1);
 
             $('#block').val(block);
-            if(data[0].endDate.substring(0,data[0].endDate.indexOf('T'))!=null){
+            if(data[0].endDate.substring(0,data[0].startDate.indexOf('T'))!=null){
             	$('#startDate').val(data[0].endDate.substring(0,data[0].endDate.indexOf('T')));
             } else{
             	$('#startDate').val("미정");

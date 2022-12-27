@@ -57,7 +57,7 @@ public class Block {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "blockGroupWaiting_seq", nullable = false)
+	@JoinColumn(name = "blockGroupWaiting_seq")
 	private BlockGroupWaiting blockGroupWaiting;
 
 	public void setBlockGroup(BlockGroupWaiting blockGroupWaiting) {
