@@ -82,7 +82,6 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationLog.setReservation_seq(reservation_db.getReservation_seq());
 		reservationLog.setStartPrice(reservation_db.getStartPrice());
 		reservationLog.setUseId(userId);
-		reservationLog.setReservation_seq(reservation_db.getReservation_seq());
 
 		reservationLogRepo.save(reservationLog);
 		
