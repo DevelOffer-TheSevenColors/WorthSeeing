@@ -5,24 +5,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
-import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.auction.entity.Auction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -38,8 +31,8 @@ public class Reservation {
 
 	@Column(columnDefinition = "number default 0")
 	private int startPrice;
-//	@Column(columnDefinition = "number default 0")
-//	private int userCnt;
+	@Column(columnDefinition = "number default 0")
+	private int userCnt;
 
 	@OneToMany(mappedBy = "reservation")
 	private List<Auction> auctionList = new ArrayList<Auction>();
@@ -53,7 +46,7 @@ public class Reservation {
 
 	public Reservation(int startPrice, int userCnt) {
 		this.startPrice = startPrice;
-//		this.userCnt = userCnt;
+		this.userCnt = userCnt;
 	}
 
 }
