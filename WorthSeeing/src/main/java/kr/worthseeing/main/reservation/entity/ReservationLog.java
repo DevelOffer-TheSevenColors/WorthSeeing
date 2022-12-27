@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.worthseeing.blockgroup.entity.BlockGroupLog;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaitingLog;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,8 +40,8 @@ public class ReservationLog {
 	private Date reservationTime;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "blockGroupLog_seq", nullable = false)
-	private BlockGroupLog blockGroupLog;
+	@JoinColumn(name = "blockGroupLogWaiting_seq", nullable = false)
+	private BlockGroupWaitingLog blockGroupWaitingLog;
 
 	@OneToOne(mappedBy = "reservationLog")
 	private AuctionLog auctionLog;

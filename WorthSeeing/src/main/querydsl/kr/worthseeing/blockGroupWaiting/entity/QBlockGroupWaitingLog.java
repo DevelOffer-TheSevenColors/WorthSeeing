@@ -1,4 +1,4 @@
-package kr.worthseeing.blockgroup.entity;
+package kr.worthseeing.blockGroupWaiting.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QBlockGroupLog is a Querydsl query type for BlockGroupLog
+ * QBlockGroupWaitingLog is a Querydsl query type for BlockGroupWaitingLog
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QBlockGroupLog extends EntityPathBase<BlockGroupLog> {
+public class QBlockGroupWaitingLog extends EntityPathBase<BlockGroupWaitingLog> {
 
-    private static final long serialVersionUID = 267145259L;
+    private static final long serialVersionUID = 2045616617L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QBlockGroupLog blockGroupLog = new QBlockGroupLog("blockGroupLog");
+    public static final QBlockGroupWaitingLog blockGroupWaitingLog = new QBlockGroupWaitingLog("blockGroupWaitingLog");
 
     public final NumberPath<Integer> avgPrice = createNumber("avgPrice", Integer.class);
 
@@ -48,23 +48,23 @@ public class QBlockGroupLog extends EntityPathBase<BlockGroupLog> {
 
     public final StringPath userId = createString("userId");
 
-    public QBlockGroupLog(String variable) {
-        this(BlockGroupLog.class, forVariable(variable), INITS);
+    public QBlockGroupWaitingLog(String variable) {
+        this(BlockGroupWaitingLog.class, forVariable(variable), INITS);
     }
 
-    public QBlockGroupLog(Path<? extends BlockGroupLog> path) {
+    public QBlockGroupWaitingLog(Path<? extends BlockGroupWaitingLog> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QBlockGroupLog(PathMetadata metadata) {
+    public QBlockGroupWaitingLog(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QBlockGroupLog(PathMetadata metadata, PathInits inits) {
-        this(BlockGroupLog.class, metadata, inits);
+    public QBlockGroupWaitingLog(PathMetadata metadata, PathInits inits) {
+        this(BlockGroupWaitingLog.class, metadata, inits);
     }
 
-    public QBlockGroupLog(Class<? extends BlockGroupLog> type, PathMetadata metadata, PathInits inits) {
+    public QBlockGroupWaitingLog(Class<? extends BlockGroupWaitingLog> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.reservationLog = inits.isInitialized("reservationLog") ? new kr.worthseeing.main.reservation.entity.QReservationLog(forProperty("reservationLog"), inits.get("reservationLog")) : null;
     }

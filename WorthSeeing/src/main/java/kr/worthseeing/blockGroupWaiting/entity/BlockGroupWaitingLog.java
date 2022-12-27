@@ -1,4 +1,4 @@
-package kr.worthseeing.blockgroup.entity;
+package kr.worthseeing.blockGroupWaiting.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +26,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlockGroupLog {
+public class BlockGroupWaitingLog {
 
 	@Id
 	@GeneratedValue
@@ -51,10 +51,10 @@ public class BlockGroupLog {
 	@Column(updatable = false)
 	private Date groupDate;
 
-	@OneToMany(mappedBy = "blockGroupLog", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "blockGroupWaitingLog", fetch = FetchType.EAGER)
 	private List<BlockLog> blockLogList = new ArrayList<BlockLog>();
 
-	@OneToOne(mappedBy = "blockGroupLog")
+	@OneToOne(mappedBy = "blockGroupWaitingLog")
 	private ReservationLog reservationLog;
 
 }

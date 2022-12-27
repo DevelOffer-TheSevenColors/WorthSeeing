@@ -24,7 +24,7 @@ public class QBlockLog extends EntityPathBase<BlockLog> {
 
     public final NumberPath<Integer> block_seq = createNumber("block_seq", Integer.class);
 
-    public final kr.worthseeing.blockgroup.entity.QBlockGroupLog blockGroupLog;
+    public final kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaitingLog blockGroupWaitingLog;
 
     public final NumberPath<Integer> blockLog_seq = createNumber("blockLog_seq", Integer.class);
 
@@ -54,7 +54,7 @@ public class QBlockLog extends EntityPathBase<BlockLog> {
 
     public QBlockLog(Class<? extends BlockLog> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.blockGroupLog = inits.isInitialized("blockGroupLog") ? new kr.worthseeing.blockgroup.entity.QBlockGroupLog(forProperty("blockGroupLog"), inits.get("blockGroupLog")) : null;
+        this.blockGroupWaitingLog = inits.isInitialized("blockGroupWaitingLog") ? new kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaitingLog(forProperty("blockGroupWaitingLog"), inits.get("blockGroupWaitingLog")) : null;
     }
 
 }

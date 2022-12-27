@@ -16,12 +16,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
-import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

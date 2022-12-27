@@ -2,7 +2,6 @@ package kr.worthseeing.block.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import kr.worthseeing.blockgroup.entity.BlockGroupLog;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaitingLog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +31,8 @@ public class BlockLog {
 	private int block_seq;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "blockGroupLog_seq", nullable = false)
-	private BlockGroupLog blockGroupLog;
+	@JoinColumn(name = "blockGroupWaitingLog_seq", nullable = false)
+	private BlockGroupWaitingLog blockGroupWaitingLog;
 	private int soldOutCnt;
 	@Column(columnDefinition = "number(10,0) default 0")
 	private int blockPrice;
@@ -45,9 +44,9 @@ public class BlockLog {
 	@Column(updatable = false, columnDefinition = "date default sysdate")
 	private Date endDate;
 
-	public void setBlockGroupLog(BlockGroupLog blockGroupLog) {
-		this.blockGroupLog = blockGroupLog;
-		blockGroupLog.getBlockLogList().add(this);
+	public void setBlockGroupWaitingLog(BlockGroupWaitingLog blockGroupWaitingLog) {
+		this.blockGroupWaitingLog = blockGroupWaitingLog;
+		blockGroupWaitingLog.getBlockLogList().add(this);
 	}
 
 }

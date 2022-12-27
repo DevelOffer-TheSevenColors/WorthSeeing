@@ -24,7 +24,7 @@ public class QReservationLog extends EntityPathBase<ReservationLog> {
 
     public final kr.worthseeing.main.auction.entity.QAuctionLog auctionLog;
 
-    public final kr.worthseeing.blockgroup.entity.QBlockGroupLog blockGroupLog;
+    public final kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaitingLog blockGroupWaitingLog;
 
     public final NumberPath<Integer> reservation_seq = createNumber("reservation_seq", Integer.class);
 
@@ -55,7 +55,7 @@ public class QReservationLog extends EntityPathBase<ReservationLog> {
     public QReservationLog(Class<? extends ReservationLog> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.auctionLog = inits.isInitialized("auctionLog") ? new kr.worthseeing.main.auction.entity.QAuctionLog(forProperty("auctionLog"), inits.get("auctionLog")) : null;
-        this.blockGroupLog = inits.isInitialized("blockGroupLog") ? new kr.worthseeing.blockgroup.entity.QBlockGroupLog(forProperty("blockGroupLog"), inits.get("blockGroupLog")) : null;
+        this.blockGroupWaitingLog = inits.isInitialized("blockGroupWaitingLog") ? new kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaitingLog(forProperty("blockGroupWaitingLog"), inits.get("blockGroupWaitingLog")) : null;
     }
 
 }
