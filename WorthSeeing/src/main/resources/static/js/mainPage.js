@@ -1,16 +1,18 @@
 // 인기순위 Top 5 이미지 띄우기
 	function top5Img(cImgTopList) {
 	 	var cImgTopArr = cImgTopList.split(",");
-	     /*  
-		for (var i = 1; i <= cImgTopArr.length; i++) {
-			$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
+	    
+		for (var i = 1; i <= 5; i++) {
 			if (i == 5) {
 				$("#topImg" + i).attr("src", cImgTopArr[i].slice(3).slice(0, -3));
+			}
+			else {
+				$("#topImg" + i).attr("src", cImgTopArr[i].slice(3));
 			}
 			
 			$("#rank" + i).text("TOP  " + i);
 			
-		}*/
+		}
 	}
 	
 	

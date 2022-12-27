@@ -18,13 +18,19 @@
 		for (var i = 1; i <= 289; i++) {
 			
 			// 마지막 사진 처리
-			if (i == 289) {
-				//var cImgURL = cImgArr[i].slice(3).slice(0, -3);
+			if (cImgArr[i-1] == null) {
+			}
+			else if (i == cImgArr.length) {
+				var cImgURL = cImgArr[i-1].slice(3).slice(0, -3);
 			} else {
-				//var cImgURL = cImgArr[i].slice(3);
+				var cImgURL = cImgArr[i-1].slice(3);
 			}
 		
-			var child = "<div class='tt' id=" + i + "><p class='numberDisplay'>" + i + "</p><p class='betweenDay'></p><button class='reservationBtn'>예약 하기</button><img class='imgDisplay' src='"+ cImgURL + "'/></li>";
+			var child = "<div class='tt' id=" + i + ">"
+					+ "<p class='numberDisplay'>" + i + "</p>"
+					+ "<p class='betweenDay'></p>"
+					+ "<button class='reservationBtn'>예약 하기</button>"
+					+ "<img class='imgDisplay' src='"+ cImgURL + "'/></div>";
 	        
 			$(".blockTest").append(child);
 
@@ -56,9 +62,8 @@
 		var XLocationList = [[${XLocationList}]]
 		var YLocationList = [[${YLocationList}]]
 		
-		
 		createBlock([[${blockGroupSeqList}]], cImgList);
-       
+       	
 		// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
 		resetLocalStorage();
 		
@@ -104,7 +109,7 @@
 						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 						<div class="p-3 maxwidth900">
 							<p id="rank2" class="textsize100"></p>
-							<a th:href="@{${blockGroupLink[0]}}"
+							<a th:href="@{${blockGroupLink[1]}}"
 								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
 						</div>
 					</div>
@@ -115,7 +120,7 @@
 						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 						<div class="p-3 maxwidth900">
 							<p id="rank3" class="textsize100"></p>
-							<a th:href="@{${blockGroupLink[0]}}"
+							<a th:href="@{${blockGroupLink[2]}}"
 								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
 						</div>
 					</div>
@@ -126,7 +131,7 @@
 						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 						<div class="p-3 maxwidth900">
 							<p id="rank4" class="textsize100"></p>
-							<a th:href="@{${blockGroupLink[0]}}"
+							<a th:href="@{${blockGroupLink[3]}}"
 								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
 						</div>
 					</div>
@@ -138,7 +143,7 @@
 						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 						<div class="p-3 maxwidth900">
 							<p id="rank5" class="textsize100"></p>
-							<a th:href="@{${blockGroupLink[0]}}"
+							<a th:href="@{${blockGroupLink[4]}}"
 								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
 						</div>
 					</div>

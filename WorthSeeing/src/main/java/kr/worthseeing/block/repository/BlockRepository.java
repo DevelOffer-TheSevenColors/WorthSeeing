@@ -28,7 +28,7 @@ public interface BlockRepository  extends CrudRepository<Block, Integer>,Queryds
 	@Query("select b from Block b where b.blockGroup.blockGroup_seq = ?1")
 	List<Block> findBlockGroupSeqFromBlock(int blockGroup_seq);
 	
-	@Query("select b from Block b")
+	@Query("select b from Block b order by block_seq")
 	List<Block> listblock();
 	
 	

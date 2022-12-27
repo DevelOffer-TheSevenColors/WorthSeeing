@@ -44,7 +44,8 @@ public class BlockGroupWaiting {
 
 	private int width = 0;
 	private int height = 0;
-
+	private int minBlockSeq;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date purchaseDay;
 

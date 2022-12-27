@@ -49,6 +49,7 @@ public class BlockGroup {
 	
 	private int width = 0;
 	private int height = 0;
+	private int minBlockSeq;
  
 	@OneToMany(mappedBy = "blockGroup")
 	private List<Block> blockList = new ArrayList<Block>();

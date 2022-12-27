@@ -40,6 +40,8 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final StringPath linkUrl = createString("linkUrl");
 
+    public final NumberPath<Integer> minBlockSeq = createNumber("minBlockSeq", Integer.class);
+
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
     public final DateTimePath<java.util.Date> purchaseDay = createDateTime("purchaseDay", java.util.Date.class);

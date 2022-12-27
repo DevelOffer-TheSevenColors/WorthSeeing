@@ -1,6 +1,7 @@
 package kr.worthseeing.block.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +141,7 @@ public class BlockServiceImpl implements BlockService {
 		Status status = new Status();
 		status.setStatus_seq(14);
 		blockGroupWaiting.setStatus(status);
-
+		blockGroupWaiting.setMinBlockSeq(Collections.min(intList));
 		blockGroupWaiting.setUsers(users);
 
 		blockGroupWaitingRepo.save(blockGroupWaiting);

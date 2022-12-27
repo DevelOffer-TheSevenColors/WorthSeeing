@@ -245,16 +245,19 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		List<Integer> listBlockGroupSeq = blockGroupRepo.listBlockGroupSeq();
-
+		
 		List<Integer> listXLocation = new ArrayList<Integer>();
 		List<Integer> listYLocation = new ArrayList<Integer>();
 
 		List<Block> findBlock = (List<Block>) blockRepo.listblock();
 
-		for (int blockGroupSeq : listBlockGroupSeq) {
+		for (Block blockItem : findBlock) {
+			for (int blockGroupSeq : listBlockGroupSeq) {
 
-			for (Block blockItem : findBlock) {
-				if (blockGroupSeq == blockItem.getBlock_seq()) {
+				if (blockGroupSeq == blockItem.getBlockGroup().getBlockGroup_seq()) {
+					System.out.println("blockGroupSEq--->" + blockGroupSeq);
+					System.out.println("blockItem.getBlock_seq()--->" + blockItem.getBlockGroup().getBlockGroup_seq());
+					
 					listXLocation.add(blockItem.getXLocation());
 					listYLocation.add(blockItem.getYLocation());
 				}
@@ -264,7 +267,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		map.put("XLocationList", listXLocation);
 		map.put("YLocationList", listYLocation);
 		map.put("listBlockGroupSeq", listBlockGroupSeq);
-		
+
 		System.out.println("map-00>" + map.toString());
 //		return blockGroupRepo.listBlockGroupSeq();
 		return map;
