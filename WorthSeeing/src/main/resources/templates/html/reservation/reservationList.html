@@ -36,10 +36,10 @@
 					
 					<tbody>
 						<tr th:each="reservation, state : ${reservationList}">
-							<td th:text="${reservation.blockGroup.blockGroup_seq}"></td>
+							<td th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
 							<td th:text="${reservation.startPrice}"></td>
 							<td th:text="${reservation.userCnt}"></td>
-							<td  th:text="${reservation.blockGroup.clickCnt}"></td>
+							<td  th:text="${reservation.blockGroupWaiting.clickCnt}"></td>
 							<td><a
 								th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
 						</tr>

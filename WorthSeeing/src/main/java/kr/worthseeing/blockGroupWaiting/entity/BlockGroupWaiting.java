@@ -71,6 +71,9 @@ public class BlockGroupWaiting {
 	@OneToMany(mappedBy = "blockGroupWaiting")
 	private List<Refund> refundList = new ArrayList<Refund>();
 
+	@Column(columnDefinition = "number default 0")
+	private int clickCnt;
+	
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
