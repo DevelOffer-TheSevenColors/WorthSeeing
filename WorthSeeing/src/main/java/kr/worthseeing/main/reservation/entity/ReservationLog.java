@@ -40,7 +40,7 @@ public class ReservationLog {
 	private Date reservationTime;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "blockGroupLogWaiting_seq", nullable = false)
+	@JoinColumn(name = "blockGroupLogWaiting_seq")
 	private BlockGroupWaitingLog blockGroupWaitingLog;
 
 	@OneToOne(mappedBy = "reservationLog")
