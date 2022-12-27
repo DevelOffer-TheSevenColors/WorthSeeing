@@ -251,9 +251,9 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		
 		for(int blockGroupSeq : listBlockGroupSeq) {
 			
-			Block findBlock = blockRepo.findBlockGroupSeqFromBlock(blockGroupSeq);
-			listXLocation.add(findBlock.getXLocation());
-			listYLocation.add(findBlock.getYLocation());
+//			Block findBlock = blockRepo.findBlockGroupSeqFromBlock(blockGroupSeq);
+//			listXLocation.add(findBlock.getXLocation());
+//			listYLocation.add(findBlock.getYLocation());
 			
 		}
 //				 blockGroupRepo.listBlockGroupSeq()
