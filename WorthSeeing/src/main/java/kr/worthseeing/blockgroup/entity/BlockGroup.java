@@ -30,10 +30,10 @@ import lombok.ToString;
 @Data
 @ToString(exclude = {"blockList", "refundList", "reservation", "users", "status","blockGroupWaiting"})
 @NoArgsConstructor
-@AllArgsConstructor
 public class BlockGroup {
 	
 	@Id
+	@GeneratedValue
 	private int blockGroup_seq;
 	private String linkUrl;
 	private String cImg;
