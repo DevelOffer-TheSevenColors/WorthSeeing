@@ -1,5 +1,6 @@
 package kr.worthseeing.main.reservation.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import kr.worthseeing.event.pointlog.entity.PointLog;
 import kr.worthseeing.event.pointlog.repository.PointLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.entity.ReservationLog;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
+import kr.worthseeing.main.reservation.repository.ReservationLogRepository;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
 import kr.worthseeing.main.reservation.service.ReservationService;
@@ -35,6 +38,8 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private AuctionRepository auctionRepo;
 
+	@Autowired
+	private ReservationLogRepository reservationLogRepo;
 	
 	@Override
 	public List<Integer> listReservationBlockGroupSeq() {
@@ -71,6 +76,15 @@ public class ReservationServiceImpl implements ReservationService {
 			message = "예약이 되었습니다.";
 		}
 		
+		ReservationLog reservationLog = new ReservationLog();
+		
+		reservationLog.setReservationTime(new Date());
+		reservationLog.setReservation_seq(reservation_db.getReservation_seq());
+		reservationLog.setStartPrice(reservation_db.getStartPrice());
+		reservationLog.setUserCnt(reservation_db.getUserCnt());
+		reservationLog.setReservation_seq(reservation_db.getReservation_seq());
+
+		reservationLogRepo.save(reservationLog);
 		
 		return message;
 	}
