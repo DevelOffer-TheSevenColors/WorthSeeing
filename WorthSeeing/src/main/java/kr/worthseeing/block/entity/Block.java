@@ -60,7 +60,7 @@ public class Block {
 	@JoinColumn(name = "blockGroupWaiting_seq", nullable = false)
 	private BlockGroupWaiting blockGroupWaiting;
 
-	public void setBlockGroup(BlockGroupWaiting blockGroupWaiting) {
+	public void setBlockWaitingGroup(BlockGroupWaiting blockGroupWaiting) {
 		this.blockGroupWaiting = blockGroupWaiting;
 		blockGroupWaiting.getBlockList().add(this);
 	}
