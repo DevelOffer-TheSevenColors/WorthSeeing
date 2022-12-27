@@ -137,17 +137,12 @@ public class BlockServiceImpl implements BlockService {
 		users.setUserId("testid");
 		blockGroup.setUsers(users);
 		
-		Status status = new Status();
-		status.setStatus_seq(5);
-		blockGroup.setStatus(status);
-		
 		blockGroupRepo.save(blockGroup);
 		
 		BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
 		
 		blockGroupWaiting.setWidth(width * 100);
 		blockGroupWaiting.setHeight(height * 100);
-		blockGroupWaiting.setStatus(status);
 		
 		blockGroupWaitingRepo.save(blockGroupWaiting);
 		

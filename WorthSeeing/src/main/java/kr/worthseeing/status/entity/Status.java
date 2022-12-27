@@ -21,7 +21,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockGroupList", "blockList", "notifyList", "couponList","blockGroupWaitingList"})
+@ToString(exclude = {"blockList", "notifyList", "couponList","blockGroupWaitingList"})
 @NoArgsConstructor
 public class Status {
 
@@ -37,8 +37,8 @@ public class Status {
 	private String firstCode;
 	private String secondCode;
 
-	@OneToMany(mappedBy = "status")
-	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
+//	@OneToMany(mappedBy = "status")
+//	private List<BlockGroup> blockGroupList = new ArrayList<BlockGroup>();
 
 	@OneToMany(mappedBy = "status")
 	private List<Block> blockList = new ArrayList<Block>();

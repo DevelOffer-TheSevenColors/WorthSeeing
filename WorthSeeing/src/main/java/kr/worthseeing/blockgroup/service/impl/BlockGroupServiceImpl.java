@@ -62,7 +62,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		Status status = new Status();
 		status.setStatus_seq(3);
 
-		blockGroup.setStatus(status);
+//		blockGroup.setStatus(status);
 		blockGroup.setUsers(usersRepo.findById(users.getUserId()).get());
 
 		try {
@@ -218,13 +218,13 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 		List<BlockGroup> blockGroupList = (List<BlockGroup>) blockGroupRepo.findAll();
 
 		for (BlockGroup blockGroup : blockGroupList) {
-			int status = blockGroup.getStatus().getStatus_seq();
-
-			if (!resultMap.containsKey(status)) { //
-				resultMap.put(status, new ArrayList<>());
-			}
-
-			resultMap.get(status).add(blockGroup);
+//			int status = blockGroup.getStatus().getStatus_seq();
+//
+//			if (!resultMap.containsKey(status)) { //
+//				resultMap.put(status, new ArrayList<>());
+//			}
+//
+//			resultMap.get(status).add(blockGroup);
 		}
 
 		return resultMap;

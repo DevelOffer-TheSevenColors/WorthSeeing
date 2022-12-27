@@ -28,7 +28,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString(exclude = {"blockList", "refundList", "reservation", "users", "status","blockGroupWaiting"})
+@ToString(exclude = {"blockList", "refundList", "reservation", "users"})
 @NoArgsConstructor
 public class BlockGroup {
 	
@@ -79,14 +79,14 @@ public class BlockGroup {
 		users.getBlockGroupList().add(this);
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "status_seq", nullable = false)
-	private Status status;
-
-	public void setStatus(Status status) {
-		this.status = status;
-		status.getBlockGroupList().add(this);
-	}
+//	@ManyToOne
+//	@JoinColumn(name = "status_seq", nullable = false)
+//	private Status status;
+//
+//	public void setStatus(Status status) {
+//		this.status = status;
+//		status.getBlockGroupList().add(this);
+//	}
 
 	public BlockGroup(int blockGroup_seq, String linkUrl, String cImg, String sImg, int avgPrice) {
 		this.blockGroup_seq = blockGroup_seq;

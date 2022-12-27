@@ -96,18 +96,13 @@ public class reservationTest {
 
 		Users users = new Users();
 		users.setUserId("testid");
-//		usersRepo.save(users);
 
-		Status status = new Status();
-		status.setStatus_seq(2);
-
-		for (int i = 0; i < 289; i++) {
-			BlockGroup blockGroup = new BlockGroup(i + 1, "https://www.naver.com", "/cimg/clientimg.png",
+//		for (int i = 0; i < 289; i++) {
+			BlockGroup blockGroup = new BlockGroup(1, "https://www.naver.com", "https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png",
 					"C:/serverImage/serverimg.png", 500);
 			blockGroup.setUsers(users);
-			blockGroup.setStatus(status);
 			blockGroupRepo.save(blockGroup);
-		}
+//		}
 
 	}
 

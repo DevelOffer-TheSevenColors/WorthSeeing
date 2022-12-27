@@ -52,8 +52,6 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public final DateTimePath<java.util.Date> startDate = createDateTime("startDate", java.util.Date.class);
 
-    public final kr.worthseeing.status.entity.QStatus status;
-
     public final kr.worthseeing.users.entity.QUsers users;
 
     public final NumberPath<Integer> width = createNumber("width", Integer.class);
@@ -77,7 +75,6 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
     public QBlockGroup(Class<? extends BlockGroup> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.reservation = inits.isInitialized("reservation") ? new kr.worthseeing.main.reservation.entity.QReservation(forProperty("reservation"), inits.get("reservation")) : null;
-        this.status = inits.isInitialized("status") ? new kr.worthseeing.status.entity.QStatus(forProperty("status")) : null;
         this.users = inits.isInitialized("users") ? new kr.worthseeing.users.entity.QUsers(forProperty("users")) : null;
     }
 
