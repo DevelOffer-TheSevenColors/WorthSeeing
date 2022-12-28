@@ -157,8 +157,6 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationUsersRepo.delete(reservationUsers2);
 		}
 		
-		
-
 	}
 
 //	@Override
@@ -173,11 +171,11 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	public String myBlockGroupWaitingYN() {
-		String flag = "yes";
+		String flag = "no";
 		for(BlockGroupWaiting blockGroupWaiting : blockGroupWaitingRepo.findAll()) {
 			if(blockGroupWaiting !=null) {
-				if(blockGroupWaiting.getPrice() != 0) {
-					flag = "no";
+				if(blockGroupWaiting.getStatus().getStatus_seq() == 14) {
+					flag = "14";
 				}
 			}
 		}		
