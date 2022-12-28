@@ -178,6 +178,7 @@ public class AuctionController {
 	public String alwaysBuyCreditView(Model model, Block block, @PageableDefault Pageable pageable,
 			@AuthenticationPrincipal SecurityUser principal) {
 
+		System.out.println("아아아"+block);
 		model.addAttribute("blockGroup", auctionService.alwaysBuyCreditView(block));
 		model.addAttribute("users", principal.getUsers());
 

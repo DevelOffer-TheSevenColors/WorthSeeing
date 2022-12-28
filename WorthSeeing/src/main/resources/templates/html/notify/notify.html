@@ -72,7 +72,7 @@
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"
-								th:with="start=${(alwaysList.number/10)*10 + 1},
+								th:with="start=${(notifyList.number/10)*10 + 1},
 	                    	last=(${start + 9 < notifyList.totalPages ? start + 9 : notifyList.totalPages})">
 
 								<li th:class="${notifyList.first} ? 'disabled'">

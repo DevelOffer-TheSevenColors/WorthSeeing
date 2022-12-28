@@ -68,7 +68,7 @@ $(document).ready(function() {
 								<td th:text="${(nowPage*10) + state.count}"></td>
 								<td th:text="${blockGroup.Block_seq}"></td>
 								<td  th:id="calcprice + ${(nowPage * 10) + state.count}" th:name="price" th:text="${blockGroup.blockPrice}" th:value="${blockGroup.blockPrice}"></td>
-								<td><input type="hidden" th:name="blockGroup_seq" th:value="${blockGroup.block_seq}" /> 
+								<td><input type="hidden" th:name="block_seq" th:value="${blockGroup.block_seq}" /> 
 								<input type="submit" value="구매하러가기" /></td>
 							</tr>
 						</form>
