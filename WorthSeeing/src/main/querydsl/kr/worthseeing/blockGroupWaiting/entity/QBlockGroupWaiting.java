@@ -46,8 +46,6 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final DateTimePath<java.util.Date> purchaseDay = createDateTime("purchaseDay", java.util.Date.class);
 
-    public final ListPath<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund> refundList = this.<kr.worthseeing.refund.entity.Refund, kr.worthseeing.refund.entity.QRefund>createList("refundList", kr.worthseeing.refund.entity.Refund.class, kr.worthseeing.refund.entity.QRefund.class, PathInits.DIRECT2);
-
     public final kr.worthseeing.main.reservation.entity.QReservation reservation;
 
     public final StringPath sImg = createString("sImg");

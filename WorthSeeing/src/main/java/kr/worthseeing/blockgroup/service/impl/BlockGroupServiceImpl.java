@@ -268,35 +268,13 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	public Map<String, Object> listBoardGroupSeq() {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		List<Integer> listBlockGroupSeq = blockGroupRepo.listBlockGroupSeq();
-		List<BlockGroup> listBlockGroup = blockGroupRepo.orderByBlockGroupSeq();
-
-		List<Integer> listXLocation = new ArrayList<Integer>();
-		List<Integer> listYLocation = new ArrayList<Integer>();
+		map.put("listBlockGroupSeq", blockGroupRepo.listBlockGroupSeq());
 		
-		List<Integer> listWidth = new ArrayList<Integer>();
-		List<Integer> listHeight = new ArrayList<Integer>();
+		map.put("listXLocation", blockGroupRepo.listXLocationBlockJoinBlockGroupMinBlockSeq());
+		map.put("listYLocation", blockGroupRepo.listYLocationBlockJoinBlockGroupMinBlockSeq());
 		
-		// 블록 그룹에 해당하는 블록의 X, Y 좌표 가져옴
-		for (BlockGroup blockGroupItem : listBlockGroup) {
-			// 해당 블록 그룹의 최소 블록 번호의 X, Y를 가져옴
-			Block minBlock = blockRepo.findById(blockGroupItem.getMinBlockSeq()).get();
-			
-			listXLocation.add(minBlock.getXLocation());
-			listYLocation.add(minBlock.getYLocation());
-			
-			// 해당 블록 그룹의 width, height를 가져옴
-			listWidth.add(blockGroupItem.getWidth());
-			listHeight.add(blockGroupItem.getHeight());
-			
-		}
-
-		map.put("listBlockGroupSeq", listBlockGroupSeq);
-		map.put("listXLocation", listXLocation);
-		map.put("listYLocation", listYLocation);
-		
-		map.put("listWidth", listWidth);
-		map.put("listHeight", listHeight);
+		map.put("listWidth", blockGroupRepo.listBlockGroupWidthJoinBlockMinBlockSeq());
+		map.put("listHeight", blockGroupRepo.listBlockGroupHeightJoinBlockMinBlockSeq());
 		
 		return map;
 	}

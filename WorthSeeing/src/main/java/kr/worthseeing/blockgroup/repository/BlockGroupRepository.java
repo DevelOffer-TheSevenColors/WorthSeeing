@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
+import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.reservation.entity.Reservation;
 
@@ -47,5 +48,17 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 //	@Query("select b from BlockGroup b where status_seq = 8 order by b.blockGroup_seq")
 	@Query("select b from BlockGroup b order by b.blockGroup_seq")
 	List<BlockGroup> listBlockGroupEndDate();
+	
+	@Query("select b.xLocation from Block b inner join b.blockGroup bg where b.block_seq = bg.minBlockSeq order by b.block_seq")
+	List<Integer> listXLocationBlockJoinBlockGroupMinBlockSeq();
+	
+	@Query("select b.yLocation from Block b inner join b.blockGroup bg where b.block_seq = bg.minBlockSeq order by b.block_seq")
+	List<Integer> listYLocationBlockJoinBlockGroupMinBlockSeq();
+	
+	@Query("select bg.width from Block b inner join b.blockGroup bg where b.block_seq = bg.minBlockSeq order by b.block_seq")
+	List<Integer> listBlockGroupWidthJoinBlockMinBlockSeq();
+	
+	@Query("select bg.height from Block b inner join b.blockGroup bg where b.block_seq = bg.minBlockSeq order by b.block_seq")
+	List<Integer> listBlockGroupHeightJoinBlockMinBlockSeq();
 	
 }
