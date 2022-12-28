@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.main.reservation.service.ReservationService;
 import kr.worthseeing.message.dto.MessageDTO;
+import kr.worthseeing.security.config.SecurityUser;
 
 @Controller
 public class BlockController {
@@ -80,9 +82,9 @@ public class BlockController {
 	}
 
 	@GetMapping("/block/grouping")
-	public String blockGrouping(String firstNum, String lastNum, Model model) {
+	public String blockGrouping(String firstNum, String lastNum, Model model, @AuthenticationPrincipal SecurityUser principal) {
 		
-		if (blockService.getBlockXY(Integer.parseInt(firstNum), Integer.parseInt(lastNum)) == null) {
+		if (blockService.getBlockXY(Integer.parseInt(firstNum), Integer.parseInt(lastNum), principal.getUsers().getUserId()) == null) {
 			MessageDTO message = new MessageDTO("그룹핑 불가능합니다. (10개 초과 or 불가능한 블록 선택)", "/reservation/chooseBlockGroup",
 					RequestMethod.GET, null);
 			return showMessageAndRedirect(message, model);

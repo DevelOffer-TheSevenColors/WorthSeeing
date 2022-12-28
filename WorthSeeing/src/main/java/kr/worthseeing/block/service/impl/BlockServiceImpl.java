@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.repository.BlockRepository;
@@ -15,6 +16,10 @@ import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
+import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
+import kr.worthseeing.main.reservation.repository.ReservationRepository;
+import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 
@@ -29,7 +34,13 @@ public class BlockServiceImpl implements BlockService {
 
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
-
+	
+	@Autowired
+	private ReservationRepository reservationRepo;
+	
+	@Autowired
+	private ReservationUsersRepository reservationUsersRepo;
+	
 	@Override
 	public Block getBlock(Block block) {
 		return blockRepo.findById(block.getBlock_seq()).get();
@@ -52,8 +63,9 @@ public class BlockServiceImpl implements BlockService {
 		return blockRepo.availableGroupingblock();
 	}
 
+	@Transactional
 	@Override
-	public List<Integer> getBlockXY(int firstNum, int lastNum) {
+	public List<Integer> getBlockXY(int firstNum, int lastNum, String userId) {
 
 		int temp = 0;
 
@@ -139,10 +151,9 @@ public class BlockServiceImpl implements BlockService {
 		// 1. blockGroupWaiting에 insert
 		// 2. reservation에 insert
 		// 3. reservationUserId에 insert
-		
 		Users users = new Users();
-		users.setUserId("testid");
-
+		users.setUserId(userId);
+		
 		BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
 
 		blockGroupWaiting.setWidth(width * 100);
@@ -154,8 +165,19 @@ public class BlockServiceImpl implements BlockService {
 		blockGroupWaiting.setMinBlockSeq(Collections.min(intList));
 		blockGroupWaiting.setUsers(users);
 
-		blockGroupWaitingRepo.save(blockGroupWaiting);
-
+		blockGroupWaitingRepo.save(blockGroupWaiting); // 1. blockGroupWaiting에 insert
+		
+		Reservation reservation = new Reservation();
+		reservation.setBlockGroupWaiting(blockGroupWaiting);
+		reservation.setUserCnt(1);
+		reservation.setStartPrice(30000); // 시작 가격
+		reservationRepo.save(reservation); // 2. reservation에 insert
+		
+		ReservationUsers reservationUsers = new ReservationUsers();
+		reservationUsers.setUsers(users);
+		reservationUsers.setReservation(reservation);
+		reservationUsersRepo.save(reservationUsers); // 3. reservationUserId에 insert
+		
 		for (int item : intList) {
 			Block findBlockWaitingSeq = blockRepo.findById(item).get();
 			findBlockWaitingSeq.setBlockGroupWaiting(blockGroupWaiting);

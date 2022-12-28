@@ -66,10 +66,15 @@
             $("#retryBtn").click(function() {
                arr = [];
                cnt = 0;
-               $('.block').prop('disabled', false);
                $('input[name="blockcheckbox"]').each(function() {
                    $(this).prop('checked', false);
                });
+               
+               $('.block').prop('disabled', true);
+               for (var j = 0; j < availableGroupingblockLength; j++) {
+                  	$('#check' + availableGroupingblock[j-1]).prop('disabled', false);
+               }
+               
             })
             
             $('input[name="blockcheckbox"]').change(function() {
