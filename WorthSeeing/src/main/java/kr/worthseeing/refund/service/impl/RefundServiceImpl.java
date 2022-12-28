@@ -39,7 +39,6 @@ public class RefundServiceImpl implements RefundService {
 				Status status = new Status();
 				status.setStatus_seq(12);
 				blockItem.setStatus(status);
-				System.out.println("111");
 				BlockGroup blockGroup_ = new BlockGroup();
 				blockGroup_.setBlockGroup_seq(1);
 				BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
@@ -47,16 +46,14 @@ public class RefundServiceImpl implements RefundService {
 				blockItem.setBlockGroupWaiting(blockGroupWaiting);
 				blockItem.setBlockGroup(blockGroup_);
 				blockRepo.save(blockItem);
-				System.out.println("222");
-				refund.setBlockGroup_seq(findBlockGroup);
-				refund.setRefundPrice(blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get().getPrice());
-				refund.setRefundDate(new Date());
-				refund.setBlockGroupWaiting_seq(1);
-				refundRepo.save(refund);
-				System.out.println("333");
-				blockGroupRepo.deleteById(findBlockGroup);				
 			}
 		}
+		refund.setBlockGroup_seq(findBlockGroup);
+		refund.setRefundPrice(blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get().getPrice());
+		refund.setRefundDate(new Date());
+		refund.setBlockGroupWaiting_seq(1);
+		refundRepo.save(refund);
+		blockGroupRepo.deleteById(findBlockGroup);		
 		
 	}
 }

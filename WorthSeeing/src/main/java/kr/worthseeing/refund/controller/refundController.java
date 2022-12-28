@@ -33,7 +33,6 @@ public class refundController {
 	@PostMapping("/refundProc")
 	public String successRefund(Refund refund, BlockGroup blockGroup, Block block, Model model) {
 		refundService.insertRefund(refund, blockGroup, block);
-		
 		MessageDTO message = new MessageDTO("환불이 완료되었습니다", "/mypageMain",
 	            RequestMethod.GET, null);
 
