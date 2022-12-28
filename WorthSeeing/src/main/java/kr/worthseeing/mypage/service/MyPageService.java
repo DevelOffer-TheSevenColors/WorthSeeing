@@ -38,7 +38,7 @@ public interface MyPageService {
 	
 	Page<Coupon> leftOverCouponPage(Coupon coupon,Pageable pageable);
 
-	List<BlockGroup> getBlockGroupUserId(String userId);
+	Page<BlockGroup> getBlockGroupUserId(String userId, Pageable pageable);
 	
 	void userUpdateProc(Users users);
 	

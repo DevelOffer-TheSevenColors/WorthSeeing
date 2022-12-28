@@ -10,8 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import kr.worthseeing.event.pointlog.entity.PointLog;
-import kr.worthseeing.event.pointlog.repository.PointLogRepository;
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
+import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationLog;
@@ -40,6 +40,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private ReservationLogRepository reservationLogRepo;
+	
+	@Autowired
+	private BlockGroupWaitingRepository blockGroupWaitingRepo;
 	
 	@Override
 	public List<Integer> listReservationBlockGroupSeq() {
@@ -158,13 +161,24 @@ public class ReservationServiceImpl implements ReservationService {
 
 	}
 
+//	@Override
+//	public String auctionStartYes() {
+//		String flag = "yes";
+//		if (auctionRepo.findAll().iterator().hasNext()) {
+//			flag = "no";
+//		}
+//
+//		return flag;
+//	}
+	
 	@Override
-	public String auctionStartYes() {
+	public String myBlockGroupWaitingYN() {
 		String flag = "yes";
-		if (auctionRepo.findAll().iterator().hasNext()) {
-			flag = "no";
+		for(BlockGroupWaiting blockGroupWaiting : blockGroupWaitingRepo.findAll()) {
+			if(blockGroupWaiting.getUsers() != null) {
+				flag = "no";
+			}
 		}
-
 		return flag;
 	}
 

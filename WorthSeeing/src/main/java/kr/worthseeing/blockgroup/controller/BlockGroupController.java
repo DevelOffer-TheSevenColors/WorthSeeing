@@ -53,9 +53,9 @@ public class BlockGroupController {
 	// 이용 전 작성 처리
 	@PostMapping("/writeURLThumb")
 	public String writeURLThumbProc(Model model, BlockGroupWaiting blockGroupWaiting, MultipartFile files,
-			@AuthenticationPrincipal SecurityUser principal) {
+			@AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
 		blockGroupService.updateBlockGroupWaiting(blockGroupWaiting, files, principal.getUsers());
-		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
 
@@ -67,9 +67,9 @@ public class BlockGroupController {
 	// 수정 처리
 	@PostMapping("/updateURLThumb")
 	public String updateURLThumbProc(Model model, BlockGroup blockGroup, MultipartFile files,
-			@AuthenticationPrincipal SecurityUser principal) {
+			@AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
 		blockGroupService.updateBlockGroup(blockGroup, files, principal.getUsers());
-		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
 

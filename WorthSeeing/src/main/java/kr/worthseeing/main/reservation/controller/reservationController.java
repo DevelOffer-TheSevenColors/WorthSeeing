@@ -40,6 +40,7 @@ public class reservationController {
 	private String selectauctonList(Model model, Reservation reservation, @PageableDefault Pageable pageable) {
 		model.addAttribute("reservationList", reservationservice.selectReservation(pageable));
 		// model.addAttribute("auctionFlag",reservationservice.auctionStartYes());
+		model.addAttribute("endAuction",reservationservice.myBlockGroupWaitingYN());
 		return "/reservation/reservationList";
 	}
 

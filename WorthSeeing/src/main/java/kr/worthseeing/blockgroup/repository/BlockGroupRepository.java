@@ -18,7 +18,7 @@ public interface BlockGroupRepository extends CrudRepository<BlockGroup, Integer
 	Page<BlockGroup> listBlockGroup(Pageable pageable);
 	
 	@Query("select b from BlockGroup b where b.users.userId like %?1%")
-	List<BlockGroup> findByUserId(String userId);
+	Page<BlockGroup> findByUserId(String userId, Pageable pageable);
 	
 	@Query("select max(b.blockGroup_seq) from BlockGroup b ")
 	int getMaxBlockGroupSeq();

@@ -14,20 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
-import kr.worthseeing.blockgroup.service.BlockGroupService;
 import kr.worthseeing.event.coupon.entity.Coupon;
-import kr.worthseeing.event.coupon.service.CouponService;
-import kr.worthseeing.main.auction.entity.Auction;
-import kr.worthseeing.main.auction.service.AuctionService;
-import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.message.dto.MessageDTO;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.security.config.SecurityUser;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
-import kr.worthseeing.users.service.UsersService;
 
 @Controller
 public class MyPageController {
@@ -36,9 +29,10 @@ public class MyPageController {
 	private MyPageService myPageService;
 
 	@GetMapping("/mypageMain")
-	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal) {
+	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
+			@PageableDefault Pageable pageable) {
 		
-		List<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId());
+		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
 
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		
@@ -100,7 +94,7 @@ public class MyPageController {
 		return "redirect:/mypage/mypageMain";
 	}
 	
-	@GetMapping("/mypageAuctionHistory")
+	@RequestMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
 
 

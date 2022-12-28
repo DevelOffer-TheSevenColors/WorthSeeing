@@ -86,8 +86,10 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<BlockGroup> getBlockGroupUserId(String userId) {
-		return (List<BlockGroup>) blockGroupRepo.findByUserId(userId);
+	public Page<BlockGroup> getBlockGroupUserId(String userId, Pageable pageable) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 4, Sort.Direction.ASC, "blockGroup_seq");
+		return blockGroupRepo.findByUserId(userId, pageable);
 	}
 	
 	

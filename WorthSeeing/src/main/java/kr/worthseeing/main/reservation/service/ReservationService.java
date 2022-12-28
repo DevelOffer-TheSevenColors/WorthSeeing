@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.users.entity.Users;
@@ -31,8 +32,10 @@ public interface ReservationService {
 	
 	public List<ReservationUsers> findOneReservation(Reservation reservation, Users user);
 	
-	public String auctionStartYes();
+//	public String auctionStartYes();
 	
 	public int getReservationSeq(int blockGroup_seq);
+	
+	public String myBlockGroupWaitingYN();
 	
 }
