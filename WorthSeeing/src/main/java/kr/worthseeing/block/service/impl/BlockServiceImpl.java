@@ -34,13 +34,13 @@ public class BlockServiceImpl implements BlockService {
 
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
-	
+
 	@Autowired
 	private ReservationRepository reservationRepo;
-	
+
 	@Autowired
 	private ReservationUsersRepository reservationUsersRepo;
-	
+
 	@Override
 	public Block getBlock(Block block) {
 		return blockRepo.findById(block.getBlock_seq()).get();
@@ -55,7 +55,7 @@ public class BlockServiceImpl implements BlockService {
 	public List<Block> findAuctionBlock(BlockGroupWaiting blockGroupWaiting) {
 		return blockRepo.findAuctionBlock(String.valueOf(blockGroupWaiting.getBlockGroupWaiting_seq()));
 	}
-	
+
 	// 그룹핑 가능한 블록 리스트
 	@Override
 	public List<Integer> availableGroupingblock() {
@@ -90,85 +90,68 @@ public class BlockServiceImpl implements BlockService {
 		List<Integer> intList = new ArrayList<Integer>();
 		List<Block> blockList = (List<Block>) blockRepo.findAll();
 
-		if (width * height <= 10) { // 총 개수가 10개 이하일 때
+		boolean flag = false;
 
+		if (width * height <= 10) { // 총 개수가 10개 이하일 때
 			for (Block block : blockList) {
 				if (x1 <= block.getXLocation() && block.getXLocation() <= x2 && y1 <= block.getYLocation()
 						&& block.getYLocation() <= y2) { // x, y 좌표가 firstNum과 lastNum 사이일 때
 
-					Block findBlock = blockRepo.findById(block.getBlock_seq()).get();
-
 					int blockStatus = block.getStatus().getStatus_seq();
-
-					Status status = new Status();
 
 					// 범위 내의 블록이 전부 그룹핑 가능할 때
 					if (blockStatus == 8 || blockStatus == 10) {
-						if (blockStatus == 8) { // 사용중/그룹핑가능
-
-							// 사용중/그룹핑불가능
-							status.setStatus_seq(9);
-							findBlock.setStatus(status);
-
-							// 블록 리스트 추가
-							intList.add(block.getBlock_seq());
-
-							blockRepo.save(findBlock);
-						}
-						
-						else { // 미사용중/그룹핑가능
-
-							// 미사용중/그룹핑불가능
-							status.setStatus_seq(11);
-							findBlock.setStatus(status);
-
-							// 블록 리스트 추가
-							intList.add(block.getBlock_seq());
-
-							blockRepo.save(findBlock);
-
-						}
-//						System.out.println("그룹핑 불가능한 블록을 선택함");
-//						return null;
-					}
-
-//					else if (blockStatus == 8) { // 사용중/그룹핑가능
-//
-//						// 사용중/그룹핑불가능
-//						status.setStatus_seq(9);
-//						findBlock.setStatus(status);
-//
-//						// 블록 리스트 추가
-//						intList.add(block.getBlock_seq());
-//
-//						blockRepo.save(findBlock);
-//					}
-//
-//					else if (blockStatus == 10) { // 미사용중/그룹핑가능
-//
-//						// 미사용중/그룹핑불가능
-//						status.setStatus_seq(11);
-//						findBlock.setStatus(status);
-//
-//						// 블록 리스트 추가
-//						intList.add(block.getBlock_seq());
-//
-//						blockRepo.save(findBlock);
-//
-//					}
-
-					else {
-						System.out.println("그룹핑 불가능");
+						flag = true;
+					} else {
+						flag = false;
 						return null;
 					}
 
 				} // x, y 좌표가 firstNum과 lastNum 사이일 때
 
 			} // for 반복문
-
 		} else {
 			System.out.println("10개 초과함");
 			return null;
+		}
+
+		if (flag == true) {
+			for (Block block : blockList) {
+				if (x1 <= block.getXLocation() && block.getXLocation() <= x2 && y1 <= block.getYLocation()
+						&& block.getYLocation() <= y2) { // x, y 좌표가 firstNum과 lastNum 사이일 때
+
+					int blockStatus = block.getStatus().getStatus_seq();
+
+					Block findBlock = blockRepo.findById(block.getBlock_seq()).get();
+					Status status = new Status();
+					if (blockStatus == 8) { // 사용중/그룹핑가능
+
+						// 사용중/그룹핑불가능
+						status.setStatus_seq(9);
+						findBlock.setStatus(status);
+
+						// 블록 리스트 추가
+						intList.add(block.getBlock_seq());
+
+						blockRepo.save(findBlock);
+					}
+
+					if (blockStatus == 10) { // 미사용중/그룹핑가능
+
+						// 미사용중/그룹핑불가능
+						status.setStatus_seq(11);
+						findBlock.setStatus(status);
+
+						// 블록 리스트 추가
+						intList.add(block.getBlock_seq());
+
+						blockRepo.save(findBlock);
+
+					}
+				}
+			}
+		} else {
+			return null; // 그룹핑 불가능한 블록 존재할 때 실패 !!!!!!!!!!
 		}
 
 		// ------- 그룹핑 가능인 상태 -------------------
@@ -177,7 +160,7 @@ public class BlockServiceImpl implements BlockService {
 		// 3. reservationUserId에 insert
 		Users users = new Users();
 		users.setUserId(userId);
-		
+
 		BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
 
 		blockGroupWaiting.setWidth(width * 100);
@@ -190,18 +173,18 @@ public class BlockServiceImpl implements BlockService {
 		blockGroupWaiting.setUsers(users);
 
 		blockGroupWaitingRepo.save(blockGroupWaiting); // 1. blockGroupWaiting에 insert
-		
+
 		Reservation reservation = new Reservation();
 		reservation.setBlockGroupWaiting(blockGroupWaiting);
 		reservation.setUserCnt(1);
 		reservation.setStartPrice(30000); // 시작 가격
 		reservationRepo.save(reservation); // 2. reservation에 insert
-		
+
 		ReservationUsers reservationUsers = new ReservationUsers();
 		reservationUsers.setUsers(users);
 		reservationUsers.setReservation(reservation);
 		reservationUsersRepo.save(reservationUsers); // 3. reservationUserId에 insert
-		
+
 		for (int item : intList) {
 			Block findBlockWaitingSeq = blockRepo.findById(item).get();
 			findBlockWaitingSeq.setBlockGroupWaiting(blockGroupWaiting);

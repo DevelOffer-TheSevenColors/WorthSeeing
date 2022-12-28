@@ -82,17 +82,17 @@
 			
 			var child = "<div class='tt' id=" + i + ">"
 			+ "<p class='numberDisplay'>" + i + "</p>"
-			+ "<p class='betweenDay'></p>"
+			+ "<p class='betweenDay' id='betweenDay"+ i +"'></p>"
 			+ "<button class='reservationBtn'>예약 하기</button>"
 			+ "<img class='imgDisplay' src='"+ cImgURL + "'/></div>";
 			
 			var child2 = "<div class='tt22' id=second" + i + ">"
 				+ "<p class='numberDisplay'>" + i + "</p>"
-			+ "<p class='betweenDay'></p>"
+			+ "<p class='betweenDay' id='betweenDay"+ i +"'></p>"
 			+ "<button class='reservationBtn'>예약 하기</button></div>";
 			
 			$(".blockTest").append(child);
-			$(".blockTest22").append(child2);
+// 			$(".blockTest22").append(child2);
 
 			$("#" + i).css('margin-left', listXLocation[i-1] * 100 + 'px');
 			$("#" + i).css('margin-top', (listYLocation[i-1]-1) * 100 + 'px');
@@ -100,8 +100,12 @@
 			$("#" + i).css('width', listWidth[i-1] + 'px');
 			$("#" + i).css('height', listHeight[i-1] + 'px');
 			
-			$("#" + i).css('z-index', zIndex--);
+			$("#betweenDay" + i).css('width', listWidth[i-1] + 'px');
+			$("#betweenDay" + i).css('height', listHeight[i-1] + 'px');
+			$("#betweenDay" + i).css('border', '1px solid black');
 			
+			$("#" + i).css('z-index', zIndex--);
+			$("#betweemDay" + i).css('z-index', zIndex--);
 		}
 
 		
