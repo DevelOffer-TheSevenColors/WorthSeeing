@@ -260,13 +260,16 @@ public class MyPageServiceImpl implements MyPageService {
 					couponnum += buf.toString() + "-";
 					currentIndex++;
 				}
+				
 				couponnum = couponnum.substring(0, couponnum.length() - 1);
 				System.out.println("=====asdf==>" + couponnum);
 				
-				coupon.setStatus(status);
-				coupon.setCouponSerialNum(couponnum);
-				coupon.setCouponPrice(3000000);
-				couponRepo.save(coupon);
+				Coupon newCoupon = new Coupon();
+				
+				newCoupon.setStatus(status);
+				newCoupon.setCouponSerialNum(couponnum);
+				newCoupon.setCouponPrice(3000000);
+				couponRepo.save(newCoupon);
 			}
 		}
 	
