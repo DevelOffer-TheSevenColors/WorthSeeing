@@ -82,8 +82,8 @@ public class AuctionServiceImpl implements AuctionService {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
 		findAuction.setUserAutoId("");
 		findAuction.setMaxPrice(0);
-		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroupWaiting.getBlockGroupWaiting_seq())==null) {
-			BlockGroupWaiting bgwr = new BlockGroupWaiting();
+		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroupWaiting.getBlockGroupWaiting_seq())!=null) {
+			BlockGroupWaiting bgwr = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
 			Status status = new Status();
 			status.setStatus_seq(16);
 			bgwr.setPrice(findAuction.getSuggestPrice());
