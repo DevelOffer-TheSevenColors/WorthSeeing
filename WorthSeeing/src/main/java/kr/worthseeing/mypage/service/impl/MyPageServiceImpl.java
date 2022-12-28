@@ -226,6 +226,7 @@ public class MyPageServiceImpl implements MyPageService {
 	public void userUpdateProc(Users users) {
 		Users findUser = usersRepo.findById(users.getUserId()).get();
 		
+		
 		findUser.setDetailAddress(users.getDetailAddress());
 		findUser.setAddress(users.getAddress());
 		findUser.setTel(users.getTel());
@@ -234,6 +235,7 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		usersRepo.save(findUser);
 	}
+	
 	//쿠폰 등록
 		@Override
 		public void getCouponAdd(Coupon coupon) {
