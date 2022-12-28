@@ -13,7 +13,7 @@
 
 $(document).ready(function() {
 	
-	var totalPrice =( [[${blockGroupWaiting.price}]] * $("#month option:selected").val() ) - ( [[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]] );
+	var totalPrice =( [[${blockGroupWaiting.price}]] * $("#month option:selected").val() ) - ( [[${blockGroupWaiting.price*0.1}]] );
 	var itotalPrice=totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	
 	$("#monthPrice").text(itotalPrice);
@@ -21,9 +21,8 @@ $(document).ready(function() {
 	$("#monthPrice").val(totalPrice);
 	
 	$("#month").change(function(){
-// 		$("#monthPrice").text([[${blockGroupWaiting.price}]] -   ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]) + " * " + $("#month option:selected").val());
-		$("#monthPrice").text([[${blockGroupWaiting.price}]] -   ( ( [[${blockGroupWaiting.blockGroup.price*0.5}]] )*0.1 ) + " * " + $("#month option:selected").val());
-		totalPrice = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.blockGroup.reservation.startPrice*0.1}]]);
+		$("#monthPrice").text([[${blockGroupWaiting.price}]] -   ( ( [[${blockGroupWaiting.price*0.5}]] )*0.1 ) + " * " + $("#month option:selected").val());
+		totalPrice = ( [[${blockGroupWaiting.price}]]  * $("#month option:selected").val() )- ([[${blockGroupWaiting.price*0.1}]]);
 		changePoint(totalPrice, [[${users.point}]], 500, 100);
 	})
 	
@@ -61,7 +60,7 @@ $(document).ready(function() {
 						<tbody th:each="waiting, state : ${blockGroupWaiting}">
 							<tr>
 								<td>구매 할 블록</td>
-								<td th:text="${waiting.blockGroup.blockList[0].Block_seq}"></td>
+								<td th:text="${waiting.minBlockSeq}"></td>
 							</tr>
 							<tr>
 								<td>지불 예정 금액</td>

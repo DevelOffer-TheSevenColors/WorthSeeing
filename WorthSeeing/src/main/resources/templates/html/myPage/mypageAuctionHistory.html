@@ -28,22 +28,22 @@
 						
 								<tr >
 									<td th:text="${state.count}"></td>
-									<td th:text="${waiting.blockGroupWaiting_seq}"></td>
+									<td th:text="${waiting.minBlockSeq}"></td>
 									<td th:text="${#numbers.formatInteger(waiting.price, 3,'COMMA')}"></td>
 									<td th:text="${#dates.format(waiting.auctionDate, 'yyyy-MM-dd')}"></td>
 									<td th:text="${#dates.format(waiting.endDate, 'yyyy-MM-dd')}"></td>
 									<td>
 										<form th:action="@{/credit}" method="post">
-											<input th:name="blockGroupWaiting_seq"  type="hidden" th:value="${waiting.minBlockSeq}">
+											<input th:name="blockGroupWaiting_seq"  type="hidden" th:value="${waiting.blockGroupWaiting_seq}">
 											<div th:if="${waiting.status.status_seq==16}">
 												<input type="submit" value="결제하기로 이동">
 											</div> 
-											<div th:if="${waiting.status.status_seq!=17}">
+											<div th:if="${waiting.status.status_seq==17}">
 												<span>결제 완료</span>
 											</div>
 									</form>
 									</td>
-									<td th:if="${waiting.status.status_seq!=12}">
+									<td th:if="${waiting.status.status_seq==17}">
 								<a th:href="@{/writeURLThumb(blockGroupWaiting_seq=${waiting.blockGroupWaiting_seq})}">등록</a></td>
 							 	</tr>
 						</tbody>	
