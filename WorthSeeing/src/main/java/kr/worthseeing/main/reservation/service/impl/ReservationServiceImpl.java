@@ -156,6 +156,12 @@ public class ReservationServiceImpl implements ReservationService {
 			
 			reservationUsersRepo.delete(reservationUsers2);
 		}
+		int blockGroupSeq = reservationRepo.findById(reservation.getReservation_seq()).get().getBlockGroupWaiting().getBlockGroupWaiting_seq();
+		if(reservationRepo.findById(reservation.getReservation_seq()).get().getUserCnt() ==0) {
+			reservationRepo.deleteById(reservation.getReservation_seq());
+			blockGroupWaitingRepo.deleteById(blockGroupSeq);
+//			List<>
+		}
 		
 	}
 
@@ -175,7 +181,7 @@ public class ReservationServiceImpl implements ReservationService {
 		for(BlockGroupWaiting blockGroupWaiting : blockGroupWaitingRepo.findAll()) {
 			if(blockGroupWaiting !=null) {
 				if(blockGroupWaiting.getStatus().getStatus_seq() == 14) {
-					flag = "14";
+					flag = "yes";
 				}
 			}
 		}		
