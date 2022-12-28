@@ -1,5 +1,4 @@
 
-
  function remaindTime() {
 	console.log($("#reservation_seq").val());
   	
