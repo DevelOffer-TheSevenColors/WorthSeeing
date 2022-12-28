@@ -19,10 +19,10 @@ public interface BlockRepository extends CrudRepository<Block, Integer>, Queryds
 	@Query("SELECT b FROM Block b Where block_Group_Waiting_seq = ?1")
 	List<Block> findAuctionBlock(String keyword);
 
-	@Query("select b from Block b where status_seq = 11")
+	@Query("select b from Block b where status_seq = 12")
 	Page<Block> alwaysBuyList(Pageable pageable);
 
-	@Query("select b.blockPrice from Block b where status_seq = 11")
+	@Query("select b.blockPrice from Block b where status_seq = 12")
 	List<Integer> alwaysBuyListGetPrice();
 
 	@Query("select b from Block b where status_seq = ?1")
