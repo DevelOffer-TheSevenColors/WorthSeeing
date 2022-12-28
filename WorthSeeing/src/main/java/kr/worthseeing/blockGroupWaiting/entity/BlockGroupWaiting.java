@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +17,7 @@ import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import lombok.Data;
@@ -45,7 +45,7 @@ public class BlockGroupWaiting {
 	private int width = 0;
 	private int height = 0;
 	private int minBlockSeq;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date purchaseDay;
 
@@ -61,15 +61,15 @@ public class BlockGroupWaiting {
 	@Column
 	private Date groupDate = new Date();
 
-	@OneToOne(mappedBy = "blockGroupWaiting",cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "blockGroupWaiting")
 	private Reservation reservation;
-	
-	@OneToMany(mappedBy = "blockGroupWaiting", cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "blockGroupWaiting")
 	private List<Block> blockList = new ArrayList<Block>();
-	
+
 	@Column(columnDefinition = "number default 0")
 	private int clickCnt;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
@@ -77,12 +77,12 @@ public class BlockGroupWaiting {
 	@ManyToOne
 	@JoinColumn(name = "userId", nullable = false)
 	private Users users;
-	
+
 	public void setStatus(Status status) {
 		this.status = status;
 		status.getBlockGroupWaitingList().add(this);
 	}
-	
+
 	public void setUsers(Users users) {
 		this.users = users;
 		users.getBlockGroupWaitingList().add(this);

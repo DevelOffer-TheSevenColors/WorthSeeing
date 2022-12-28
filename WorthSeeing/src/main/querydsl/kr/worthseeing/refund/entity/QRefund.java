@@ -21,6 +21,8 @@ public class QRefund extends EntityPathBase<Refund> {
 
     public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
 
+    public final NumberPath<Integer> blockGroupWaiting_seq = createNumber("blockGroupWaiting_seq", Integer.class);
+
     public final NumberPath<Integer> refund_seq = createNumber("refund_seq", Integer.class);
 
     public final DateTimePath<java.util.Date> refundDate = createDateTime("refundDate", java.util.Date.class);

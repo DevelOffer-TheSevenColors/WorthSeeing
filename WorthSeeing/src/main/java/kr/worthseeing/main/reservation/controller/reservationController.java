@@ -67,10 +67,10 @@ public class reservationController {
 		String blockStr = "";
 		for (Block block : blockService.findAuctionBlock(reservation_.getBlockGroupWaiting())) {
 			blockStr += block.getBlock_seq() + ",";
+			model.addAttribute("block", blockStr.substring(0, blockStr.length() - 1));
 		}
 		
 		model.addAttribute("reservationCreditInfo", reservation_);
-		model.addAttribute("block", blockStr.substring(0, blockStr.length() - 1));
 		
 		return "/reservation/reservationCredit";
 	}

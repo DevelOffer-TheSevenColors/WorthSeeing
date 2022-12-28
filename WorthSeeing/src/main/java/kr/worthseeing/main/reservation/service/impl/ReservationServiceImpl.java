@@ -160,12 +160,13 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationUsersRepo.delete(reservationUsers2);
 		}
 		int blockGroupSeq = reservationRepo.findById(reservation.getReservation_seq()).get().getBlockGroupWaiting().getBlockGroupWaiting_seq();
+		System.out.println("@@==>>>>" + blockGroupSeq);
 		if(reservationRepo.findById(reservation.getReservation_seq()).get().getUserCnt() ==0) {
 			reservationRepo.deleteById(reservation.getReservation_seq());
-			blockGroupWaitingRepo.deleteById(blockGroupSeq);
 			for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockGroupSeq))) {
 				blockRepo.updateBlock_GroupWaitingSeq(block.getBlock_seq());
 			}
+			blockGroupWaitingRepo.deleteById(blockGroupSeq);
 		}
 		
 	}

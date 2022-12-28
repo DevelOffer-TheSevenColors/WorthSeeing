@@ -21,7 +21,11 @@ public class Refund {
 	@GeneratedValue
 	private int refund_seq;
 	private int refundPrice;
+	
+	@Column(nullable = true)
 	private int blockGroup_seq;
+	@Column(nullable = true)
+	private int blockGroupWaiting_seq;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false)

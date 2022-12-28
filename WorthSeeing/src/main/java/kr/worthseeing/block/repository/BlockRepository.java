@@ -2,6 +2,8 @@ package kr.worthseeing.block.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -37,7 +39,8 @@ public interface BlockRepository extends CrudRepository<Block, Integer>, Queryds
 	void updateBlockStatus();
 
 	@Modifying
-	@Query("UPDATE Block b SET Block_group_Waiting_seq = null WHERE block_seq = ?1")
+	@Transactional
+	@Query("UPDATE Block b SET Block_group_Waiting_seq = 1 WHERE block_seq = ?1")
 	void updateBlock_GroupWaitingSeq(int block_seq);
 	
 	@Query("select b.block_seq from Block b where status_seq = 8 or status_seq = 10 order by block_seq")
