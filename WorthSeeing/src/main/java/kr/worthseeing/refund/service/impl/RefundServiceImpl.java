@@ -40,7 +40,7 @@ public class RefundServiceImpl implements RefundService {
 				status.setStatus_seq(12);
 				blockItem.setStatus(status);
 				BlockGroup blockGroup_ = new BlockGroup();
-				blockGroup_.setBlockGroup_seq(1);
+				blockGroup_.setBlockGroup_seq(blockItem.getBlock_seq());
 				BlockGroupWaiting blockGroupWaiting = new BlockGroupWaiting();
 				blockGroupWaiting.setBlockGroupWaiting_seq(1);
 				blockItem.setBlockGroupWaiting(blockGroupWaiting);
