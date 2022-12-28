@@ -18,7 +18,6 @@ import javax.persistence.TemporalType;
 
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.main.reservation.entity.Reservation;
-import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import lombok.Data;
@@ -68,9 +67,6 @@ public class BlockGroupWaiting {
 	@OneToMany(mappedBy = "blockGroupWaiting", cascade = CascadeType.REMOVE)
 	private List<Block> blockList = new ArrayList<Block>();
 	
-	@OneToMany(mappedBy = "blockGroupWaiting",cascade = CascadeType.REMOVE)
-	private List<Refund> refundList = new ArrayList<Refund>();
-
 	@Column(columnDefinition = "number default 0")
 	private int clickCnt;
 	

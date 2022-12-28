@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,11 +17,9 @@ public class QRefund extends EntityPathBase<Refund> {
 
     private static final long serialVersionUID = -790513595L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QRefund refund = new QRefund("refund");
 
-    public final kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting blockGroupWaiting;
+    public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
 
     public final NumberPath<Integer> refund_seq = createNumber("refund_seq", Integer.class);
 
@@ -31,24 +28,15 @@ public class QRefund extends EntityPathBase<Refund> {
     public final NumberPath<Integer> refundPrice = createNumber("refundPrice", Integer.class);
 
     public QRefund(String variable) {
-        this(Refund.class, forVariable(variable), INITS);
+        super(Refund.class, forVariable(variable));
     }
 
     public QRefund(Path<? extends Refund> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QRefund(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QRefund(PathMetadata metadata, PathInits inits) {
-        this(Refund.class, metadata, inits);
-    }
-
-    public QRefund(Class<? extends Refund> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.blockGroupWaiting = inits.isInitialized("blockGroupWaiting") ? new kr.worthseeing.blockGroupWaiting.entity.QBlockGroupWaiting(forProperty("blockGroupWaiting"), inits.get("blockGroupWaiting")) : null;
+        super(Refund.class, metadata);
     }
 
 }
