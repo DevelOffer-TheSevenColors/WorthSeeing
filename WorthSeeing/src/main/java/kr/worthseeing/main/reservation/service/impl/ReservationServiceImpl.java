@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
@@ -43,6 +45,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
+	
+	@Autowired
+	private BlockRepository blockRepo;
 	
 	@Override
 	public List<Integer> listReservationBlockGroupSeq() {
@@ -158,7 +163,9 @@ public class ReservationServiceImpl implements ReservationService {
 		if(reservationRepo.findById(reservation.getReservation_seq()).get().getUserCnt() ==0) {
 			reservationRepo.deleteById(reservation.getReservation_seq());
 			blockGroupWaitingRepo.deleteById(blockGroupSeq);
-//			List<>
+			for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockGroupSeq))) {
+				blockRepo.updateBlock_GroupWaitingSeq(block.getBlock_seq());
+			}
 		}
 		
 	}
