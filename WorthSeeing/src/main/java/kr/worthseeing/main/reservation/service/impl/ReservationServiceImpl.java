@@ -107,7 +107,6 @@ public class ReservationServiceImpl implements ReservationService {
 		Page<Reservation> reservationPaging = reservationRepo.listReservation(pageable);
 
 		return reservationPaging;
-
 	}
 
 	// 예약 가능 목록
