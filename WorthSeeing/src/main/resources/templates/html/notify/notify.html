@@ -3,108 +3,108 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="/fragments/header :: head">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
+<!-- <head th:replace="/fragments/header :: head"> -->
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+<!-- </head> -->
 
-<body>
-	<div>
-		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+<!-- <body> -->
+<!-- 	<div> -->
+<!-- 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block> -->
 
-		<div class="container-fluid py-5">
-			<div class="container pt-5 pb-3">
+<!-- 		<div class="container-fluid py-5"> -->
+<!-- 			<div class="container pt-5 pb-3"> -->
 
 
 
-				<!-- 				<div class="form-group"> -->
-				<!-- 					<input type="submit" value="수정하기" -->
-				<!-- 						class="btn btn-primary rounded submit p-3" /> -->
-				<!-- 				</div> -->   
+<!-- 								<div class="form-group"> -->
+<!-- 									<input type="submit" value="수정하기" -->
+<!-- 										class="btn btn-primary rounded submit p-3" /> -->
+<!-- 								</div>    -->
 
-<!-- 				<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group"> -->
-<!-- 					<input type="button" value="공지글쓰기" -->
-<!-- 						onclick="location.href='/notify/insertNotify'" -->
-<!-- 						class="btn btn-primary rounded submit p-2" /> -->
+<!-- <!-- 				<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group"> --> -->
+<!-- <!-- 					<input type="button" value="공지글쓰기" --> -->
+<!-- <!-- 						onclick="location.href='/notify/insertNotify'" --> -->
+<!-- <!-- 						class="btn btn-primary rounded submit p-2" /> --> -->
+<!-- <!-- 				</div> --> -->
+<!-- <!-- 				<div sec:authorize="hasRole('ROLE_USER')"> --> -->
+<!-- <!-- 					<input type="button" value="1:1문의글 쓰기" --> -->
+<!-- <!-- 						onclick="location.href='/notify/insertContact'" --> -->
+<!-- <!-- 						class="btn btn-primary rounded submit p-2" /> --> -->
+<!-- <!-- 				</div> --> -->
+
+<!-- 				<div id="content"> -->
+<!-- 					<form th:action="@{/notify}" method="post"> -->
+<!-- 						<select name="status"> -->
+<!-- 							<option value="1">전체</option> -->
+<!-- 							<option value="2">공지</option> -->
+<!-- 							<option value="4">1:1 문의</option> -->
+<!-- 						</select> <input type="button" value="검색" -->
+<!-- 							class="btn btn-primary rounded submit p-1" /> -->
+<!-- 					</form> -->
+
+<!-- 					<table class="customBoard"> -->
+<!-- 						<thead> -->
+<!-- 							<tr> -->
+<!-- 								<th>NO.</th> -->
+<!-- 								<th>제목</th> -->
+<!-- 								<th>작성자</th> -->
+<!-- 								<th>조회수</th> -->
+<!-- 								<th>등록일</th> -->
+<!-- 							</tr> -->
+<!-- 						</thead> -->
+<!-- 						<tbody> -->
+<!-- 							<tr th:each="notify, state : ${notifyList}"> -->
+<!-- 								<td th:text="${(notifyList.number * 10) + state.count}"></td> -->
+<!-- 								<td><a -->
+<!-- 									th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}" -->
+<!-- 									th:text="${notify.title}"></a></td> -->
+<!-- 								<td th:text="${notify.content}"></td> -->
+<!-- 								<td th:text="${notify.viewCnt}"></td> -->
+<!-- 								<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td> -->
+<!-- 							</tr> -->
+<!-- 						</tbody> -->
+<!-- 					</table> -->
+
 <!-- 				</div> -->
-<!-- 				<div sec:authorize="hasRole('ROLE_USER')"> -->
-<!-- 					<input type="button" value="1:1문의글 쓰기" -->
-<!-- 						onclick="location.href='/notify/insertContact'" -->
-<!-- 						class="btn btn-primary rounded submit p-2" /> -->
-<!-- 				</div> -->
 
-				<div id="content">
-					<form th:action="@{/notify}" method="post">
-						<select name="status">
-							<option value="1">전체</option>
-							<option value="2">공지</option>
-							<option value="4">1:1 문의</option>
-						</select> <input type="button" value="검색"
-							class="btn btn-primary rounded submit p-1" />
-					</form>
+<!-- 				Paging -->
+<!-- 				<form th:action="@{/notify}" method="post"> -->
+<!-- 					<div> -->
+<!-- 						<nav class="customNav"> -->
+<!-- 							<ul class="customPagination" -->
+<!-- 								th:with="start=${(alwaysList.number/10)*10 + 1}, -->
+<!-- 	                    	last=(${start + 9 < notifyList.totalPages ? start + 9 : notifyList.totalPages})"> -->
 
-					<table class="customBoard">
-						<thead>
-							<tr>
-								<th>NO.</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>조회수</th>
-								<th>등록일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="notify, state : ${notifyList}">
-								<td th:text="${(notifyList.number * 10) + state.count}"></td>
-								<td><a
-									th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
-									th:text="${notify.title}"></a></td>
-								<td th:text="${notify.content}"></td>
-								<td th:text="${notify.viewCnt}"></td>
-								<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td>
-							</tr>
-						</tbody>
-					</table>
+<!-- 								<li th:class="${notifyList.first} ? 'disabled'"> -->
+<!-- 									<button name="page" value="1">First</button> -->
+<!-- 								</li> -->
 
-				</div>
+<!-- 								<li th:class="${notifyList.first} ? 'disabled'"> -->
+<!-- 									<button name="page" th:value="${notifyList.number}">&lt;</button> -->
+<!-- 								</li> -->
 
-				<!-- Paging -->
-				<form th:action="@{/notify}" method="post">
-					<div>
-						<nav class="customNav">
-							<ul class="customPagination"
-								th:with="start=${(alwaysList.number/10)*10 + 1},
-	                    	last=(${start + 9 < notifyList.totalPages ? start + 9 : notifyList.totalPages})">
+<!-- 								<li th:each="page : ${#numbers.sequence(start, last)}" -->
+<!-- 									th:class="${page == notifyList.number + 1} ? 'active'"> -->
+<!-- 									<button name="page" th:value="${page}" th:text="${page}"></button> -->
+<!-- 								</li> -->
 
-								<li th:class="${notifyList.first} ? 'disabled'">
-									<button name="page" value="1">First</button>
-								</li>
+<!-- 								<li th:class="${notifyList.last} ? 'disabled'"> -->
+<!-- 									<button name="page" th:value="${notifyList.number + 2}">&gt;</button> -->
+<!-- 								</li> -->
 
-								<li th:class="${notifyList.first} ? 'disabled'">
-									<button name="page" th:value="${notifyList.number}">&lt;</button>
-								</li>
+<!-- 								<li th:class="${notifyList.last} ? 'disabled'"> -->
+<!-- 									<button name="page" th:value="${notifyList.totalPages}">Last</button> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</nav> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
 
-								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == notifyList.number + 1} ? 'active'">
-									<button name="page" th:value="${page}" th:text="${page}"></button>
-								</li>
+<!-- 			</div> -->
+<!-- 		</div> -->
 
-								<li th:class="${notifyList.last} ? 'disabled'">
-									<button name="page" th:value="${notifyList.number + 2}">&gt;</button>
-								</li>
-
-								<li th:class="${notifyList.last} ? 'disabled'">
-									<button name="page" th:value="${notifyList.totalPages}">Last</button>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</form>
-
-			</div>
-		</div>
-
-		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
-	</div>
-</body>
-
+<!-- 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block> -->
+<!-- 	</div> -->
+<!-- </body> -->
+<div>뭐가문제임?ㅋ</div>
 </html>
