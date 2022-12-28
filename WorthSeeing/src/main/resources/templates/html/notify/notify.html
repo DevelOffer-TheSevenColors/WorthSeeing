@@ -32,40 +32,40 @@
 						class="btn btn-primary rounded submit p-2" />
 				</div>
 
-<!-- 				<div id="content"> -->
-<!-- 					<form th:action="@{/notify}" method="post"> -->
-<!-- 						<select name="status"> -->
-<!-- 							<option value="1">전체</option> -->
-<!-- 							<option value="2">공지</option> -->
-<!-- 							<option value="4">1:1 문의</option> -->
-<!-- 						</select> <input type="button" value="검색" -->
-<!-- 							class="btn btn-primary rounded submit p-1" /> -->
-<!-- 					</form> -->
+				<div id="content">
+					<form th:action="@{/notify}" method="post">
+						<select name="status">
+							<option value="1">전체</option>
+							<option value="2">공지</option>
+							<option value="4">1:1 문의</option>
+						</select> <input type="button" value="검색"
+							class="btn btn-primary rounded submit p-1" />
+					</form>
 
-<!-- 					<table class="customBoard"> -->
-<!-- 						<thead> -->
-<!-- 							<tr> -->
-<!-- 								<th>NO.</th> -->
-<!-- 								<th>제목</th> -->
-<!-- 								<th>작성자</th> -->
-<!-- 								<th>조회수</th> -->
-<!-- 								<th>등록일</th> -->
-<!-- 							</tr> -->
-<!-- 						</thead> -->
-<!-- 						<tbody> -->
-<!-- 							<tr th:each="notify, state : ${notifyList}"> -->
-<!-- 								<td th:text="${(notifyList.number * 10) + state.count}"></td> -->
-<!-- 								<td><a -->
-<!-- 									th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}" -->
-<!-- 									th:text="${notify.title}"></a></td> -->
-<!-- 								<td th:text="${notify.content}"></td> -->
-<!-- 								<td th:text="${notify.viewCnt}"></td> -->
-<!-- 								<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td> -->
-<!-- 							</tr> -->
-<!-- 						</tbody> -->
-<!-- 					</table> -->
+					<table class="customBoard">
+						<thead>
+							<tr>
+								<th>NO.</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>조회수</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="notify, state : ${notifyList}">
+								<td th:text="${(notifyList.number * 10) + state.count}"></td>
+								<td><a
+									th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
+									th:text="${notify.title}"></a></td>
+								<td th:text="${notify.content}"></td>
+								<td th:text="${notify.viewCnt}"></td>
+								<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td>
+							</tr>
+						</tbody>
+					</table>
 
-<!-- 				</div> -->
+				</div>
 
 				<!-- Paging -->
 				<form th:action="@{/notify}" method="post">
