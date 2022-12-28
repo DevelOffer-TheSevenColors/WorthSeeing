@@ -82,13 +82,14 @@ public class AuctionServiceImpl implements AuctionService {
 		Auction findAuction = auctionRepo.findByAuction(reservation.getReservation_seq()).get(0);
 		findAuction.setUserAutoId("");
 		findAuction.setMaxPrice(0);
-		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroupWaiting.getBlockGroupWaiting_seq()) !=null) {
-			BlockGroupWaiting bgwr = blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+		if(blockGroupWaitingRepo.endAuctionConfirm(blockGroupWaiting.getBlockGroupWaiting_seq())==null) {
+			BlockGroupWaiting bgwr = new BlockGroupWaiting();
 			Status status = new Status();
-			status.setStatus_seq(16);
+			status.setStatus_seq(0);
 			bgwr.setPrice(findAuction.getSuggestPrice());
 			bgwr.setUsers(usersRepo.findById(findAuction.getUserId()).get());
 			bgwr.setStatus(statusRepo.findById(12).get());
+			bgwr.setBlockGroupWaiting_seq(16);
 			bgwr.setStatus(status);
 			bgwr.setAuctionDate(findAuction.getSuggestDate());
 			auctionRepo.save(findAuction);
@@ -271,6 +272,7 @@ public class AuctionServiceImpl implements AuctionService {
 	   @Override
 	   public Page<Block> selectAlwaysBuyList(Pageable pageable) {
 
+		   
 	      int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 	      pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "blockGroupWaiting_seq");
 	      
