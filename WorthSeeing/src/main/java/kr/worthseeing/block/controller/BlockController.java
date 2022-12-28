@@ -50,23 +50,6 @@ public class BlockController {
 		model.addAttribute("betweenDaysList", mapgetBlockGroupDate.get("betweenDaysList"));
 		model.addAttribute("usingBlockGroupList", mapgetBlockGroupDate.get("usingBlockGroupList"));
 		model.addAttribute("reservationBlockGroupSeqList", reservationService.listReservationBlockGroupSeq());
-		
-//		List<String> urlTopList = new ArrayList<String>();
-//		urlTopList.add(0, null);
-//
-//		List<String> blockGroupLink = new ArrayList<String>();
-//
-//		if (!blockGroupService.topBlock(0).getContent().isEmpty()) {
-//			for (BlockGroup blockgroup : blockGroupService.topBlock(0).getContent()) {
-//				blockGroupLink.add(blockgroup.getLinkUrl());
-//				urlTopList.add(blockgroup.getCImg());
-//			}
-//		} else {
-//			for (int i = 0; i < 5; i++) {
-//				blockGroupLink.add("#");
-//				urlTopList.add("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
-//			}
-//		}
 
 		model.addAttribute("listTopcImg", mapgetTopBlock.get("imgTopList"));
 		model.addAttribute("blockGroupLink", mapgetTopBlock.get("blockGroupLink"));

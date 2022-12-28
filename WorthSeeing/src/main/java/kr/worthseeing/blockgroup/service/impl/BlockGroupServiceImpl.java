@@ -206,6 +206,7 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 	
 	}
 
+	// 메인 페이지 - 남은 사용 시간
 	@Override
 	public Map<String, List<Integer>> getBlockGroupDate() {
 
@@ -233,8 +234,8 @@ public class BlockGroupServiceImpl implements BlockGroupService {
 				usingBlockGroupList.add(blockGroupItem.getBlockGroup_seq());
 			}
 
+			System.out.println("endDateItem--->" + endDateItem);
 		}
-
 		Map<String, List<Integer>> resultMap = new HashMap<String, List<Integer>>();
 		resultMap.put("betweenDaysList", betweenDaysList);
 		resultMap.put("usingBlockGroupList", usingBlockGroupList);
