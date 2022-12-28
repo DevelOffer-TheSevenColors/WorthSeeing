@@ -111,44 +111,7 @@ $(document).ready(function() {
 						</nav>
 					</div>
 				</form>
-				
-<!-- 				<form th:action="@{/alwaysBuyList}" method="get"> -->
-<!-- 					<div> -->
-<!-- 						<nav style="text-align: center;"> -->
-<!-- 							    <ul  class="customPagination" -->
-<!-- 							        th:with="start=${(alwaysList.number/10)*10 + 1}, -->
-<!-- 							                    last=(${start + 9 < alwaysList.totalPages ? start + 9 : alwaysList.totalPages})"> -->
-<!-- 							        <li> -->
-<!-- 							            <a th:href="@{/alwaysBuyList(page=1)}" aria-label="First"> -->
-<!-- 							                <span aria-hidden="true">First</span> -->
-<!-- 							            </a> -->
-<!-- 							        </li> -->
-							
-<!-- 							        <li th:class="${alwaysList.first} ? 'disabled'"> -->
-<!-- 							            <a th:href="${alwaysList.first} ? '#' :@{/alwaysBuyList(page=${alwaysList.number})}" aria-label="Previous"> -->
-<!-- 							                <span aria-hidden="true">&lt;</span> -->
-<!-- 							            </a> -->
-<!-- 							        </li> -->
-							
-<!-- 							        <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == alwaysList.number + 1} ? 'active'"> -->
-<!-- 							            <a th:text="${page}" th:href="@{/alwaysBuyList(page=${page})}"></a> -->
-<!-- 							        </li> -->
-							
-<!-- 							        <li th:class="${alwaysList.last} ? 'disabled'"> -->
-<!-- 							            <a th:href="${alwaysList.last} ? '#' : @{/alwaysBuyList(page=${alwaysList.number + 2})}" aria-label="Next"> -->
-<!-- 							                <span aria-hidden="true">&gt;</span> -->
-<!-- 							            </a> -->
-<!-- 							        </li> -->
-							
-<!-- 							        <li> -->
-<!-- 							            <a th:href="@{/alwaysBuyList(page=${alwaysList.totalPages})}" aria-label="Last"> -->
-<!-- 							                <span aria-hidden="true">Last</span> -->
-<!-- 							            </a> -->
-<!-- 							        </li> -->
-<!-- 							    </ul> -->
-<!-- 							</nav> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
+	
 			</div>
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>

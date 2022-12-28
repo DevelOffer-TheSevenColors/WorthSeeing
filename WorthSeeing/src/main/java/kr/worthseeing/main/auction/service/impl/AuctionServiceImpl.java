@@ -233,7 +233,8 @@ public class AuctionServiceImpl implements AuctionService {
 		if (month == 1) {
 			  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
 
-			int lastdat=now.withDayOfMonth(now.lengthOfMonth()).getDayOfMonth();
+			  LocalDate Ldate =now.plusMonths(1);
+			int lastdat=Ldate.withDayOfMonth(Ldate.lengthOfMonth()).getDayOfMonth();
 			int month1 = now.plusMonths(1).getMonthValue();
 			int yeser =now.getYear();
 			String date=""+yeser+"-" +  month1 + "-" + lastdat;
@@ -248,7 +249,11 @@ public class AuctionServiceImpl implements AuctionService {
 		} else if (month == 2) {
 			  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
 
-				int lastdat=now.withDayOfMonth(now.lengthOfMonth()).getDayOfMonth();
+			  LocalDate Ldate =now.plusMonths(2);
+			  
+				int lastdat=Ldate.withDayOfMonth(Ldate.lengthOfMonth()).getDayOfMonth();
+				
+				
 				int month1 = now.plusMonths(2).getMonthValue();
 				int yeser =now.getYear();
 				String date=""+yeser+"-" +  month1 + "-" + lastdat;
@@ -261,8 +266,8 @@ public class AuctionServiceImpl implements AuctionService {
 				findBlockGroupWaiting.setEndDate(date1);
 		} else if (month == 3) {
 			  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
-
-				int lastdat=now.withDayOfMonth(now.lengthOfMonth()).getDayOfMonth();
+			  LocalDate Ldate =now.plusMonths(3);
+				int lastdat=Ldate.withDayOfMonth(Ldate.lengthOfMonth()).getDayOfMonth();
 				int month1 = now.plusMonths(3).getMonthValue();
 				int yeser =now.getYear();
 				String date=""+yeser+"-" +  month1 + "-" + lastdat;
@@ -274,7 +279,6 @@ public class AuctionServiceImpl implements AuctionService {
 				}  
 				findBlockGroupWaiting.setEndDate(date1);
 		}
-
 		findBlockGroupWaiting.setPrice(blockGroupWaiting.getPrice());
 		findBlockGroupWaiting.setPurchaseDay(new Date());
 		findBlockGroupWaiting.setStatus(status);
