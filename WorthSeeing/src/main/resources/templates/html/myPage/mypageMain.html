@@ -2,14 +2,18 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
-<!-- <link href="../css/style.css" rel="stylesheet"> -->
+<link href="../css/style.css" rel="stylesheet">
 <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
 <!-- <link -->
 <!-- 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" -->
 <!-- 	rel="stylesheet"> -->
+
+<!-- <!-- Font Awesome --> -->
 <!-- <link -->
 <!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" -->
 <!-- 	rel="stylesheet"> -->
+
+<!-- <!-- Libraries Stylesheet --> -->
 <!-- <link href="lib/owlcarousel/assets/owl.carousel.min.css" -->
 <!-- 	rel="stylesheet"> -->
 <!-- <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" -->
@@ -107,9 +111,9 @@
 			<div class="container pt-5 pb-3">
 
 				<div class="topnav">
-					<button class="abtn" th:onClick="location.href='/main'">HOME</button>
+					<button class="abtn" onClick="location.href='/main'">HOME</button>
 					<button class="abtn" id="mypageMain"
-						th:onclick="location.href='/mypageMain'">My Page</button>
+						onclick="location.href='/mypageMain'">My Page</button>
 					<button class="domainBtn abtn" id="mypageCouponMall">포인트몰</button>
 					<button class="domainBtn abtn" id="mypagePointHistory">포인트사용내역</button>
 					<button class="domainBtn abtn" id="mypageAuctionHistory">경매내역</button>
@@ -117,7 +121,6 @@
 
 
 				<div class="leftcolumn">
-				
 					<br />
 					<h2>내 정보</h2>
 
@@ -127,22 +130,22 @@
 					</div>
 
 					<div>
-<!-- 						<table> -->
-<!-- 							<tr> -->
-<!-- <!-- 								<th colspan="2"><span --> -->
-<!-- <!-- 									sec:authentication="principal.users.name"></span></th> --> -->
-<!-- <!-- 								<td>님</td> --> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<th>보유포인트 :</th> -->
-<!-- 								<td th:text="${users.point}"></td> -->
-<!-- 								<td>🅿</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<th>오늘 출석체크 :</th> -->
-<!-- 								<td th:text="${users.dailyClickCheck}"></td> -->
-<!-- 							</tr> -->
-<!-- 						</table> -->
+						<table>
+							<tr>
+								<th colspan="2"><span
+									sec:authentication="principal.users.name"></span></th>
+								<td>님</td>
+							</tr>
+							<tr>
+								<th>보유포인트 :</th>
+								<td th:text="${users.point}"></td>
+								<td>🅿</td>
+							</tr>
+							<tr>
+								<th>오늘 출석체크 :</th>
+								<td th:text="${users.dailyClickCheck}"></td>
+							</tr>
+						</table>
 					</div>
 
 					<p>
