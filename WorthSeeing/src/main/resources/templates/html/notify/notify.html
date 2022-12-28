@@ -60,7 +60,7 @@
 									th:text="${notify.title}"></a></td>
 								<td th:text="${notify.content}"></td>
 								<td th:text="${notify.viewCnt}"></td>
-								<td th:text="${notify.notifyTime}"></td>
+								<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td>
 							</tr>
 						</tbody>
 					</table>

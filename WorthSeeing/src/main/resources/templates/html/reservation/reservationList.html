@@ -28,7 +28,6 @@
 							<th>블록 번호</th>
 							<th>경매 시작가격</th>
 							<th>예약 인원</th>
-							<th>블록 클릭 수</th>
 							<th>예약 하러 가기</th>
 
 						</tr>
@@ -39,7 +38,6 @@
 							<td th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
 							<td th:text="${#numbers.formatInteger(reservation.startPrice, 0, 'COMMA')}"></td>
 							<td th:text="${reservation.userCnt}"></td>
-							<td th:text="${reservation.blockGroupWaiting.clickCnt}"></td>
 							<td><a
 								th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
 						</tr>

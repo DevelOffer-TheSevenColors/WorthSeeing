@@ -34,7 +34,7 @@
 									<td th:text="${#dates.format(waiting.endDate, 'yyyy-MM-dd')}"></td>
 									<td>
 										<form th:action="@{/credit}" method="post">
-											<input th:name="blockGroupWaiting_seq"  type="hidden" th:value="${waiting.blockGroupWaiting_seq}">
+											<input th:name="blockGroupWaiting_seq"  type="hidden" th:value="${waiting.minBlockSeq}">
 											<div th:if="${waiting.status.status_seq==16}">
 												<input type="submit" value="결제하기로 이동">
 											</div> 
