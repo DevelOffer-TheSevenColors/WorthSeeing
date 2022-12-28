@@ -120,7 +120,6 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<ReservationUsers> selectMyReservation(String userid) {
 
 		return reservationUsersRepo.findReservationUsers(userid);
-
 	}
 
 	// 10프로 예약결제페이지
