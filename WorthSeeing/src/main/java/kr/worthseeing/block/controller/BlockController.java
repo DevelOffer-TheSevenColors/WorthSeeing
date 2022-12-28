@@ -74,12 +74,14 @@ public class BlockController {
 	}
 
 	@GetMapping("/reservation/chooseBlockGroup")
-	public String chooseBlockGroup() {
+	public String chooseBlockGroup(Model model) {
+		model.addAttribute("availableGroupingblock", blockService.availableGroupingblock());
 		return "/reservation/chooseBlockGroup";
 	}
 
 	@GetMapping("/block/grouping")
 	public String blockGrouping(String firstNum, String lastNum, Model model) {
+		
 		if (blockService.getBlockXY(Integer.parseInt(firstNum), Integer.parseInt(lastNum)) == null) {
 			MessageDTO message = new MessageDTO("그룹핑 불가능합니다. (10개 초과 or 불가능한 블록 선택)", "/reservation/chooseBlockGroup",
 					RequestMethod.GET, null);

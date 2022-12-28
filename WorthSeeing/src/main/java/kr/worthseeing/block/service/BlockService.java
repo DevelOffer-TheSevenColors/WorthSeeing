@@ -16,4 +16,6 @@ public interface BlockService {
 	
 	List<Integer> getBlockXY(int firstNum, int lastNum);
 	
+	List<Integer> availableGroupingblock();
+	
 }

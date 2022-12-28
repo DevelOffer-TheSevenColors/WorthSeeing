@@ -44,6 +44,13 @@ public class BlockServiceImpl implements BlockService {
 	public List<Block> findAuctionBlock(BlockGroupWaiting blockGroupWaiting) {
 		return blockRepo.findAuctionBlock(String.valueOf(blockGroupWaiting.getBlockGroupWaiting_seq()));
 	}
+	
+	// 그룹핑 가능한 블록 리스트
+	@Override
+	public List<Integer> availableGroupingblock() {
+		System.out.println("testsetset---->" + blockRepo.availableGroupingblock().toString());
+		return blockRepo.availableGroupingblock();
+	}
 
 	@Override
 	public List<Integer> getBlockXY(int firstNum, int lastNum) {
@@ -129,7 +136,10 @@ public class BlockServiceImpl implements BlockService {
 		}
 
 		// ------- 그룹핑 가능인 상태 -------------------
-
+		// 1. blockGroupWaiting에 insert
+		// 2. reservation에 insert
+		// 3. reservationUserId에 insert
+		
 		Users users = new Users();
 		users.setUserId("testid");
 
@@ -147,10 +157,9 @@ public class BlockServiceImpl implements BlockService {
 		blockGroupWaitingRepo.save(blockGroupWaiting);
 
 		for (int item : intList) {
-			System.out.println(blockRepo.findById(item).get());
 			Block findBlockWaitingSeq = blockRepo.findById(item).get();
 			findBlockWaitingSeq.setBlockGroupWaiting(blockGroupWaiting);
-			blockRepo.save(findBlockWaitingSeq);
+			blockRepo.save(findBlockWaitingSeq); // block에 blockGroupWaiting_seq Update
 		}
 
 		return intList;

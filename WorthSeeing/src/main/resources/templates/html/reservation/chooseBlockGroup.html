@@ -31,25 +31,34 @@
       <script>
          $(document).ready(function() {
             var topSize = 0;
+            
+            var availableGroupingblock = [[${availableGroupingblock}]]
+            var availableGroupingblockLength = availableGroupingblock.length;
             for (var i = 1; i <= 289; i++) {
 
-               var child = "<input type='checkbox' name='blockcheckbox' class='block' id=" + i + " text=" + i + ">";
+               var child = "<input type='checkbox' name='blockcheckbox' class='block' id=check" + i + " text=" + i + ">";
 
                $(".blockGrouping").append(child);
 
                if (i % 17 == 0) {
-                  $("#" + i).css('margin-top', topSize + 'px');
+                  $("#check" + i).css('margin-top', topSize + 'px');
                   topSize += 100;
                } else {
-                  $("#" + i).css('margin-top', topSize + 'px');
+                  $("#check" + i).css('margin-top', topSize + 'px');
                }
 
                if (i % 17 == 0) {
-                  $("#" + i).css('margin-left', 1700 + 'px');
+                  $("#check" + i).css('margin-left', 1700 + 'px');
                } else {
-                  $("#" + i).css('margin-left', 100 * (i % 17) + 'px');
+                  $("#check" + i).css('margin-left', 100 * (i % 17) + 'px');
                }
+               $('.block').prop('disabled', true);
+               
             }
+            for (var j = 0; j < availableGroupingblockLength; j++) {
+               	$('#check' + availableGroupingblock[j-1]).prop('disabled', false);
+            }
+            
             
             var cnt = 0;
             var arr = [];
@@ -78,7 +87,7 @@
                if(arr.length==1) {
                   arr[1] = arr[0];
                }
-               location.href="/block/grouping?firstNum=" + arr[0] + "&lastNum=" + arr[1];
+               location.href="/block/grouping?firstNum=" + arr[0].slice(5) + "&lastNum=" + arr[1].slice(5);
             })
             
          })
