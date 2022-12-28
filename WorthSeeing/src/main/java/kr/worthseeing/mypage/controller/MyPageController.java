@@ -28,7 +28,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 
-	@GetMapping("/mypageMain")
+	@RequestMapping("/mypageMain")
 	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
 			@PageableDefault Pageable pageable) {
 		
