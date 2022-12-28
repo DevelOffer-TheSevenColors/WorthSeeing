@@ -12,7 +12,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import kr.worthseeing.block.entity.Block;
-import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 
 public interface BlockRepository extends CrudRepository<Block, Integer>, QuerydslPredicateExecutor<Block> {
 
