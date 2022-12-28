@@ -41,7 +41,12 @@
 											urlGroupRankArr[i].slice(3).slice(0, -3));
 								}
 							}
-
+							
+							$(".destination-item").click(function() {
+								// 걸려있는 링크로 이동
+								location.href="/click?blockGroup_seq=" + $(this).attr("id");
+							})
+							
 						});
 	</script>
 	<div>
@@ -59,12 +64,12 @@
 							<div th:each="blockGroup, state : ${blockGroupList}"
 								class="col-lg-4 col-md-6 mb-4">
 								<div
-									class="destination-item position-relative overflow-hidden mb-2">
+									class="destination-item position-relative overflow-hidden mb-2" th:id="${blockGroup.blockGroup_seq}">
 									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"> 
-									<a class="destination-overlay text-white text-decoration-none" th:href="@{${blockGroup.linkUrl}}">
+									<p class="destination-overlay text-white text-decoration-none" th:href="@{${blockGroup.linkUrl}}">
 										<span>총 방문횟수</span>
 										<span th:text="${blockGroup.clickCnt}"></span>
-									</a>
+									</p>
 								</div>
 							</div>
 						</div>
