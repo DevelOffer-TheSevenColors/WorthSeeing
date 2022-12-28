@@ -84,10 +84,11 @@
 						</tr>
 						<tr id=autoBiddingStop>
 							<td colspan="2"><div class="center">
-								<form th:action="@{/autoBiddingStop}">
-									<input type="hidden" id="stop_seq" name="reservation_seq"/>
-									<button th:href="@{/autoBiddingStop}" type="submit" class="btn btn-primary" >입찰중단</button>
-								</form>
+									<form th:action="@{/autoBiddingStop}">
+										<input type="hidden" id="stop_seq" name="reservation_seq" />
+										<button th:href="@{/autoBiddingStop}" type="submit"
+											class="btn btn-primary">입찰중단</button>
+									</form>
 								</div></td>
 						</tr>
 					</tbody>
@@ -115,9 +116,7 @@
 						<input type="hidden" name="reservation_seq" id="reservation_seq" /></input>
 						<input type="hidden" name="cPrice" id="currentPriceSend"></input>
 						<input type="hidden" name="currentMaxPrice" id="currentMaxPrice"></input>
-						<input type="hidden" name="userAutoId" id="userAutoId"></input>
-
-						<br />
+						<input type="hidden" name="userAutoId" id="userAutoId"></input> <br />
 
 						<table
 							style="font-size: 20px; text-align: center; margin-left: 70px;">
@@ -127,25 +126,25 @@
 									<td id="sessionUserId" sec:authentication="name"></td>
 								<tr>
 								<tr>
+									<td>자동입찰금액</td>
+									<td><input readonly
+										style="border: 0px; text-align: center;" id="currentMaxPrice1"></input>원</td>
+								</tr>
+								<tr>
+									<td>현재금액</td>
+									<td><input readonly
+										style="border: 0px; text-align: center;" id="currentPrice1"></input>원</td>
+								</tr>
+								<tr>
 									<td>자동입찰</td>
 									<td><input style="width: 16px; height: 16px;"
 										type="checkbox" name="autoCheck" id="autoCheck" />
 								<tr>
 								<tr class="sPrice">
-									<td>현재금액</td>
-									<td><input readonly
-										style="border: 0px; text-align: center;" id="currentPrice1"></input>원</td>
-								</tr>
-								<tr class="sPrice">
 									<td>입찰금액</td>
 									<td><input style="text-align: center; width: 150px;"
 										id="suggestPrice" name="suggestPrice"></td>
-								<tr>
-								<tr class="autoPrice">
-									<td>현재최대금액</td>
-									<td><input readonly
-										style="border: 0px; text-align: center;" id="currentMaxPrice1"></input>원</td>
-								</tr>
+
 								<tr class="autoPrice">
 									<td>최대입찰금액</td>
 									<td><input name="autoPrice"
@@ -154,7 +153,7 @@
 								<tr>
 									<td>서비스시작일</td>
 									<td><input readonly id="startDate"
-										style="border: 0px; text-align: center;"/></td>
+										style="border: 0px; text-align: center;" /></td>
 								<tr>
 							</tbody>
 						</table>
