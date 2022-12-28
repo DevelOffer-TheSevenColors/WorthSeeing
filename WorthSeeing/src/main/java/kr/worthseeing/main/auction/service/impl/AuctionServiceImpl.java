@@ -1,6 +1,10 @@
 package kr.worthseeing.main.auction.service.impl;
 
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -223,21 +227,52 @@ public class AuctionServiceImpl implements AuctionService {
 				.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
 
 		LocalDate now = LocalDate.now();
-
+		
+		now.getDayOfMonth();
+		
 		if (month == 1) {
-			LocalDate result1 = now.plusMonths(1);
-			Date enddate1 = java.sql.Date.valueOf(result1);
-			findBlockGroupWaiting.setEndDate(enddate1);
+			  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
+
+			int lastdat=now.withDayOfMonth(now.lengthOfMonth()).getDayOfMonth();
+			int month1 = now.plusMonths(1).getMonthValue();
+			int yeser =now.getYear();
+			String date=""+yeser+"-" +  month1 + "-" + lastdat;
+			 Date date1 = null;
+			try {
+				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}  
+			findBlockGroupWaiting.setEndDate(date1);
 
 		} else if (month == 2) {
-			LocalDate result1 = now.plusMonths(2);
-			Date enddate1 = java.sql.Date.valueOf(result1);
-			findBlockGroupWaiting.setEndDate(enddate1);
+			  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
 
+				int lastdat=now.withDayOfMonth(now.lengthOfMonth()).getDayOfMonth();
+				int month1 = now.plusMonths(2).getMonthValue();
+				int yeser =now.getYear();
+				String date=""+yeser+"-" +  month1 + "-" + lastdat;
+				 Date date1 = null;
+				try {
+					date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}  
+				findBlockGroupWaiting.setEndDate(date1);
 		} else if (month == 3) {
-			LocalDate result1 = now.plusMonths(3);
-			Date enddate1 = java.sql.Date.valueOf(result1);
-			findBlockGroupWaiting.setEndDate(enddate1);
+			  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 년-월-일로만 Format되게 구현
+
+				int lastdat=now.withDayOfMonth(now.lengthOfMonth()).getDayOfMonth();
+				int month1 = now.plusMonths(3).getMonthValue();
+				int yeser =now.getYear();
+				String date=""+yeser+"-" +  month1 + "-" + lastdat;
+				 Date date1 = null;
+				try {
+					date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}  
+				findBlockGroupWaiting.setEndDate(date1);
 		}
 
 		findBlockGroupWaiting.setPrice(blockGroupWaiting.getPrice());
