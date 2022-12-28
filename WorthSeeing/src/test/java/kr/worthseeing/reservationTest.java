@@ -234,7 +234,7 @@ public class reservationTest {
 	}
 	// 아래 #1, #2, #3를 하나씩 해서 3번 테스트 실행하시오!
 
-//	 @Test
+	 @Test
 	public void CouponStatus() {
 		// 쿠폰
 		Status status = new Status();
@@ -269,14 +269,14 @@ public class reservationTest {
 //				coupon1.setStatus(status);
 //				couponRepo.save(coupon1);
 
-			// #2
-//				Coupon coupon2 = new Coupon(50000, couponnum);
-//				coupon2.setStatus(status);
-//				couponRepo.save(coupon2);
+//			 #2
+				Coupon coupon2 = new Coupon(50000, couponnum);
+				coupon2.setStatus(status);
+				couponRepo.save(coupon2);
 			// #3
-			Coupon coupon3 = new Coupon(100000, couponnum);
-			coupon3.setStatus(status);
-			couponRepo.save(coupon3);
+//			Coupon coupon3 = new Coupon(100000, couponnum);
+//			coupon3.setStatus(status);
+//			couponRepo.save(coupon3);
 		}
 
 	}
@@ -344,7 +344,7 @@ public class reservationTest {
 
 	}
 	
-	@Test
+	//@Test
 	public void updateBlockBlockGroupSeq() {
 		List<Block> blockList = (List<Block>) blockRepo.listblock();
 		
