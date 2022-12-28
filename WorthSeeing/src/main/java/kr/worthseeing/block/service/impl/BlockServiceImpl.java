@@ -103,7 +103,7 @@ public class BlockServiceImpl implements BlockService {
 					Status status = new Status();
 
 					// 범위 내의 블록이 전부 그룹핑 가능할 때
-					if (blockStatus != 8 && blockStatus != 10) {
+					if (blockStatus != 8 || blockStatus != 10) {
 						System.out.println("그룹핑 불가능한 블록을 선택함");
 						return null;
 					}
