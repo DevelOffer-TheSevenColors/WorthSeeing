@@ -1,96 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="hblockp://www.thymeleaf.org"
-	xmlns:layout="hblockp://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="hblockp://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+   xmlns:layout="hblockp://www.ultraq.net.nz/thymeleaf/layout"
+   xmlns:sec="hblockp://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
 <body>
-	<div>
-		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+   <div>
+      <th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
 
 <style>
 
 .blockGrouping {
-	position: relative;
-	z-index: 1;
-	margin-bottom: 1800px;
+   position: relative;
+   z-index: 1;
+   margin-bottom: 1800px;
 }
 
 .block {
-	border: 1px solid gray;
-	position: absolute;
-	width: 100px;
-	height: 100px;
-	background-color: #F3F3F3;
+   border: 1px solid gray;
+   position: absolute;
+   width: 100px;
+   height: 100px;
+   background-color: #F3F3F3;
 }
 </style>
-	<div>
-		<script>
-			$(document).ready(function() {
-				var topSize = 0;
-				for (var i = 1; i <= 289; i++) {
+   <div>
+      <script>
+         $(document).ready(function() {
+            var topSize = 0;
+            for (var i = 1; i <= 289; i++) {
 
-					var child = "<input type='checkbox' name='blockcheckbox' class='block' id=" + i + " text=" + i + ">";
+               var child = "<input type='checkbox' name='blockcheckbox' class='block' id=" + i + " text=" + i + ">";
 
-					$(".blockGrouping").append(child);
+               $(".blockGrouping").append(child);
 
-					if (i % 17 == 0) {
-						$("#" + i).css('margin-top', topSize + 'px');
-						topSize += 100;
-					} else {
-						$("#" + i).css('margin-top', topSize + 'px');
-					}
+               if (i % 17 == 0) {
+                  $("#" + i).css('margin-top', topSize + 'px');
+                  topSize += 100;
+               } else {
+                  $("#" + i).css('margin-top', topSize + 'px');
+               }
 
-					if (i % 17 == 0) {
-						$("#" + i).css('margin-left', 1700 + 'px');
-					} else {
-						$("#" + i).css('margin-left', 100 * (i % 17) + 'px');
-					}
-				}
-				
-				var cnt = 0;
-				var arr = [];
-				
-				$("#retryBtn").click(function() {
-					arr = [];
-					cnt = 0;
-					$('.block').prop('disabled', false);
-					$('input[name="blockcheckbox"]').each(function() {
-					    $(this).prop('checked', false);
-					});
-				})
-				
-				$('input[name="blockcheckbox"]').change(function() {
-					arr.push($(this).attr("id"));
-					if($(this).prop('checked')) {
-						cnt++;
-					}
-					if(cnt==2) {
-						console.log(arr);
-						$('.block').prop('disabled', true);
-					}
-				})
-				
-				$("#groupingBtn").click(function() {
-					if(arr.length==1) {
-						arr[1] = arr[0];
-					}
-					location.href="/block/grouping?firstNum=" + arr[0] + "&lastNum=" + arr[1];
-				})
-				
-			})
-		</script>
-			<div style="margin-top: 80px;">
-				<button id="retryBtn">다시 선택하기</button>
-				<button id="groupingBtn">그룹핑하기</button>
-				<div class="blockGrouping"></div>
-			</div>
-		</div>
-		
-	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
-	</div>
-	
+               if (i % 17 == 0) {
+                  $("#" + i).css('margin-left', 1700 + 'px');
+               } else {
+                  $("#" + i).css('margin-left', 100 * (i % 17) + 'px');
+               }
+            }
+            
+            var cnt = 0;
+            var arr = [];
+            
+            $("#retryBtn").click(function() {
+               arr = [];
+               cnt = 0;
+               $('.block').prop('disabled', false);
+               $('input[name="blockcheckbox"]').each(function() {
+                   $(this).prop('checked', false);
+               });
+            })
+            
+            $('input[name="blockcheckbox"]').change(function() {
+               arr.push($(this).attr("id"));
+               if($(this).prop('checked')) {
+                  cnt++;
+               }
+               if(cnt==2) {
+                  console.log(arr);
+                  $('.block').prop('disabled', true);
+               }
+            })
+            
+            $("#groupingBtn").click(function() {
+               if(arr.length==1) {
+                  arr[1] = arr[0];
+               }
+               location.href="/block/grouping?firstNum=" + arr[0] + "&lastNum=" + arr[1];
+            })
+            
+         })
+      </script>
+         <div style="margin-top: 80px;">
+            <button id="retryBtn">다시 선택하기</button>
+            <button id="groupingBtn">그룹핑하기</button>
+            <div class="blockGrouping"></div>
+         </div>
+      </div>
+      
+   <th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+   </div>
+   
 </body>
 </html>
