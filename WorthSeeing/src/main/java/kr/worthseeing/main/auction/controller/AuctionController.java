@@ -49,6 +49,12 @@ public class AuctionController {
 	@ResponseBody // ajax를 불르기 위한 어노테이션
 	@RequestMapping(value = "/auction/selectBlock", method = RequestMethod.POST)
 	public List<Block> selectBlock(Reservation reservation) throws Throwable {
+		System.out.println("==>reservation" + reservation.getReservation_seq());
+		System.out.println("==>blockgroupwaiting" + reservationService.selectReservationCreditInfo(reservation).getBlockGroupWaiting());
+		
+		System.out.println("==> List" + blockService
+				.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroupWaiting()));
+		
 		return blockService
 				.findAuctionBlock(reservationService.selectReservationCreditInfo(reservation).getBlockGroupWaiting());
 	}

@@ -4,8 +4,8 @@
 	console.log($("#reservation_seq").val());
   	
     var now = new Date();
-    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),22,20,00);
-    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),22,06,00);
+    var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),15,00,00);
+    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,00,00);
   
     var nt = now.getTime();
     var ot = open.getTime();
@@ -86,19 +86,18 @@
         data: {reservation_seq : $("#reservation_seq").val()},
         success: function(data){
             var block ="";
+            console.log(data);
             $.each(data , function(i){
                 block += data[i].block_seq +",";
             });
             block = block.substring(0,block.length-1);
 
             $('#block').val(block);
-            if(data[0].endDate.substring(0,data[0].startDate.indexOf('T'))!=null){
-            	$('#startDate').val(data[0].endDate.substring(0,data[0].endDate.indexOf('T')));
-            } else{
-            	$('#startDate').val("미정");
-            }
+          	 var date = new Date();
+            	$('#startDate').val( new Date(date.getFullYear(), date.getMonth() + 1, 1).toLocaleDateString() );
         },
         error: function(){
+        	console.log("hey");
         	console.log("err");
         }
   	});

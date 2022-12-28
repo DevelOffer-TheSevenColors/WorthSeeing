@@ -1,22 +1,16 @@
 package kr.worthseeing.block.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.status.entity.Status;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -38,6 +32,7 @@ public class Block {
 	private int yLocation;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "status_seq", nullable = false)
 	private Status status;
 
@@ -58,6 +53,7 @@ public class Block {
 	
 	@ManyToOne
 	@JoinColumn(name = "blockGroupWaiting_seq", nullable = false)
+	@JsonIgnore
 	private BlockGroupWaiting blockGroupWaiting;
 
 	public void setBlockWaitingGroup(BlockGroupWaiting blockGroupWaiting) {
