@@ -103,35 +103,59 @@ public class BlockServiceImpl implements BlockService {
 					Status status = new Status();
 
 					// 범위 내의 블록이 전부 그룹핑 가능할 때
-					if (blockStatus != 8 || blockStatus != 10) {
-						System.out.println("그룹핑 불가능한 블록을 선택함");
-						return null;
+					if (blockStatus == 8 || blockStatus == 10) {
+						if (blockStatus == 8) { // 사용중/그룹핑가능
+
+							// 사용중/그룹핑불가능
+							status.setStatus_seq(9);
+							findBlock.setStatus(status);
+
+							// 블록 리스트 추가
+							intList.add(block.getBlock_seq());
+
+							blockRepo.save(findBlock);
+						}
+						
+						else { // 미사용중/그룹핑가능
+
+							// 미사용중/그룹핑불가능
+							status.setStatus_seq(11);
+							findBlock.setStatus(status);
+
+							// 블록 리스트 추가
+							intList.add(block.getBlock_seq());
+
+							blockRepo.save(findBlock);
+
+						}
+//						System.out.println("그룹핑 불가능한 블록을 선택함");
+//						return null;
 					}
 
-					else if (blockStatus == 8) { // 사용중/그룹핑가능
-
-						// 사용중/그룹핑불가능
-						status.setStatus_seq(9);
-						findBlock.setStatus(status);
-
-						// 블록 리스트 추가
-						intList.add(block.getBlock_seq());
-
-						blockRepo.save(findBlock);
-					}
-
-					else if (blockStatus == 10) { // 미사용중/그룹핑가능
-
-						// 미사용중/그룹핑불가능
-						status.setStatus_seq(11);
-						findBlock.setStatus(status);
-
-						// 블록 리스트 추가
-						intList.add(block.getBlock_seq());
-
-						blockRepo.save(findBlock);
-
-					}
+//					else if (blockStatus == 8) { // 사용중/그룹핑가능
+//
+//						// 사용중/그룹핑불가능
+//						status.setStatus_seq(9);
+//						findBlock.setStatus(status);
+//
+//						// 블록 리스트 추가
+//						intList.add(block.getBlock_seq());
+//
+//						blockRepo.save(findBlock);
+//					}
+//
+//					else if (blockStatus == 10) { // 미사용중/그룹핑가능
+//
+//						// 미사용중/그룹핑불가능
+//						status.setStatus_seq(11);
+//						findBlock.setStatus(status);
+//
+//						// 블록 리스트 추가
+//						intList.add(block.getBlock_seq());
+//
+//						blockRepo.save(findBlock);
+//
+//					}
 
 					else {
 						System.out.println("그룹핑 불가능");
