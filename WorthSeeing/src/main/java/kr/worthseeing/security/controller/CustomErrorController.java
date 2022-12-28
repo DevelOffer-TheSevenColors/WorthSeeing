@@ -21,7 +21,7 @@ public class CustomErrorController implements ErrorController {
 
 	// 에러 페이지 정의
 	private final String ERROR_404_PAGE_PATH = "/error/404error";
-	private final String ERROR_500_PAGE_PATH = "/error/500error";
+//	private final String ERROR_500_PAGE_PATH = "/error/500error";
 	private final String ERROR_ETC_PAGE_PATH = "/error/error";
 
 	@RequestMapping(value = "/error")
@@ -50,10 +50,10 @@ public class CustomErrorController implements ErrorController {
 			}
 
 			// 500 error
-			if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-				// 서버에 대한 에러이기 때문에 사용자에게 정보를 제공하지 않는다.
-				return ERROR_500_PAGE_PATH;
-			}
+//			if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+//				// 서버에 대한 에러이기 때문에 사용자에게 정보를 제공하지 않는다.
+//				return ERROR_500_PAGE_PATH;
+//			}
 		}
 
 		// 정의한 에러 외 모든 에러는 error/error 페이지로 보낸다.
@@ -66,11 +66,11 @@ public class CustomErrorController implements ErrorController {
 		return "/error/404error";
 	}
 	
-	@GetMapping("/error/500error")
-	public String ErrorController1() {
-		
-		return "/error/505error";
-	}
+//	@GetMapping("/error/500error")
+//	public String ErrorController1() {
+//		
+//		return "/error/505error";
+//	}
 	
 
 }
