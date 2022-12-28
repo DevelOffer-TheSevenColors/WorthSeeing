@@ -32,8 +32,7 @@
 
 						</tr>
 					</thead>
-					
-					<tbody>
+					<tbody th:if="${endAuction == 'yes'}">
 						<tr th:each="reservation, state : ${reservationList}">
 							<td th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
 							<td th:text="${#numbers.formatInteger(reservation.startPrice, 0, 'COMMA')}"></td>

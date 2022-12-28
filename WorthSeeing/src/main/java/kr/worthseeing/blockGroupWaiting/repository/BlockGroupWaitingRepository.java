@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.main.auction.entity.AuctionLog;
@@ -40,4 +43,9 @@ public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupW
 	@Query("select b from BlockGroupWaiting b order by b.blockGroupWaiting_seq")
 	List<BlockGroupWaiting> orderByBlockGroupWaitingSeq();
 
+	@Query("DELETE FROM BlockGroupWaiting b Where price = 0")
+	@Modifying
+	@Transactional
+	void deleteBlockGroupWaiting();
+	
 }

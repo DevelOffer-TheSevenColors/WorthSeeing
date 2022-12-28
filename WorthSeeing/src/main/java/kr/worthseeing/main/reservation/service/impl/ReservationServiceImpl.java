@@ -175,10 +175,12 @@ public class ReservationServiceImpl implements ReservationService {
 	public String myBlockGroupWaitingYN() {
 		String flag = "yes";
 		for(BlockGroupWaiting blockGroupWaiting : blockGroupWaitingRepo.findAll()) {
-			if(blockGroupWaiting.getUsers() != null) {
-				flag = "no";
+			if(blockGroupWaiting !=null) {
+				if(blockGroupWaiting.getPrice() != 0) {
+					flag = "no";
+				}
 			}
-		}
+		}		
 		return flag;
 	}
 
