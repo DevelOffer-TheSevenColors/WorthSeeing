@@ -92,7 +92,7 @@ public class MyPageController {
 	@PostMapping("/system/mypageUpdateProc")
 	public String mypageUpdateProc(Users users, Model model) {
 		myPageService.userUpdateProc(users);
-		return "redirect:/mypage/mypageMain";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping("/mypageAuctionHistory")

@@ -224,6 +224,9 @@ public class MyPageServiceImpl implements MyPageService {
 	//회원정보 수정
 	@Override
 	public void userUpdateProc(Users users) {
+		
+		System.out.println("하222"+users);
+		
 		Users findUser = usersRepo.findById(users.getUserId()).get();
 		
 		
