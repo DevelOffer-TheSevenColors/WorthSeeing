@@ -9,15 +9,18 @@ import org.springframework.data.repository.CrudRepository;
 
 import kr.worthseeing.main.reservation.entity.Reservation;
 
-public interface ReservationRepository  extends CrudRepository<Reservation, Integer>{
-	
+public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
+
 	@Query("select r from Reservation r")
 	Page<Reservation> listReservation(Pageable pageable);
-	
+
 	@Query("select r.blockGroupWaiting.blockGroupWaiting_seq from Reservation r")
 	List<Integer> listReservationBlockGroupSeq();
-	
+
 	@Query("select r.reservation_seq from Reservation r where r.blockGroupWaiting.blockGroupWaiting_seq = ?1")
 	int getReservationSeqFromBlockGroupSeq(int blockGroupWaiting_seq);
-	
+
+	@Query("select r from Reservation r where block_Group_Waiting_Seq = ?1")
+	Reservation findReservation(String block_group_waiting_seq);
+
 }

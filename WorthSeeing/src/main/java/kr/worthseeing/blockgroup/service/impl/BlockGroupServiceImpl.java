@@ -33,6 +33,10 @@ import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
 import kr.worthseeing.blockgroup.service.BlockGroupService;
+import kr.worthseeing.main.auction.entity.Auction;
+import kr.worthseeing.main.auction.repository.AuctionRepository;
+import kr.worthseeing.main.reservation.entity.Reservation;
+import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
@@ -40,254 +44,282 @@ import kr.worthseeing.users.repository.UsersRepository;
 @Service
 public class BlockGroupServiceImpl implements BlockGroupService {
 
-	@Autowired
-	private AmazonS3Client amazonS3Client;
+   @Autowired
+   private AmazonS3Client amazonS3Client;
 
-	@Autowired
-	private BlockGroupRepository blockGroupRepo;
+   @Autowired
+   private BlockGroupRepository blockGroupRepo;
 
-	@Autowired
-	private BlockRepository blockRepo;
+   @Autowired
+   private BlockRepository blockRepo;
 
-	@Autowired
-	private BlockGroupWaitingRepository blockGroupWaitingRepo;
+   @Autowired
+   private BlockGroupWaitingRepository blockGroupWaitingRepo;
 
-	@Autowired
-	private UsersRepository usersRepo;
+   @Autowired
+   private UsersRepository usersRepo;
 
-	private String S3Bucket = "kwangan2-worthseeing-burket"; // Bucket 이름
+   @Autowired
+   private ReservationRepository reservationRepo;
 
-	@Override
-	public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files, Users users) {
-		String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString(); // 접근가능한 URL 가져오기
+   @Autowired
+   private AuctionRepository auctionRepo;
 
-		BlockGroup blockGroup = new BlockGroup(blockGroupRepo.getMaxBlockGroupSeq() + 1, blockGroupParam.getLinkUrl(),
-				files.getOriginalFilename(), imagePath, 500);
+   private String S3Bucket = "kwangan2-worthseeing-burket"; // Bucket 이름
 
-		Status status = new Status();
-		status.setStatus_seq(3);
+   @Override
+   public void insertBlockGroup(BlockGroup blockGroupParam, MultipartFile files, Users users) {
+      String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString(); // 접근가능한 URL 가져오기
 
-//		blockGroup.setStatus(status);
-		blockGroup.setUsers(usersRepo.findById(users.getUserId()).get());
+      BlockGroup blockGroup = new BlockGroup(blockGroupRepo.getMaxBlockGroupSeq() + 1, blockGroupParam.getLinkUrl(),
+            files.getOriginalFilename(), imagePath, 500);
 
-		try {
-			saveFile(files);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		blockGroupRepo.save(blockGroup);
+      Status status = new Status();
+      status.setStatus_seq(3);
 
-	}
+//      blockGroup.setStatus(status);
+      blockGroup.setUsers(usersRepo.findById(users.getUserId()).get());
 
-	@Override
-	public void updateBlockGroup(BlockGroup blockGroup, MultipartFile files, Users users) {
-		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+      try {
+         saveFile(files);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      blockGroupRepo.save(blockGroup);
 
-		if (!files.isEmpty()) {
-			String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
-			findBlockGroup.setCImg(imagePath);
-			findBlockGroup.setSImg(files.getOriginalFilename());
-			try {
-				saveFile(files);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+   }
 
-		findBlockGroup.setLinkUrl(blockGroup.getLinkUrl());
+   @Override
+   public void updateBlockGroup(BlockGroup blockGroup, MultipartFile files, Users users) {
+      BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
 
-		blockGroupRepo.save(findBlockGroup);
-	}
+      if (!files.isEmpty()) {
+         String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
+         findBlockGroup.setCImg(imagePath);
+         findBlockGroup.setSImg(files.getOriginalFilename());
+         try {
+            saveFile(files);
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
 
-	@Override
-	public void updateBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting, MultipartFile files, Users users) {
-		BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo
-				.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
+      findBlockGroup.setLinkUrl(blockGroup.getLinkUrl());
 
-		if (!files.isEmpty()) {
-			String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
-			findBlockGroupWaiting.setCImg(imagePath);
-//			findBlockGroupWaiting.setSImg(files.getOriginalFilename());
-			try {
-				saveFile(files);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+      blockGroupRepo.save(findBlockGroup);
+   }
 
-		findBlockGroupWaiting.setLinkUrl(blockGroupWaiting.getLinkUrl());
+   @Override
+   public void updateBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting, MultipartFile files, Users users) {
+      BlockGroupWaiting findBlockGroupWaiting = blockGroupWaitingRepo
+            .findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
 
-		blockGroupWaitingRepo.save(findBlockGroupWaiting);
-	}
+      if (!files.isEmpty()) {
+         String imagePath = amazonS3Client.getUrl(S3Bucket, files.getOriginalFilename()).toString();
+         findBlockGroupWaiting.setCImg(imagePath);
+//         findBlockGroupWaiting.setSImg(files.getOriginalFilename());
+         try {
+            saveFile(files);
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
 
-	private void saveFile(MultipartFile files) throws IOException {
+      findBlockGroupWaiting.setLinkUrl(blockGroupWaiting.getLinkUrl());
 
-		String fileDir1 = "C:\\Users\\User\\git\\WorthSeeing\\WorthSeeing\\src\\main\\resources\\static\\img\\cimg/";
-		String fileDir2 = "C:/uploadfiles/";
+      blockGroupWaitingRepo.save(findBlockGroupWaiting);
+   }
 
-		if (files.isEmpty()) {
-			System.out.println("Empty!!!!!!!!!!!!!!");
-		}
+   private void saveFile(MultipartFile files) throws IOException {
 
-		String fileName = files.getOriginalFilename();
-		String uuid = UUID.randomUUID().toString();
+      String fileDir1 = "C:\\Users\\User\\git\\WorthSeeing\\WorthSeeing\\src\\main\\resources\\static\\img\\cimg/";
+      String fileDir2 = "C:/uploadfiles/";
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		String nowDate = format.format(new Date());
+      if (files.isEmpty()) {
+         System.out.println("Empty!!!!!!!!!!!!!!");
+      }
 
-		String extension = fileName.substring(fileName.lastIndexOf("."));
-		long size = files.getSize(); // 파일 크기
+      String fileName = files.getOriginalFilename();
+      String uuid = UUID.randomUUID().toString();
 
-		ObjectMetadata objectMetaData = new ObjectMetadata();
-		objectMetaData.setContentType(files.getContentType());
-		objectMetaData.setContentLength(size);
+      SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+      String nowDate = format.format(new Date());
 
-		// S3에 업로드
-		amazonS3Client.putObject(new PutObjectRequest(S3Bucket, fileName, files.getInputStream(), objectMetaData)
-				.withCannedAcl(CannedAccessControlList.PublicRead));
+      String extension = fileName.substring(fileName.lastIndexOf("."));
+      long size = files.getSize(); // 파일 크기
 
-		String fileSname = uuid + extension;
-		String filePath = fileDir1 + nowDate + "/" + fileSname;
+      ObjectMetadata objectMetaData = new ObjectMetadata();
+      objectMetaData.setContentType(files.getContentType());
+      objectMetaData.setContentLength(size);
 
-		File directory = new File(fileDir1 + nowDate);
+      // S3에 업로드
+      amazonS3Client.putObject(new PutObjectRequest(S3Bucket, fileName, files.getInputStream(), objectMetaData)
+            .withCannedAcl(CannedAccessControlList.PublicRead));
 
-		if (!directory.exists()) {
-			try {
-				directory.mkdir();
-			} catch (Exception e) {
-				e.getStackTrace();
-			}
-		} else {
-			System.out.println("이미 폴더가 생성되어 있습니다.");
-		}
+      String fileSname = uuid + extension;
+      String filePath = fileDir1 + nowDate + "/" + fileSname;
 
-		System.out.println("file===>" + fileName + fileSname + filePath);
+      File directory = new File(fileDir1 + nowDate);
 
-		files.transferTo(new File(filePath));
+      if (!directory.exists()) {
+         try {
+            directory.mkdir();
+         } catch (Exception e) {
+            e.getStackTrace();
+         }
+      } else {
+         System.out.println("이미 폴더가 생성되어 있습니다.");
+      }
 
-	}
+      System.out.println("file===>" + fileName + fileSname + filePath);
 
-	// 인기 블록 리스트
-	@Override
-	public Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable) {
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-		pageable = PageRequest.of(page, 9, Sort.Direction.DESC, "clickCnt");
+      files.transferTo(new File(filePath));
 
-		return blockGroupRepo.listBlockGroup(pageable);
-	}
+   }
 
-	@Override
-	public Map<String, Object> topBlock() {
-		Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "clickCnt");
-		
-		List<BlockGroup> blockGroupList = blockGroupRepo.listBlockGroup(pageable).getContent();
+   // 인기 블록 리스트
+   @Override
+   public Page<BlockGroup> listBlockGroupOrderByClickCnt(Pageable pageable) {
+      int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+      pageable = PageRequest.of(page, 9, Sort.Direction.DESC, "clickCnt");
 
-		List<String> blockGroupLink = new ArrayList<String>();
-		List<String> imgTopList = new ArrayList<String>();
-		
-		Map<String, Object> getTopBlock = new HashMap<String, Object>();
-		
-		if (!blockGroupList.isEmpty()) {
-			for (BlockGroup blockgroup : blockGroupList) {
-				blockGroupLink.add(blockgroup.getLinkUrl());
-				imgTopList.add(blockgroup.getCImg());
-			}
-		} else {
-			for (int i = 0; i < 5; i++) {
-				blockGroupLink.add("#");
-				imgTopList.add("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
-			}
-		}
-		
-		getTopBlock.put("blockGroupLink", blockGroupLink);
-		getTopBlock.put("imgTopList", imgTopList);
-		
-		return getTopBlock;
-	
-	}
+      return blockGroupRepo.listBlockGroup(pageable);
+   }
 
-	// 메인 페이지 - 남은 사용 시간
-	@Override
-	public Map<String, List<Integer>> getBlockGroupDate() {
+   @Override
+   public Map<String, Object> topBlock() {
+      Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "clickCnt");
 
-		if (blockGroupRepo.listBlockGroupEndDate() == null) {
-			return null;
-		}
+      List<BlockGroup> blockGroupList = blockGroupRepo.listBlockGroup(pageable).getContent();
 
-		List<BlockGroup> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
+      List<String> blockGroupLink = new ArrayList<String>();
+      List<String> imgTopList = new ArrayList<String>();
 
-		List<Integer> betweenDaysList = new ArrayList<Integer>();
-		List<Integer> usingBlockGroupList = new ArrayList<Integer>();
+      Map<String, Object> getTopBlock = new HashMap<String, Object>();
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      if (!blockGroupList.isEmpty()) {
+         for (BlockGroup blockgroup : blockGroupList) {
+            blockGroupLink.add(blockgroup.getLinkUrl());
+            imgTopList.add(blockgroup.getCImg());
+         }
+      } else {
+         for (int i = 0; i < 5; i++) {
+            blockGroupLink.add("#");
+            imgTopList.add("https://kwangan2-worthseeing-burket.s3.eu-west-2.amazonaws.com/defaultIMG.png");
+         }
+      }
 
-		for (BlockGroup blockGroupItem : listBlockGroupEndDate) {
-			String endDateItem = blockGroupItem.getEndDate();
+      getTopBlock.put("blockGroupLink", blockGroupLink);
+      getTopBlock.put("imgTopList", imgTopList);
 
-			if (endDateItem == null) {
-				betweenDaysList.add((int) Duration
-						.between(LocalDate.now().atStartOfDay(), LocalDate.now().atStartOfDay()).toDays());
-			} else {
-				betweenDaysList.add((int) Duration
-						.between(LocalDate.now().atStartOfDay(), LocalDate.parse(endDateItem, formatter).atStartOfDay())
-						.toDays());
-				usingBlockGroupList.add(blockGroupItem.getBlockGroup_seq());
-			}
+      return getTopBlock;
 
-			System.out.println("endDateItem--->" + endDateItem);
-		}
-		Map<String, List<Integer>> resultMap = new HashMap<String, List<Integer>>();
-		resultMap.put("betweenDaysList", betweenDaysList);
-		resultMap.put("usingBlockGroupList", usingBlockGroupList);
+   }
 
-		return resultMap;
-	}
+   // 메인 페이지 - 남은 사용 시간
+   @Override
+   public Map<String, List<Integer>> getBlockGroupDate() {
 
-	@Override
-	public Map<Integer, List<BlockGroup>> listBlockGroup() {
+      if (blockGroupRepo.listBlockGroupEndDate() == null) {
+         return null;
+      }
 
-		// resultMap : key의 타입 : String, value의 타입 : List<BlockGroup>
-		Map<Integer, List<BlockGroup>> resultMap = new HashMap<>();
+      List<BlockGroup> listBlockGroupEndDate = blockGroupRepo.listBlockGroupEndDate();
 
-		List<BlockGroup> blockGroupList = (List<BlockGroup>) blockGroupRepo.findAll();
+      List<Integer> betweenDaysList = new ArrayList<Integer>();
+      List<Integer> usingBlockGroupList = new ArrayList<Integer>();
 
-		for (BlockGroup blockGroup : blockGroupList) {
-//			int status = blockGroup.getStatus().getStatus_seq();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+      for (BlockGroup blockGroupItem : listBlockGroupEndDate) {
+         String endDateItem = blockGroupItem.getEndDate();
+
+         if (endDateItem == null) {
+            betweenDaysList.add((int) Duration
+                  .between(LocalDate.now().atStartOfDay(), LocalDate.now().atStartOfDay()).toDays());
+         } else {
+            betweenDaysList.add((int) Duration
+                  .between(LocalDate.now().atStartOfDay(), LocalDate.parse(endDateItem, formatter).atStartOfDay())
+                  .toDays());
+            usingBlockGroupList.add(blockGroupItem.getBlockGroup_seq());
+         }
+
+         System.out.println("endDateItem--->" + endDateItem);
+      }
+      Map<String, List<Integer>> resultMap = new HashMap<String, List<Integer>>();
+      resultMap.put("betweenDaysList", betweenDaysList);
+      resultMap.put("usingBlockGroupList", usingBlockGroupList);
+
+      return resultMap;
+   }
+
+   @Override
+   public Map<Integer, List<BlockGroup>> listBlockGroup() {
+
+      // resultMap : key의 타입 : String, value의 타입 : List<BlockGroup>
+      Map<Integer, List<BlockGroup>> resultMap = new HashMap<>();
+
+      List<BlockGroup> blockGroupList = (List<BlockGroup>) blockGroupRepo.findAll();
+
+      for (BlockGroup blockGroup : blockGroupList) {
+//         int status = blockGroup.getStatus().getStatus_seq();
 //
-//			if (!resultMap.containsKey(status)) { //
-//				resultMap.put(status, new ArrayList<>());
-//			}
+//         if (!resultMap.containsKey(status)) { //
+//            resultMap.put(status, new ArrayList<>());
+//         }
 //
-//			resultMap.get(status).add(blockGroup);
-		}
+//         resultMap.get(status).add(blockGroup);
+      }
 
-		return resultMap;
-	}
+      return resultMap;
+   }
 
-	// 메인화면 기존 이미지 표시
-	@Override
-	public Map<String, Object> listBoardGroupSeq() {
-		Map<String, Object> map = new HashMap<String, Object>();
+   // 메인화면 기존 이미지 표시
+   @Override
+   public Map<String, Object> listBoardGroupSeq() {
+      Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("listBlockGroupSeq", blockGroupRepo.listBlockGroupSeq());
-		
-		map.put("listXLocation", blockGroupRepo.listXLocationBlockJoinBlockGroupMinBlockSeq());
-		map.put("listYLocation", blockGroupRepo.listYLocationBlockJoinBlockGroupMinBlockSeq());
-		
-		map.put("listWidth", blockGroupRepo.listBlockGroupWidthJoinBlockMinBlockSeq());
-		map.put("listHeight", blockGroupRepo.listBlockGroupHeightJoinBlockMinBlockSeq());
-		
-		return map;
-	}
+      map.put("listBlockGroupSeq", blockGroupRepo.listBlockGroupSeq());
 
-	@Override
-	public List<String> listcImg() {
-		return blockGroupRepo.listcImg();
-	}
+      map.put("listXLocation", blockGroupRepo.listXLocationBlockJoinBlockGroupMinBlockSeq());
+      map.put("listYLocation", blockGroupRepo.listYLocationBlockJoinBlockGroupMinBlockSeq());
 
-	@Override
-	public BlockGroup findBlockGroup(BlockGroup blockGroup) {
-		return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-	}
+      map.put("listWidth", blockGroupRepo.listBlockGroupWidthJoinBlockMinBlockSeq());
+      map.put("listHeight", blockGroupRepo.listBlockGroupHeightJoinBlockMinBlockSeq());
+
+      return map;
+   }
+
+   @Override
+   public List<String> listcImg() {
+      return blockGroupRepo.listcImg();
+   }
+
+   @Override
+   public BlockGroup findBlockGroup(BlockGroup blockGroup) {
+      return blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
+   }
+
+   @Override
+   public void auctionStart() {
+      for (BlockGroupWaiting blockGroupWaiting : blockGroupWaitingRepo.findAll()) {
+         if (blockGroupWaiting.getBlockGroupWaiting_seq() != 1) {
+            Status status = new Status();
+            status.setStatus_seq(15);
+            blockGroupWaiting.setStatus(status);
+            blockGroupWaitingRepo.save(blockGroupWaiting);
+            Reservation reservation = reservationRepo
+                  .findReservation(String.valueOf(blockGroupWaiting.getBlockGroupWaiting_seq()));
+            Auction auction = new Auction();
+            auction.setAuctionPrice(reservation.getStartPrice());
+            System.out.println("머@렂ㄷ랴ㅓㄷ" + reservation.getStartPrice());
+            auction.setReservation(reservation);
+            auction.setSuggestPrice(reservation.getStartPrice());
+            auctionRepo.save(auction);
+//         auction_seq, auction_price, suggest_date, reservation_seq,suggest_price
+//         HIBERNATE_SEQUENCE.NEXTVAL, start_price, sysdate, reservation_seq ,start_price
+         }
+      }
+   }
 
 }

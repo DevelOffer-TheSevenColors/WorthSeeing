@@ -32,4 +32,6 @@ public interface BlockGroupService {
 	void updateBlockGroup(BlockGroup blockGroup, MultipartFile files, Users users);
 	
 	void updateBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting, MultipartFile files, Users users);
+	
+	public void auctionStart();
 }
