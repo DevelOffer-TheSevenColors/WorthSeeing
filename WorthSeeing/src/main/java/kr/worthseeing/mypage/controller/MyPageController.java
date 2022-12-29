@@ -28,26 +28,8 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 
-//	@GetMapping("/mypageMain")
-//	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
-//			@PageableDefault Pageable pageable) {
-//		
-//		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
-//
-//		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
-//		
-//		model.addAttribute("BlockGroupUserId", blockGroupUserId);
-//		System.out.println("controller Users" + myPageService.getUsers(principal.getUsers()));
-//		return "/mypage/mypageMain";
-//	}
-	
-	@GetMapping("/mypageMain")
-	public String getmypage() {
-		return "/mypage/mypageMain";
-	}
-	
-	@PostMapping("/mypageMain")
-	public String postmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
+	@RequestMapping("/mypageMain")
+	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
 			@PageableDefault Pageable pageable) {
 		
 		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
@@ -112,18 +94,8 @@ public class MyPageController {
 		return "redirect:/mypage/mypageMain";
 	}
 	
-	@GetMapping("/mypageAuctionHistory")
+	@RequestMapping("/mypageAuctionHistory")
 	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
-
-
-		model.addAttribute("waiting",
-				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable));
-
-		return "/mypage/mypageAuctionHistory";
-	}
-	
-	@PostMapping("/mypageAuctionHistory")
-	public String postmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
 
 
 		model.addAttribute("waiting",
