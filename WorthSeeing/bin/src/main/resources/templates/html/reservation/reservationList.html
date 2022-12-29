@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<body>
+
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+
+
+				<div class="text-center mb-3 pb-3">
+					<h6 class="text-primary text-uppercase"
+						style="letter-spacing: 5px;">Click</h6>
+					<h1>Reservation List</h1>
+				</div>
+				<div th:if="${reservationStart == 'yes'}">
+					<table class="customBoard">
+
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>경매 시작가격</th>
+								<th>예약 인원</th>
+								<th>예약 하러 가기</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="reservation, state : ${reservationList}">
+								<td
+									th:text="${state.count}"></td>
+								<td
+									th:text="${#numbers.formatInteger(reservation.startPrice, 0, 'COMMA')}"></td>
+								<td th:text="${reservation.userCnt}"></td>
+								<td><a
+									th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
+							</tr>
+							<!-- @{/board/getBoard(seq=${board.seq})} -->
+						</tbody>
+					</table>
+
+					<form th:action="@{/reservation/reservationList}" method="post">
+						<div>
+							<nav class="customNav">
+								<ul class="customPagination"
+									th:with="start=${(1-(reservationList.number%1))%1 + 1},
+	                    	last=(${start + 9 < reservationList.totalPages ? start + 9 : reservationList.totalPages})">
+									<li th:class="${reservationList.first} ? 'disabled'">
+										<button name="page" value="1">First</button>
+									</li>
+
+									<li th:class="${reservationList.first} ? 'disabled'">
+										<button name="page" th:value="${reservationList.number}">&lt;</button>
+									</li>
+
+									<li th:each="page : ${#numbers.sequence(start, last)}"
+										th:class="${page == reservationList.number + 1} ? 'active'">
+										<button th:if="${page==(nowPage+1)}" style="background: gray"
+											name="page" th:value="${page}" th:text="${page}"></button>
+									</li>
+
+									<li th:class="${reservationList.last} ? 'disabled'">
+										<button name="page" th:value="${reservationList.number + 2}">&gt;</button>
+									</li>
+
+									<li th:class="${reservationList.last} ? 'disabled'">
+										<button name="page" th:value="${reservationList.totalPages}">Last</button>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</form>
+
+				</div>
+				<div th:if="${reservationStart == 'no'}">
+					<table class="customBoard">
+
+						<thead>
+							<tr>
+								<th>블록 번호</th>
+								<th>경매 시작가격</th>
+								<th>예약 인원</th>
+								<th>블록 클릭 수</th>
+								<th>예약 하러 가기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="5">
+									<p class="textcenter2">가능한 예약 없음</p>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+
+		</div>
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+</body>
+</html>

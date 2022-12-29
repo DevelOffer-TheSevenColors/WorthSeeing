@@ -1,0 +1,74 @@
+@charset "EUC-KR";
+
+.customBoard {
+	border: 1px #a39485 solid;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	text-align: center;
+	margin-left:auto;
+	margin-right: auto; 
+	
+}
+
+.customBoard thead {
+	font-weight: bold;
+	color: #fff;
+	font-size:20px;
+	background: gray;
+}
+
+.customBoard td, th {
+	padding: 1em .5em;
+	vertical-align: middle;
+}
+
+.customBoard td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
+}
+
+.customNav {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.customPagination {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+.customPagination li {
+	margin: 0 1px;
+}
+
+.customPagination button {
+	border-radius: 5px;
+	transition: background-color .3s;
+	margin: 0 4px;
+	border: 1px solid #ddd;
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.customPagination button.active {
+	border-radius: 5px;
+	background-color: #4CAF50;
+	color: white;
+}
+
+.customPagination button:hover:not(.active) {
+	background-color: #ddd;
+}
+.inputCustomCSS {
+	width:35px;
+  height:27px;
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<head th:replace="/fragments/header :: head">
+<link href="../css/style.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+</head>
+<style>
+.leftcolumn {
+	float: left;
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: #333;
+}
+
+.topnav button {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.topnav button:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.height1000 {
+	height: 900px;
+}
+
+.abtn {
+	border: none;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	overflow: hidden;
+	position: relative;
+	color: #fff;
+	font-weight: 700;
+	font-size: 15px;
+	background-color: #333;
+	padding: 15px 50px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+}
+
+.floatLeft {
+	float: left;
+}
+
+.tablewidth100 {
+	width: 100%;
+}
+
+.menuItem {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.customBoard1 {
+	border: 1px #a39485 solid;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 50%;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	text-align: center;
+	margin-left: 10px;
+}
+
+.imgMargin {
+	margin-top: 10px;
+}
+
+#myList {
+	margin-top: 45px;
+	margin-left: 50px;
+}
+
+#myList img {
+	width: 100px;
+	height: 100px;
+	background-size: cover;
+}
+</style>
+<body class="allMenuItem">
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5 height1000">
+			<div class="container pt-5 pb-3">
+
+				<div class="topnav">
+					<button class="abtn" onClick="location.href='/main'">HOME</button>
+					<button class="abtn" id="mypageMain"
+						onclick="location.href='/mypageMain'">My Page</button>
+					<button class="domainBtn abtn" id="mypageCouponMall">포인트몰</button>
+					<button class="domainBtn abtn" id="mypagePointHistory">포인트사용내역</button>
+					<button class="domainBtn abtn" id="mypageAuctionHistory">경매내역</button>
+				</div>
+
+
+				<div class="leftcolumn">
+					<br />
+					<h2 >내 정보</h2>
+
+					<div>
+						<span><img src="nonprofile.jpg" width="120px"
+							height="120px"></span>
+					</div>
+
+					<div>
+						<table>
+							<tr>
+								<th colspan="2"><span
+									sec:authentication="principal.users.name"></span></th>
+								<td>님</td>
+							</tr>
+							<tr>
+								<th>보유포인트 :</th>
+								<td th:text="${users.point}"></td>
+								<td>🅿</td>
+							</tr>
+							<tr>
+								<th>오늘 출석체크 :</th>
+								<td th:text="${users.dailyClickCheck}"></td>
+							</tr>
+						</table>
+					</div>
+
+					<p>
+						<a th:href="@{/system/mypageUpdate}">개인정보 수정</a>
+					</p>
+
+				</div>
+
+
+
+				<div class="row">
+					<div class="menuItem">
+						<br />
+						<h2 align="center">현재 사용 중인 블록</h2>
+
+						<div class="floatLeft">
+						<div th:if="${!BlockGroupUserId.empty}">
+							<table class="customBoard" id="myList">
+								<thead>
+									<tr>
+										<th>블록 미리보기</th>
+										<th>전체 방문자 수</th>
+										<th>종료 일자</th>
+										<th>블록 수정</th>
+										<th>환불</th>
+									</tr>
+								</thead>
+								<tbody th:each="userBlockGroup, state : ${BlockGroupUserId}">
+									<tr>
+										<td><img th:src="${userBlockGroup.cImg}" /></td>
+										<td th:text="${userBlockGroup.clickCnt}"></td>
+										<td th:text="${userBlockGroup.endDate}"></td>
+										<td><a
+											th:href="@{/updateURLThumb(blockGroup_seq=${userBlockGroup.blockGroup_seq}, action='update')}">수정하기</a></td>
+										<td><a
+											th:href="@{/refund(blockGroup_seq=${userBlockGroup.blockGroup_seq})}">환불하기</a></td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+								<div th:if="${BlockGroupUserId.empty}">
+						<table class="customBoard">
+						<thead>
+									<tr>
+										<th>블록 미리보기</th>
+										<th>전체 방문자 수</th>
+										<th>종료 일자</th>
+										<th>블록 수정</th>
+										<th>환불</th>
+									</tr>
+								</thead>
+							<tbody>
+								<tr>
+									<td colspan="5">
+										<p class="textcenter2">구매한 블록 없음</p>
+									</td>
+
+								</tr>
+						</table>
+					</div>
+							
+							
+							<form th:if="${!BlockGroupUserId.empty} " th:action="@{/credit}" method="post">
+								<nav class="customNav">
+									<ul class="customPagination"
+										th:with="start=${(BlockGroupUserId.number/10)*10 + 1},
+	                    	last=(${start + 9 < BlockGroupUserId.totalPages ? start + 9 : BlockGroupUserId.totalPages})">
+
+										<li th:class="${BlockGroupUserId.first} ? 'disabled'">
+											<button name="page" value="1" class="pageBtn">First</button>
+										</li>
+
+										<li th:class="${BlockGroupUserId.first} ? 'disabled'">
+											<button name="page" th:value="${BlockGroupUserId.number}"
+												class="pageBtn">&lt;</button>
+										</li>
+
+										<li th:each="page : ${#numbers.sequence(start, last)}"
+											th:class="${page == BlockGroupUserId.number + 1} ? 'active'">
+											<button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}" ></button>
+										</li>
+
+										<li th:class="${BlockGroupUserId.last} ? 'disabled'">
+											<button name="page" th:value="${BlockGroupUserId.number + 2}"
+												class="pageBtn">&gt;</button>
+										</li>
+
+										<li th:class="${BlockGroupUserId.last} ? 'disabled'">
+											<button name="page" th:value="${BlockGroupUserId.totalPages}"
+												class="pageBtn">Last</button>
+										</li>
+									</ul>
+								</nav>
+								</form>
+							</div>
+						</div>
+
+
+					</div>
+
+
+
+
+				</div>
+			</div>
+		</div>
+
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+
+	<!-- 	MyPage 우측화면 동적변환 -->
+	<script>
+		var idDomain;
+
+		function movePage(domain, page) {
+			var ajaxOption = {
+				url : "/" + domain + "?page=" + page,
+				async : true,
+				type : "GET",
+				dataType : "html",
+				cache : false,
+			};
+
+			if (domain != "mypageMain") {
+				$.ajax(ajaxOption).done(function(data) {
+					// rightcolumn 영역 삭제
+					$('.menuItem').children().remove();
+					// rightcolumn 영역 교체
+					$('.menuItem').html(data);
+
+				});
+			} else {
+				$.ajax(ajaxOption).done(function(data) {
+					// rightcolumn 영역 삭제
+					$('.allMenuItem').children().remove();
+					// rightcolumn 영역 교체
+					$('.allMenuItem').html(data);
+
+				});
+			}
+
+		}
+
+		$(".domainBtn").click(function() {
+			idDomain = $(this).attr('id');
+			movePage(idDomain);
+		})
+		$(".pageBtn").click(function() {
+			idDomain = "mypageMain";
+			movePage(idDomain, $(this).val());
+		})
+	</script>
+</body>
+</html>

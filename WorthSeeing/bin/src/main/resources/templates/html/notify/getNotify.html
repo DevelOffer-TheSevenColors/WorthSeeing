@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-1 pb-3">
+
+				<!-- Insert Notify Start -->
+				<div class="container-fluid">
+					<div class="container py-5">
+						<div class="text-center mb-3 pb-3">
+							<h6 class="text-primary text-uppercase"
+								style="letter-spacing: 5px;">Notify</h6>
+							<h1>공지글</h1>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+								<div class="contact-form bg-white" style="padding: 30px;">
+									<div id="success"></div>
+
+									<form th:action="@{/notify/updateNotifyProc}" method="post">
+										<div class="form-row"></div>
+										<div class="control-group">
+											<span>제목 : </span> <input readonly type="text"
+												class="form-control p-4" id="title"
+												th:value="${notify.title}" required="required" name="title" />
+										</div>
+										<div class="control-group">
+											<span>작성자 : </span> <input readonly type="text"
+												class="form-control p-4" id="userId"
+												th:value="${notify.users.userId}" required="required"
+												name="userId" />
+										</div>
+										<div class="control-group">
+											<span>등록일 : </span><input readonly type="text"
+												class="form-control p-4" id="notifyTime"
+												th:value="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"
+												required="required" name="notifyTime" />
+										</div>
+										<div class="control-group">
+											<span>조회수 : </span><input readonly type="text"
+												class="form-control p-4" id="viewCnt" required="required"
+												name="viewCnt" th:value="${notify.viewCnt}" /> 
+										</div>
+										<div class="control-group">
+											<textarea readonly
+												class="form-control py-3 px-4" rows="5" name="content"
+												id="message" required="required" th:text="${notify.content}"></textarea>
+										</div>
+										<div style="text-align: center;">
+											<span class="text-center"
+												th:if="${users.userId == notify.users.userId || users.role == ROLE_ADMIN}">
+												<a class="btn btn-primary py-3 px-4"
+												th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">삭제하기</a>
+											</span>
+										</div>
+										<input type="hidden" name="notifySeq"
+											th:value="${notify.notifySeq}"> <input type="hidden"
+											name="status_seq" th:value="${status_seq}">
+
+										<div>
+											<a th:href="@{/notify}">게시글 목록</a>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Insert Notify Start End -->
+
+
+
+			</div>
+		</div>
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+</body>
+
+</html>
+
+
+

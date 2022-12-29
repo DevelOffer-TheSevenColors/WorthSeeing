@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+
+
+
+	<!-- 		<form th:action="@{/notify/insertContactProc}" method="post" -->
+	<!-- 			enctype="multipart/form-data"> -->
+	<!-- 			<table class="insertNotify"> -->
+
+	<!-- 				<tr> -->
+	<!-- 					<td th:text="제목"></td> -->
+	<!-- 					<td><input name="title" type="text" size="50"></td> -->
+	<!-- 				</tr> -->
+	<!-- 				<tr> -->
+	<!-- 					<td th:text="작성자"></td> -->
+	<!-- 					<td> -->
+	<!-- 					<td><span sec:authentication="principal.users.userId"></span> -->
+	<!-- 					</td> -->
+	<!-- 				</tr> -->
+	<!-- 				<tr> -->
+	<!-- 					<td th:text="내용"></td> -->
+	<!-- 					<td><textarea name="content" cols="50" rows="10"></textarea></td> -->
+	<!-- 				</tr> -->
+
+	<!-- 			</table> -->
+	<!-- 			<input type="submit" value="게시글 등록" class="btn"> -->
+	<!-- 		</form> -->
+
+
+	<div class="container-fluid py-5">
+		<div class="container pt-1 pb-3">
+
+			<!-- Contact Start -->
+			<div class="container-fluid">
+				<div class="container py-5">
+					<div class="text-center mb-3 pb-3">
+						<h6 class="text-primary text-uppercase"
+							style="letter-spacing: 5px;">Contact</h6>
+						<h1>문의글</h1>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<div class="contact-form bg-white" style="padding: 30px;">
+								<div id="success"></div>
+
+								<form action="/notify/insertContactProc" name="sentMessage"
+									novalidate="novalidate" method="post">
+									<div class="form-row"></div>
+									<div class="control-group">
+										<input type="text" class="form-control p-4" id="name"
+											placeholder="Title" required="required" name="title" />
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="control-group">
+										<textarea class="form-control py-3 px-4" rows="6"
+											name="content" id="message" placeholder="Content"
+											required="required"></textarea>
+										<p class="help-block text-danger"></p>
+									</div>
+									<div class="text-center">
+										<input class="btn btn-primary py-3 px-4" type="submit"
+											value="등록하기" />
+									</div>
+									<!-- 		 								<input type="hidden" name="notifySeq" -->
+									<!-- 											th:value="${notify.notifySeq}"> <input type="hidden" -->
+									<!-- 											name="status_seq" th:value="${status_seq}"> -->
+
+									<div>
+										<a th:href="@{/notify}">글 목록 돌아가기</a>
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+			<!-- Contact End -->
+
+
+		</div>
+	</div>
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+</body>
+ 
+</html>
+
+
+
+

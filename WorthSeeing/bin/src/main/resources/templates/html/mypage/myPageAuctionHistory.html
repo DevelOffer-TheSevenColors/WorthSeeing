@@ -1,0 +1,122 @@
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+   <div class="row">
+      <div class="menuItem" >
+         <br />
+         <div>
+            <h2 align="center">나의 낙찰 내역</h2>
+         </div>
+      
+         <div th:if="${!waiting.empty}">
+            <table class="customBoard">
+               <thead>
+                  <tr align="center">
+                     <th scope="col">No.</th>
+                     <th scope="col">블록 번호</th> 
+                     <th scope="col">결제금액</th>
+                     <th scope="col">낙찰일시</th>
+                     <th scope="col">종료일시</th>
+                     <th scope="col">결제하기</th>
+                     <th scope="col">블록 등록</th>
+                  </tr>
+               </thead>
+               <tbody align="center" th:each="waiting, state : ${waiting}">
+
+                  <tr>
+                     <td th:text="${state.count}"></td>
+                     <td th:text="${waiting.blockGroupWaiting_seq}"></td>
+                     <td th:text="${#numbers.formatInteger(waiting.price, 3,'COMMA')}"></td>
+                     <td th:text="${#dates.format(waiting.auctionDate, 'yyyy-MM-dd')}"></td>
+                     <td th:text="${#dates.format(waiting.endDate, 'yyyy-MM-dd')}"></td>
+                     <td>
+                        <form th:action="@{/credit}" method="post">
+                           <input th:name="blockGroupWaiting_seq" type="hidden"
+                              th:value="${waiting.blockGroupWaiting_seq}">
+                           <div th:if="${waiting.status.status_seq==16}">
+                              <input type="submit" value="결제하기로 이동">
+                           </div>
+                           <div th:if="${waiting.status.status_seq==17}">
+                              <span>결제 완료</span>
+                           </div>
+                        </form>
+                     </td>
+                     <td th:if="${waiting.status.status_seq!=17}"><a
+                        th:href="@{/writeURLThumb(blockGroupWaiting_seq=${waiting.blockGroupWaiting_seq})}">등록</a></td>
+                  </tr>
+               </tbody>
+            </table>
+            </div>
+            
+            
+               <div th:if="${waiting.empty}">
+                  <table class="customBoard">
+                     <thead>
+                  <tr align="center">
+                     <th scope="col">No.</th>
+                     <th scope="col">블록 번호</th>
+                     <th scope="col">결제금액</th>
+                     <th scope="col">낙찰일시</th>
+                     <th scope="col">종료일시</th>
+                     <th scope="col">결제하기</th>
+                     <th scope="col">블록 등록</th>
+                  </tr>
+                  </thead>
+                     <tbody>
+                        <tr>
+                           <td colspan="7">
+                              <p class="textcenter2">낙찰 내역 없음</p>
+                           </td>
+
+                        </tr>
+                  </table>
+               </div>
+            
+            
+            <form th:if="${!waiting.empty} " th:action="@{/credit}" method="post">
+            
+               <nav class="customNav">
+                  <ul class="customPagination"
+                       th:with="start=${(waiting.number/10)*10 + 1},
+                          last=(${start + 9 < waiting.totalPages ? start + 9 : waiting.totalPages})">
+
+                     <li th:class="${waiting.first} ? 'disabled'">
+                        <button name="page" value="1" class="pageBtn">First</button>
+                     </li>
+
+                     <li th:class="${waiting.first} ? 'disabled'">
+                        <button name="page" th:value="${waiting.number}" class="pageBtn">&lt;</button>
+                     </li>
+
+                     <li th:each="page : ${#numbers.sequence(start, last)}"
+                        th:class="${page == waiting.number + 1} ? 'active'">
+                        <button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}"></button>
+                     </li>
+ 
+                     <li th:class="${waiting.last} ? 'disabled'">
+                        <button name="page" th:value="${waiting.number + 2}"
+                           class="pageBtn">&gt;</button>
+                     </li>
+
+                     <li th:class="${waiting.last} ? 'disabled'">
+                        <button name="page" th:value="${waiting.totalPages}"
+                           class="pageBtn">Last</button>
+                     </li>
+                  </ul>
+               </nav>
+               </form>
+            </div>
+         </div>
+   <script>
+      $(".pageBtn").click(function() {
+         movePage(idDomain, $(this).val());
+      })
+   </script>
+
+
+</body>
+</html>

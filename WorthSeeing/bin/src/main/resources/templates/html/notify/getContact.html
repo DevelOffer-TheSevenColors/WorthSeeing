@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+				<div class="container-fluid">
+					<div class="container py-5">
+						<div class="text-center mb-3 pb-3">
+							<h6 class="text-primary text-uppercase"
+								style="letter-spacing: 5px;">Notify</h6>
+							<h1>1:1문의글</h1>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+								<div class="contact-form bg-white" style="padding: 30px;">
+									<div id="success"></div>
+
+									<form th:action="@{/notify/updateNotifyProc}" method="post">
+										<div class="form-row"></div>
+										<div class="control-group">
+											<span>제목 : </span> <input readonly type="text"
+												class="form-control p-4" id="title"
+												th:value="${notify.title}" required="required" name="title" />
+
+										</div>
+										<div class="control-group">
+											<span>작성자 : </span> <input readonly type="text"
+												class="form-control p-4" id="userId"
+												th:value="${notify.users.userId}" required="required"
+												name="userId" />
+										</div>
+										<div class="control-group">
+											<span>등록일 : </span><input readonly type="text"
+												class="form-control p-4" id="notifyTime"
+												th:value="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"
+												required="required" name="notifyTime" />
+										</div>
+										<div class="control-group">
+											<span>조회수 : </span><input readonly type="text"
+												class="form-control p-4" id="viewCnt" required="required"
+												name="viewCnt" th:value="${notify.viewCnt}" />
+										</div>
+										<div class="control-group">
+											<textarea readonly class="form-control py-3 px-4" rows="5"
+												name="content" id="message" required="required"
+												th:text="${notify.content}"></textarea>
+										</div>
+										<div style="text-align: center;">
+											<span class="text-center"
+												th:if="${users.userId == notify.users.userId} or ${users.role.toString.equals('ROLE_ADMIN')}">
+												<a class="btn btn-primary py-3 px-4"
+												th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">삭제하기</a>
+											</span>
+										</div>
+										<input type="hidden" name="notifySeq"
+											th:value="${notify.notifySeq}"> <input type="hidden"
+											name="status_seq" th:value="${status_seq}">
+
+										<div>
+											<a th:href="@{/notify}">게시글 목록</a>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- 댓글 -->
+				<table class="container-fluid py-3">
+					<div class="container py-3">
+						<div class="row justify-content-center">
+							<div class="col-lg-10">
+								<div class="contact-form bg-white" style="padding: 10px;">
+									<div id="success"></div>
+									<form action="/reply/insertReplyProc" name="sentMessage"
+										id="contactForm" novalidate="novalidate" method="post">
+										<div class="form-row"></div>
+										<div class="control-group">
+											<p id="name" style="font-size: 18px"
+												;
+												th:text="${users.name}"></p>
+											<p class="help-block text-danger"></p>
+										</div>
+										<div class="control-group">
+											<textarea class="form-control py-2 px-3" rows="1"
+												name="replyContent" id="message" placeholder="Message"
+												required="required"
+												data-validation-required-message="Please enter your message"></textarea>
+											<p class="help-block text-danger"></p>
+										</div>
+										<div align="right">
+											<input value="댓글 등록" class="btn btn-primary py-2 px-3"
+												type="submit" id="sendMessageButton" />
+										</div>
+										<input type="hidden" name="notifySeq"
+											th:value="${notify.notifySeq}"> <input type="hidden"
+											name="status_seq" th:value="${status_seq}">
+									</form>
+
+
+									<!--댓글목록 -->
+									<div class="bg-white"
+										style="padding: 30px; margin-bottom: 30px;">
+										<div class="media mb-4" th:each="reply, state : ${replyList}">
+											<div class="media-body">
+												<span th:text="${reply.replyer}"></span> <small><span
+													th:text="${#dates.format(reply.replyDate, 'yyyy-MM-dd')}"></span></small>
+												<div>
+													<span th:text="${reply.replyContent}"></span>
+												</div>
+											</div>
+											<div class="aLink">
+												<a th:if="${reply.replyer == users.name}"
+													th:href="@{/reply/deleteReplyProc(replySeq=${reply.replySeq}, status_seq=${notify.status.status_seq}, notifySeq=${notify.notifySeq})}">댓글
+													삭제</a>
+											</div>
+										</div>
+									</div>
+
+									<!-- 댓글 Paging -->
+									<form th:action="@{/notify/getContact}" method="post">
+										<input name="notifySeq" type="hidden"
+											th:value="${notify.notifySeq}"> <input type="hidden"
+											name="status_seq" th:value="${status_seq}">
+										<div>
+											<div th:if="${replyList.totalElements != 0}">
+												<nav class="customNav">
+													<ul class="customPagination"
+														th:with="start=${(1-(replyList.number%1))%1 + 1},
+	                    	last=(${start + 9 < replyList.totalPages ? start + 9 : replyList.totalPages})">
+
+														<li th:class="${replyList.first} ? 'disabled'">
+															<button name="page" value="1">First</button>
+														</li>
+
+														<li th:class="${replyList.first} ? 'disabled'">
+															<button name="page" th:value="${replyList.number}">&lt;</button>
+														</li>
+
+														<li th:each="page : ${#numbers.sequence(start, last)}"
+															th:class="${page == replyList.number + 1} ? 'active'">
+															<button name="page" th:value="${page}" th:text="${page}"></button>
+														</li>
+
+														<li th:class="${replyList.last} ? 'disabled'">
+															<button name="page" th:value="${replyList.number + 2}">&gt;</button>
+														</li>
+
+														<li th:class="${replyList.last} ? 'disabled'">
+															<button name="page" th:value="${replyList.totalPages}">Last</button>
+														</li>
+													</ul>
+												</nav>
+											</div>
+
+										</div>
+										<div class="aLink">
+											<a th:if="${notify.users.name == users.userId}"
+												th:href="@{/notify/deleteNotifyProc(notifySeq=${notify.notifySeq})}">문의글
+												삭제</a>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</table>
+
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+
+</html>

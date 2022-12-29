@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+
+<body>
+
+	<div class="displayTable">
+		<div class="menuItem"><br />
+			<div>
+				<h2 align="center">포인트 몰</h2>
+			</div>
+					<ul class="listLeftSort" id="PoinCenter">
+						<li><img src="coupon30000.jpg">&nbsp;
+							<p class="blackColor"><strong>30,000Point</strong></p> 
+							<div th:if="${users.point>=30000}">
+							<a th:href="@{/buyCouponProc?price=30000}"><strong>구매하기</strong></a>
+							</div>
+							<div th:if="${users.point<30000}">
+							<strong>포인트가 부족합니다.</strong></div></li>
+
+						<li><img src="coupon50000.jpg">&nbsp;
+							<p class="blackColor"><strong>50,000Point</strong></p>
+							<div th:if="${users.point>=50000}">
+							<a th:href="@{/buyCouponProc?price=50000}"><strong>구매하기</strong></a> 
+							</div>
+							<div th:if="${users.point<50000}">
+							<strong>포인트가 부족합니다.</strong></div></li>
+
+						<li><img src="coupon100000.jpg">&nbsp;
+							<p class="blackColor"><strong>100,000Point</strong></p>
+							<div th:if="${users.point>=100000}">
+							<a th:href="@{/buyCouponProc?price=100000}"><strong>구매하기</strong></a>
+							</div>
+							<div th:if="${users.point<100000}">
+							<p><strong>포인트가 부족합니다.</strong></p></div></li>
+					</ul>
+			</div>
+		</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="row justify-content-center margintop80">
+			<div class="col-lg-8" >
+				<div class="contact-form bg-white">
+
+					<br />
+					<form th:action="@{/refundProc}" method="post"
+						enctype="multipart/form-data" class="refundform" >
+						<input type="hidden" name="blockGroup_seq"
+							th:value="${blockGroup.blockGroup_seq}">
+						<p>정말로 환불하시겠습니까?</p>
+						
+						<div class="image-container refundImg">
+							<img id="preview-image" th:src="${blockGroup.cImg}" />
+						</div>
+						
+						<div>
+							환불 가격은 :&nbsp;&nbsp;<span name="refundPrice" class="refuntredtext" id="refundPrice"> </span> 입니다.
+							<p>※ 포인트를 제외한 (가격x남은 날짜)의 70% ※</p>
+						</div>
+						
+						<div>
+							<input type="submit" value="환불하기" class="btn btn-primary py-3 px-4"> 
+							<input type="button" value="돌아가기" class="btn btn-primary py-3 px-4" onclick="history.back()" />
+						</div><br /><br />
+					</form>
+				</div>
+				
+				<script>
+					// 오늘 날짜
+					const today = new Date();
+					// 시작 날짜
+					const startDate = new Date("[[${blockGroup.startDate}]]");
+					// 끝나는 날짜
+					const endDate = new Date("[[${blockGroup.endDate}]]");
+				
+					
+					// 분자 (끝나는 날짜 - 현재 날짜)
+					const numerus = (endDate.getTime() - today.getTime() - 1);
+					const numerusResult = Math.ceil(numerus / (1000 * 60 * 60 * 24));
+					
+					// 분모 (끝나는 날짜 - 시작 날짜)
+					const denominator = (endDate.getTime() - startDate.getTime());
+					const denominatorResult = Math.ceil(denominator / (1000 * 60 * 60 * 24));
+					
+					// (끝나는 날짜 - 현재 날짜) / (끝나는 날짜 - 시작 날짜) * 가격의 70%
+					const result = (numerusResult/denominatorResult) * [[${blockGroup.price}]] * 0.7;
+					// 10자리 반올림
+					const refundPrice = Math.ceil(result / 10) * 10;
+					
+					$("#refundPrice").text(refundPrice);
+				</script>
+				
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+
+</html>

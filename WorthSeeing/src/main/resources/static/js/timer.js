@@ -21,7 +21,7 @@
     }else{
        var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,00,00);
     }
-    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),03,00,00);
+    var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),00,00,00);
   
     var nt = now.getTime();
     var ot = open.getTime();

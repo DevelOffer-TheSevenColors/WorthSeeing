@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="row justify-content-center margintop80">
+			<div class="col-lg-8">
+
+				<a href="/admin/salePriceChart" class="dropdown-item"><strong>👉분기별
+						이익차트</strong></a>
+				<h2 class="textcenter">블록별 가격차트</h2>
+				<div class="textcenter">
+					<form th:action="@{/admin/blockPriceChart}">
+						<span>블록번호 : </span> <select name="block_seq">
+							<option th:each="num : ${#numbers.sequence(1,289)}"
+								th:value="${numStat.count}" th:text="${numStat.count}" th:selected="${numStat.count.toString().equals(block_seq)}"></option>
+						</select> <span> 년도 : </span> <select name="startYear">
+							<option th:value="2022" th:selected="${startYear=='2022'}">2022</option>
+							<option th:value="2023" th:selected="${startYear=='2023'}">2023</option>
+							<option th:value="2024" th:selected="${startYear=='2024'}">2024</option>
+						</select>
+						<button type="submit">보기</button>
+					</form>
+				</div>
+				<div class="main">
+					<div class="chart-container  width1000height500 marginleft55">
+						<canvas id="priceChart"></canvas>
+					</div>
+					<script>
+					var ctx = document.getElementById('priceChart').getContext(
+							'2d');
+					var list1 = [[${blockPriceList[0]}]];
+					var list2 = [[${blockPriceList[1]}]];
+					var list3 = [[${blockPriceList[2]}]];
+					var list4 = [[${blockPriceList[3]}]];
+					var list5 = [[${blockPriceList[4]}]];
+					var list6 = [[${blockPriceList[5]}]];
+					var list7 = [[${blockPriceList[6]}]];
+					var list8 = [[${blockPriceList[7]}]];
+					var list9 = [[${blockPriceList[8]}]];
+					var list10 = [[${blockPriceList[9]}]];
+					var list11 = [[${blockPriceList[10]}]];
+					var list12 = [[${blockPriceList[11]}]];
+					
+					console.log(list1);
+					
+					var chart = new Chart(ctx, {
+						// The type of chart we want to create
+						type : 'line',
+
+						// The data for our dataset
+						data : {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월',
+									'7월', '8월', '9월', '10월', '11월', '12월' ],
+							datasets : [ {
+								label : '이전 낙찰 가격',
+								backgroundColor : [ 'rgba(255, 99, 132, 0.5)',
+										'rgba(54, 162, 235, 0.5)',
+										'rgba(255, 206, 86, 0.5)',
+										'rgba(75, 192, 192, 0.5)',
+										'rgba(153, 102, 255, 0.5)',
+										'rgba(255, 159, 64, 0.5)' ],
+								borderColor : [ 'rgb(255, 99, 132,1.5)',
+										'rgba(54, 162, 235, 1.5)',
+										'rgba(255, 206, 86, 1.5)',
+										'rgba(75, 192, 192, 1.5)',
+										'rgba(153, 102, 255, 1.5)',
+										'rgba(255, 159, 64, 1.5)' ],
+								data : [ list1, list2, list3, list4, list5, list6,
+										list7, list8, list9, list10, list11, list12 ]
+							} ]
+						},
+
+						// Configuration options go here
+						options : {
+							title : {
+								display : true,
+								fontSize : 30,
+								fontColor : 'rgba(46, 49, 49, 1)'
+							},
+							legend : {
+								labels : {
+									fontColor : 'rgba(83, 51, 237, 1)',
+									fontSize : 15
+								}
+							},
+
+							scales : {
+								xAxes : [ {
+									ticks : {
+										fontColor : 'rgba(27, 163, 156, 1)',
+										fontSize : '15'
+									}
+								} ],
+								yAxes : [ {
+									ticks : {
+										beginAtZero : true,
+										fontColor : 'rgba(246, 36, 89, 1)',
+										fontSize : '15'
+									}
+								} ]
+							}
+						}
+					});
+				</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+</body>
+</html>

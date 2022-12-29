@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<th:block th:fragment="headerFragment">
+	<head>
+<meta charset="utf-8">
+<title>WorthSeeing</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Free HTML Templates" name="keywords">
+<meta content="Free HTML Templates" name="description">
+
+<!-- Favicon -->
+<link href="/img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+ 
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<script src="https://kit.fontawesome.com/917a95344e.js"
+	crossorigin="anonymous"></script>
+<!-- Libraries Stylesheet -->
+<link href="/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="/css/style.css" rel="stylesheet">
+<link href="/css/customBoard.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="/css/auction/reservationCreaditTest.css"> -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="/js/mainPage.js"></script>
+<script src="/js/credit.js"></script>
+<script src="/js/alwaysCredit.js"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+
+
+
+	</head>
+</th:block>
+<th:block th:fragment="TopbarFragment">
+	<body>
+		<!-- Topbar Start -->
+		<div class="container-fluid bg-light pt-3 d-none d-lg-block">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+						<div class="d-inline-flex align-items-center">
+							<p>
+								<i class="fa fa-envelope mr-2"></i>thesevencolors@gmail.com
+							</p>
+							<p class="text-body px-3">|</p>
+							<p>
+								<i class="fa fa-phone-alt mr-2"></i>010 1234 5678
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6 text-center text-lg-right">
+						<div class="d-inline-flex align-items-center">
+							<div>
+								<span style="color: gray; margin-left: 100px;"
+									sec:authentication="principal.users.name" id="userName">님</span>
+								<a style="display: inline;" href="#" 
+									class="nav-link dropdown-toggle,text-primary pl-3" data-toggle="dropdown">
+									<i style="color: gray;" class="fa-solid fa-circle-user"></i></a> 
+								<span class="dropdown-menu border-0 rounded-0 m-0"> 
+								<a sec:authorize="hasRole('ROLE_USER')" 
+									th:href="@{/mypageMain}" class="dropdown-item">마이페이지</a> 
+								<a sec:authorize="hasRole('ROLE_USER')"
+									th:href="@{/reservation/myReservationList}" class="dropdown-item">나의예약목록</a>
+								<a sec:authorize="hasRole('ROLE_ADMIN')" 
+									href="/admin/adminUserList" class="dropdown-item">블랙리스트 관리</a> 
+								<a sec:authorize="hasRole('ROLE_ADMIN')" 
+									href="/admin/salePriceChart" class="dropdown-item">분기별 이익차트 </a> 
+								<a sec:authorize="hasRole('ROLE_ADMIN')" 
+									href="/admin/blockPriceChart" class="dropdown-item">블록별 가격차트 </a>
+								<a sec:authorize="hasRole('ROLE_ADMIN')" 
+									href="/leftOverCoupon" class="dropdown-item">쿠폰관리</a>
+								<a href="/logout" class="dropdown-item">로그아웃</a>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Topbar End -->
+
+
+		<!-- Navbar Start -->
+		<div class="container-fluid position-relative nav-bar p-0">
+			<div class="container-lg position-relative p-0 px-lg-3"
+				style="z-index: 9;">
+				<nav
+					class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
+					<a th:href="@{/main}" class="navbar-brand">
+						<h1 class="m-0 text-primary">
+							<span class="text-dark">WORTH</span> <span>SEEING</span>
+						</h1>
+					</a>
+					<button type="button" class="navbar-toggler" data-toggle="collapse"
+						data-target="#navbarCollapse">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+
+
+					<div class="collapse navbar-collapse justify-content-between px-3"
+						id="navbarCollapse">
+						<div class="navbar-nav ml-auto py-0">
+							<a href="/main" class="nav-item nav-link active"
+								style="color: #7AB730; font-size: 18px;">Home</a> <a
+								href="/list/blockGroupRankList" class="nav-item nav-link"
+								style="font-size: 18px;">인기블록</a> <a href="/notify"
+								class="nav-item nav-link" style="font-size: 18px;">공지사항</a>
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle"
+									data-toggle="dropdown" style="font-size: 18px;">경매공지</a>
+								<div class="dropdown-menu border-0 rounded-0 m-0">
+									<a href="/reservation/chooseBlockGroup" class="dropdown-item">블록예약하기</a>
+									<a href="/reservation/reservationList" class="dropdown-item">참여가능목록</a>
+									<a href="/alwaysBuyList" class="dropdown-item">상시판매목록</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<!-- Navbar End -->
+</th:block>
+
+</html>

@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Auction Reservation List</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
+</head>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<body>
+   <div>
+      <th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+      <div class="container-fluid py-5">
+         <div class="container pt-5 pb-3">
+
+            <div class="text-center mb-3 pb-3">
+               <h6 class="text-primary text-uppercase"
+                  style="letter-spacing: 5px;">Mine</h6>
+               <h1>My Reservation List</h1>
+            </div>
+            <table th:if="${!reservationUsersList.empty}" class="customBoard">
+
+               <thead>
+                  <tr>
+                     <th>블록 번호</th>
+                     <th>경매 시작가격</th>
+                     <th>예약 인원</th>
+                     <th>예약 취소</th>
+                     <th>입찰 하러 가기</th>
+
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr th:each="reservationUsers, state : ${reservationUsersList}">
+                     <td
+                        th:text="${reservationUsers.reservation.blockGroupWaiting.minBlockSeq}"></td>
+                     <td th:text="${reservationUsers.reservation.startPrice}"></td>
+                     <td th:text="${reservationUsers.reservation.userCnt}"></td>
+                     <td><a th:if="${attendBtn=='yes'}"
+                        th:href="@{/reservation/deleteReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
+                       ReservationUsers_seq=${reservationUsers.ReservationUsers_seq})}">예약
+                           취소</a></td>
+                     <td><a th:if="${attendBtn=='no'}"
+                        th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매
+                           참여하기</a></td>
+                  </tr>
+               </tbody>
+            </table>
+            <div th:if="${reservationUsersList.empty}">
+               <table class="customBoard">
+
+                  <thead>
+                     <tr>
+                        <th>블록 번호</th>
+                        <th>경매 시작가격</th>
+                        <th>예약 인원</th>
+                        <th>예약 취소</th>
+                        <th>입찰 하러 가기</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td colspan="5">
+                           <p class="textcenter2">나의 예약 목록 없음</p>
+                        </td>
+
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <br/><div style="text-align: right;">
+               <div style="display: inline;" sec:authorize="hasRole('ROLE_USER')">
+                  <input type="button" value="입찰가능하게 하는 버튼"
+                     onclick="location.href='/reservation/myReservationList?attendBtn=no'"
+                     class="btn btn-primary rounded submit p-2" />
+               </div>
+            </div>
+         </div>
+      </div>
+      <th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+   </div>
+
+</body>
+</html>

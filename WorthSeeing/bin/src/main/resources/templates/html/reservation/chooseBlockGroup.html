@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="hblockp://www.thymeleaf.org"
+	xmlns:layout="hblockp://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="hblockp://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<style>
+.blockGrouping {
+	position: relative;
+	z-index: 1;
+	margin-bottom: 1800px;
+}
+
+.block {
+	border: 1px solid gray;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: #F3F3F3;
+	cursor: pointer;
+}
+
+.block:disable {
+	background-color: #666666;
+}
+
+.block:checked {
+	background-color: #7AB730;
+}
+</style>
+		<div>
+			<script>
+         $(document).ready(function() {
+            var topSize = 0;
+            
+            var availableGroupingblock = [[${availableGroupingblock}]]
+            var availableGroupingblockLength = availableGroupingblock.length;
+            for (var i = 1; i <= 289; i++) {
+
+               var child = "<input type='checkbox' name='blockcheckbox' class='block' id=check" + i + " text=" + i + ">";
+
+               $(".blockGrouping").append(child);
+
+               if (i % 17 == 0) {
+                  $("#check" + i).css('margin-top', topSize + 'px');
+                  topSize += 100;
+               } else {
+                  $("#check" + i).css('margin-top', topSize + 'px');
+               }
+
+               if (i % 17 == 0) {
+                  $("#check" + i).css('margin-left', 1700 + 'px');
+               } else {
+                  $("#check" + i).css('margin-left', 100 * (i % 17) + 'px');
+               }
+               $('.block').prop('disabled', true);
+               
+            }
+            for (var j = 0; j < availableGroupingblockLength; j++) {
+               	$('#check' + availableGroupingblock[j-1]).prop('disabled', false);
+            }
+            
+            
+            var cnt = 0;
+            var arr = [];
+            
+            $("#retryBtn").click(function() {
+               arr = [];
+               cnt = 0;
+               $('input[name="blockcheckbox"]').each(function() {
+                   $(this).prop('checked', false);
+               });
+               
+               $('.block').prop('disabled', true);
+               for (var j = 0; j < availableGroupingblockLength; j++) {
+                  	$('#check' + availableGroupingblock[j-1]).prop('disabled', false);
+               }
+               
+            })
+            
+            $('input[name="blockcheckbox"]').change(function() {
+               arr.push($(this).attr("id"));
+               if($(this).prop('checked')) {
+                  cnt++;
+               }
+               if(cnt==2) {
+                  console.log(arr);
+                  $('.block').prop('disabled', true);
+               }
+            })
+            
+            $("#groupingBtn").click(function() {
+               if(arr.length==1) {
+                  arr[1] = arr[0];
+               }
+               console.log(arr);
+               location.href="/block/grouping?firstNum=" + arr[0].slice(5) + "&lastNum=" + arr[1].slice(5);
+            })
+            
+         })
+      </script>
+			<div class="row justify-content-center" style="margin-top: 80px;">
+				<div class="col-lg-8">
+					<div class="">
+						<div class="textcenter">
+							<div>
+								<p class="textcenter2">그룹핑 예약</p>
+								<p>일시 : 매달 20일 ~ 22일동안 선착순으로 진행 그룹핑할 수 있는 블록 수는 <span class="redcolor">최대 10개</span>로
+									제한됩니다.</p>
+								<p>블록 1개 예약 시 하나만 선택한 후 " 그룹핑하여 예약하기 " 버튼 클릭</p>
+								<p>블록 2개 이상 예약 시 시작 블록과 끝 블록을 선택한 후 " 그룹핑하여 예약하기 " 버튼 클릭</p>
+								<p>예약된 블록은 메뉴 - 예약 진행 목록과 프로필 - 나의 예약 목록에서 확인할 수 있습니다.</p>
+								<p>예약 취소가 가능하며 취소된 블록은 그룹핑을 해제하여 재판매 됩니다.</p>
+								<p class="redcolor">선택된 영역 내에 예약 불가능 블록이 존재하면 예약할 수 없습니다.</p>
+								<img src="/img/groupingexample.png" style="margin-left: -150px;">
+							</div>
+						</div>
+						
+						<div class="textcenter">
+							<button id="retryBtn" class="btn btn-primary py-3 px-4">다시
+								선택하기</button>
+							<button id="groupingBtn" class="btn btn-primary py-3 px-4">그룹핑하여
+								예약하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="blockGrouping"></div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+</html>

@@ -38,13 +38,13 @@ public class Reservation {
 	@Column(columnDefinition = "number default 0")
 	private int userCnt;
 
-	@OneToMany(mappedBy = "reservation",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "reservation")
 	private List<Auction> auctionList = new ArrayList<Auction>();
 
-	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL )
+	@OneToMany(mappedBy = "reservation")
 	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "blockGroupWaiting_seq")
 	private BlockGroupWaiting blockGroupWaiting;
 

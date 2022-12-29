@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Price History</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="main">
+    <div class="chart-container" style="position: relative; height:20vh; width:60vw">
+        <canvas id="priceChart"></canvas>
+    </div>
+        <script>
+            var ctx = document.getElementById('priceChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                    datasets: [{
+                        label: '이전 낙찰 가격',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'],
+                        borderColor: ['rgb(255, 99, 132,1.5)',
+                            'rgba(54, 162, 235, 1.5)',
+                            'rgba(255, 206, 86, 1.5)',
+                            'rgba(75, 192, 192, 1.5)',
+                            'rgba(153, 102, 255, 1.5)',
+                            'rgba(255, 159, 64, 1.5)'],
+                        data: [6000, 1000, 1600, 2700, 500, 4900, 3400, 4200, 5500, 7200, 2500, 1300]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    title: {
+                        display: true,
+                        fontSize: 30,
+                        fontColor: 'rgba(46, 49, 49, 1)'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'rgba(83, 51, 237, 1)',
+                            fontSize: 15
+                        }
+                    },
+                    
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontColor: 'rgba(27, 163, 156, 1)',
+                                fontSize: '15'
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontColor: 'rgba(246, 36, 89, 1)',
+                                fontSize: '15'
+                            }
+                        }]
+                    }
+                }
+            });
+          
+            
+        </script>
+    </div>  
+ 
+    
+</div>
+
+</body>
+</html>

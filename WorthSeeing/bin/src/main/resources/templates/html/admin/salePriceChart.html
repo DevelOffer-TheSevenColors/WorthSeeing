@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- 遺��듃�뒪�듃�옪 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+
+		<div class="row justify-content-center margintop80">
+			<div class="col-lg-8">
+				<a href="/admin/blockPriceChart" class="dropdown-item"><strong>👉블록별
+                  가격차트</strong></a>
+				<h2 class="textcenter">분기별 이익차트</h2>
+				<div class="textcenter">
+					<form th:action="@{/admin/salePriceChart}">
+						<div>
+							<span> 년도 : </span> <select name="startYear">
+								<option th:value="2022" th:selected="${startYear=='2022'}">2022</option>
+								<option th:value="2023" th:selected="${startYear=='2023'}">2023</option>
+								<option th:value="2024" th:selected="${startYear=='2024'}">2024</option>
+							</select>
+							<button type="submit">보기</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="container">
+					<div class="row my-2">
+						<div class="col-md-6">
+							<div class="card width1000height500 marginleft55">
+								<div class="card-body width1000height500">
+									<canvas class="myChart"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 李⑦듃 -->
+				<script>
+	var list1 = [[${salePriceList[0]}]];
+	var list2 = [[${salePriceList[1]}]];
+	var list3 = [[${salePriceList[2]}]];
+	var list4 = [[${salePriceList[3]}]];
+	
+	console.log(list1);
+	
+	const mydata = [list1, list2, list3, list4];
+	  const mydataHalf = [list1, list2, list3, list4];
+	  // var ctx = document.getElementById("myChart");
+	  var ctx = document.getElementsByClassName("myChart");
+
+	  var mixedChart = {
+	    type: 'bar',
+	    labels: ['1분기', '분기', '3분기', '4분기'],
+	    datasets : [
+	      {
+	        label: '매출액',
+	        data : mydata,
+	        backgroundColor: 'rgba(256, 0, 0, 0.1)'
+	      },
+	      {
+	        label: '영업이익율',
+	        data: mydataHalf,
+	        backgroundColor: 'transparent',
+	        borderColor: 'skyblue',
+	        type: 'line'
+	      }
+	    ]
+	    };
+	    var myChart = new Chart(ctx, {
+	      type: 'bar',
+	      data: mixedChart,
+	      options: {
+	        legend: {
+	          display: true
+	        }
+	      }
+	    });  
+	</script>
+			</div>
+		</div>
+	</div>
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+</body>
+</html>

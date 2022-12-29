@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/js/count.js"></script>
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<link
+   href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+   rel="stylesheet" id="bootstrap-css">
+<script
+   src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div>
+      <th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+      <script th:inline="javascript">
+         var reservation_seq = [[${reservation_seq}]];
+          $(function(){
+             $("#reservation_seq").val(reservation_seq);     
+          });
+          
+      </script>
+
+      <div class="container-fluid py-5">
+         <div class="container pt-5 pb-3">
+
+            <script src="/js/timer.js"></script>
+            <table class="customBoard">
+
+               <thead>
+                  <tr>
+                     <th id="stringTitle" colspan="2">경매 입찰</th>
+                  </tr>
+                  <tr>
+                     <th style="background-color: black;" id="ending" colspan="2">금일
+                        마감</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>경매 운영시간</td>
+                     <td>12PM ~ 15PM</td>
+                  </tr>
+                  <tr id="starting">
+                     <td>남은시간</td>
+                     <td><span style="color: black" class="font15 time-title"></span>
+                        <span class="time font40"> <span class="hours"></span> <span
+                           class="col">:</span> <span class="minutes"></span> <span
+                           class="col">:</span> <span class="seconds"></span>
+                     </span></td>
+                  </tr>
+                  <tr id="opening">
+                     <td>오픈시간</td>
+                     <td><span class="time font40"> <span class="hours"></span>
+                           <span class="col">:</span> <span class="minutes"></span> <span
+                           class="col">:</span> <span class="seconds"></span>
+                     </span></td>
+                  </tr>
+                  <tr>
+                     <td>시작가</td>
+                     <td><input readonly style="border: 0px; text-align: center;"
+                        id="startPrice"></input>원</td>
+                  </tr>
+                  <tr>
+                     <td>현재 가격</td>
+                     <td><input readonly style="border: 0px; text-align: center;"
+                        id="currentPrice"></input>원</td>
+                  </tr>
+                  <tr>
+                     <td>선택한 블록</td>
+                     <td><input readonly style="border: 0px; text-align: center;"
+                        id="block"></input></td>
+                  </tr>
+                  <tr id=bidbutton>
+                     <td colspan="2"><div class="center">
+                           <button type="button" class="btn btn-primary"
+                              data-toggle="modal" data-target="#exampleModal">입찰하기</button>
+                        </div></td>
+                  </tr>
+                  <tr id=autoBiddingStop>
+                     <td colspan="2"><div class="center">
+                           <form th:action="@{/autoBiddingStop}">
+                              <input type="hidden" id="stop_seq" name="reservation_seq" />
+                              <button th:href="@{/autoBiddingStop}" type="submit"
+                                 class="btn btn-primary">입찰중단</button>
+                           </form>
+                        </div></td>
+                  </tr>
+               </tbody>
+            </table>
+            <button id="auction_stop_btn">입찰중지</button>
+         </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"
+                     style="margin-left:">입찰</h5>
+                  <button type="button" class="close" data-dismiss="modal"
+                     aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <form id="fmField" name="fmField" th:action="@{/bidding}"
+                  method="post" onsubmit="return checkForm();">
+                  <input type="hidden" name="auction_stop" id="auction_stop" />
+                  <input type="hidden" name="reservation_seq" id="reservation_seq" /></input>
+                  <input type="hidden" name="cPrice" id="currentPriceSend"></input>
+                  <input type="hidden" name="currentMaxPrice" id="currentMaxPrice"></input>
+                  <input type="hidden" name="userAutoId" id="userAutoId"></input> <br />
+
+                  <table
+                     style="font-size: 20px; text-align: center; margin-left: 70px;">
+                     <tbody>
+                        <tr>
+                           <td>입찰자</td>
+                           <td id="sessionUserId" sec:authentication="name"></td>
+                        <tr>
+                        <tr>
+                           <td>자동입찰금액</td>
+                           <td><input readonly
+                              style="border: 0px; text-align: center;" id="currentMaxPrice1"></input>원</td>
+                        </tr>
+                        <tr>
+                           <td>현재금액</td>
+                           <td><input readonly
+                              style="border: 0px; text-align: center;" id="currentPrice1"></input>원</td>
+                        </tr>
+                        <tr>
+                           <td>자동입찰</td>
+                           <td><input style="width: 16px; height: 16px;"
+                              type="checkbox" name="autoCheck" id="autoCheck" />
+                        <tr>
+                        <tr class="sPrice">
+                           <td>입찰금액</td>
+                           <td><input style="text-align: center; width: 150px;"
+                              id="suggestPrice" name="suggestPrice"></td>
+
+                        <tr class="autoPrice">
+                           <td>최대입찰금액</td>
+                           <td><input name="autoPrice"
+                              style="text-align: center; width: 150px;"></input></td>
+                        <tr>
+                        <tr>
+                           <td>서비스시작일</td>
+                           <td><input readonly id="startDate"
+                              style="border: 0px; text-align: center;" /></td>
+                        <tr>
+                     </tbody>
+                  </table>
+                  <br />
+                  <p style="text-align: center; font-size: 25px;">자동입찰시 유의사항</p>
+                  <textarea readonly
+                     style="font-size: 20px; margin-left: 80px; width: 75%; height: 10.85em;">&#10;&#10;&nbsp;&nbsp;1. 최대금액까지 입찰이 진행된다. &#10;&#10;&nbsp;&nbsp;2. 입찰금액의 1.1배로 입찰이 진행된다.&#10;&#10;&nbsp;&nbsp;3.자동입찰시 입찰을 중단할 수 있다.
+                  </textarea>
+                  <br /> <br />
+               </form>
+               <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" form="fmField">입찰하기</button>
+                  <button type="button" class="btn btn-secondary"
+                     data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+   </div>
+
+</body>
+
+</html>

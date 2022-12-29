@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+		<div class="container-fluid py-5"><br/><br/>
+			<div class="text-center mb-3 pb-3">
+				<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">focus</h6>
+				<h1>Notify List</h1>
+			</div>
+			<div class="container pt-5 pb-3">
+				<form style="display: inline;" th:action="@{/notify}" method="post">
+					<select name="status">
+						<option value="1">전체</option>
+						<option value="2">공지</option>
+						<option value="4">1:1 문의</option>
+					</select> <input type="button" value="검색"
+						class="btn btn-primary rounded submit p-1" />
+				</form>
+
+				<div th:if="${!notifyList.empty}">
+					<div id="content">
+
+						<table class="customBoard">
+							<thead>
+								<tr>
+									<th>NO.</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>등록일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="notify, state : ${notifyList}">
+									<td th:text="${(notifyList.number * 10) + state.count}"></td>
+									<td><a
+										th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
+										th:text="${notify.title}"></a></td>
+									<td th:text="${notify.users.userId}"></td>
+									<td th:text="${notify.viewCnt}"></td>
+									<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- Paging -->
+					<form th:action="@{/notify}" method="post">
+						<div>
+							<nav class="customNav">
+								<ul class="customPagination"
+									th:with="start=${(notifyList.number/10)*10 + 1},
+	                    	last=(${start + 9 < notifyList.totalPages ? start + 9 : notifyList.totalPages})">
+
+									<li th:class="${notifyList.first} ? 'disabled'">
+										<button name="page" value="1">First</button>
+									</li>
+
+									<li th:class="${notifyList.first} ? 'disabled'">
+										<button name="page" th:value="${notifyList.number}">&lt;</button>
+									</li>
+
+									<li th:each="page : ${#numbers.sequence(start, last)}"
+										th:class="${page == notifyList.number + 1} ? 'active'">
+										<button th:if="${page==(nowPage+1)}" style="background: gray"
+											name="page" th:value="${page}" th:text="${page}"></button>
+									</li>
+
+									<li th:class="${notifyList.last} ? 'disabled'">
+										<button name="page" th:value="${notifyList.number + 2}">&gt;</button>
+									</li>
+
+									<li th:class="${notifyList.last} ? 'disabled'">
+										<button name="page" th:value="${notifyList.totalPages}">Last</button>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</form>
+				</div>
+
+				<div th:if="${notifyList.empty}">
+					<table class="customBoard">
+
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>블록 번호</th>
+								<th>현재 가격</th>
+								<th>구매하러 가기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="4">
+									<p class="textcenter2">공지 사항 없음</p>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br />
+				<div style="text-align: right;">
+					<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
+						<input type="button" value="공지글쓰기"
+							onclick="location.href='/notify/insertNotify'"
+							class="btn btn-primary rounded submit p-2" />
+					</div>
+					<div style="display: inline;" sec:authorize="hasRole('ROLE_USER')">
+						<input type="button" value="1:1문의글 쓰기"
+							onclick="location.href='/notify/insertContact'"
+							class="btn btn-primary rounded submit p-2" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+</body>
+
+</html>

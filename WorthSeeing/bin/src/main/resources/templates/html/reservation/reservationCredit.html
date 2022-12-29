@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<script>
+
+$(document).ready(function() {
+		var calcPrice=   Math.round(   [[${reservationCreditInfo.startPrice}]]  *0.1 );
+		var finallyPrice = calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")		
+	$("#calcPrice").text(finallyPrice);
+	$("#calcPrice").val(calcPrice);
+})
+</script>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+
+				<form
+					th:action="@{/reservation/insertReservation(reservation_seq=${reservationCreditInfo.reservation_seq})}"
+					method="post">
+					<!-- 				<input type="hidden" name="reservation_seq"th:value="${reservationCreditInfo.reservation_seq}"> -->
+					<table class="customBoard">
+						<thead>
+							<tr>
+								<th colspan="2">예약금 결제</th>
+							</tr>
+						</thead>
+						<tbody> 
+							<tr>
+								<td>선택한 블록</td>
+								<td th:name="reservation_seq" th:text="${block}"></td>
+
+							</tr>
+							<tr>
+								<td>보증금</td>
+								<td th:name="startPrice" id="calcPrice" 
+									th:text="${reservationCreditInfo.startPrice}"></td>
+							</tr>
+							<tr>
+								<td>결제수단</td>
+								<td><div>
+										<label><input type="radio" name="fruit" value="삼성페이">삼성페이</label>
+										<label><input type="radio" name="fruit" value="카카오페이">
+											카카오페이</label> <label><input type="radio" name="fruit"
+											value="애플페이"> 애플페이</label>
+									</div></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="결제하기" class="btpay2">
+								<input type="button" value="돌아가기" onclick="history.back()" class="btpay2"></td>
+							</tr>
+						</tbody>
+
+					</table>
+				</form>
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+
+</html>

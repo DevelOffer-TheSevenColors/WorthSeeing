@@ -33,6 +33,9 @@ import kr.worthseeing.event.pointlog.repository.PointLogRepository;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
+import kr.worthseeing.main.reservation.entity.ReservationUsers;
+import kr.worthseeing.main.reservation.repository.ReservationRepository;
+import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
 import kr.worthseeing.mypage.service.MyPageService;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
@@ -52,10 +55,16 @@ public class MyPageServiceImpl implements MyPageService {
 	private CouponRepository couponRepo;
 
 	@Autowired
+	private ReservationRepository reservationRepo;
+	
+	@Autowired
 	private AuctionRepository auctionRepo;
 
 	@Autowired
 	private AuctionLogRepository auctionLogRepo;
+	
+	@Autowired
+	private ReservationUsersRepository reservationUsersRepo;
 
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
@@ -311,10 +320,13 @@ public class MyPageServiceImpl implements MyPageService {
 				System.out.println("asdwqf@@@@asd@" + blockGroup_);
 				for (Block block : blockRepo
 						.findAuctionBlock(String.valueOf(blockWaiting.getBlockGroupWaiting_seq()))) {
+					Status status_ = new Status();
+					status_.setStatus_seq(8);
 					BlockGroupWaiting blockGroupwait = new BlockGroupWaiting();
 					blockGroupwait.setBlockGroupWaiting_seq(1);
 					block.setBlockGroup(blockGroup_);
 					block.setBlockGroupWaiting(blockGroupwait);
+					block.setStatus(status_);
 					blockRepo.save(block);
 				}
 			}
@@ -323,6 +335,10 @@ public class MyPageServiceImpl implements MyPageService {
 			blockWaiting.setStatus(status);
 			blockGroupWaitingRepo.save(blockWaiting);
 		}
-
+		auctionRepo.deleteAll();
+		reservationUsersRepo.deleteAll();
+		reservationRepo.deleteAll();
+		blockGroupWaitingRepo.deleteBlockGroupWaiting();
+		
 	}
 }

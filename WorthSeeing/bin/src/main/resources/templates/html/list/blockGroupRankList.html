@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<link href="../css/style.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<div class="back">
+	<script>
+		$(document)
+				.ready(
+						function() {
+
+							var urlGroupRankList = encodeURI("[[${urlGroupRankList}]]");
+							var urlGroupRankArr = urlGroupRankList.split(",");
+
+							for (var i = 1; i <= 9; i++) {
+								$("#groupRankImg" + i).attr("src",
+										urlGroupRankArr[i].slice(3));
+								if (i == 9) {
+									$("#groupRankImg" + i).attr("src",
+											urlGroupRankArr[i].slice(3).slice(0, -3));
+								}
+							}
+							
+							$(".destination-item").click(function() {
+								// 걸려있는 링크로 이동
+								location.href="/click?blockGroup_seq=" + $(this).attr("id");
+							})
+							
+						});
+	</script>
+	<div> 
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+
+						<div class="text-center mb-3 pb-3">
+							<h6 class="text-primary text-uppercase"
+								style="letter-spacing: 5px;">Rank</h6>
+							<h1>Popular Block List</h1>
+						</div>
+						<div class="row">
+							<div th:each="blockGroup, state : ${blockGroupList}"
+								class="col-lg-4 col-md-6 mb-4">
+								<div
+									class="destination-item position-relative overflow-hidden mb-2" th:id="${blockGroup.blockGroup_seq}">
+									<img th:id="'groupRankImg'+${state.count}" class="img-fluid"> 
+									<p class="destination-overlay text-white text-decoration-none" th:href="@{${blockGroup.linkUrl}}">
+										<span>총 방문횟수</span>
+										<span th:text="${blockGroup.clickCnt}"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+</div>
+</body>
+
+</html>

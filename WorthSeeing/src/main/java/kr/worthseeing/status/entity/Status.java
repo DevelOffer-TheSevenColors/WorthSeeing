@@ -16,11 +16,14 @@ import kr.worthseeing.notify.entity.Notify;
 import kr.worthseeing.refund.entity.Refund;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
 @ToString(exclude = {"blockList", "notifyList", "couponList","blockGroupWaitingList"})
 @NoArgsConstructor
 public class Status {

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>LocalStorage Expiry Example</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+const num1 = 10;
+const num2 = 50;
+9 * num1;
+num2 / num1;
+<body>
+	<table class="tbl_edit01">
+		<colgroup>
+			<col width="90px" />
+			<col width="*" />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>결제금액</th>
+				<td><span class="bold txt_blue">65000원</span></td>
+			</tr>
+			<tr>
+				<th>포 인 트</th>
+				<td>사용가능 포인트 : <span name="left_pnt">7210</span>p <span>
+				<input type="checkbox" id="chk_use" onclick="chkPoint(65000,7210,5000,100)">포인트 전체 사용</span> 
+				<span style="float: right">포인트는 최소 5000p부터 100p단위로 사용 가능합니다.</span>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><span> <input type="number" name="use_pnt" id="use_pnt" min="5000" max="65000"
+						onchange="changePoint(65000,7210,5000,100)"></span> p <span>
+						(남은포인트 : </span>
+						<span name="left_pnt" id="left_pnt">7210</span>p )</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<p class="bold txt_red">최종 결제 금액 : <span class="bold txt_red" id="result_pnt">65000</span>원
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		function chkPoint(amt,pnt) {
+			//input값을 전체 마일리지로 설정 > minusPoint 
+			//amt : 최초 결제 금액 / pnt : 사용가능,남은 포인트 / min : 사용 가능 최소 포인트 / unit : 사용단위
+
+
+			document.getElementById("use_pnt").value = v_point; //input 값 설정
+
+			changePoint(amt, pnt);
+		}
+
+		function changePoint(amt, pnt) {
+			//input값을 불러옴 > left_pnt 변경 > 최종결제 변경
+			//amt : 최초 결제 금액 / pnt : 사용가능,남은 포인트 / min : 사용 가능 최소 포인트 / unit : 사용단위
+			var v_point = parseInt(document.getElementById("use_pnt").value); //사용할 포인트 (input 입력값)
+			if (v_point = pnt) //입력값이 사용가능 포인트보다 클때
+			{
+				v_point = amt; //사용할 포인트는 결제금액과 동일하게 설정
+				document.getElementById("use_pnt").value = v_point; //input 값 재설정
+			}
+
+			var v_left = document.getElementsByName("left_pnt"); //사용가능 마일리지, 남은 포인트 값 설정
+			for (var i = 0; i < v_left.length; i++) {
+
+				v_left[i].innerHTML = pnt - v_point; //= 전체 포인트 중에 사용할 포인트빼고 남은 포인트
+
+			}
+			document.getElementById("result_pnt").innerHTML = amt - v_point; //최종 결제금액 = 결제금액 - 사용할 포인트
+		}
+	</script>
+</body>
+</html>

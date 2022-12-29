@@ -8,10 +8,11 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
-	</parent>   
+	</parent>
 	<groupId>kr.worthseeing</groupId>
 	<artifactId>WorthSeeing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>WorthSeeing</name>
 	<description>The Seven Colors&apos;s WorthSeeing Project</description>
 	<properties>
@@ -58,15 +59,18 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
@@ -80,6 +84,14 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
 		</dependency>
+		
+<!-- 외장톰캣 -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-tomcat</artifactId>
+	<scope>provided</scope> <!-- 안되어 있는 경우 변경! -->
+</dependency>
+
 
 		<!-- poi -->
 		<dependency>
@@ -100,6 +112,42 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>javaSDK</artifactId>
+			<version>2.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+		</dependency>
+		
+	    <!-- AWS -->
+	    <dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-aws</artifactId>
+	        <version>2.2.6.RELEASE</version>
+	    </dependency>		
+	    
+	    
+	        <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version> 
+    </dependency>
+	    
 	</dependencies>
 
 

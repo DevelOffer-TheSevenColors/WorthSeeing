@@ -12,11 +12,14 @@ import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.status.entity.Status;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
 @ToString(exclude = {"blockGroup", "status", "blockGroupWaiting"})
 @NoArgsConstructor
 public class Block {

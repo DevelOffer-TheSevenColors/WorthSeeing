@@ -1,0 +1,97 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+
+	<script>
+		$(".pageBtn").click(function() {
+			movePage(idDomain, $(this).val());
+		})
+	</script>
+	<div class="row">
+		<div class="menuItem">
+			<br />
+			<h2 align="center">포인트 사용내역</h2>
+			
+			<div th:if="${!couponUserId.empty}">
+			<table class="customBoard">
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">포인트 사용금액</th>
+						<th scope="col">구매일시</th>
+						<th scope="col">기프티콘 시리얼번호</th>
+					</tr>
+				</thead>
+				<tbody  th:each="coupon, state : ${couponUserId}">
+					<tr>
+						<td th:text="${state.count}"></td>
+						<td th:text="${#numbers.formatInteger(coupon.couponPrice, 3,'COMMA')}"></td>
+						<td th:text="${#dates.format(coupon.couponUsedDate, 'yyyy-MM-dd')}"></td>
+						<td th:text="${coupon.couponSerialNum}"></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+				<div th:if="${couponUserId.empty}">
+						<table class="customBoard">
+						<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">포인트 사용금액</th>
+						<th scope="col">구매일시</th>
+						<th scope="col">기프티콘 시리얼번호</th>
+					</tr>
+						</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<p class="textcenter2">포인트 사용 내역 없음</p>
+									</td>
+
+								</tr>
+						</table>
+					</div>
+			
+			
+			<form th:if="${!couponUserId.empty} " th:action="@{/credit}" method="post">
+				<nav class="customNav">
+					<ul class="customPagination"
+						th:with="start=${(couponUserId.number/10)*10 + 1},
+	                    	last=(${start + 9 < couponUserId.totalPages ? start + 9 : couponUserId.totalPages})">
+
+						<li th:class="${couponUserId.first} ? 'disabled'">
+							<button name="page" value="1" class="pageBtn">First</button>
+						</li>
+
+						<li th:class="${couponUserId.first} ? 'disabled'">
+							<button name="page" th:value="${couponUserId.number}"
+								class="pageBtn">&lt;</button>
+						</li>
+
+						<li th:each="page : ${#numbers.sequence(start, last)}"
+							th:class="${page == couponUserId.number + 1} ? 'active'">
+							<button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}" ></button>
+						</li>
+
+						<li th:class="${couponUserId.last} ? 'disabled'">
+							<button name="page" th:value="${couponUserId.number + 2}"
+								class="pageBtn">&gt;</button>
+						</li>
+
+						<li th:class="${couponUserId.last} ? 'disabled'">
+							<button name="page" th:value="${couponUserId.totalPages}"
+								class="pageBtn">Last</button>
+						</li>
+					</ul>
+				</nav>
+				</form>
+			</div>
+		</div>
+
+
+</body>
+</html>

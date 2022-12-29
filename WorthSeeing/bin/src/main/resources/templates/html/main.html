@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+
+	<script>
+	// 289개 블록 띄우기
+	function createBlock(listBGSeq, cImgList) {
+	    var cImgArr = cImgList.split(",");
+	    var topSize = 0;
+	    var cImgURL="";
+		for (var i = 1; i <= 289; i++) {
+			
+			// 마지막 사진 처리
+			if (cImgArr[i-1] == null) {
+			}
+			else if (i == cImgArr.length) {
+				var cImgURL = cImgArr[i-1].slice(3).slice(0, -3);
+			} else {
+				var cImgURL = cImgArr[i-1].slice(3);
+			}
+		
+			var child = "<div class='tt' id=" + i + ">"
+					+ "<p class='numberDisplay'>" + i + "</p>"
+					+ "<p class='betweenDay'></p>"
+					+ "<button class='reservationBtn'>예약 하기</button>"
+					+ "<img class='imgDisplay' src='"+ cImgURL + "'/></div>";
+	        
+			$(".blockTest").append(child);
+			
+			if (i % 17 == 0) {
+				// 	$("#" + i).css('margin-left', 100 * i + 'px');
+				$("#" + i).css('margin-top', topSize + 'px');
+				topSize += 100;
+			} else {
+				$("#" + i).css('margin-top', topSize + 'px');
+			}
+			
+			if (i % 17 == 0) {
+				$("#" + i).css('margin-left', 1700 + 'px');
+			} else {
+				$("#" + i).css('margin-left', 100 * (i % 17) + 'px');
+			}
+		}
+	}
+	
+	$(document).ready(function() {
+		
+		// 인기순위 Top 5 이미지 띄우기
+		var cImgTopList = encodeURI("[[${listTopcImg}]]");
+		top5Img(cImgTopList);
+	       
+		// 블록 289개 생성
+		var cImgList = encodeURI("[[${listcImg}]]");
+		var cImgArr = cImgList.split(",");
+		
+		var listXLocation = [[${listXLocation}]]
+		var listYLocation = [[${listYLocation}]]
+		
+		var listWidth = [[${listWidth}]]
+		var listHeight = [[${listHeight}]]
+		
+		var cImgURL="";
+		var zIndex = 300;
+		var listLength = listYLocation.length;
+		
+		for (var i = 1; i <= listLength; i++) {
+			
+			if (cImgArr[i-1] == null) {
+			}
+			else if (i == cImgArr.length) {
+				var cImgURL = cImgArr[i-1].slice(3).slice(0, -3);
+			} else {
+				var cImgURL = cImgArr[i-1].slice(3);
+			}
+			
+			var child = "<div class='tt' id=" + i + ">"
+			+ "<p class='numberDisplay'>" + i + "</p>"
+			+ "<p class='betweenDay' id='betweenDay"+ i +"'></p>"
+			+ "<button class='reservationBtn'>예약 하기</button>"
+			+ "<img class='imgDisplay' src='"+ cImgURL + "'/></div>";
+			
+			var child2 = "<div class='tt22' id=second" + i + ">"
+				+ "<p class='numberDisplay'>" + i + "</p>"
+			+ "<p class='betweenDay' id='betweenDay"+ i +"'></p>"
+			+ "<button class='reservationBtn'>예약 하기</button></div>";
+			
+			$(".blockTest").append(child);
+// 			$(".blockTest22").append(child2);
+
+			$("#" + i).css('margin-left', listXLocation[i-1] * 100 + 'px');
+			$("#" + i).css('margin-top', (listYLocation[i-1]-1) * 100 + 'px');
+			
+			$("#" + i).css('width', listWidth[i-1] + 'px');
+			$("#" + i).css('height', listHeight[i-1] + 'px');
+			
+			$("#betweenDay" + i).css('width', listWidth[i-1] + 'px');
+			$("#betweenDay" + i).css('height', listHeight[i-1] + 'px');
+			$("#betweenDay" + i).css('border', '1px solid black');
+			
+			$("#" + i).css('z-index', zIndex--);
+			$("#betweemDay" + i).css('z-index', zIndex--);
+		}
+
+		
+       	
+		// 오늘 기준으로 이전 날짜 데이터가 있으면 localStorage 리셋
+		resetLocalStorage();
+		
+		var reservationBlockGroupSeqList = [[${reservationBlockGroupSeqList}]]
+		
+		var betweenDaysList = [[${betweenDaysList}]]
+	    var betweenDaysArr = Array.from(betweenDaysList);
+		
+	    var usingBlockGroupList = [[${usingBlockGroupList}]]
+	    var usingBlockGroupArr = Array.from(usingBlockGroupList);
+	    
+		// 라디오 버튼 클릭 이벤트
+		changeRadioBtn(reservationBlockGroupSeqList, betweenDaysArr, usingBlockGroupArr);
+		
+		 $(".reservationBtn").click(function() {
+			location.href="/reservation/mainReservationCreaditView?blockGroup_seq=" + $(this).parents(".tt").attr("id");
+		})
+		
+	});
+	
+	</script>
+
+	<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+	<!-- Carousel Start -->
+	<div class="container-fluid p-0">
+		<div id="header-carousel" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img id="topImg1" class="w-100 height700" alt="Image">
+					<div
+						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+						<div class="p-3 maxwidth900">
+							<p id="rank1" class="textsize100"></p>
+							<a th:href="@{${blockGroupLink[0]}}"
+								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img id="topImg2" class="w-100 height700" alt="Image">
+					<div
+						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+						<div class="p-3 maxwidth900">
+							<p id="rank2" class="textsize100"></p>
+							<a th:href="@{${blockGroupLink[1]}}"
+								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img id="topImg3" class="w-100 height700" alt="Image">
+					<div
+						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+						<div class="p-3 maxwidth900">
+							<p id="rank3" class="textsize100"></p>
+							<a th:href="@{${blockGroupLink[2]}}"
+								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img id="topImg4" class="w-100 height700" alt="Image">
+					<div
+						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+						<div class="p-3 maxwidth900">
+							<p id="rank4" class="textsize100"></p>
+							<a th:href="@{${blockGroupLink[3]}}"
+								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="carousel-item">
+					<img id="topImg5" class="w-100 height700" alt="Image">
+					<div
+						class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+						<div class="p-3 maxwidth900">
+							<p id="rank5" class="textsize100"></p>
+							<a th:href="@{${blockGroupLink[4]}}"
+								class="btn btn-primary py-md-3 px-md-5 mt-2">L I N K</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<a class="carousel-control-prev" href="#header-carousel"
+				data-slide="prev">
+				<div class="btn btn-dark width45height45">
+					<span class="carousel-control-prev-icon mb-n2"></span>
+				</div>
+			</a> <a class="carousel-control-next" href="#header-carousel"
+				data-slide="next">
+				<div class="btn btn-dark width45height45">
+					<span class="carousel-control-next-icon mb-n2"></span>
+				</div>
+			</a>
+		</div>
+	</div>
+	<!-- Carousel End -->
+
+	<div>
+		<div class="topnav">
+			<div>
+				<label> <input type="radio" name="checkbox"
+					checked="checked" id="displayBlock" /> 기존 이미지 표시
+				</label>
+			</div>
+			<div>
+				<label> <input type="radio" name="checkbox"
+					id="displayBlockNum" value="blockNumber" /> 블록 번호
+				</label>
+			</div>
+			<div>
+				<label> <input type="radio" name="checkbox"
+					id="displayBetweenDay" value="leftTime" /> 남은 사용 시간
+				</label>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<div class="col-lg-4 col-md-6 mb-4 pb-2 margintop80">
+
+	 	<div class="blockTest height1700"></div> 
+	</div>
+
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+
+</body>
+
+</html>

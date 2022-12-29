@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="row justify-content-center" style="margin-top: 80px;">
+			<div class="col-lg-8" >
+			
+			
+				<div class="contact-form bg-white">
+ 
+					<br />
+					<form th:action="@{/updateURLThumb}" method="post"
+						enctype="multipart/form-data" style="margin-left: 39%; width: 45%;">
+						<input type="hidden" name="blockGroup_seq"
+							th:value="${blockGroup.blockGroup_seq}">
+						<h3 class="padding auto" style="margin-left: 3%;">썸네일 미리보기</h3>
+						<div class="image-container" style="margin-bottom: 5%; margin-left: 10%;">
+							<img id="preview-image" th:src="${blockGroup.cImg}" />
+						</div>
+						<table class="insertBoard">
+							<tr>
+								<td>URL:</td>
+								<td><input type="text" name="linkUrl"
+									th:value="${blockGroup.linkUrl}" /></td>
+							</tr>
+							<tr>
+								<td th:text="썸네일"></td>
+								<td><input type="file" name="files" id="input-image"></td>
+							</tr>
+						</table><br />
+						<div>
+							<input type="submit" value="등록하기" class="btn btn-primary py-3 px-4"> 
+							<input type="button" value="돌아가기" class="btn btn-primary py-3 px-4" onclick="history.back()" />
+						</div><br /><br />
+					</form>
+					
+				<script>
+			      function readImage(input) {
+			    	    // 인풋 태그에 파일이 있는 경우
+			    	    if(input.files && input.files[0]) {
+			    	        // 이미지 파일인지 검사 (생략)
+			    	        // FileReader 인스턴스 생성
+			    	        const reader = new FileReader()
+			    	        // 이지미가 로드가 된 경우
+			    	        reader.onload = e => {
+			    	            const previewImage = document.getElementById("preview-image")
+			    	            previewImage.src = e.target.result
+			    	        }
+			    	        // reader가 이미지 읽도록 하기
+			    	        reader.readAsDataURL(input.files[0])
+			    	    }
+			    	}
+			    	// input file에 change 이벤트 부여
+			    	const inputImage = document.getElementById("input-image")
+			    	inputImage.addEventListener("change", e => {
+			    	    readImage(e.target)
+			    	})
+			    </script>
+			
+				</div>
+
+			</div>
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+
+</html>

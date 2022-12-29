@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/js/admin.js"></script>
+<body>
+	<div>
+		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+			
+			
+			<form th:action="@{/admin/blackList}" method="post">
+				<table class="customBoard">
+					<thead>
+					<tr>
+						<th>번호</th>
+						<th>아이디</th>
+						
+						<th>이메일</th>
+						<th>전화번호</th>
+						<th>가입날짜</th>
+						<th>포인트</th>
+						<th>사용 금액</th>
+						<th>쿠폰 구매 횟수</th>
+						<th>블랙리스트</th>
+					</tr>
+				</thead>
+					<tr>
+					<tr th:each="user, state : ${userList}">
+					
+							<td th:text="${(userList.number * 10) + state.count}"></td>
+							<td th:text="${user.userId}"></td>
+							<td th:text="${user.email}"></td>
+							<td><a th:text="${user.tel}"></a></td>
+							<td th:text="${#dates.format(user.joindate, 'yyyy-MM-dd')}"></td>
+							<td th:text="${user.point}"></td>
+							<td th:text="${user.totalMoney}"></td>
+							<td th:text="${user.couponList.size()}"></td>
+							<td>
+								<input type="hidden" th:name="userId" th:value="${user.userId}" />
+								
+								<input  type="checkbox" th:id="${state.count}" name="checkbox" class="blackYnCheckBox" th:checked="${user.blackYn=='yes'}" />
+								<input  type="text" id="inputtext" class="inputCustomCSS" name="blackYn" th:value="${user.blackYn}"  readonly>
+								
+							</td>
+							
+						</tr>
+				</table>
+						<input type="submit" th:value="변경"/>
+ 		</form>
+
+			<form th:action="@{/admin/adminUserList}" method="post">
+					<div>
+						<nav class="customNav"> 
+							<ul class="customPagination"
+								th:with="start=${(1-(userList.number%1))%1 + 1},
+	                    	last=(${start + 9 < userList.totalPages ? start + 9 : userList.totalPages})">
+
+								<li th:class="${userList.first} ? 'disabled'">
+									<button name="page" value="1">First</button>
+								</li>
+
+								<li th:class="${userList.first} ? 'disabled'">
+									<button name="page" th:value="${userList.number}">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == userList.number + 1} ? 'active'">
+									<button th:if="${page==nowPage}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
+									<button th:if="${page!=nowPage}" name="page" th:value="${page}" th:text="${page}"></button>
+								</li>
+
+								<li th:class="${userList.last} ? 'disabled'">
+									<button name="page" th:value="${userList.number + 2}">&gt;</button>
+								</li>
+
+								<li th:class="${userList.last} ? 'disabled'">
+									<button name="page" th:value="${userList.totalPages}">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</form>
+			</div>
+		</div>
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+</html>

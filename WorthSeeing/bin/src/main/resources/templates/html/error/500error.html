@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>500error</title>
+
+<link href="../css/500error.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="../js/500error.js"></script>  
+</head>
+<body>
+
+<div class="full-screen">
+      <div class='container'>
+        <span class="error-num">5</span>
+        <div class='eye'></div>
+        <div class='eye'></div>
+
+        <h1 class="sub-text">Internal Server Error!</h1>
+        <a th:href="@{/system/login}">[로그인으로 돌아가기]</a>
+      </div>
+    </div>
+
+</body>
+</html>

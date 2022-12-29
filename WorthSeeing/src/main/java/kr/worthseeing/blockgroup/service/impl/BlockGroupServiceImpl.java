@@ -312,7 +312,6 @@ public class BlockGroupServiceImpl implements BlockGroupService {
                   .findReservation(String.valueOf(blockGroupWaiting.getBlockGroupWaiting_seq()));
             Auction auction = new Auction();
             auction.setAuctionPrice(reservation.getStartPrice());
-            System.out.println("머@렂ㄷ랴ㅓㄷ" + reservation.getStartPrice());
             auction.setReservation(reservation);
             auction.setSuggestPrice(reservation.getStartPrice());
             auctionRepo.save(auction);

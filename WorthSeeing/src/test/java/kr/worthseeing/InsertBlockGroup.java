@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.blockgroup.repository.BlockGroupRepository;
+import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.users.entity.Users;
 import kr.worthseeing.users.repository.UsersRepository;
 
@@ -19,6 +20,9 @@ public class InsertBlockGroup {
 	@Autowired
 	private UsersRepository usersRepo;
 
+	@Autowired
+	private ReservationRepository reservationRepo;
+	
 	@Autowired
 	private BlockGroupRepository blockGroupRepo;
 	
@@ -46,9 +50,9 @@ public class InsertBlockGroup {
 
 	}
 	
-//	@Test
-//	void weafwef() {
-//		blockGroupWaitingRepo.deleteBlockGroupWaiting();
-//	}
+	@Test
+	void weafwef() {
+		reservationRepo.deleteAll();
+	}
 
 }

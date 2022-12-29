@@ -1,0 +1,90 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="/fragments/header :: head">
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+		<div>
+		<div><a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a></div><br />
+		<form th:action="@{/leftOverCoupon}" method="get">
+		
+		<h2>잔여쿠폰 개수</h2>
+		<table class="customBoard">
+				<tr>
+					<th>30,000원권 개수</th>
+					<th>50,000원권 개수</th>
+					<th>100,000원권 개수</th>
+				</tr>
+				<tr>
+					<td th:text="${leftOverCouponCount.get(0)}"></td>
+					<td th:text="${leftOverCouponCount.get(1)}"></td>
+					<td th:text="${leftOverCouponCount.get(2)}"></td>
+				</tr>
+				<tr>
+					<td><a th:href="@{/addCoupon?price=30000}">쿠폰발급하기</a></td>
+					<td><a th:href="@{/addCoupon?price=50000}">쿠폰발급하기</a></td>
+					<td><a th:href="@{/addCoupon?price=100000}">쿠폰발급하기</a></td>
+				</tr>
+			</table>
+		
+			<br />
+			<h2>잔여쿠폰 리스트</h2>
+			<table class="customBoard"
+				th:each="leftOverList, state : ${leftOverCouponList}">
+				<tr>
+					<th>no.</th>
+					<th>쿠폰금액</th>
+					<th>쿠폰번호</th>
+				</tr>
+				<tr>
+					<td th:text="${leftOverList.coupon_seq}">z</td>
+					<td th:text="${leftOverList.couponPrice}">z</td>
+					<td th:text="${leftOverList.couponSerialNum}"></td>
+				</tr>
+			</table>
+					<div>
+						<nav class="customNav">
+							<ul class="customPagination"
+								th:with="start=${(1-(leftOverCouponList.number%1))%1 + 1},
+	                    	last=(${start + 9 < leftOverCouponList.totalPages ? start + 9 : leftOverCouponList.totalPages})">
+
+								<li th:class="${leftOverCouponList.first} ? 'disabled'">
+									<button name="page" value="1">First</button>
+								</li>
+
+								<li th:class="${leftOverCouponList.first} ? 'disabled'">
+									<button name="page" th:value="${leftOverCouponList.number}">&lt;</button>
+								</li>
+
+								<li th:each="page : ${#numbers.sequence(start, last)}"
+									th:class="${page == leftOverCouponList.number + 1} ? 'active'">
+									<button name="page" th:value="${page}" th:text="${page}"></button>
+								</li>
+
+								<li th:class="${leftOverCouponList.last} ? 'disabled'">
+									<button name="page" th:value="${leftOverCouponList.number + 2}">&gt;</button>
+								</li>
+
+								<li th:class="${leftOverCouponList.last} ? 'disabled'">
+									<button name="page" th:value="${leftOverCouponList.totalPages}">Last</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+		
+		
+	</div>
+<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+
+</body>
+</html>

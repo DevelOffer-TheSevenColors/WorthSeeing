@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Contact Form 02</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700'
+	rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="../css/find/style.css">
+
+</head>
+<body>
+	<section class="ftco-section" style="height:930px; background-image: url(../images/ad.png);">
+		<div class="container">
+
+			<div class="row justify-content-center">
+				<div class="col-md-12">
+					<div class="wrapper">
+						<div class="row no-gutters">
+							<div
+								class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+								<div class="contact-wrap w-100 p-md-5 p-4">
+									<h3 class="mb-4"></h3>
+									<div id="form-message-warning" class="mb-4"></div>
+<!-- 									<div id="form-message-success" class="mb-4">Your message -->
+<!-- 										was sent, thank you!</div> -->
+									<form th:action="@{/system/findProc}" method="POST" id="contactForm" name="contactForm"
+										class="contactForm">
+										<div class="row">
+											<div th:if="${result}==null" class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="name">이름</label> <input
+														type="text" class="form-control" name="name" id="name"
+														placeholder="이름">
+												</div>
+											</div>
+											<div th:if="${result}==null" class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="email">이메일</label> <input
+														type="email" class="form-control" name="email" id="email"
+														placeholder="이메일">
+												</div>
+											</div>
+											<div th:if="${result}==null" class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">아이디</label> <input
+														type="text" class="form-control" name="userId"
+														id="subject" placeholder="비밀번호를 찾으시려면 입력하여주세요.">
+												</div>
+											</div>
+											<div th:if="${result}!=null" class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="#">회원정보보기</label>
+													<textarea readonly style="font-size: 25px;" class="form-control" id="message"
+														cols="30" rows="4" th:text="${result}"></textarea>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<span class="form-group">
+													<a th:href="@{/system/login}" style="text-align:right; background-color: #7FA998; color:white;" class="btn">로그인</a>
+													<input th:if="${result}==null" style="background-color: #7FA998; color:white;" type="submit" value="확인"
+														class="btn">
+													<a th:if="${result}!=null" th:href="@{/system/find}" style="text-align:right; background-color: #7FA998; color:white;" class="btn">아이디 / 비밀번호 찾기</a>
+												</span>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+							<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+								<div style="background-color: #7FA998;"class="info-wrap w-100 p-md-5 p-4">
+									<h3>아이디/비밀번호찾기</h3>
+									<p class="mb-4" style="color:yellow; font-size: 21px">비밀번호를 찾으시려면<br/> 아이디도 함께 입력해주세요!</p>
+									<div class="dbox w-100 d-flex align-items-start">
+										<div
+											class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-map-marker"></span>
+										</div>
+										<div class="text pl-3">
+											<p>
+												서울 강남구 논현로85길 46 메가존클라우드
+											</p>
+										</div>
+									</div>
+									<div class="dbox w-100 d-flex align-items-center">
+										<div
+											class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-phone"></span>
+										</div>
+										<div class="text pl-3">
+											<p>
+												<a href="tel://1234567920">1644-2243</a>
+											</p>
+										</div>
+									</div>
+									<div class="dbox w-100 d-flex align-items-center">
+										<div
+											class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-paper-plane"></span>
+										</div>
+										<div class="text pl-3">
+											<p>
+												<a href="mailto:info@yoursite.com">cjswovkdnj12@naver.com</a>
+											</p>
+										</div>
+									</div>
+									<div class="dbox w-100 d-flex align-items-center">
+										<div
+											class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-globe"></span>
+										</div>
+										<div class="text pl-3">
+											<p>
+												<a href="#">Worthseeing.com</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="../js/find/jquery.min.js"></script>
+	<script src="../js/find/popper.js"></script>
+	<script src="../js/find/bootstrap.min.js"></script>
+	<script src="../js/find/jquery.validate.min.js"></script>
+	<script src="../js/find/main.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/js/count.js"></script>
+</head>
+
+<body>
+	<div>
+		<th:block  th:replace="/fragments/header :: TopbarFragment"></th:block>
+
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+				<script src="/js/timer.js"></script>
+				
+				<table class="customBoard">
+
+					<thead>
+						<tr>
+							<th colspan="2">경매 입찰</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>경매 운영시간</td>
+							<td>12PM ~ 15PM</td>
+						</tr>
+						<tr>
+							<td>남은시간</td>
+							<td>
+								<span style="color: black" class="font15 time-title"></span>
+								<span class="time font40">
+									<span class="hours"></span> <span class="col"></span> <span
+										class="minutes"></span> <span class="col"></span> <span
+										class="seconds"></span>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td>현재 가격</td>
+							<td><input readonly style="border: 0px; text-align: center;" id="ab"></input>원</td>
+						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>선택한 블록</td> -->
+<!-- 							<td th:text="${block}"></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td>보증금</td> -->
+<!-- 							<td th:text="${auction.auctionPrice}"></td> -->
+<!-- 						</tr> -->
+						<tr>
+							<td>입찰금액</td>
+							<td><form th:action="@{/bidding}" method="post">
+									<input type="hidden" name="auction_seq" id="auction_seq"
+										value="1"></input> <input name="suggestPrice"></input> <input
+										type="submit" value="입찰하기" />
+								</form></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+
+
+		</div>
+
+		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+	</div>
+
+</body>
+
+</html>
