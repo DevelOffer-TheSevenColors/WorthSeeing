@@ -60,21 +60,8 @@
 										placeholder="이메일">
 								</div> 
 								<div class="form-group mb-4">
-									<label class="label" for="userId">아이디</label> 
-									<p  th:name="userId"class="form-control" th:text="${users.userId}" th:value="${users.userId}"></p>
-									<input type="hidden" th:name="userId"class="form-control" th:text="${users.userId}" th:value="${users.userId}"/>
-								</div>
-								<div class="form-group mb-4"> 
-									<label class="label" for="password">비밀번호</label> 
-									<input th:value="${users.userPw}" 
-										type="password" name="userPw" id="password" class="form-control" placeholder="비밀번호">
-								</div>
-								<div class="form-group mb-4">
-									<label class="label" for="password">비밀번호 확인</label> 
-									<input 
-										type="password" name="password_confirm" 
-											id="password_confirm" class="form-control"
-										placeholder="비밀번호 확인">
+									<label class="label" for="name">아이디</label> 
+									<p class="form-control" th:text="${users.name}" ></p>
 								</div>
 								<div class="form-group mb-4">
 									<label class="label" for="password">주소</label> <input

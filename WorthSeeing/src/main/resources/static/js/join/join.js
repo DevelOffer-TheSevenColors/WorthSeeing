@@ -12,6 +12,7 @@
 		//이메일 유효성검사
 		var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		var n_RegExp = /^[가-힣]{2,15}$/; //이름 유효성검사 정규식
+		var t_RegExp = /^[0-1]{3}[0-9]{4}[0-9]{4}/;
 
 		var jnumArr = new Array(); // 입력 한 주민번호를 저장해줄 배열 선언
 		var jnumplus = [ 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 1 ]; // 주민번호 계산할때 쓰이는 배열
@@ -24,8 +25,14 @@
 		var objName = document.getElementById("name"); //이름
 		var objAdr = document.getElementById("address"); //이름
 		var objAdrdetail = document.getElementById("detailaddress"); //이름
+		var objTel = document.getElementById("tel"); //전화번호
 
 		// ================ ID 유효성검사 ================ //
+
+		if (!t_RegExp.test(objTel.value)) {
+			alert("01012345678 형식으로 입력해주세요!");
+        	return false;
+  		}
 
 		if (objId.value == '') {
 			alert("아이디를 입력해주세요.");
@@ -105,7 +112,7 @@
 											document.getElementById("address_kakao").value = data.address; // 주소 넣기
 											document
 													.querySelector(
-															"input[name=detailaddress]")
+															"input[name=detailAddress]")
 													.focus(); // 상세입력 포커싱
 										}
 									}).open();

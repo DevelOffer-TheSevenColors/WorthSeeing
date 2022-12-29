@@ -59,21 +59,23 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public String findUser(Users user) {
 		String flag = "회원정보가 다릅니다.";
-		System.out.println("@@@@b@@@@");
-		System.out.println(user.getUserId());
-		System.out.println(user.getUserId().isEmpty());
 		if (!user.getUserId().isEmpty()) {
-			Users userdb = userRepo.findById(user.getUserId()).get();
-			if (userdb.getName().equals(user.getName()) && userdb.getEmail().equals(user.getEmail())
-					&& userdb.getUserId().equals(user.getUserId())) {
-				String randomPW = "";
-				for (int i = 0; i < 8; i++) {
-					char randomPW_ = (char) ((int) (Math.random() * 25) + 97);
-					randomPW += randomPW_;
+			Optional<Users> userdb_op = userRepo.findById(user.getUserId());
+			if (!userdb_op.isEmpty()) {
+				Users userdb = userdb_op.get();
+				if (userdb != null) {
+					if (userdb.getName().equals(user.getName()) && userdb.getEmail().equals(user.getEmail())
+							&& userdb.getUserId().equals(user.getUserId())) {
+						String randomPW = "";
+						for (int i = 0; i < 8; i++) {
+							char randomPW_ = (char) ((int) (Math.random() * 25) + 97);
+							randomPW += randomPW_;
+						}
+						flag = "회원님의 임시비밀번호는 " + randomPW + " 입니다.";
+						userdb.setUserPw(encoder.encode(randomPW));
+						userRepo.save(userdb);
+					}
 				}
-				flag = "회원님의 임시비밀번호는 ' " + randomPW + " ' 입니다.";
-				userdb.setUserPw(encoder.encode(randomPW));
-				userRepo.save(userdb); 
 			}
 		} else {
 			for (Users userdb : userRepo.findUser(user.getEmail())) {
