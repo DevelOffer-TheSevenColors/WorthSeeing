@@ -45,7 +45,7 @@
                            </div>
                         </form>
                      </td>
-                     <td th:if="${waiting.status.status_seq!=17}"><a
+                     <td><a th:if="${waiting.status.status_seq==17}"
                         th:href="@{/writeURLThumb(blockGroupWaiting_seq=${waiting.blockGroupWaiting_seq})}">등록</a></td>
                   </tr>
                </tbody>
