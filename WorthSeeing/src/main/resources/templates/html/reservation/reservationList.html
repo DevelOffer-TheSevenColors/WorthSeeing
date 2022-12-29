@@ -27,7 +27,7 @@
 
 						<thead>
 							<tr>
-								<th>블록 번호</th>
+								<th>No.</th>
 								<th>경매 시작가격</th>
 								<th>예약 인원</th>
 								<th>예약 하러 가기</th>
@@ -37,7 +37,7 @@
 						<tbody>
 							<tr th:each="reservation, state : ${reservationList}">
 								<td
-									th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
+									th:text="${state.count}"></td>
 								<td
 									th:text="${#numbers.formatInteger(reservation.startPrice, 0, 'COMMA')}"></td>
 								<td th:text="${reservation.userCnt}"></td>

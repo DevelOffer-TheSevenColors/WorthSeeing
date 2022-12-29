@@ -128,7 +128,7 @@ public class MyPageController {
 	@GetMapping("/addCoupon")
 	public String getCouponAdd(Coupon coupon, String price) {
 		myPageService.getCouponAdd(coupon, Integer.valueOf(price));
-		return "redirect:/main";
+		return "redirect:/leftOverCoupon";
 	}
 
 }

@@ -29,7 +29,7 @@
 
 					<thead>
 						<tr>
-							<th>블록 번호</th>
+							<th>No.</th>
 							<th>경매 시작가격</th>
 							<th>예약 인원</th>
 							<th>예약 취소</th>
@@ -40,13 +40,15 @@
 					<tbody>
 						<tr th:each="reservationUsers, state : ${reservationUsersList}">
 							<td
-								th:text="${reservationUsers.reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
+								th:text="${state.count}"></td>
 							<td th:text="${reservationUsers.reservation.startPrice}"></td>
 							<td th:text="${reservationUsers.reservation.userCnt}"></td>
-							<td><a th:if="${attendBtn=='yes'}"
-								th:href="@{/reservation/deleteReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
+							<td>
+<!-- 							<a th:if="${attendBtn=='yes'}" -->
+							<a th:href="@{/reservation/deleteReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
 					        ReservationUsers_seq=${reservationUsers.ReservationUsers_seq})}">예약
-									취소</a></td>
+									취소</a>
+							</td>
 							<td><a th:if="${attendBtn=='no'}"
 								th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매
 									참여하기</a></td>
