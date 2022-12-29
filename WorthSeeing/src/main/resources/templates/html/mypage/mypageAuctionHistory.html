@@ -11,7 +11,10 @@
 			<div>
 				<h2 align="center">나의 낙찰 내역</h2>
 			</div>
-			<div>
+			
+			
+			
+			<div th:if="${!waiting.empty}">
 				<table class="customBoard">
 					<thead>
 						<tr align="center">
@@ -49,7 +52,35 @@
 						</tr>
 					</tbody>
 				</table>
-				<div>
+				</div>
+				
+				
+					<div th:if="${waiting.empty}">
+						<table class="customBoard">
+							<thead>
+						<tr align="center">
+							<th scope="col">No.</th>
+							<th scope="col">블록 번호</th>
+							<th scope="col">결제금액</th>
+							<th scope="col">낙찰일시</th>
+							<th scope="col">종료일시</th>
+							<th scope="col">결제하기</th>
+							<th scope="col">블록 등록</th>
+						</tr>
+						</thead>
+							<tbody>
+								<tr>
+									<td colspan="7">
+										<p class="textcenter2">낙찰 내역 없음</p>
+									</td>
+
+								</tr>
+						</table>
+					</div>
+				
+				
+				<form th:if="${!waiting.empty} " th:action="@{/credit}" method="post">
+				
 					<nav class="customNav">
 						<ul class="customPagination"
 							  th:with="start=${(waiting.number/10)*10 + 1},
@@ -79,11 +110,9 @@
 							</li>
 						</ul>
 					</nav>
+					</form>
 				</div>
 			</div>
-
-		</div>
-	</div>
 	<script>
 		$(".pageBtn").click(function() {
 			movePage(idDomain, $(this).val());
