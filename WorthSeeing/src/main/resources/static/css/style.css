@@ -9541,3 +9541,9 @@ h5, h6, .font-weight-medium {
 	width: 45px; 
 	height: 45px;
 }
+.redcolor {
+	color: red;
+}
+.floatleft{
+	float: left;
+}
