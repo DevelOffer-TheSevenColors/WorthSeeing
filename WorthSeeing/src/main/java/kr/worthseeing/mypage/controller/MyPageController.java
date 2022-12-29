@@ -35,9 +35,8 @@ public class MyPageController {
 		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
 
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
-		
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
-		System.out.println("controller Users" + myPageService.getUsers(principal.getUsers()));
+		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 		return "/mypage/mypageMain";
 	}
 	
@@ -67,6 +66,7 @@ public class MyPageController {
 		Page<Coupon> couponUserId = myPageService.getCouponUserPage(principal.getUsers().getUserId(),pageable);
 		model.addAttribute("couponUserId", couponUserId);
 		model.addAttribute("users", principal.getUsers());
+		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 
 		return "/mypage/mypagePointHistory";
 	}
@@ -77,6 +77,7 @@ public class MyPageController {
 		List<Integer> leftOverCouponCount = myPageService.getCouponCount();
 		model.addAttribute("leftOverCouponList",leftOverCouponList);
 		model.addAttribute("leftOverCouponCount",leftOverCouponCount);
+		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 		return "/adminCoupon";
 	}
 	
@@ -100,20 +101,12 @@ public class MyPageController {
 
 		model.addAttribute("waiting",
 				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable));
+		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 
 		return "/mypage/mypageAuctionHistory";
 	}
 
-//	@GetMapping("/mypagePurchaseHistory")
-//	public String getmyagePurchaseHistory(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
-//		Page<BlockGroupWaiting> blockGroupWaitingUserId = myPageService.getBlockGroupPage(principal.getUsers().getUserId(),pageable);
-//		model.addAttribute("userId", principal.getUsers().getUserId());
-//		model.addAttribute("blockGroupWaitingUserId", blockGroupWaitingUserId);
-//
-//		return "/mypage/mypagePurchaseHistory";
-//	}
 
-	// 클릭 시 db에 저장된 url로 이동 추가
 	@GetMapping("/updatePoint")
 	public String getClick(BlockGroup blockGroup, @AuthenticationPrincipal SecurityUser principal, Model model) {
 		myPageService.add500Point(principal.getUsers());

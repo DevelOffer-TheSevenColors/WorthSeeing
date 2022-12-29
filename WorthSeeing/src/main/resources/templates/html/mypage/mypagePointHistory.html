@@ -36,7 +36,7 @@
 			<div>
 				<nav class="customNav">
 					<ul class="customPagination"
-						th:with="start=${(1-(couponUserId.number%1))%1 + 1},
+						th:with="start=${(couponUserId.number/10)*10 + 1},
 	                    	last=(${start + 9 < couponUserId.totalPages ? start + 9 : couponUserId.totalPages})">
 
 						<li th:class="${couponUserId.first} ? 'disabled'">
@@ -50,8 +50,7 @@
 
 						<li th:each="page : ${#numbers.sequence(start, last)}"
 							th:class="${page == couponUserId.number + 1} ? 'active'">
-							<button name="page" th:value="${page}" th:text="${page}"
-								class="pageBtn"></button>
+							<button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}" ></button>
 						</li>
 
 						<li th:class="${couponUserId.last} ? 'disabled'">

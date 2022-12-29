@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div class="row">
-		<div class="menuItem">
+		<div class="menuItem" >
 			<br />
 			<div>
 				<h2 align="center">나의 낙찰 내역</h2>
@@ -52,7 +52,7 @@
 				<div>
 					<nav class="customNav">
 						<ul class="customPagination"
-							th:with="start=${(1-(waiting.number%1))%1 + 1},
+							  th:with="start=${(waiting.number/10)*10 + 1},
 	                    	last=(${start + 9 < waiting.totalPages ? start + 9 : waiting.totalPages})">
 
 							<li th:class="${waiting.first} ? 'disabled'">
@@ -65,8 +65,7 @@
 
 							<li th:each="page : ${#numbers.sequence(start, last)}"
 								th:class="${page == waiting.number + 1} ? 'active'">
-								<button name="page" th:value="${page}" th:text="${page}"
-									class="pageBtn"></button>
+								<button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}"></button>
 							</li>
 
 							<li th:class="${waiting.last} ? 'disabled'">
@@ -81,7 +80,6 @@
 						</ul>
 					</nav>
 				</div>
-
 			</div>
 
 		</div>

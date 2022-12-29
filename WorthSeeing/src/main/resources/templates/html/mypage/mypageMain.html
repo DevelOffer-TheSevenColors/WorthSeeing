@@ -189,7 +189,7 @@
 							<div>
 								<nav class="customNav">
 									<ul class="customPagination"
-										th:with="start=${(1-(BlockGroupUserId.number%1))%1 + 1},
+										th:with="start=${(BlockGroupUserId.number/10)*10 + 1},
 	                    	last=(${start + 9 < BlockGroupUserId.totalPages ? start + 9 : BlockGroupUserId.totalPages})">
 
 										<li th:class="${BlockGroupUserId.first} ? 'disabled'">
@@ -203,8 +203,7 @@
 
 										<li th:each="page : ${#numbers.sequence(start, last)}"
 											th:class="${page == BlockGroupUserId.number + 1} ? 'active'">
-											<button name="page" th:value="${page}" th:text="${page}"
-												class="pageBtn"></button>
+											<button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}" ></button>
 										</li>
 
 										<li th:class="${BlockGroupUserId.last} ? 'disabled'">
