@@ -13,28 +13,17 @@
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-
-				<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
-					<input type="button" value="공지글쓰기"
-						onclick="location.href='/notify/insertNotify'"
-						class="btn btn-primary rounded submit p-2" />
-				</div>
-				<div sec:authorize="hasRole('ROLE_USER')">
-					<input type="button" value="1:1문의글 쓰기"
-						onclick="location.href='/notify/insertContact'"
-						class="btn btn-primary rounded submit p-2" />
-				</div>
+				<form style="display: inline;" th:action="@{/notify}" method="post">
+					<select name="status">
+						<option value="1">전체</option>
+						<option value="2">공지</option>
+						<option value="4">1:1 문의</option>
+					</select> <input type="button" value="검색"
+						class="btn btn-primary rounded submit p-1" />
+				</form>
 
 				<div th:if="${!notifyList.empty}">
 					<div id="content">
-						<form th:action="@{/notify}" method="post">
-							<select name="status">
-								<option value="1">전체</option>
-								<option value="2">공지</option>
-								<option value="4">1:1 문의</option>
-							</select> <input type="button" value="검색"
-								class="btn btn-primary rounded submit p-1" />
-						</form>
 
 						<table class="customBoard">
 							<thead>
@@ -117,7 +106,19 @@
 						</tbody>
 					</table>
 				</div>
-
+				<br />
+				<div style="text-align: right;">
+					<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
+						<input type="button" value="공지글쓰기"
+							onclick="location.href='/notify/insertNotify'"
+							class="btn btn-primary rounded submit p-2" />
+					</div>
+					<div style="display: inline;" sec:authorize="hasRole('ROLE_USER')">
+						<input type="button" value="1:1문의글 쓰기"
+							onclick="location.href='/notify/insertContact'"
+							class="btn btn-primary rounded submit p-2" />
+					</div>
+				</div>
 			</div>
 		</div>
 
