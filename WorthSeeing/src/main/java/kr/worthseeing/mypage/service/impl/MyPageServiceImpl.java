@@ -335,10 +335,10 @@ public class MyPageServiceImpl implements MyPageService {
 			blockWaiting.setStatus(status);
 			blockGroupWaitingRepo.save(blockWaiting);
 		}
-		auctionRepo.deleteAll();
-		reservationUsersRepo.deleteAll();
-		reservationRepo.deleteAll();
-		blockGroupWaitingRepo.deleteBlockGroupWaiting();
+//		auctionRepo.deleteAll();
+//		reservationUsersRepo.deleteAll();
+//		reservationRepo.deleteAll();
+//		blockGroupWaitingRepo.deleteBlockGroupWaiting();
 		
 	}
 }
