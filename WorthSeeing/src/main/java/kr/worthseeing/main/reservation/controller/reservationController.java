@@ -91,7 +91,6 @@ public class reservationController {
 	      return "/common/messageRedirect";
 	   }
 	
-	// 10프로 결제하기 버튼 클릭 시
 	@GetMapping("/deleteReservation")
 	private String deleteReservation(Reservation reservation, @AuthenticationPrincipal SecurityUser principal,
 			ReservationUsers reservationUsers) {
