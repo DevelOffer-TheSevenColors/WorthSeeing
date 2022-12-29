@@ -200,7 +200,7 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId, int status_seq, Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-		pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "endDate");
+		pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "endDate");
 
 		return blockGroupWaitingRepo.selectBlockGroupWaiting(userId, pageable);
 
