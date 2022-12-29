@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.worthseeing.block.entity.Block;
 import kr.worthseeing.block.service.BlockService;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
-import kr.worthseeing.blockgroup.entity.BlockGroup;
 import kr.worthseeing.main.auction.entity.Auction;
 import kr.worthseeing.main.auction.service.AuctionService;
 import kr.worthseeing.main.reservation.entity.Reservation;
@@ -161,7 +160,6 @@ public class AuctionController {
 
 		Page<Block> alwaysList = auctionService.selectAlwaysBuyList(pageable);
 
-//		List<BlockGroup>  awlaysListNoPage  = auctionService.selectAlwaysBuyListNoPage();
 
 		int nowPage = alwaysList.getPageable().getPageNumber();
 
@@ -169,7 +167,6 @@ public class AuctionController {
 		model.addAttribute("alwaysPriceList", auctionService.selectAlwaysBuyListPrice());
 
 		model.addAttribute("nowPage", nowPage);
-//			model.addAttribute("alwaysListNoPage",awlaysListNoPage);
 
 		return "/auction/alwaysBuyList";
 	}

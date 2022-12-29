@@ -33,6 +33,7 @@ public class NotifyController {
 	public String getList(@PageableDefault Pageable pageable, Model model, String status) {
 
 		model.addAttribute("notifyList", notifyService.getListNotify(pageable, status));
+		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 
 		return "/notify/notify";
 	}
@@ -49,12 +50,12 @@ public class NotifyController {
 		return "/notify/insertContact";
 	}
 
-	// 관리자가 공지글 등록하기 
+	// 관리자가 공지글 등록하기
 	@PostMapping("/notify/insertNotifyProc")
 	public String insertNotifyProc(Notify notify, @AuthenticationPrincipal SecurityUser principal) {
 		notifyService.insertNotify(notify, principal.getUsers());
 		return "redirect:/notify";
-	} 
+	}
 
 	// 사용자가 문의하기 글 등록하기
 	@PostMapping("/notify/insertContactProc")
@@ -69,29 +70,26 @@ public class NotifyController {
 			Pageable pageable) {
 		Users users = new Users();
 		users.setUserId(principal.getUsers().getUserId());
-		notify.setUsers(users);	
+		notify.setUsers(users);
 		model.addAttribute("users", principal.getUsers());
 		model.addAttribute("notify", notifyService.getContact(notify));
 		model.addAttribute("status_seq", notifyService.getContact(notify).getStatus().getStatus_seq());
 		model.addAttribute("replyList", replyService.listReply(notify, pageable));
-		
-		System.out.println("@@n==>" + notifyService.getContact(notify));
-		System.out.println("@@p==>" + principal.getUsers());
 
-		return "/notify/getContact"; 
+
+		return "/notify/getContact";
 	}
 
 	// 제목 클릭 시
 	@RequestMapping("/notify/getDetail")
 	public String getDetail(Notify notify, Status status, Model model,
 			@AuthenticationPrincipal SecurityUser principal) {
-		
-		System.out.println("@@@-->>" + principal.getUsers().getRole());
+
 		notifyService.insertNotifyCnt(notify);
-		
+
 		model.addAttribute("notify", notifyService.getContact(notify));
 		model.addAttribute("users", principal.getUsers());
-		
+
 		if (status.getStatus_seq() == 4) {
 
 			return "forward:/notify/getContact";
