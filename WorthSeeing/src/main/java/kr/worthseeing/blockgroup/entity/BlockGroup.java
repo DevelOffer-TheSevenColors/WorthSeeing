@@ -50,6 +50,8 @@ public class BlockGroup {
 	private int height = 0;
 	private int minBlockSeq;
  
+	private String blockNumber;
+	
 	@OneToMany(mappedBy = "blockGroup")
 	private List<Block> blockList = new ArrayList<Block>();
 

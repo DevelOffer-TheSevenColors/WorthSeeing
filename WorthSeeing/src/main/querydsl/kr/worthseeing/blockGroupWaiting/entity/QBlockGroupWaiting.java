@@ -28,6 +28,8 @@ public class QBlockGroupWaiting extends EntityPathBase<BlockGroupWaiting> {
 
     public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);
 
+    public final StringPath blockNumber = createString("blockNumber");
+
     public final StringPath cImg = createString("cImg");
 
     public final NumberPath<Integer> clickCnt = createNumber("clickCnt", Integer.class);
