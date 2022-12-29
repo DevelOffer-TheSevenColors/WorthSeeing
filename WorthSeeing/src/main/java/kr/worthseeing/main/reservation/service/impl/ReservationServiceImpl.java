@@ -169,6 +169,7 @@ public class ReservationServiceImpl implements ReservationService {
 			for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockGroupWaitingSeq))) {
 				System.out.println(" 뒤졌냐?" + block.getBlock_seq());
 				blockRepo.updateBlock_GroupWaitingSeq(block.getBlock_seq());
+				blockRepo.updateBlock_StatusSeq(block.getBlock_seq());
 			}
 			System.out.println("@@@@됌!!");
 			blockGroupWaitingRepo.deleteById(blockGroupWaitingSeq);
