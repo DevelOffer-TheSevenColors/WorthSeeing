@@ -65,7 +65,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private PointLogRepository pointLogRepo;
-	
+
 	@Autowired
 	private BlockRepository blockRepo;
 
@@ -279,19 +279,19 @@ public class MyPageServiceImpl implements MyPageService {
 			couponRepo.save(newCoupon);
 		}
 	}
-	
+
 	@Override
 	public void startService() {
-		
-		for(BlockGroupWaiting blockWaiting : blockGroupWaitingRepo.findAll()) {
-			if(blockWaiting.getStatus().getStatus_seq()==17) {
+
+		for (BlockGroupWaiting blockWaiting : blockGroupWaitingRepo.findAll()) {
+			if (blockWaiting.getStatus().getStatus_seq() == 17) {
 				BlockGroup blockGroup = new BlockGroup();
 				blockGroup.setCImg(blockWaiting.getCImg());
-				
-				 Date date = new Date();
-				 
-				 LocalDate localDate = new java.sql.Date(blockWaiting.getEndDate().getTime()).toLocalDate();  // java.sql.Date -> LocalDate
-				 
+
+				System.out.println("safasfsaf@@11" + blockWaiting);
+
+				LocalDate localDate = new java.sql.Date(blockWaiting.getEndDate().getTime()).toLocalDate(); // java.sql.Date
+				System.out.println("safasfsaf@@22" + blockWaiting);
 				blockGroup.setEndDate(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				blockGroup.setLinkUrl(blockWaiting.getLinkUrl());
 				blockGroup.setPrice(blockWaiting.getPrice());
@@ -302,18 +302,27 @@ public class MyPageServiceImpl implements MyPageService {
 				blockGroup.setMinBlockSeq(blockWaiting.getMinBlockSeq());
 				blockGroup.setHeight(blockWaiting.getHeight());
 				blockGroup.setWidth(blockWaiting.getWidth());
+				System.out.println("safasfsaf@@33" + blockWaiting);
 				blockGroupRepo.save(blockGroup);
-				
-				Pageable pageable = PageRequest.of(0, 1, Sort.Direction.DESC, "block_group_seq");
-				
+				System.out.println("safasfsaf@@44" + blockWaiting);
+				Pageable pageable = PageRequest.of(0, 1, Sort.Direction.DESC, "blockGroup_seq");
+				System.out.println("fEWEFAWF3W@@@" + blockGroupRepo.listBlockGroup(pageable).getContent());
 				BlockGroup blockGroup_ = blockGroupRepo.listBlockGroup(pageable).getContent().get(0);
-				
-				for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockWaiting.getBlockGroupWaiting_seq()))) {
+				System.out.println("asdwqf@@@@asd@" + blockGroup_);
+				for (Block block : blockRepo
+						.findAuctionBlock(String.valueOf(blockWaiting.getBlockGroupWaiting_seq()))) {
+					BlockGroupWaiting blockGroupwait = new BlockGroupWaiting();
+					blockGroupwait.setBlockGroupWaiting_seq(1);
 					block.setBlockGroup(blockGroup_);
+					block.setBlockGroupWaiting(blockGroupwait);
 					blockRepo.save(block);
 				}
 			}
+			Status status = new Status();
+			status.setStatus_seq(13);
+			blockWaiting.setStatus(status);
+			blockGroupWaitingRepo.save(blockWaiting);
 		}
-		
+
 	}
 }

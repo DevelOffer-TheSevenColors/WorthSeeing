@@ -43,7 +43,7 @@ public interface BlockGroupWaitingRepository  extends CrudRepository<BlockGroupW
 	@Query("select b from BlockGroupWaiting b order by b.blockGroupWaiting_seq")
 	List<BlockGroupWaiting> orderByBlockGroupWaitingSeq();
 
-	@Query("DELETE FROM BlockGroupWaiting b Where price = 0")
+	@Query("DELETE FROM BlockGroupWaiting b Where block_group_waiting_seq != 1")
 	@Modifying
 	@Transactional
 	void deleteBlockGroupWaiting();

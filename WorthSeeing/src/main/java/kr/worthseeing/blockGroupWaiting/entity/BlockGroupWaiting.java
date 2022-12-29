@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,11 +22,14 @@ import kr.worthseeing.refund.entity.Refund;
 import kr.worthseeing.status.entity.Status;
 import kr.worthseeing.users.entity.Users;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
 @ToString(exclude = { "blockList", "status" })
 @NoArgsConstructor
 public class BlockGroupWaiting {
@@ -63,7 +67,7 @@ public class BlockGroupWaiting {
 	@Column
 	private Date groupDate = new Date();
 
-	@OneToOne(mappedBy = "blockGroupWaiting")
+	@OneToOne(mappedBy = "blockGroupWaiting", cascade = CascadeType.ALL)
 	private Reservation reservation;
 
 	@OneToMany(mappedBy = "blockGroupWaiting")

@@ -3,6 +3,7 @@ package kr.worthseeing.main.reservation.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +16,14 @@ import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.main.auction.entity.Auction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = {"auctionList", "reservationUsersList", "blockGroupWaiting"})
@@ -34,10 +38,10 @@ public class Reservation {
 	@Column(columnDefinition = "number default 0")
 	private int userCnt;
 
-	@OneToMany(mappedBy = "reservation")
+	@OneToMany(mappedBy = "reservation",cascade = CascadeType.ALL)
 	private List<Auction> auctionList = new ArrayList<Auction>();
 
-	@OneToMany(mappedBy = "reservation")
+	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL )
 	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
 
 	@OneToOne
