@@ -4,13 +4,14 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragments/header :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
 
 <body>
 
 
-<script>
+	<script>
 // function ChangeValue(){
 //  var month=document.getElementById('month');
 
@@ -40,7 +41,7 @@ $(document).ready(function() {
 		
 		
 		
-	$("#dayDate").text(calc+"일");
+	$("#dayDate").text(calc+"�씪");
 	$("#monthPrice").text(covert);
 	$("#result_pnt").text(covert);
 	$("#inputprice").val(calcPrice);
@@ -75,95 +76,106 @@ $(document).ready(function() {
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-<p class="textcenter2"  >상시판매 결제하기</p>
-	<div><a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a></div><br />
-<form th:action="@{/updateAlwaysCredit}" method="post">
+				<div class="text-center mb-3 pb-3">
+					<h6 class="text-primary text-uppercase"
+						style="letter-spacing: 5px;">Credit</h6>
+					<h1>Credit Do it</h1>
+				</div>
+				<div>
+					<a href="javascript:window.history.back();">&lt;<strong>돌아가기</strong></a>
+				</div>
+				<br />
+				<form th:action="@{/updateAlwaysCredit}" method="post">
 					<table class="customBoard">
-						<thead >
+						<thead>
 							<tr>
-								<th colspan="2" >결제 예정 금액</th>
+								<th colspan="2">寃곗젣 �삁�젙 湲덉븸</th>
 							</tr>
-							
+
 						</thead>
 
-						<tbody  th:each="blockGroup, state : ${blockGroup}">
-					
+						<tbody th:each="blockGroup, state : ${blockGroup}">
+
 							<tr>
-								<td>구매 할 블록</td>
+								<td>선택한 블록</td>
 								<td th:text="${blockGroup.Block_seq}"></td>
 							</tr>
 							<tr>
-								<td>사용가능 일 수 </td>
+								<td>현재날짜</td>
 								<td id="dayDate" text=""></td>
 							</tr>
 
 							<tr>
-								<td> 지불 예정 금액</td>
+								<td>가격</td>
 								<td id="monthPrice" th:text="${blockGroup.blockPrice}"></td>
 							</tr>
-							
+
 							<tr>
-								<td>사용가능 포인트</td>
-								<td><span  id="point2" th:text="${users.point}" ></span><span>p</span> 
-									<span>
-									<input type="checkbox" id="chk_use" 
-											onclick="chkPoint()">포인트전체사용</span>
-									 
-									 
-								</td>
+								<td>포인트</td>
+								<td><span id="point2" th:text="${users.point}"></span><span>p</span>
+									<span> <input type="checkbox" id="chk_use"
+										onclick="chkPoint()">point
+								</span></td>
 							</tr>
-							
+
 							<tr>
-								<td> 100p단위로 사용 가능합니다.</td>
-								<td>
-									 <span> <input type="number" name="use_pnt" id="use_pnt" min="0" step="500" th:max="${users.point}"   ></span> p 
-       								 <span> ( 남은포인트 : </span><span th:name="point" id="point" th:text="${users.point}" ></span>p )
-       								  <input type="hidden" th:name="status_seq" th:value="10">
-       								  <input type="hidden" th:name="block_seq" th:value="${blockGroup.block_seq}">
-       								 <input type="hidden" th:name="point"  id="inputPoint" th:value="${users.point}">
-       								 <input type="hidden" th:name="userId" th:value="${users.userId}">
-       								 <input type="hidden" th:name="price" id="inputprice"   th:value="${blockGroup.blockPrice}">
-       								 
-								</td>
-							
+								<td>100p�떒�쐞濡� �궗�슜 媛��뒫�빀�땲�떎.</td>
+								<td><span> <input type="number" name="use_pnt"
+										id="use_pnt" min="0" step="500" th:max="${users.point}"></span>
+									p <span> ( �궓���룷�씤�듃 : </span><span th:name="point" id="point"
+									th:text="${users.point}"></span>p ) <input type="hidden"
+									th:name="status_seq" th:value="10"> <input
+									type="hidden" th:name="block_seq"
+									th:value="${blockGroup.block_seq}"> <input
+									type="hidden" th:name="point" id="inputPoint"
+									th:value="${users.point}"> <input type="hidden"
+									th:name="userId" th:value="${users.userId}"> <input
+									type="hidden" th:name="price" id="inputprice"
+									th:value="${blockGroup.blockPrice}"></td>
+
 							</tr>
 							<tr>
 								<td>
-<!-- 								<select  id="month" name="month" class="month" > -->
-<!-- 											<option  id="month1" th:name="month" value="1">1개월</option> -->
-<!-- 											<option   id="month2" th:name="month" value="2">2개월</option> -->
-<!-- 											<option   id = "month3" th:name="month" value="3">3개월</option> -->
-<!-- 								</select> -->
+									<!-- 								<select  id="month" name="month" class="month" > -->
+									<!-- 											<option  id="month1" th:name="month" value="1">1媛쒖썡</option> -->
+									<!-- 											<option   id="month2" th:name="month" value="2">2媛쒖썡</option> -->
+									<!-- 											<option   id = "month3" th:name="month" value="3">3媛쒖썡</option> -->
+									<!-- 								</select> -->
 								</td>
 								<td>
-									<p class="bold txt_red"> 최종 결제 금액 : <span class="bold txt_red" th:name="price"  id="result_pnt" th:text="${blockGroup.blockPrice}"  ></span> 원</p>
+									<p class="bold txt_red">
+										理쒖쥌 寃곗젣 湲덉븸 : <span class="bold txt_red" th:name="price"
+											id="result_pnt" th:text="${blockGroup.blockPrice}"></span>
+										�썝
+									</p>
 								</td>
-							
+
 							</tr>
-							
-							
-						
-							
+
+
+
+
 							<tr>
-								<td>결제수단</td>
+								<td>寃곗젣�닔�떒</td>
 								<td><div>
-										<label><input type="radio" name="fruit" value="삼성페이">삼성페이</label>
-										<label><input type="radio" name="fruit" value="카카오페이">
-											카카오페이</label> <label><input type="radio" name="fruit"
-											value="애플페이"> 애플페이</label>
+										<label><input type="radio" name="fruit"
+											value="�궪�꽦�럹�씠">�궪�꽦�럹�씠</label> <label><input
+											type="radio" name="fruit" value="移댁뭅�삤�럹�씠">
+											移댁뭅�삤�럹�씠</label> <label><input type="radio" name="fruit"
+											value="�븷�뵆�럹�씠"> �븷�뵆�럹�씠</label>
 									</div></td>
 							</tr>
-							
+
 							<tr>
-								<td colspan="2"><input type="submit" value="결제하기"
+								<td colspan="2"><input type="submit" value="寃곗젣�븯湲�"
 									class="btpay2"></td>
 							</tr>
-							
+
 						</tbody>
 
 					</table>
 				</form>
-				​ <br> <br> <br> ​
+				�� <br> <br> <br> ��
 
 			</div>
 		</div>

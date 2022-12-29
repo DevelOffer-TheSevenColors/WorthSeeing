@@ -10,7 +10,11 @@
 <body>
 	<div>
 		<th:block th:replace="/fragments/header :: TopbarFragment"></th:block>
-		<div class="container-fluid py-5">
+		<div class="container-fluid py-5"><br/><br/>
+			<div class="text-center mb-3 pb-3">
+				<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">focus</h6>
+				<h1>Notify List</h1>
+			</div>
 			<div class="container pt-5 pb-3">
 				<form style="display: inline;" th:action="@{/notify}" method="post">
 					<select name="status">
