@@ -39,8 +39,8 @@ public class reservationController {
 	@RequestMapping("/reservationList")
 	private String selectauctonList(Model model, Reservation reservation, @PageableDefault Pageable pageable) {
 		model.addAttribute("reservationList", reservationservice.selectReservation(pageable));
-		// model.addAttribute("auctionFlag",reservationservice.auctionStartYes());
-		model.addAttribute("endAuction",reservationservice.myBlockGroupWaitingYN());
+		model.addAttribute("reservationStart",reservationservice.myBlockGroupWaitingYN());
+		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 		return "/reservation/reservationList";
 	}
 

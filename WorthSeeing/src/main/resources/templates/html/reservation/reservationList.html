@@ -17,98 +17,97 @@
 			<div class="container pt-5 pb-3">
 
 
-	<!-- 		<div th:if="${auctionFlag == 'yes'}" >
-		 -->	
-				<p class="textcenter2"  >예약 가능 목록</p>
-				
-				<table class="customBoard">
+				<!-- 		<div th:if="${auctionFlag == 'yes'}" >
+		 -->
+				<p class="textcenter2">예약 가능 목록</p>
+				<div th:if="${reservationStart == 'yes'}">
+					<table class="customBoard">
 
-					<thead>
-						<tr>
-							<th>블록 번호</th>
-							<th>경매 시작가격</th>
-							<th>예약 인원</th>
-							<th>예약 하러 가기</th>
+						<thead>
+							<tr>
+								<th>블록 번호</th>
+								<th>경매 시작가격</th>
+								<th>예약 인원</th>
+								<th>예약 하러 가기</th>
 
-						</tr>
-					</thead>
-					<tbody th:if="${endAuction == 'yes'}">
-						<tr th:each="reservation, state : ${reservationList}">
-							<td th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
-							<td th:text="${#numbers.formatInteger(reservation.startPrice, 0, 'COMMA')}"></td>
-							<td th:text="${reservation.userCnt}"></td>
-							<td><a
-								th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
-						</tr>
-						<!-- @{/board/getBoard(seq=${board.seq})} -->
-					</tbody>
-				</table>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="reservation, state : ${reservationList}">
+								<td
+									th:text="${reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
+								<td
+									th:text="${#numbers.formatInteger(reservation.startPrice, 0, 'COMMA')}"></td>
+								<td th:text="${reservation.userCnt}"></td>
+								<td><a
+									th:href="@{/reservation/reservationCredit(reservation_seq=${reservation.reservation_seq})}">예약하기</a></td>
+							</tr>
+							<!-- @{/board/getBoard(seq=${board.seq})} -->
+						</tbody>
+					</table>
 
-				<form th:action="@{/reservation/reservationList}" method="post">
-					<div>
-						<nav class="customNav">
-							<ul class="customPagination"
-								th:with="start=${(1-(reservationList.number%1))%1 + 1},
+					<form th:action="@{/reservation/reservationList}" method="post">
+						<div>
+							<nav class="customNav">
+								<ul class="customPagination"
+									th:with="start=${(1-(reservationList.number%1))%1 + 1},
 	                    	last=(${start + 9 < reservationList.totalPages ? start + 9 : reservationList.totalPages})">
 
-								<li th:class="${reservationList.first} ? 'disabled'">
-									<button name="page" value="1">First</button>
-								</li>
+									<li th:class="${reservationList.first} ? 'disabled'">
+										<button name="page" value="1">First</button>
+									</li>
 
-								<li th:class="${reservationList.first} ? 'disabled'">
-									<button name="page" th:value="${reservationList.number}">&lt;</button>
-								</li>
+									<li th:class="${reservationList.first} ? 'disabled'">
+										<button name="page" th:value="${reservationList.number}">&lt;</button>
+									</li>
 
-								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == reservationList.number + 1} ? 'active'">
-									<button name="page" th:value="${page}" th:text="${page}"></button>
-								</li>
+									<li th:each="page : ${#numbers.sequence(start, last)}"
+										th:class="${page == reservationList.number + 1} ? 'active'">
+										<button th:if="${page==(nowPage+1)}" style="background: gray"
+											name="page" th:value="${page}" th:text="${page}"></button>
+									</li>
 
-								<li th:class="${reservationList.last} ? 'disabled'">
-									<button name="page" th:value="${reservationList.number + 2}">&gt;</button>
-								</li>
+									<li th:class="${reservationList.last} ? 'disabled'">
+										<button name="page" th:value="${reservationList.number + 2}">&gt;</button>
+									</li>
 
-								<li th:class="${reservationList.last} ? 'disabled'">
-									<button name="page" th:value="${reservationList.totalPages}">Last</button>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</form>
-			
+									<li th:class="${reservationList.last} ? 'disabled'">
+										<button name="page" th:value="${reservationList.totalPages}">Last</button>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</form>
+
+				</div>
+				<div th:if="${reservationStart == 'no'}">
+					<table class="customBoard">
+
+						<thead>
+							<tr>
+								<th>블록 번호</th>
+								<th>경매 시작가격</th>
+								<th>예약 인원</th>
+								<th>블록 클릭 수</th>
+								<th>예약 하러 가기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="5">
+									<p class="textcenter2">가능한 예약 없음</p>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			
-			<!-- 
-			<div th:if="${auctionFlag == 'no'}" >
-				<table class="customBoard">
-
-					<thead>
-						<tr>
-							<th>블록 번호</th>
-							<th>경매 시작가격</th>
-							<th>예약 인원</th>
-							<th>블록 클릭 수</th>
-							<th>예약 하러 가기</th>
-						</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td colspan="5">
-								<p class="textcenter2" >가능한 예약 없음</p>
-						</td>
-						
-					</tr>
-					</tbody>
-				</table>
-			</div>
-			
 
 
-			</div>
- -->
+
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
-
 </body>
 </html>

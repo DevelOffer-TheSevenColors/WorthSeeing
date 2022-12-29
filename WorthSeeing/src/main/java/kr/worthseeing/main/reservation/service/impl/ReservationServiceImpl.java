@@ -170,16 +170,6 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		
 	}
-
-//	@Override
-//	public String auctionStartYes() {
-//		String flag = "yes";
-//		if (auctionRepo.findAll().iterator().hasNext()) {
-//			flag = "no";
-//		}
-//
-//		return flag;
-//	}
 	
 	@Override
 	public String myBlockGroupWaitingYN() {
