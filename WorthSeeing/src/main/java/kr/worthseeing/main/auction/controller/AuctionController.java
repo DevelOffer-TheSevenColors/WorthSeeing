@@ -160,8 +160,7 @@ public class AuctionController {
 	public String selectAlwaysBuyList(Model model, @PageableDefault Pageable pageable) {
 
 		Page<Block> alwaysList = auctionService.selectAlwaysBuyList(pageable);
-
-
+		
 		int nowPage = alwaysList.getPageable().getPageNumber();
 
 		model.addAttribute("alwaysList", alwaysList);

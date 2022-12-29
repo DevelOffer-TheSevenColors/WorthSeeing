@@ -10,7 +10,7 @@
 
 <body>
 
-<script>
+	<script>
 
 
 $(document).ready(function() {
@@ -48,68 +48,95 @@ $(document).ready(function() {
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 				<p class="textcenter2">블록 상시판매</p>
+				<div th:if="${!alwaysList.empty}">
+					<table class="customBoard">
 
-				<table class="customBoard">
-
-					<thead>
-						<tr>
-							<th>No.</th>
-							<th>블록 번호</th>
-							<th>현재 가격</th>
-							<th>구매하러 가기</th>
-
-						</tr>
-					</thead>
-					
-					<tbody th:each="blockGroup, state : ${alwaysList}">
-					
-						<form th:action="@{/alwaysBuyCreditView}" method="post">
+						<thead>
 							<tr>
-								<td th:text="${(nowPage*10) + state.count}"></td>
-								<td th:text="${blockGroup.Block_seq}"></td>
-								<td  th:id="calcprice + ${(nowPage * 10) + state.count}" th:name="price" th:text="${blockGroup.blockPrice}" th:value="${blockGroup.blockPrice}"></td>
-								<td><input type="hidden" th:name="block_seq" th:value="${blockGroup.block_seq}" /> 
-								<input type="submit" value="구매하러가기" /></td>
+								<th>No.</th>
+								<th>블록 번호</th>
+								<th>현재 가격</th>
+								<th>구매하러 가기</th>
+
 							</tr>
-						</form>
-						
-					</tbody>
-					
-				</table>
-				
-				
-				<form th:action="@{/alwaysBuyList}" method="get">
-					<div>
-						<nav class="customNav"> 
-							<ul class="customPagination"
-								th:with="start=${(alwaysList.number/10)*10 + 1},
+						</thead>
+
+						<tbody th:each="blockGroup, state : ${alwaysList}">
+
+							<form th:action="@{/alwaysBuyCreditView}" method="post">
+								<tr>
+									<td th:text="${(nowPage*10) + state.count}"></td>
+									<td th:text="${blockGroup.Block_seq}"></td>
+									<td th:id="calcprice + ${(nowPage * 10) + state.count}"
+										th:name="price" th:text="${blockGroup.blockPrice}"
+										th:value="${blockGroup.blockPrice}"></td>
+									<td><input type="hidden" th:name="block_seq"
+										th:value="${blockGroup.block_seq}" /> <input type="submit"
+										value="구매하러가기" /></td>
+								</tr>
+							</form>
+
+						</tbody>
+
+					</table>
+
+
+					<form th:action="@{/alwaysBuyList}" method="get">
+						<div>
+							<nav class="customNav">
+								<ul class="customPagination"
+									th:with="start=${(alwaysList.number/10)*10 + 1},
 	                    	last=(${start + 9 < alwaysList.totalPages ? start + 9 : alwaysList.totalPages})">
 
-								<li th:class="${alwaysList.first} ? 'disabled'">
-									<button name="page" value="1">First</button>
-								</li>
+									<li th:class="${alwaysList.first} ? 'disabled'">
+										<button name="page" value="1">First</button>
+									</li>
 
-								<li th:class="${alwaysList.first} ? 'disabled'">
-									<button name="page" th:value="${alwaysList.number}">&lt;</button>
-								</li>
- 
-								<li th:each="page : ${#numbers.sequence(start, last)}"
-									th:class="${page == alwaysList.number + 1} ? 'active'">
-									<button th:if="${page==(nowPage+1)}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
-								</li>
+									<li th:class="${alwaysList.first} ? 'disabled'">
+										<button name="page" th:value="${alwaysList.number}">&lt;</button>
+									</li>
 
-								<li th:class="${alwaysList.last} ? 'disabled'">
-									<button name="page" th:value="${alwaysList.number + 2}">&gt;</button>
-								</li>
+									<li th:each="page : ${#numbers.sequence(start, last)}"
+										th:class="${page == alwaysList.number + 1} ? 'active'">
+										<button th:if="${page==(nowPage+1)}" style="background: gray"
+											name="page" th:value="${page}" th:text="${page}"></button>
+									</li>
 
-								<li th:class="${alwaysList.last} ? 'disabled'">
-									<button name="page" th:value="${alwaysList.totalPages}">Last</button>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</form>
-	
+									<li th:class="${alwaysList.last} ? 'disabled'">
+										<button name="page" th:value="${alwaysList.number + 2}">&gt;</button>
+									</li>
+
+									<li th:class="${alwaysList.last} ? 'disabled'">
+										<button name="page" th:value="${alwaysList.totalPages}">Last</button>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</form>
+				</div>
+
+				<div th:if="${alwaysList.empty}">
+					<table class="customBoard">
+
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>블록 번호</th>
+								<th>현재 가격</th>
+								<th>구매하러 가기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="4">
+									<p class="textcenter2">상시 판매 목록 없음</p>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
 			</div>
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>

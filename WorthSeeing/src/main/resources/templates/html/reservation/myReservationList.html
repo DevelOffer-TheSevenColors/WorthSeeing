@@ -19,9 +19,9 @@
 
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
-			
-			<p class="textcenter2"  >나의 예약 목록</p>
-				<table class="customBoard">
+
+				<p class="textcenter2">나의 예약 목록</p>
+				<table th:if="${!reservationUsersList.empty}" class="customBoard">
 
 					<thead>
 						<tr>
@@ -34,17 +34,43 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="reservationUsers, state : ${reservationUsersList}" >
-							<td th:text="${reservationUsers.reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
-					        <td th:text="${reservationUsers.reservation.startPrice}"></td>
-					        <td th:text="${reservationUsers.reservation.userCnt}"></td>
-					        <td><a th:if="${attendBtn=='yes'}" th:href="@{/reservation/deleteReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
-					        ReservationUsers_seq=${reservationUsers.ReservationUsers_seq})}">예약 취소</a></td>
-					        <td ><a th:if="${attendBtn=='no'}" th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매 참여하기</a></td>
+						<tr th:each="reservationUsers, state : ${reservationUsersList}">
+							<td
+								th:text="${reservationUsers.reservation.blockGroupWaiting.blockGroupWaiting_seq}"></td>
+							<td th:text="${reservationUsers.reservation.startPrice}"></td>
+							<td th:text="${reservationUsers.reservation.userCnt}"></td>
+							<td><a th:if="${attendBtn=='yes'}"
+								th:href="@{/reservation/deleteReservation(reservation_seq=${reservationUsers.reservation.reservation_seq},
+					        ReservationUsers_seq=${reservationUsers.ReservationUsers_seq})}">예약
+									취소</a></td>
+							<td><a th:if="${attendBtn=='no'}"
+								th:href="@{/auction(reservation_seq=${reservationUsers.reservation.reservation_seq})}">경매
+									참여하기</a></td>
 						</tr>
 					</tbody>
 				</table>
+				<div th:if="${reservationUsersList.empty}">
+					<table class="customBoard">
 
+						<thead>
+							<tr>
+								<th>블록 번호</th>
+								<th>경매 시작가격</th>
+								<th>예약 인원</th>
+								<th>예약 취소</th>
+								<th>입찰 하러 가기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="5">
+									<p class="textcenter2">나의 예약 목록 없음</p>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
