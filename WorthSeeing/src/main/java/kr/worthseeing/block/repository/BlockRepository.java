@@ -39,7 +39,7 @@ public interface BlockRepository extends CrudRepository<Block, Integer>, Queryds
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE Block b SET Block_group_Waiting_seq = block_seq WHERE block_seq = ?1")
+	@Query("UPDATE Block b SET block_group_Waiting_seq = 1 WHERE block_seq = ?1")
 	void updateBlock_GroupWaitingSeq(int block_seq);
 	
 	@Query("select b.block_seq from Block b where status_seq = 8 or status_seq = 10 order by block_seq")

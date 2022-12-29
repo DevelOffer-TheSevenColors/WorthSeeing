@@ -159,14 +159,19 @@ public class ReservationServiceImpl implements ReservationService {
 			
 			reservationUsersRepo.delete(reservationUsers2);
 		}
-		int blockGroupSeq = reservationRepo.findById(reservation.getReservation_seq()).get().getBlockGroupWaiting().getBlockGroupWaiting_seq();
-		System.out.println("@@==>>>>" + blockGroupSeq);
+		int blockGroupWaitingSeq = reservationRepo.findById(reservation.getReservation_seq()).get().getBlockGroupWaiting().getBlockGroupWaiting_seq();
+		System.out.println("@@==>>>>" + blockGroupWaitingSeq);
 		if(reservationRepo.findById(reservation.getReservation_seq()).get().getUserCnt() ==0) {
+			System.out.println("@@???요가?");
 			reservationRepo.deleteById(reservation.getReservation_seq());
-			for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockGroupSeq))) {
+			System.out.println("@@???여기");
+			System.out.println("asdasd"+blockGroupWaitingSeq);
+			for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockGroupWaitingSeq))) {
+				System.out.println(" 뒤졌냐?" + block.getBlock_seq());
 				blockRepo.updateBlock_GroupWaitingSeq(block.getBlock_seq());
 			}
-			blockGroupWaitingRepo.deleteById(blockGroupSeq);
+			System.out.println("@@@@됌!!");
+			blockGroupWaitingRepo.deleteById(blockGroupWaitingSeq);
 		}
 		
 	}
