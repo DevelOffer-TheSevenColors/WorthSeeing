@@ -1,5 +1,6 @@
 package kr.worthseeing.users.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,9 @@ import lombok.ToString;
 @ToString(exclude = {"blockGroupList", "notifyList", "couponList", "reservationUsersList","blockGroupWaitingList" })
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class Users implements Serializable {
+	
+	private static final long serialVersionUID = -5714482763426111465L;
 
 	@Id
 	private String userId;
