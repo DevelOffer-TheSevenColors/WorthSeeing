@@ -29,11 +29,6 @@
 
 		// ================ ID 유효성검사 ================ //
 
-		if (!t_RegExp.test(objTel.value)) {
-			alert("01012345678 형식으로 입력해주세요!");
-        	return false;
-  		}
-
 		if (objId.value == '') {
 			alert("아이디를 입력해주세요.");
 			return false;
@@ -95,7 +90,10 @@
 			return false;
 		}
 		
-		
+		if (!t_RegExp.test(objTel.value)) {
+			alert("01012345678 형식으로 입력해주세요!");
+        	return false;
+  		}
 
 	}
 
