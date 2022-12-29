@@ -19,7 +19,7 @@
 				<!-- 				<div class="form-group"> -->
 				<!-- 					<input type="submit" value="수정하기" -->
 				<!-- 						class="btn btn-primary rounded submit p-3" /> -->
-				<!-- 				</div> -->   
+				<!-- 				</div> -->
 
 				<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group">
 					<input type="button" value="공지글쓰기"
@@ -42,34 +42,56 @@
 							class="btn btn-primary rounded submit p-1" />
 					</form>
 
-					<table class="customBoard">
-						<thead>
-							<tr>
-								<th>NO.</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>조회수</th>
-								<th>등록일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="notify, state : ${notifyList}">
-								<td th:text="${(notifyList.number * 10) + state.count}"></td>
-								<td><a
-									th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
-									th:text="${notify.title}"></a></td>
-								<td th:text="${notify.content}"></td>
-								<td th:text="${notify.viewCnt}"></td>
-								<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td>
-							</tr>
-						</tbody>
-					</table>
+					<div th:if="${!notifyList.empty} ">
+						<table class="customBoard">
+							<thead>
+								<tr>
+									<th>NO.</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>등록일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="notify, state : ${notifyList}">
+									<td th:text="${(notifyList.number * 10) + state.count}"></td>
+									<td><a
+										th:href="@{/notify/getDetail(notifySeq=${notify.notifySeq},status_seq=${notify.status.status_seq})}"
+										th:text="${notify.title}"></a></td>
+									<td th:text="${notify.content}"></td>
+									<td th:text="${notify.viewCnt}"></td>
+									<td th:text="${#dates.format(notify.notifyTime, 'yyyy-MM-dd')}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 
-				</div>
+					<div th:if="${notifyList.empty}">
+						<table class="customBoard">
+							<thead>
+								<tr>
+									<th>NO.</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>등록일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="5">
+										<p class="textcenter2">가능한 예약 없음</p>
+									</td>
 
-				<!-- Paging -->
-				<form th:action="@{/notify}" method="post">
-					<div>
+								</tr>
+						</table>
+					</div>
+					
+					
+					<!-- Paging -->
+					<form th:if="${!notifyList.empty} " th:action="@{/notify}" method="post">
+
 						<nav class="customNav">
 							<ul class="customPagination"
 								th:with="start=${(notifyList.number/10)*10 + 1},
@@ -85,7 +107,7 @@
 
 								<li th:each="page : ${#numbers.sequence(start, last)}"
 									th:class="${page == notifyList.number + 1} ? 'active'">
-									<button th:if="${page==(nowPage+1)}" style="background: gray" name="page" th:value="${page}" th:text="${page}"></button>
+									<button th:if="${page==(nowPage+1)}" style="background: gray"name="page" th:value="${page}" th:text="${page}"></button>
 								</li>
 
 								<li th:class="${notifyList.last} ? 'disabled'">
@@ -97,14 +119,16 @@
 								</li>
 							</ul>
 						</nav>
-					</div>
-				</form>
-
+					</form>
+				</div>
 			</div>
 		</div>
-
-		<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
 	</div>
+
+
+
+	<th:block th:replace="/fragments/footer :: footerFragment"></th:block>
+
 </body>
 
 </html>
