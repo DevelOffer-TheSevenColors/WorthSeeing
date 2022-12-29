@@ -69,7 +69,7 @@ public class BlockController {
 		System.out.println("firstNum--->" + firstNum);
 		
 		if (blockService.getBlockXY(Integer.parseInt(firstNum), Integer.parseInt(lastNum), principal.getUsers().getUserId()) == null) {
-			MessageDTO message = new MessageDTO("그룹핑 불가능합니다. (10개 초과 or 불가능한 블록 선택)", "/reservation/chooseBlockGroup",
+			MessageDTO message = new MessageDTO("예약 불가능합니다. (10개 초과 or 불가능한 블록 선택)", "/reservation/chooseBlockGroup",
 					RequestMethod.GET, null);
 			return showMessageAndRedirect(message, model);
 		} else {

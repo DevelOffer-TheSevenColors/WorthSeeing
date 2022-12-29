@@ -9547,3 +9547,6 @@ h5, h6, .font-weight-medium {
 .floatleft{
 	float: left;
 }
+.disabled {
+	display: none;
+}

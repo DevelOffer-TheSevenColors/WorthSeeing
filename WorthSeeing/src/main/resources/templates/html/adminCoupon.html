@@ -25,6 +25,11 @@
 					<td th:text="${leftOverCouponCount.get(1)}"></td>
 					<td th:text="${leftOverCouponCount.get(2)}"></td>
 				</tr>
+				<tr>
+					<td><a th:href="@{/addCoupon?price=30000}">쿠폰발급하기</a></td>
+					<td><a th:href="@{/addCoupon?price=50000}">쿠폰발급하기</a></td>
+					<td><a th:href="@{/addCoupon?price=100000}">쿠폰발급하기</a></td>
+				</tr>
 			</table>
 		
 			<br />
@@ -42,7 +47,6 @@
 					<td th:text="${leftOverList.couponSerialNum}"></td>
 				</tr>
 			</table>
-		<a th:href="@{/addCoupon}">쿠폰등록됨?</a>
 					<div>
 						<nav class="customNav">
 							<ul class="customPagination"

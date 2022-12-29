@@ -31,27 +31,27 @@ public class MyPageController {
 	@RequestMapping("/mypageMain")
 	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
 			@PageableDefault Pageable pageable) {
-		
-		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
+
+		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(),
+				pageable);
 
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
 		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 		return "/mypage/mypageMain";
 	}
-	
+
 	@GetMapping("/buyCouponProc")
-	public String buyCouponProc(Model model,@AuthenticationPrincipal SecurityUser principal, String price,Coupon coupon) {
+	public String buyCouponProc(Model model, @AuthenticationPrincipal SecurityUser principal, String price,
+			Coupon coupon) {
 		if (price != null) {
 			myPageService.getUserPoint(principal.getUsers(), price, coupon);
 		}
-		
-		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypageMain",
-	            RequestMethod.GET, null);
 
-	      return showMessageAndRedirect(message, model);
+		MessageDTO message = new MessageDTO("구매가 완료되었습니다!\n포인트사용내역에서 확인해주세요.", "/mypageMain", RequestMethod.GET, null);
+
+		return showMessageAndRedirect(message, model);
 	}
-	
 
 	@GetMapping("/mypageCouponMall")
 	public String getmypageCouponMall(Model model, @AuthenticationPrincipal SecurityUser principal) {
@@ -62,50 +62,48 @@ public class MyPageController {
 	}
 
 	@GetMapping("/mypagePointHistory")
-	public String getlistcoupon(Model model, @AuthenticationPrincipal SecurityUser principal,@PageableDefault Pageable pageable) {
-		Page<Coupon> couponUserId = myPageService.getCouponUserPage(principal.getUsers().getUserId(),pageable);
+	public String getlistcoupon(Model model, @AuthenticationPrincipal SecurityUser principal,
+			@PageableDefault Pageable pageable) {
+		Page<Coupon> couponUserId = myPageService.getCouponUserPage(principal.getUsers().getUserId(), pageable);
 		model.addAttribute("couponUserId", couponUserId);
 		model.addAttribute("users", principal.getUsers());
 		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 
 		return "/mypage/mypagePointHistory";
 	}
-	
+
 	@GetMapping("/leftOverCoupon")
-	public String getcouponcount(Model model,Coupon coupon,@PageableDefault Pageable pageable) {
-		Page<Coupon> leftOverCouponList = myPageService.leftOverCouponPage(coupon,pageable);
+	public String getcouponcount(Model model, Coupon coupon, @PageableDefault Pageable pageable) {
+		Page<Coupon> leftOverCouponList = myPageService.leftOverCouponPage(coupon, pageable);
 		List<Integer> leftOverCouponCount = myPageService.getCouponCount();
-		model.addAttribute("leftOverCouponList",leftOverCouponList);
-		model.addAttribute("leftOverCouponCount",leftOverCouponCount);
+		model.addAttribute("leftOverCouponList", leftOverCouponList);
+		model.addAttribute("leftOverCouponCount", leftOverCouponCount);
 		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 		return "/adminCoupon";
 	}
-	
-	
+
 	@GetMapping("/system/mypageUpdate")
-		public String mypageUpdate(@AuthenticationPrincipal SecurityUser principal, Model model) {
-			model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
-			return "/system/mypageUpdate";
-		}
-	
-	
+	public String mypageUpdate(@AuthenticationPrincipal SecurityUser principal, Model model) {
+		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
+		return "/system/mypageUpdate";
+	}
+
 	@PostMapping("/system/mypageUpdateProc")
 	public String mypageUpdateProc(Users users, Model model) {
 		myPageService.userUpdateProc(users);
 		return "redirect:/main";
 	}
-	
+
 	@RequestMapping("/mypageAuctionHistory")
-	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,@PageableDefault Pageable pageable) {
+	public String getmypageAuctionHistory(Model model, @AuthenticationPrincipal SecurityUser principal, Status status,
+			@PageableDefault Pageable pageable) {
 
-
-		model.addAttribute("waiting",
-				myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(), status.getStatus_seq(),pageable));
+		model.addAttribute("waiting", myPageService.selectBlockGroupWaiting(principal.getUsers().getUserId(),
+				status.getStatus_seq(), pageable));
 		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
 
 		return "/mypage/mypageAuctionHistory";
 	}
-
 
 	@GetMapping("/updatePoint")
 	public String getClick(BlockGroup blockGroup, @AuthenticationPrincipal SecurityUser principal, Model model) {
@@ -126,10 +124,10 @@ public class MyPageController {
 		model.addAttribute("params", params);
 		return "/common/messageRedirect";
 	}
-	
+
 	@GetMapping("/addCoupon")
-	public String getCouponAdd(Coupon coupon) {
-		myPageService.getCouponAdd(coupon);
+	public String getCouponAdd(Coupon coupon, String price) {
+		myPageService.getCouponAdd(coupon, Integer.valueOf(price));
 		return "redirect:/main";
 	}
 

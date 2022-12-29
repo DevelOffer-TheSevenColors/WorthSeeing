@@ -74,8 +74,8 @@ public class BlockServiceImpl implements BlockService {
 			firstNum = lastNum;
 			lastNum = temp;
 		}
-
-		Block blockFirstNum = blockRepo.findById(firstNum).get();
+		
+		Block blockFirstNum = blockRepo.findById(firstNum).get(); // 여기서 No value present 발생 시 blockGroupWaiting 테이블에 users(fk)가 null인지 확인하기
 		Block blockLastNum = blockRepo.findById(lastNum).get();
 
 		int x1 = blockFirstNum.getXLocation();

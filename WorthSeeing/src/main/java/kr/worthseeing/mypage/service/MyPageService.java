@@ -44,6 +44,6 @@ public interface MyPageService {
 	
 	BlockGroupWaiting findBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting);
 	
-	void getCouponAdd(Coupon coupon);
+	void getCouponAdd(Coupon coupon, int price);
 
 }

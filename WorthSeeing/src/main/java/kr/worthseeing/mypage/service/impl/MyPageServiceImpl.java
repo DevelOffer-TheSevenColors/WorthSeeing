@@ -52,13 +52,13 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private AuctionLogRepository auctionLogRepo;
-	
+
 	@Autowired
 	private BlockGroupWaitingRepository blockGroupWaitingRepo;
-	
+
 	@Autowired
 	private CouponLogRepository couponLogRepo;
-	
+
 	@Autowired
 	private PointLogRepository pointLogRepo;
 
@@ -70,7 +70,7 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public String getClick(BlockGroup blockGroup) {
 		BlockGroup findBlockGroup = blockGroupRepo.findById(blockGroup.getBlockGroup_seq()).get();
-		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt()+1);
+		findBlockGroup.setClickCnt(findBlockGroup.getClickCnt() + 1);
 		blockGroupRepo.save(findBlockGroup);
 		return findBlockGroup.getLinkUrl();
 	}
@@ -81,7 +81,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 		findUsers.setPoint(findUsers.getPoint() + 500);
 		findUsers.setDailyClickCheck("완료");
-		
+
 		usersRepo.save(findUsers);
 	}
 
@@ -91,78 +91,78 @@ public class MyPageServiceImpl implements MyPageService {
 		pageable = PageRequest.of(page, 4, Sort.Direction.ASC, "blockGroup_seq");
 		return blockGroupRepo.findByUserId(userId, pageable);
 	}
-	
-	
+
 	public Page<BlockGroupWaiting> getBlockGroupPage(String userId, Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.ASC, "blockGroupWaiting_seq");
-		
-		return blockGroupWaitingRepo.findByUserList(userId,pageable);
+
+		return blockGroupWaitingRepo.findByUserList(userId, pageable);
 	}
-	
 
 	@Override
 	public List<Coupon> getCouponUserId(String userId) {
 		return (List<Coupon>) couponRepo.findByUserId(userId);
 	}
-	
+
 	@Override
-	public Page<Coupon> getCouponUserPage(String userId,Pageable pageable) {
+	public Page<Coupon> getCouponUserPage(String userId, Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "couponUsedDate");
-		
-		return couponRepo.findByUserPage(userId,pageable);
+
+		return couponRepo.findByUserPage(userId, pageable);
 	}
-	
+
 	@Transactional
 	@Override
 	public void getUserPoint(Users users, String price, Coupon coupon) {
 		Users findUsers = usersRepo.findById(users.getUserId()).get();
-        findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
+		findUsers.setPoint(findUsers.getPoint() - Integer.parseInt(price));
 		usersRepo.save(findUsers);
 
-		Coupon findCoupon = couponRepo.findByCoupon(5, Integer.parseInt(price)).get(0); // status가 2인 쿠폰 리스트의 index 0번째 데이터 가져오기
-		
+		Coupon findCoupon = couponRepo.findByCoupon(5, Integer.parseInt(price)).get(0); // status가 2인 쿠폰 리스트의 index 0번째
+																						// 데이터 가져오기
+
 		Status status = new Status();
 		status.setStatus_seq(6);
-		
+
 		findCoupon.setStatus(status);
 		findCoupon.setUsers(findUsers);
-		
+
 		findCoupon.setCouponUsedDate(new Date());
-		
+
 		couponRepo.save(findCoupon);
-		
-		CouponLog couponLog= new CouponLog();
-		
+
+		CouponLog couponLog = new CouponLog();
+
 		couponLog.setCouponPrice(findCoupon.getCouponPrice());
 		couponLog.setCouponSerialNum(findCoupon.getCouponSerialNum());
 		couponLog.setCouponUsedDate(findCoupon.getCouponUsedDate());
 		couponLog.setUserid(users.getUserId());
-		
+
 		couponLogRepo.save(couponLog);
-		
+
 		PointLog pointLog = new PointLog();
-		
+
 		pointLog.setPoint(findUsers.getPoint());
 		pointLog.setPointDate(new Date());
 		pointLog.setUserid(users.getUserId());
-		
+
 	}
+
 //	@Override
 //	public List<Coupon> getleftOverCoupon() {
 //	List<Coupon> leftOverCoupon = couponRepo.findLeftOverCoupon();
 //		return leftOverCoupon;
 //	}
 	@Override
-	public Page<Coupon> leftOverCouponPage(Coupon coupon,Pageable pageable) {
+	public Page<Coupon> leftOverCouponPage(Coupon coupon, Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 10, Sort.Direction.ASC, "couponPrice");
-		
+
 		return couponRepo.findCouponList(pageable);
-		
+
 	}
-	
+
 	@Override
 	public List<Integer> getCouponCount() {
 		List<Integer> cntList = new ArrayList<Integer>();
@@ -181,11 +181,11 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		cntList.add(tenthousandCnt);
 		cntList.add(fiftythousandCnt);
-		cntList.add(hundredthousandCnt); 
+		cntList.add(hundredthousandCnt);
 		System.out.println("cnt===========================>" + cntList);
 		return cntList;
 	}
-	
+
 	@Override
 	public Map<Integer, List<AuctionLog>> getAuctionLogUserId(String userId) {
 		Map<Integer, List<AuctionLog>> auctionLogMap = new HashMap<Integer, List<AuctionLog>>();
@@ -198,83 +198,79 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId,int status_seq,Pageable pageable) {
+	public Page<BlockGroupWaiting> selectBlockGroupWaiting(String userId, int status_seq, Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 		pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "endDate");
-		
-		return blockGroupWaitingRepo.selectBlockGroupWaiting(userId,pageable);
-		
+
+		return blockGroupWaitingRepo.selectBlockGroupWaiting(userId, pageable);
+
 	}
 
 	@Override
 	public BlockGroupWaiting findBlockGroupWaiting(BlockGroupWaiting blockGroupWaiting) {
 		return blockGroupWaitingRepo.findById(blockGroupWaiting.getBlockGroupWaiting_seq()).get();
 	}
-	
-	
+
 	@Override
 	public List<BlockGroup> getListBlockGroup() {
-		
+
 		return (List<BlockGroup>) blockGroupRepo.findAll();
 	}
-	
-	//잔여쿠폰 페이징
-	
-	
-	//회원정보 수정
+
+	// 잔여쿠폰 페이징
+
+	// 회원정보 수정
 	@Override
 	public void userUpdateProc(Users users) {
-		
-		System.out.println("하222"+users);
-		
+
+		System.out.println("하222" + users);
+
 		Users findUser = usersRepo.findById(users.getUserId()).get();
-		
-		
+
 		findUser.setDetailAddress(users.getDetailAddress());
 		findUser.setAddress(users.getAddress());
 		findUser.setTel(users.getTel());
 		findUser.setEmail(users.getEmail());
 		findUser.setNickName(users.getNickName());
-		
+
 		usersRepo.save(findUser);
 	}
-	
-	//쿠폰 등록
-		@Override
-		public void getCouponAdd(Coupon coupon) {
-			Status status = new Status();
-			status.setStatus_seq(5);
-			for (int i = 0; i < 20; i++) {
-				int couponSize = 3;
-				final char[] possibleCharacters = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D',
-						'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-						'Y', 'Z' };
-				final int possibleCharacterCount = possibleCharacters.length;
-				Random rnd = new Random();
-				int currentIndex = 0;
-				int j = 0;
-				String couponnum = "";
-				
-				while (currentIndex < couponSize) {
-					StringBuffer buf = new StringBuffer(16);
-					for (j = 8; j > 0; j--) {
-						buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
-					}
-					couponnum += buf.toString() + "-";
-					currentIndex++;
+
+	// 쿠폰 등록
+	@Override
+	public void getCouponAdd(Coupon coupon, int price) {
+		Status status = new Status();
+		status.setStatus_seq(5);
+		for (int i = 0; i < 20; i++) {
+			int couponSize = 3;
+			final char[] possibleCharacters = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D',
+					'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+					'Y', 'Z' };
+			final int possibleCharacterCount = possibleCharacters.length;
+			Random rnd = new Random();
+			int currentIndex = 0;
+			int j = 0;
+			String couponnum = "";
+
+			while (currentIndex < couponSize) {
+				StringBuffer buf = new StringBuffer(16);
+				for (j = 8; j > 0; j--) {
+					buf.append(possibleCharacters[rnd.nextInt(possibleCharacterCount)]);
 				}
-				
-				couponnum = couponnum.substring(0, couponnum.length() - 1);
-				System.out.println("=====asdf==>" + couponnum);
-				
-				Coupon newCoupon = new Coupon();
-				
-				newCoupon.setStatus(status);
-				newCoupon.setCouponSerialNum(couponnum);
-				newCoupon.setCouponPrice(3000000);
-				couponRepo.save(newCoupon);
+				couponnum += buf.toString() + "-";
+				currentIndex++;
 			}
+
+			couponnum = couponnum.substring(0, couponnum.length() - 1);
+			System.out.println("=====asdf==>" + couponnum);
+
+			Coupon newCoupon = new Coupon();
+
+			newCoupon.setStatus(status);
+			newCoupon.setCouponSerialNum(couponnum);
+			newCoupon.setCouponPrice(price);
+			couponRepo.save(newCoupon);
 		}
-	
-	
+	}
+
 }

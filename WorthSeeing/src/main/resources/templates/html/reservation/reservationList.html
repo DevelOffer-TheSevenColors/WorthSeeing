@@ -52,7 +52,6 @@
 								<ul class="customPagination"
 									th:with="start=${(1-(reservationList.number%1))%1 + 1},
 	                    	last=(${start + 9 < reservationList.totalPages ? start + 9 : reservationList.totalPages})">
-
 									<li th:class="${reservationList.first} ? 'disabled'">
 										<button name="page" value="1">First</button>
 									</li>
