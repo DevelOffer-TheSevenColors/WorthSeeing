@@ -28,16 +28,21 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 
+//	@GetMapping("/mypageMain")
+//	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
+//			@PageableDefault Pageable pageable) {
+//		
+//		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
+//
+//		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
+//		
+//		model.addAttribute("BlockGroupUserId", blockGroupUserId);
+//		System.out.println("controller Users" + myPageService.getUsers(principal.getUsers()));
+//		return "/mypage/mypageMain";
+//	}
+	
 	@GetMapping("/mypageMain")
-	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
-			@PageableDefault Pageable pageable) {
-		
-		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(), pageable);
-
-		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
-		
-		model.addAttribute("BlockGroupUserId", blockGroupUserId);
-		System.out.println("controller Users" + myPageService.getUsers(principal.getUsers()));
+	public String getmypage() {
 		return "/mypage/mypageMain";
 	}
 	
