@@ -20,7 +20,7 @@
 		<div class="container-fluid py-5">
 			<div class="container pt-5 pb-3">
 
-					<div class="text-center mb-3 pb-3">
+				<div class="text-center mb-3 pb-3">
 					<h6 class="text-primary text-uppercase"
 						style="letter-spacing: 5px;">Mine</h6>
 					<h1>My Reservation List</h1>
@@ -74,6 +74,13 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<br/><div style="text-align: right;">
+					<div style="display: inline;" sec:authorize="hasRole('ROLE_USER')">
+						<input type="button" value="입찰가능하게 하는 버튼"
+							onclick="location.href='/notify/insertContact'"
+							class="btn btn-primary rounded submit p-2" />
+					</div>
 				</div>
 			</div>
 		</div>
