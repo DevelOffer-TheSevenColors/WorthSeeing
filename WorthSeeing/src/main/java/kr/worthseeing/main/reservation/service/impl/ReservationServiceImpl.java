@@ -171,6 +171,7 @@ public class ReservationServiceImpl implements ReservationService {
 				blockRepo.updateBlock_GroupWaitingSeq(block.getBlock_seq());
 				blockRepo.updateBlock_StatusSeq(block.getBlock_seq());
 			}
+			
 			System.out.println("@@@@됌!!");
 			blockGroupWaitingRepo.deleteById(blockGroupWaitingSeq);
 		}
