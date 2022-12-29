@@ -29,12 +29,16 @@ public class MyPageController {
 	private MyPageService myPageService;
 
 	@RequestMapping("/mypageMain")
-	public String getmypage(Model model, @AuthenticationPrincipal SecurityUser principal,
+	public String getmypage(Model model, String startService, @AuthenticationPrincipal SecurityUser principal,
 			@PageableDefault Pageable pageable) {
-
+		
+		startService = startService == null ? "" : startService;
+		if(startService.equals("yes")) {
+			myPageService.startService();
+		}
 		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(),
 				pageable);
-
+		
 		model.addAttribute("users", myPageService.getUsers(principal.getUsers()));
 		model.addAttribute("BlockGroupUserId", blockGroupUserId);
 		model.addAttribute("nowPage", pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);

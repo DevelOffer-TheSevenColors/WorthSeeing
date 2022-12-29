@@ -22,8 +22,6 @@ public class QBlockGroup extends EntityPathBase<BlockGroup> {
 
     public static final QBlockGroup blockGroup = new QBlockGroup("blockGroup");
 
-    public final NumberPath<Integer> avgPrice = createNumber("avgPrice", Integer.class);
-
     public final NumberPath<Integer> blockGroup_seq = createNumber("blockGroup_seq", Integer.class);
 
     public final ListPath<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock> blockList = this.<kr.worthseeing.block.entity.Block, kr.worthseeing.block.entity.QBlock>createList("blockList", kr.worthseeing.block.entity.Block.class, kr.worthseeing.block.entity.QBlock.class, PathInits.DIRECT2);

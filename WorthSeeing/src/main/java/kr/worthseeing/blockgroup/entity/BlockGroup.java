@@ -36,7 +36,6 @@ public class BlockGroup {
 
 	@Column(columnDefinition = "number default 0")
 	private int price;
-	private int avgPrice;
 
 	private Date purchaseDay;
 
@@ -72,14 +71,12 @@ public class BlockGroup {
 		this.linkUrl = linkUrl;
 		this.cImg = cImg;
 		this.sImg = sImg;
-		this.avgPrice = avgPrice;
 	}
 	
 	public BlockGroup(String linkUrl, String cImg, String sImg, int avgPrice) {
 		this.linkUrl = linkUrl;
 		this.cImg = cImg;
 		this.sImg = sImg;
-		this.avgPrice = avgPrice;
 	}
 	
 	

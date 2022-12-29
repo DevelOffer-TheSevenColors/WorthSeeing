@@ -1,5 +1,7 @@
 package kr.worthseeing.mypage.service.impl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.worthseeing.block.entity.Block;
+import kr.worthseeing.block.repository.BlockRepository;
 import kr.worthseeing.blockGroupWaiting.entity.BlockGroupWaiting;
 import kr.worthseeing.blockGroupWaiting.repository.BlockGroupWaitingRepository;
 import kr.worthseeing.blockgroup.entity.BlockGroup;
@@ -61,6 +65,9 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private PointLogRepository pointLogRepo;
+	
+	@Autowired
+	private BlockRepository blockRepo;
 
 	@Override
 	public Users getUsers(Users users) {
@@ -272,5 +279,41 @@ public class MyPageServiceImpl implements MyPageService {
 			couponRepo.save(newCoupon);
 		}
 	}
-
+	
+	@Override
+	public void startService() {
+		
+		for(BlockGroupWaiting blockWaiting : blockGroupWaitingRepo.findAll()) {
+			if(blockWaiting.getStatus().getStatus_seq()==17) {
+				BlockGroup blockGroup = new BlockGroup();
+				blockGroup.setCImg(blockWaiting.getCImg());
+				
+				 Date date = new Date();
+				 
+				 LocalDate localDate = new java.sql.Date(blockWaiting.getEndDate().getTime()).toLocalDate();  // java.sql.Date -> LocalDate
+				 
+				blockGroup.setEndDate(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				blockGroup.setLinkUrl(blockWaiting.getLinkUrl());
+				blockGroup.setPrice(blockWaiting.getPrice());
+				blockGroup.setPurchaseDay(blockWaiting.getPurchaseDay());
+				blockGroup.setSImg(blockWaiting.getSImg());
+				blockGroup.setStartDate(blockWaiting.getStartDate());
+				blockGroup.setUsers(blockWaiting.getUsers());
+				blockGroup.setMinBlockSeq(blockWaiting.getMinBlockSeq());
+				blockGroup.setHeight(blockWaiting.getHeight());
+				blockGroup.setWidth(blockWaiting.getWidth());
+				blockGroupRepo.save(blockGroup);
+				
+				Pageable pageable = PageRequest.of(0, 1, Sort.Direction.DESC, "block_group_seq");
+				
+				BlockGroup blockGroup_ = blockGroupRepo.listBlockGroup(pageable).getContent().get(0);
+				
+				for(Block block : blockRepo.findAuctionBlock(String.valueOf(blockWaiting.getBlockGroupWaiting_seq()))) {
+					block.setBlockGroup(blockGroup_);
+					blockRepo.save(block);
+				}
+			}
+		}
+		
+	}
 }

@@ -46,4 +46,5 @@ public interface MyPageService {
 	
 	void getCouponAdd(Coupon coupon, int price);
 
+	public void startService();
 }
