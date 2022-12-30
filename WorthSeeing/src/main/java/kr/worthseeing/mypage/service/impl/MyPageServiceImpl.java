@@ -57,13 +57,13 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private ReservationRepository reservationRepo;
-	
+
 	@Autowired
 	private AuctionRepository auctionRepo;
 
 	@Autowired
 	private AuctionLogRepository auctionLogRepo;
-	
+
 	@Autowired
 	private ReservationUsersRepository reservationUsersRepo;
 
@@ -296,15 +296,17 @@ public class MyPageServiceImpl implements MyPageService {
 		auctionRepo.deleteAll();
 		reservationUsersRepo.deleteAll();
 		for (BlockGroupWaiting blockWaiting : blockGroupWaitingRepo.findAll()) {
-			if (blockWaiting.getStatus().getStatus_seq() == 17) {
+			if (blockWaiting.getBlockGroupWaiting_seq() != 1) {
 				BlockGroup blockGroup = new BlockGroup();
 				blockGroup.setCImg(blockWaiting.getCImg());
 
 				System.out.println("safasfsaf@@11" + blockWaiting);
 
-				LocalDate localDate = new java.sql.Date(blockWaiting.getEndDate().getTime()).toLocalDate(); // java.sql.Date
-				System.out.println("safasfsaf@@22" + blockWaiting);
-				blockGroup.setEndDate(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				if (blockWaiting.getEndDate() != null) {
+					LocalDate localDate = new java.sql.Date(blockWaiting.getEndDate().getTime()).toLocalDate(); // java.sql.Date
+					System.out.println("safasfsaf@@22" + blockWaiting);
+					blockGroup.setEndDate(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				}
 				blockGroup.setLinkUrl(blockWaiting.getLinkUrl());
 				blockGroup.setPrice(blockWaiting.getPrice());
 				blockGroup.setPurchaseDay(blockWaiting.getPurchaseDay());
@@ -339,7 +341,7 @@ public class MyPageServiceImpl implements MyPageService {
 			blockGroupWaitingRepo.save(blockWaiting);
 		}
 	}
-	
+
 	@Override
 	public void deleteWaiting() {
 		reservationRepo.deleteAll();
