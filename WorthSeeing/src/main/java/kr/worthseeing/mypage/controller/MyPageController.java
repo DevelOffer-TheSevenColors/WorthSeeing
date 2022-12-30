@@ -35,6 +35,7 @@ public class MyPageController {
 		startService = startService == null ? "" : startService;
 		if(startService.equals("yes")) {
 			myPageService.startService();
+			myPageService.deleteWaiting();
 		}
 		Page<BlockGroup> blockGroupUserId = myPageService.getBlockGroupUserId(principal.getUsers().getUserId(),
 				pageable);

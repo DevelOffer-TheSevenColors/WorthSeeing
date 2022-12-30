@@ -67,7 +67,7 @@ public class BlockGroupWaiting {
 	@Column
 	private Date groupDate = new Date();
 
-	@OneToOne(mappedBy = "blockGroupWaiting", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "blockGroupWaiting")
 	private Reservation reservation;
 
 	@OneToMany(mappedBy = "blockGroupWaiting")

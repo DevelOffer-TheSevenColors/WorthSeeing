@@ -306,14 +306,19 @@ public class BlockGroupServiceImpl implements BlockGroupService {
          if (blockGroupWaiting.getBlockGroupWaiting_seq() != 1) {
             Status status = new Status();
             status.setStatus_seq(15);
+            System.out.println("1111111111111111111");
             blockGroupWaiting.setStatus(status);
             blockGroupWaitingRepo.save(blockGroupWaiting);
+            System.out.println("1111111111111111111222222");
             Reservation reservation = reservationRepo
                   .findReservation(String.valueOf(blockGroupWaiting.getBlockGroupWaiting_seq()));
             Auction auction = new Auction();
-            auction.setAuctionPrice(30000); 
+            System.out.println("111111111111111111133333333");
+            System.out.println(reservation.getStartPrice());
+            auction.setAuctionPrice(reservation.getStartPrice());
             auction.setReservation(reservation);
             auction.setSuggestPrice(reservation.getStartPrice());
+            System.out.println("1111111111111111111444444");
             auctionRepo.save(auction);
 //         auction_seq, auction_price, suggest_date, reservation_seq,suggest_price
 //         HIBERNATE_SEQUENCE.NEXTVAL, start_price, sysdate, reservation_seq ,start_price

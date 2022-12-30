@@ -33,6 +33,7 @@ import kr.worthseeing.event.pointlog.repository.PointLogRepository;
 import kr.worthseeing.main.auction.entity.AuctionLog;
 import kr.worthseeing.main.auction.repository.AuctionLogRepository;
 import kr.worthseeing.main.auction.repository.AuctionRepository;
+import kr.worthseeing.main.reservation.entity.Reservation;
 import kr.worthseeing.main.reservation.entity.ReservationUsers;
 import kr.worthseeing.main.reservation.repository.ReservationRepository;
 import kr.worthseeing.main.reservation.repository.ReservationUsersRepository;
@@ -290,8 +291,10 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
+	@Transactional
 	public void startService() {
-
+		auctionRepo.deleteAll();
+		reservationUsersRepo.deleteAll();
 		for (BlockGroupWaiting blockWaiting : blockGroupWaitingRepo.findAll()) {
 			if (blockWaiting.getStatus().getStatus_seq() == 17) {
 				BlockGroup blockGroup = new BlockGroup();
@@ -335,10 +338,10 @@ public class MyPageServiceImpl implements MyPageService {
 			blockWaiting.setStatus(status);
 			blockGroupWaitingRepo.save(blockWaiting);
 		}
-//		auctionRepo.deleteAll();
-//		reservationUsersRepo.deleteAll();
-//		reservationRepo.deleteAll();
-//		blockGroupWaitingRepo.deleteBlockGroupWaiting();
-		
+	}
+	
+	@Override
+	public void deleteWaiting() {
+		reservationRepo.deleteAll();
 	}
 }

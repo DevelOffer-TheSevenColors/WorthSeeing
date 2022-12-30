@@ -44,7 +44,7 @@ public class Reservation {
 	@OneToMany(mappedBy = "reservation")
 	private List<ReservationUsers> reservationUsersList = new ArrayList<ReservationUsers>();
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(orphanRemoval = false,cascade = CascadeType.ALL)
 	@JoinColumn(name = "blockGroupWaiting_seq")
 	private BlockGroupWaiting blockGroupWaiting;
 
