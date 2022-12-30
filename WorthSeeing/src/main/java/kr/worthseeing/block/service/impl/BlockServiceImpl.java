@@ -68,13 +68,14 @@ public class BlockServiceImpl implements BlockService {
 	public List<Integer> getBlockXY(int firstNum, int lastNum, String userId) {
 
 		int temp = 0;
-
+		
 		if (firstNum > lastNum) {
 			temp = firstNum;
 			firstNum = lastNum;
 			lastNum = temp;
 		}
-		
+		firstNum -= 2;
+		lastNum -= 2;
 		Block blockFirstNum = blockRepo.findById(firstNum).get(); // 여기서 No value present 발생 시 blockGroupWaiting 테이블에 users(fk)가 null인지 확인하기
 		Block blockLastNum = blockRepo.findById(lastNum).get();
 
